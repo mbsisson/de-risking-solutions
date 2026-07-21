@@ -1,0 +1,35 @@
+# Python
+.python-version
+__pycache__/
+*.py[cod]
+*.so
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+
+# macOS
+.DS_Store
+
+# Python build
+build/
+dist/
+*.egg-info/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Logs
+*.log
+
+# Large binary outputs
+*.csv
+*.pkl
+*.pickle
+*.npy
+*.npz
