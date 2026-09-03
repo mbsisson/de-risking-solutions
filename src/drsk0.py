@@ -4,7 +4,7 @@ from log import danoLogger
 from myutils import breakexit
 from versioner import stateversion
 from drsklp import drsk_getlp, drsk_storelp
-from drskalgo import drsk_greedy #drsk_softmax
+from drskalgo import drsk_greedy, drsk_softmax
 
 
 def drsk_readsolution(alldata, filename):
@@ -200,6 +200,7 @@ def drsk_readparameters(alldata, filename):
     except:
         log.stateandquit("cannot open file " + filename + "\n")
 
+    algo_type = 'greedy'
     tol = 'None'
     maxits = 'None'
     alpha = 'None'
@@ -215,7 +216,13 @@ def drsk_readparameters(alldata, filename):
         if len(thisline) > 0 and thisline[0][0] != '#':
             word = thisline[0]
 
-            if word == 'tol':
+            # Some parameters are not required so are set immediately if provided
+
+            if word == 'algo_type':
+                algo_type = thisline[1]
+                alldata['algo']['type'] = algo_type
+                log.joint(word + ' ' + str(algo_type) + '\n')
+            elif word == 'tol':
                 tol = float(thisline[1])
             elif word == 'maxits':
                 maxits = int(thisline[1])
@@ -374,7 +381,14 @@ if __name__ == "__main__":
             sys.exit('bye.')
 
     # Run algo
-    retcode, condition = drsk_greedy(alldata)  #softmax(alldata)
+    if alldata['algo']['type'] == 'greedy':
+        retcode, condition = drsk_greedy(alldata)
+    elif alldata['algo']['type'] == 'softmax':
+        retcode, condition = drsk_softmax(alldata)
+    else:
+        log.closelog()
+        sys.exit(f'invalid algorithm type: {alldata['algo']['type']}.')
+
     if retcode:
         log.closelog()
         sys.exit('bye.')

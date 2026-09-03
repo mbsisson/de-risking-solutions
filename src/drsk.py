@@ -207,209 +207,215 @@ def drsk_getimpact_greedy(alldata, solutionvectordict, loud=False):
 
     return impacts[foo[0]]
 
-# def drsk_getimpact_softmax(alldata, solutionvectordict):
-#     log = alldata['log']
-#     structure = alldata['structure']
-#     budget = structure['budget']
-#     set = structure['set']
-#     I = structure['I']
-#     linconstrs = alldata['LP']['linconstrs']
-#     quadconstrs = alldata['LP']['quadconstrs']
+def drsk_getimpact_softmax(alldata, solutionvectordict):
+    log = alldata['log']
+    structure = alldata['structure']
+    budget = alldata['algo']['budget']
+    set = structure['set']
+    I = structure['I']
+    linconstrs = alldata['LP']['linconstrs']
+    quadconstrs = alldata['LP']['quadconstrs']
 
-#     log.joint('Getting impact at iteration_cnt %d using SOFTMAX.\n' %(alldata['algo']['iteration_cnt']))
+    log.joint('Getting impact at iteration_cnt %d using SOFTMAX.\n' %(alldata['algo']['iteration_cnt']))
 
-#     # Store data pertinent to computing impact via SOFTMAX-ADVERSARIAL (log-sum-exp)
-#     alldata['softmax'] = {}
-#     alldata['softmax']['budget'] = budget
-#     alldata['softmax']['I'] = I
-#     alldata['softmax']['alpha'] = alldata['alpha']  #TODO: should be read in as parameter
+    # Store data pertinent to computing impact via SOFTMAX-ADVERSARIAL (log-sum-exp)
+    alldata['softmax'] = {}
+    alldata['softmax']['budget'] = budget
+    alldata['softmax']['I'] = I
+    alldata['softmax']['alpha'] = alldata['algo']['alpha']
 
-#     # compute dimension of z, i.e. total num of risky coefficients. TODO: should do ahead of time
-#     zdim = 0
-#     for i in range(I):
-#         zdim += set[i]['numrisky']
+    # compute dimension of z, i.e. total num of risky coefficients. TODO: should do ahead of time
+    zdim = 0
+    for i in range(I):
+        zdim += set[i]['numrisky']
 
-#     featuredata = alldata['softmax']['features'] = []  #TODO: should be stored ahead of time, not each iteration?
-#     zidx = 0  # first z variable of current feature
-#     for i in range(I): # for each feature
-#         if set[i]['numrisky'] == 0:
-#             #skip riskless constraints
-#             continue
+    featuredata = alldata['softmax']['features'] = []  #TODO: should be stored ahead of time, not each iteration?
+    zidx = 0  # first z variable of current feature
+    for i in range(I): # for each feature
+        if set[i]['numrisky'] == 0:
+            #skip riskless constraints
+            continue
 
-#         feati = {}
-#         featuredata.append(feati)
-#         feati['i'] = i
+        feati = {}
+        featuredata.append(feati)
+        feati['i'] = i
 
-#         seti = set[i]
-#         name = seti['featurename']  # feature name
-#         feati['name'] = name
-#         numriskyi = seti['numrisky']  # number of risky coefficients in feature
-#         feati['numrisky'] = numriskyi
-#         log.joint('>feat: {}  name: {}  numrisky: {}\n'.format(i, name, numriskyi))
+        seti = set[i]
+        name = seti['featurename']  # feature name
+        feati['name'] = name
+        numriskyi = seti['numrisky']  # number of risky coefficients in feature
+        feati['numrisky'] = numriskyi
+        log.joint('>feat: {}  name: {}  numrisky: {}\n'.format(i, name, numriskyi))
 
-#         if seti['isQuadratic']:  # Feature is quadratic
-#             qc = quadconstrs[name]
-#             sense = qc['sense']
-#             fieldLin = qc['lin']
-#             fieldQuad = qc['quad']
-#             rhs = qc['RHS']
-#             coeff_1norm = qc['coeff_1-norm']
+        if seti['isQuadratic']:  # Feature is quadratic
+            qc = quadconstrs[name]
+            sense = qc['sense']
+            fieldLin = qc['lin']
+            fieldQuad = qc['quad']
+            rhs = qc['RHS']
+            coeff_1norm = qc['coeff_1-norm']
+            inf_norm = qc['inf_norm']
 
-#             # Compute LHS of current solution
-#             lhs = 0
-#             for varname, coeff_data in fieldLin.items():
-#                 coeff = coeff_data[1]
-#                 xval = solutionvectordict[varname]
-#                 lhs += coeff * xval
-#             for vartuple, coeff_data in fieldQuad.items():
-#                 coeff = coeff_data[1]
-#                 varname1, varname2 = vartuple[0], vartuple[1]
-#                 xyval = solutionvectordict[varname1] * solutionvectordict[varname2]
-#                 lhs += coeff * xyval
+            # Compute LHS of current solution
+            lhs = 0
+            for varname, coeff_data in fieldLin.items():
+                coeff = coeff_data[1]
+                xval = solutionvectordict[varname]
+                lhs += coeff * xval
+            for vartuple, coeff_data in fieldQuad.items():
+                coeff = coeff_data[1]
+                varname1, varname2 = vartuple[0], vartuple[1]
+                xyval = solutionvectordict[varname1] * solutionvectordict[varname2]
+                lhs += coeff * xyval
 
-#         else:  # Feature is linear
-#             lc = linconstrs[name]  # linear constraint feature corresponds to
-#             sense = lc['sense']
-#             fieldLin = lc['field']  # dict: variable name --> (index, coefficient of term w/ variable)
-#             rhs = lc['RHS']
-#             coeff_1norm = lc['coeff_1-norm']  #for scaling displacement (i.e. impact)
+        else:  # Feature is linear
+            lc = linconstrs[name]  # linear constraint feature corresponds to
+            sense = lc['sense']
+            fieldLin = lc['field']  # dict: variable name --> (index, coefficient of term w/ variable)
+            rhs = lc['RHS']
+            coeff_1norm = lc['coeff_1-norm']  #for scaling displacement (i.e. impact)
+            inf_norm = lc['inf_norm']
 
-#             # Compute LHS of current solution
-#             lhs = 0
-#             for varname, coeff_data in fieldLin.items():
-#                 coeff = coeff_data[1]
-#                 xval = solutionvectordict[varname]
-#                 #lhs_vec.append(coeff*xval)
-#                 lhs += coeff*xval
+            # Compute LHS of current solution
+            lhs = 0
+            for varname, coeff_data in fieldLin.items():
+                coeff = coeff_data[1]
+                xval = solutionvectordict[varname]
+                #lhs_vec.append(coeff*xval)
+                lhs += coeff*xval
 
-#         feati['sense'] = sense
-#         feati['scale'] = coeff_1norm
+        feati['sense'] = sense
+        # Set phi scale
+        if alldata['algo']['phi_scale'] == 'percent_violation':
+            feati['scale'] = max(rhs, 1)
+        elif alldata['algo']['phi_scale'] == 'scaled_abs_violation':
+            feati['scale'] = inf_norm
+        else:
+            log.joint('ERROR: invalid phi_scale: %s\n'%(alldata['algo']['phi_scale']))
 
-#         # Compute risky expression: vector_{j: risky} a_ij f_ij(x) z_ij
-#         riskyexpr = []  #riskyexpr vector
-#         for j in range(numriskyi): # for each risky coefficient
-#             listij = seti['list'][j]
-#             zvar = listij[0]  # z variable corresponsing to coefficient
-#             card = listij[1]  # number of x varibles in term, just 1 for linear constraints
-#             arrvars = listij[2]  # x variable corresponding to coefficient
-#             log.joint(' >riskyterm: {}  z: {}  card: {}  vars: {}\n'.format(j, zvar, card, arrvars))   
+        # Compute risky expression: vector_{j: risky} a_ij f_ij(x) z_ij
+        riskyexpr = []  #riskyexpr vector
+        for j in range(numriskyi): # for each risky coefficient
+            listij = seti['list'][j]
+            zvar = listij[0]  # z variable corresponsing to coefficient
+            card = listij[1]  # number of x varibles in term, just 1 for linear constraints
+            arrvars = listij[2]  # x variable corresponding to coefficient
+            log.joint(' >riskyterm: {}  z: {}  card: {}  vars: {}\n'.format(j, zvar, card, arrvars))   
 
-#             #valriskytermj = 0  # value of risky term at current solution
-#             for h in range(card):
-#                 expression = arrvars[h]  # x varible corresponding to risky coefficient
-#                 if isinstance(expression, tuple):  # quadratic term
-#                     xyval = solutionvectordict[expression[0]] * solutionvectordict[expression[1]]
-#                     coeff = fieldQuad[expression][1]
-#                     log.joint('  j={} h={} var={} xyval={} coeff={}\n' .format(j, h, arrvars[h], xyval, coeff))
-#                     riskyexpr.append(coeff * xyval)
-#                 else:  # linear term
-#                     xval = solutionvectordict[expression]  # value of x varible at current solution
-#                     coeff = fieldLin[expression][1]  # coefficient value
-#                     log.joint('  j={} h={} var={} xval={} coeff={}\n' .format(j, h, arrvars[h], xval, coeff))
-#                     riskyexpr.append(coeff * xval)
+            #valriskytermj = 0  # value of risky term at current solution
+            for h in range(card):
+                expression = arrvars[h]  # x varible corresponding to risky coefficient
+                if isinstance(expression, tuple):  # quadratic term
+                    xyval = solutionvectordict[expression[0]] * solutionvectordict[expression[1]]
+                    coeff = fieldQuad[expression][1]
+                    log.joint('  j={} h={} var={} xyval={} coeff={}\n' .format(j, h, arrvars[h], xyval, coeff))
+                    riskyexpr.append(coeff * xyval)
+                else:  # linear term
+                    xval = solutionvectordict[expression]  # value of x varible at current solution
+                    coeff = fieldLin[expression][1]  # coefficient value
+                    log.joint('  j={} h={} var={} xval={} coeff={}\n' .format(j, h, arrvars[h], xval, coeff))
+                    riskyexpr.append(coeff * xval)
 
-#         # Embedd risky expression vector into length zdim
-#         embedded_riskyexpr = np.zeros(zdim)
-#         embedded_riskyexpr[zidx: zidx+numriskyi] = riskyexpr
-#         zidx = zidx+numriskyi
-#         feati['riskyexpr'] = torch.tensor(embedded_riskyexpr, dtype=torch.float32)
+        # Embedd risky expression vector into length zdim
+        embedded_riskyexpr = np.zeros(zdim)
+        embedded_riskyexpr[zidx: zidx+numriskyi] = riskyexpr
+        zidx = zidx+numriskyi
+        feati['riskyexpr'] = torch.tensor(embedded_riskyexpr, dtype=torch.float32)
 
-#         # define slack
-#         if sense == '>':
-#             feati['slack'] = lhs - rhs
-#         elif sense == '<':
-#             feati['slack'] = rhs = lhs
-#         else:
-#             feati['slack'] = 0
+        # define slack
+        if sense == '>':
+            feati['slack'] = lhs - rhs
+        elif sense == '<':
+            feati['slack'] = rhs = lhs
+        else:
+            feati['slack'] = 0
 
-#     # Memory for Red solution
-#     zvalues = alldata['algo']['zvalues'] = np.zeros(zdim)
+    # Memory for Red solution
+    zvalues = alldata['algo']['zvalues'] = np.zeros(zdim)
 
-#     alldata['softmax']['zdim'] = zdim
-#     drsk_softmax(alldata, loud=True)
+    alldata['softmax']['zdim'] = zdim
+    drsk_softmax(alldata, loud=True)
 
-#     # Memory for max impact given Red solution, i.e. \phi^t_\max
-#     #deltas = alldata['algo']['deltas']
-#     #indmax = alldata['algo']['indmax']
+    # Memory for max impact given Red solution, i.e. \phi^t_\max
+    #deltas = alldata['algo']['deltas']
+    #indmax = alldata['algo']['indmax']
     
 
-#     ############# TODO: Below could be its own function ################
-#     maxfeature = 0
-#     maxfeaturename = ''
-#     indmaxfeature = -1
+    ############# TODO: Below could be its own function ################
+    maxfeature = 0
+    maxfeaturename = ''
+    indmaxfeature = -1
 
-#     # Memory for storing feature values of current Blue and Red solutions, i.e. phi_i(x^t|z^t)
-#     phi_ixz = alldata['softmax']['phi_ixz'] = np.zeros(I)
+    # Memory for storing feature values of current Blue and Red solutions, i.e. phi_i(x^t|z^t)
+    phi_ixz = alldata['softmax']['phi_ixz'] = np.zeros(I)
 
-#     zidx = 0
-#     for i in range(I): # for each feature
-#         seti = set[i]
-#         if seti['numrisky'] == 0: continue  #TODO: redundant? I probably is already only features containing risky coefficients
-#         name = seti['featurename']  # feature name
-#         numriskyi = seti['numrisky']  # number of risky coefficients in feature
+    zidx = 0
+    for i in range(I): # for each feature
+        seti = set[i]
+        if seti['numrisky'] == 0: continue  #TODO: redundant? I probably is already only features containing risky coefficients
+        name = seti['featurename']  # feature name
+        numriskyi = seti['numrisky']  # number of risky coefficients in feature
 
-#         feati = featuredata[i]
-#         if feati['i'] != i:
-#             log.joint('PROBLEM: featuredata out of sync.\n')
-#         sense = feati['sense']
-#         scale = feati['scale']
-#         slack = feati['slack']
+        feati = featuredata[i]
+        if feati['i'] != i:
+            log.joint('PROBLEM: featuredata out of sync.\n')
+        sense = feati['sense']
+        scale = feati['scale']
+        slack = feati['slack']
 
-#         if seti['isQuadratic']:  # Feature is quadratic
-#             qc = quadconstrs[name]
-#             sense = qc['sense']
-#             fieldLin = qc['lin']
-#             fieldQuad = qc['quad']
-#             rhs = qc['RHS']
-#             coeff_1norm = qc['coeff_1-norm']
-#         else:  # Feature is linear
-#             lc = linconstrs[name]  # linear constraint feature corresponds to
-#             sense = lc['sense']
-#             fieldLin = lc['field']  # dict: variable name --> (index, coefficient of term w/ variable)
-#             rhs = lc['RHS']
-#             coeff_1norm = lc['coeff_1-norm']  #for scaling displacement (i.e. impact)
+        if seti['isQuadratic']:  # Feature is quadratic
+            qc = quadconstrs[name]
+            sense = qc['sense']
+            fieldLin = qc['lin']
+            fieldQuad = qc['quad']
+            rhs = qc['RHS']
+        else:  # Feature is linear
+            lc = linconstrs[name]  # linear constraint feature corresponds to
+            sense = lc['sense']
+            fieldLin = lc['field']  # dict: variable name --> (index, coefficient of term w/ variable)
+            rhs = lc['RHS']
 
-#         valriskyexpr = 0
-#         for j in range(numriskyi): # for each risky coefficient
-#             listij = seti['list'][j]
-#             zvar = listij[0]  # z variable corresponsing to coefficient
-#             card = listij[1]  # number of x varibles in term
-#             arrvars = listij[2]  # x variable corresponding to coefficient
+        valriskyexpr = 0
+        for j in range(numriskyi): # for each risky coefficient
+            listij = seti['list'][j]
+            zvar = listij[0]  # z variable corresponsing to coefficient
+            card = listij[1]  # number of x varibles in term
+            arrvars = listij[2]  # x variable corresponding to coefficient
 
-#             valriskytermj = 0  # value of risky term at current solution
-#             for h in range(card): # structure
-#                 expression = arrvars[h]  # x varible corresponding to risky coefficient
-#                 if isinstance(expression, tuple):
-#                     # quadratic term
-#                     xyval = solutionvectordict[expression[0]] * solutionvectordict[expression[1]]
-#                     coeff = fieldQuad[expression][1]
-#                     valriskytermj += xyval*coeff*zvalues[zidx]
-#                 else:
-#                     # linear term
-#                     xval = solutionvectordict[expression]  # value of x varible at current solution
-#                     coeff = fieldLin[expression][1]  # coefficient value
-#                     valriskytermj += xval*coeff*zvalues[zidx]
+            valriskytermj = 0  # value of risky term at current solution
+            for h in range(card): # structure
+                expression = arrvars[h]  # x varible corresponding to risky coefficient
+                if isinstance(expression, tuple):
+                    # quadratic term
+                    xyval = solutionvectordict[expression[0]] * solutionvectordict[expression[1]]
+                    coeff = fieldQuad[expression][1]
+                    valriskytermj += xyval*coeff*zvalues[zidx]
+                else:
+                    # linear term
+                    xval = solutionvectordict[expression]  # value of x varible at current solution
+                    coeff = fieldLin[expression][1]  # coefficient value
+                    valriskytermj += xval*coeff*zvalues[zidx]
 
-#             valriskyexpr += valriskytermj
-#             zidx += 1
+            valriskyexpr += valriskytermj
+            zidx += 1
 
-#         # displacement and signscore depends on feature sense (=, >, <)
-#         if sense == '=':  # Feature is equality constraint
-#             displacement = abs(valriskyexpr) / scale
-#         elif sense == '>':  # Feature is geq constraint
-#             displacement = max(0, -valriskyexpr - slack) / scale
-#         else:  # sense == '<':  Feature is leq constraint
-#             displacement = max(0, valriskyexpr - slack) / scale
+        # displacement and signscore depends on feature sense (=, >, <)
+        if sense == '=':  # Feature is equality constraint
+            displacement = abs(valriskyexpr) / scale
+        elif sense == '>':  # Feature is geq constraint
+            displacement = max(0, -valriskyexpr - slack) / scale
+        else:  # sense == '<':  Feature is leq constraint
+            displacement = max(0, valriskyexpr - slack) / scale
 
-#         phi_ixz[i] = displacement
+        phi_ixz[i] = displacement
 
-#         if np.abs(displacement) > maxfeature:  #consistent with greedy
-#             maxfeature = displacement
-#             maxfeaturename = name
-#             indmaxfeature = j
+        if np.abs(displacement) > maxfeature:  #consistent with greedy
+            maxfeature = displacement
+            maxfeaturename = name
+            indmaxfeature = j
 
-#     log.joint('Max impact: %f  feature: %s (idx=%d)\n' %(maxfeature, maxfeaturename, indmaxfeature))
-#     return maxfeature
+    log.joint('Max impact: %f  feature: %s (idx=%d)\n' %(maxfeature, maxfeaturename, indmaxfeature))
+    return maxfeature
 
 
 # =============================================================================
@@ -585,115 +591,115 @@ def drsk_add_greedycuts(alldata, loud=False):
     return retcode, condition
 
 
-# def drsk_add_softmaxcuts(alldata):
-#     '''Adds softmax cut corresponding to Red solution: zvalues'''
-#     retcode = 0
-#     condition = ('add_softmaxcuts')
-#     log = alldata['log']
-#     structure = alldata['structure']
-#     set = structure['set']
-#     I = structure['I']
-#     linconstrs = alldata['LP']['linconstrs']
-#     quadconstrs = alldata['LP']['quadconstrs']
-#     gurobimodel = alldata['gurobimodel']
-#     iteration = alldata['algo']['iteration_cnt']
+def drsk_add_softmaxcuts(alldata):
+    '''Adds softmax cut corresponding to Red solution: zvalues'''
+    retcode = 0
+    condition = ('add_softmaxcuts')
+    log = alldata['log']
+    structure = alldata['structure']
+    set = structure['set']
+    I = structure['I']
+    linconstrs = alldata['LP']['linconstrs']
+    quadconstrs = alldata['LP']['quadconstrs']
+    gurobimodel = alldata['gurobimodel']
+    iteration = alldata['algo']['iteration_cnt']
 
-#     featuredata = alldata['softmax']['features']
+    featuredata = alldata['softmax']['features']
 
-#     solutionvectordict = alldata['solutionvectordictionary']
-#     zvalues = alldata['algo']['zvalues']
-#     alpha = alldata['softmax']['alpha']
-#     weight_threshold = .01  #TODO: should be parameter
+    solutionvectordict = alldata['solutionvectordictionary']
+    zvalues = alldata['algo']['zvalues']
+    alpha = alldata['softmax']['alpha']
+    weight_threshold = .01  #TODO: should be parameter
 
-#     log.joint("Computing softmax cut.\n")
+    log.joint("Computing softmax cut.\n")
 
-#     # Compute pi
-#     pi = alldata['softmax']['pi'] = np.zeros(I)  #TODO: should be stored ahead of time
-#     phi_ixz = alldata['softmax']['phi_ixz']
-#     sum_exp = np.sum(np.exp(alpha * phi_ixz))
-#     np.copyto(pi, np.exp(alpha * phi_ixz) / sum_exp)
+    # Compute pi
+    pi = alldata['softmax']['pi'] = np.zeros(I)  #TODO: should be stored ahead of time
+    phi_ixz = alldata['softmax']['phi_ixz']
+    sum_exp = np.sum(np.exp(alpha * phi_ixz))
+    np.copyto(pi, np.exp(alpha * phi_ixz) / sum_exp)
 
-#     # Construct the softmax cut
-#     zidx = 0
-#     weighted_features = []
-#     for i in range(I):
-#         # Skip features with tiny weights
-#         if pi[i] < weight_threshold: continue
+    # Construct the softmax cut
+    zidx = 0
+    weighted_features = []
+    for i in range(I):
+        # Skip features with tiny weights
+        if pi[i] < weight_threshold: continue
 
-#         seti = set[i]
-#         name = seti['featurename']  # feature name
-#         numriskyi = seti['numrisky']  # number of risky coefficients in feature
+        seti = set[i]
+        name = seti['featurename']  # feature name
+        numriskyi = seti['numrisky']  # number of risky coefficients in feature
 
-#         feati = featuredata[i]
-#         if feati['i'] != i:
-#             log.joint('PROBLEM: featuredata out of sync.\n')
-#         sense = feati['sense']
-#         scale = feati['scale']
-#         slack = feati['slack']
+        feati = featuredata[i]
+        if feati['i'] != i:
+            log.joint('PROBLEM: featuredata out of sync.\n')
+        sense = feati['sense']
+        scale = feati['scale']
+        slack = feati['slack']
 
-#         # Get feature data
-#         if seti['isQuadratic']:  # Feature is quadratic
-#             qc = quadconstrs[name]
-#             sense = qc['sense']
-#             fieldLin = qc['lin']
-#             fieldQuad = qc['quad']
-#             rhs = qc['RHS']
-#             coeff_1norm = qc['coeff_1-norm']
-#         else:  # Feature is linear
-#             lc = linconstrs[name]  # linear constraint feature corresponds to
-#             sense = lc['sense']
-#             fieldLin = lc['field']  # dict: variable name --> (index, coefficient of term w/ variable)
-#             rhs = lc['RHS']
-#             coeff_1norm = lc['coeff_1-norm']  #for scaling displacement (i.e. impact)
+        # Get feature data
+        if seti['isQuadratic']:  # Feature is quadratic
+            qc = quadconstrs[name]
+            sense = qc['sense']
+            fieldLin = qc['lin']
+            fieldQuad = qc['quad']
+            rhs = qc['RHS']
+            coeff_1norm = qc['coeff_1-norm']
+        else:  # Feature is linear
+            lc = linconstrs[name]  # linear constraint feature corresponds to
+            sense = lc['sense']
+            fieldLin = lc['field']  # dict: variable name --> (index, coefficient of term w/ variable)
+            rhs = lc['RHS']
+            coeff_1norm = lc['coeff_1-norm']  #for scaling displacement (i.e. impact)
 
-#         # Construct feature expression
-#         featexpr = gp.QuadExpr()
-#         for j in range(numriskyi): # for each risky coefficient
-#             listij = seti['list'][j]
-#             zvar = listij[0]  # z variable corresponsing to coefficient
-#             card = listij[1]  # number of x varibles in term
-#             arrvars = listij[2]  # x variable corresponding to coefficient
+        # Construct feature expression
+        featexpr = gp.QuadExpr()
+        for j in range(numriskyi): # for each risky coefficient
+            listij = seti['list'][j]
+            zvar = listij[0]  # z variable corresponsing to coefficient
+            card = listij[1]  # number of x varibles in term
+            arrvars = listij[2]  # x variable corresponding to coefficient
 
-#             feattermj = 0  # value of risky term at current solution
-#             for h in range(card): # structure
-#                 expression = arrvars[h]  # x varible corresponding to risky coefficient
-#                 if isinstance(expression, tuple):
-#                     # quadratic term
-#                     varname1, varname2 = expression[0], expression[1]
-#                     gurobivar1 = gurobimodel.getVarByName(varname1)
-#                     gurobivar2 = gurobimodel.getVarByName(varname2)
-#                     coeff = fieldQuad[expression][1]
-#                     feattermj += coeff*zvalues[zidx]*gurobivar1*gurobivar2
-#                 else:
-#                     # linear term
-#                     gurobivar = gurobimodel.getVarByName(expression)  # value of x varible at current solution
-#                     coeff = fieldLin[expression][1]  # coefficient value
-#                     feattermj += coeff*zvalues[zidx]*gurobivar
+            feattermj = 0  # value of risky term at current solution
+            for h in range(card): # structure
+                expression = arrvars[h]  # x varible corresponding to risky coefficient
+                if isinstance(expression, tuple):
+                    # quadratic term
+                    varname1, varname2 = expression[0], expression[1]
+                    gurobivar1 = gurobimodel.getVarByName(varname1)
+                    gurobivar2 = gurobimodel.getVarByName(varname2)
+                    coeff = fieldQuad[expression][1]
+                    feattermj += coeff*zvalues[zidx]*gurobivar1*gurobivar2
+                else:
+                    # linear term
+                    gurobivar = gurobimodel.getVarByName(expression)  # value of x varible at current solution
+                    coeff = fieldLin[expression][1]  # coefficient value
+                    feattermj += coeff*zvalues[zidx]*gurobivar
 
-#             featexpr += feattermj
-#             zidx += 1
+            featexpr += feattermj
+            zidx += 1
 
-#         # feature depends on constraint sense (=, >, <)
-#         if sense == '=':  # Constraint is equality constraint
-#             auxvar = gurobimodel.addVar(lb=0.0, name=f"phi_{i}_iter{iteration}")
-#             gurobimodel.addQConstr(auxvar >= featexpr / scale, name=f"abs_pos_{name}")
-#             gurobimodel.addQConstr(auxvar >= -featexpr / scale, name=f"abs_neg_{name}")
+        # feature depends on constraint sense (=, >, <)
+        if sense == '=':  # Constraint is equality constraint
+            auxvar = gurobimodel.addVar(lb=0.0, name=f"phi_{i}_iter{iteration}")
+            gurobimodel.addQConstr(auxvar >= featexpr / scale, name=f"abs_pos_{name}")
+            gurobimodel.addQConstr(auxvar >= -featexpr / scale, name=f"abs_neg_{name}")
 
-#         elif sense == '>':  # Constraint is geq constraint
-#             auxvar = gurobimodel.addVar(lb=0.0, name=f"phi_{i}_iter{iteration}")
-#             gurobimodel.addQConstr(auxvar >= (-featexpr - slack) / scale, name=f"pospart_{name}")
+        elif sense == '>':  # Constraint is geq constraint
+            auxvar = gurobimodel.addVar(lb=0.0, name=f"phi_{i}_iter{iteration}")
+            gurobimodel.addQConstr(auxvar >= (-featexpr - slack) / scale, name=f"pospart_{name}")
 
-#         else:  # Constraint is leq constraint
-#             auxvar = gurobimodel.addVar(lb=0.0, name=f"phi_{i}_iter{iteration}")
-#             gurobimodel.addQConstr(auxvar >= (featexpr - slack) / scale, name=f"pospart_{name}")
+        else:  # Constraint is leq constraint
+            auxvar = gurobimodel.addVar(lb=0.0, name=f"phi_{i}_iter{iteration}")
+            gurobimodel.addQConstr(auxvar >= (featexpr - slack) / scale, name=f"pospart_{name}")
 
-#         # Add weighted feature to list
-#         weighted_features.append(pi[i] * auxvar)
-#         log.joint(" + Adding feature %s (%s) to cut with weight %f\n"%(name, sense, pi[i]))
+        # Add weighted feature to list
+        weighted_features.append(pi[i] * auxvar)
+        log.joint(" + Adding feature %s (%s) to cut with weight %f\n"%(name, sense, pi[i]))
 
-#     # Add cut
-#     Phi_L = alldata['LP']['Phi_L']
-#     gurobimodel.addConstr(Phi_L >= gp.quicksum(weighted_features), name=f"cut_{iteration}")
+    # Add cut
+    Phi_L = alldata['LP']['Phi_L']
+    gurobimodel.addConstr(Phi_L >= gp.quicksum(weighted_features), name=f"cut_{iteration}")
 
-#     log.joint("Added softmax cut.\n")
-#     return retcode, condition
+    log.joint("Added softmax cut.\n")
+    return retcode, condition
