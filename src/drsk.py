@@ -3,6 +3,7 @@ import numpy as np
 import torch
 from drskred import drsk_softmax
 
+# TODO: not able to handle unique coefficient 
 
 # =============================================================================
 # EVALUATE phi_max

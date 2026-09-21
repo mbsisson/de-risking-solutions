@@ -541,7 +541,7 @@ def drsk_writeSol(alldata, solution, filename=None):
 # SOLVE LP
 # =============================================================================
 
-def drsk_solveLP(alldata):
+def drsk_solveLP(alldata, timelimit=60):
     log = alldata['log']
     model = alldata['gurobimodel']
     solutionvectordictionary = alldata['solutionvectordictionary']
@@ -552,6 +552,7 @@ def drsk_solveLP(alldata):
 
     # Solve LP
     model.setParam('Method', 2)
+    model.setParam("TimeLimit", timelimit)
     t0 = time.time()
     model.optimize()
     t1 = time.time()
@@ -611,9 +612,6 @@ def drsk_solveLP(alldata):
                 count += 1
 
         log.joint(str(count) + " nonzero variables in solution\n")
-
-    iteration = alldata['algo']['iteration_cnt']
-    alldata['algo']['iterations'][iteration]['solution'] = solutionvectordictionary.copy()
 
     #breakexit('solved LP')
     return retcode, stringvalue

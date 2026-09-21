@@ -41,6 +41,7 @@ def drsk_greedy(alldata):
         if retcode:
             log.joint('solveLP returns %d, %s at iter %d.\n' %(retcode, condition, iteration))
             return retcode, condition
+        alldata['algo']['iterations'][iteration]['solution'] = solutionvectordict.copy()
         drsk_writeSol(alldata, solutionvectordict)  #optional: write soltuion to file
 
         # Get objective value and cost
