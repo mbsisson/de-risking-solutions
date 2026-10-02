@@ -13,6 +13,8 @@ if str(src_dir) not in sys.path:
 from myutils import breakexit
 from log import danoLogger
 from parseampl import readandstore
+from cutfilereader import read_cutfile
+
 
 def solve(alldata):
     log = alldata['log']
@@ -73,11 +75,18 @@ def eval_Phi_greedy(alldata, soln_vector_dict):
 
     lhs_dict = {}  # Save lhs values for reused when applicable
 
-    # Running max Phi(x) and correesponding constraint and z sign
+    # Running max Phi(x) with corresponding: constraint, z sign, z variable, and coefficient
     maxPhi = 0.0
     argmax_constr = ''
     argmax_zsign = 0
     argmax_zvar = ''
+    argmax_coeff = 0
+
+    # Also record running max sum phi(x)'s with corresponding: z sign, z varible, and coefficient
+    maxsumphi = 0.0
+    argmaxsum_zsign_list = 0
+    argmaxsum_zvar = ''
+    argmaxsum_coeff = 0
 
     # Loop over all z, i.e., unique risky coefficients
     for coeff, coeff_dict in structure['risky_coeffs'].items():
@@ -85,6 +94,12 @@ def eval_Phi_greedy(alldata, soln_vector_dict):
         maxPhi_z = 0.0
         argmax_constr_z = ''
         argmax_zsign_z = 0
+
+        # Running sum of phi's, i.e., sum of violations
+        sumphis = 0.0
+
+        # Also record list of z signs to track changes
+        zsign_list = []
 
         if loud: log.joint("  Coeff %g\n"%(coeff))
 
@@ -143,6 +158,8 @@ def eval_Phi_greedy(alldata, soln_vector_dict):
                 else:  #sense == '<':
                     zsign = -1 if error_term < 0 else 1
 
+            zsign_list.append(zsign)
+
             # Compute Phi (scaled violation)
             percent_violation = violation / max(1, rhs)
             scaled_abs_violation = violation / constr_dict['coeff_inf-norm']
@@ -160,7 +177,10 @@ def eval_Phi_greedy(alldata, soln_vector_dict):
                 argmax_constr_z = constr_name
                 argmax_zsign_z = zsign
 
-            if loud: log.joint("    constraint %s:  Phi = %g  for  %s = %g\n"%(constr_name, Phi_z, coeff_dict['zvar'], zsign*budget))
+            # Update sum of phis
+            sumphis += Phi_z
+
+            if loud: log.joint("    > constraint %s:  Phi = %g  for  %s = %g\n"%(constr_name, Phi_z, coeff_dict['zvar'], zsign*budget))
 
         # Update the running max Phi
         if maxPhi_z > maxPhi:
@@ -168,30 +188,70 @@ def eval_Phi_greedy(alldata, soln_vector_dict):
             argmax_constr = argmax_constr_z
             argmax_zsign = argmax_zsign_z
             argmax_zvar = coeff_dict['zvar']
+            argmax_coeff = coeff
 
-    log.joint("Greedy Phi = %g\n"%(maxPhi))
+        # Update running max sum phi
+        if sumphis > maxsumphi:
+            maxsumphi = sumphis
+            argmaxsum_zsign_list = zsign_list
+            argmaxsum_zvar = coeff_dict['zvar']
+            argmaxsum_coeff = coeff
+
+        if loud: log.joint("    Sum of phi_z's = %g\n"%sumphis)
+
+    # Store max Phi and greedy data
+    alldata['algo']['maxPhi'] = maxPhi
+    alldata['algo']['argmax_constr'] = argmax_constr
+    alldata['algo']['argmax_zsign'] = argmax_zsign
+    alldata['algo']['argmax_zvar'] = argmax_zvar
+    alldata['algo']['argmax_coeff'] = argmax_coeff
+
+    log.joint("\nGreedy Phi = %g\n"%(maxPhi))
+    log.joint("  coeff: %g\n"%argmax_coeff)
     log.joint("  %s = %g\n"%(argmax_zvar, argmax_zsign*budget))
     log.joint("  max feature: %s\n"%argmax_constr)
+
+    log.joint("\nGreedy max sum phis = %g\n"%(maxsumphi))
+    log.joint("  coeff: %g\n"%argmaxsum_coeff)
+    if len(set(argmaxsum_zsign_list)) != 1:
+        log.joint("  INVALID: zvar changed sign across constraints!\n"%argmaxsum_coeff)
+    else:
+        log.joint("  %s = %g\n"%(argmaxsum_zvar, argmaxsum_zsign_list[0]*budget))
+
     return maxPhi
 
+def add_cut_greedy(alldata):
+    log = alldata['log']
+    loud = alldata['loud']
+    all_constr_data = alldata['prob_data']['all_constr_data']
+    structure = alldata['structure']
+    budget = structure['budget']
+
+    log.joint("Adding greedy cut\n")
 
 
 if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        sys.exit('usage: ampl_test.py modfile')
+    if len(sys.argv) < 2:
+        sys.exit('usage: ampl_test.py modfile cutfile')
 
     alldata = {}
     alldata['MODFILE'] = sys.argv[1]
+    alldata['CUTFILE'] = 'cutsrun.dat' if len(sys.argv) == 2 else sys.argv[2]
     log = alldata['log'] = danoLogger('ampl_test.log')
-    alldata['loud'] = True
+    alldata['loud'] = False
 
     # Retrieve problem data and risk structure
     ampl = alldata["ampl"] = AMPL()
     readandstore(alldata)  #structure defined inside
     breakexit('Done parsing problem')
 
+    # Read cut file
+    # alldata['maxcuts'] = 100
+    # log.joint("Max number of cuts = %d\n"%alldata['maxcuts'])
+    # read_cutfile(alldata, alldata['CUTFILE'])
+
     # Solve and get solution x*
-    solver = alldata["solver"] = "/Applications/knitro-16.0.0-ARM-MacOS/bin/knitroampl"
+    solver = alldata["solver"] = 'gurobi' #"/Applications/knitro-16.0.0-ARM-MacOS/bin/knitroampl"
     soln_vector_dict = alldata["soln_vector_dict"] = {}
     solve(alldata)
     breakexit('Done solving problem')
@@ -202,5 +262,5 @@ if __name__ == "__main__":
     Phi = eval_Phi_greedy(alldata, soln_vector_dict)
 
     # Add cut
-    # TODO
+    add_cut_greedy(alldata)
 

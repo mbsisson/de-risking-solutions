@@ -16,9 +16,34 @@
 # 
 #  Reformulation has removed 1 variable and 1 equation
 
-set I = {2..18};
-var X {I};
+# PARAMETERS for exposure cuts
+set cutnonzeros dimen 2;  # cut num, feature num
+param CutWeights {cutnonzeros};
+param numcuts;
+param Theta;
 
+#set features;    # Index set for the features
+#set I;           # Index set for the variables
+#param numcuts;
+#param Q {1..numcuts, features, I, I};  # Quadratic coefficient matrix for each cut and feature 
+#param c {1..numcuts, features, I};     # Linear coefficients for each cut and feature
+#param d {features};                    # Constant terms for each feature (cut independent)
+#subject to Generic_Quadratic_Constraint {k in 1..numcuts, f in features}:
+#    sum {i in I, j in I} x[i] * Q[k, f, i, j] * x[j] + sum {i in I} c[k, f, i] * x[i] + d[f] >= 0;
+
+# PARAMETERS for phi definitions
+param numfeats;
+param numvars;
+param phiQuadCoeffs {1..numcuts, 1..numfeats, 1..numvars, 1..numvars};  # Quadratic coefficient matrix for each cut and feature 
+param phiLinCoeffs {1..numcuts, 1..numfeats, 1..numvars};               # Linear coefficients for each cut and feature
+param phiConstants {1..numfeats};                                       # Constant terms for each feature (cut independent)
+
+# VARIABLES for exposure cuts
+var PHI_L >= 0;
+var cutPHI_L {i in 1..numcuts};
+var phi >= 0;
+
+#VARIABLES
 var x2 >= 0, <= 6;
 var x3 >= -1, <= 1;
 var x4 >= -1, <= 1;
@@ -37,16 +62,22 @@ var x16 := 1.42893129, >= 1.42893129, <= 8.57106871;
 var x17 := 1.52785695, >= 1.52785695, <= 8.47214305;
 var x18 := 1.04912586, >= 1.04912586, <= 8.95087414;
 
-minimize obj:    x2;
+# OBJECTIVE with exposure term
+minimize obj:    Theta*PHI_L + x2;
 
 subject to
 
-defn_X2: X[2] = x2;
-defn_X3: X[3] = x3;
-defn_X4: X[4] = x4;
-defn_X5: X[5] = x5;
+# CONSTRAINTS for cuts
+Phicutrep {i in 1..numcuts}: cutPHI_L[i] >= sum {(i,j) in cutnonzeros} MatrixValue[i,j] * phi[i, j];
+Phicut {i in 1..numcuts}: PHI_L >= cutPHI_L[i];
 
-etest: sum {i in I} X[i] = 10;
+# CONSTRAINTS for phi definition
+phi_definition {cut in 1..numcuts, f in 1..numfeats}:
+     phi[cut, f] = sum {i in 1..numvars, j in 1..numvars} x[i] * phiQuadCoeffs[cut, f, i, j] * x[j]
+            + sum {i in 1..numvars} phiLinCoeffs[cut, f, i] * x[i] 
+            + phiConstants[f];
+
+# other CONSTRAINTS
 
 e2:    0.20410502*x3 + 2.24629156*x4 - x5 <= 0;
 

@@ -252,10 +252,17 @@ def readandstore(alldata):
     ampl.read(alldata['MODFILE'])
     log.joint(f"Read file {alldata['MODFILE']} with AMPL\n")
 
-    # Get list of all variables
+    # Get list of all variables (remove artifical Phi_L variables)
     variables = [var[0] for var in ampl.get_variables()]
+    if 'PHI_L' in variables: variables.remove('PHI_L')
+    if 'cutPHI_L' in variables: variables.remove('cutPHI_L')
     alldata['variables'] = variables
     log.joint("Num of variables = " + str(len(variables)) + "\n")
+
+    # Get list of all constraints (remove cuts)
+    constraints = [con[0] for con in ampl.get_constraints()]
+    print("Constraints present at start:")
+    print(constraints)
     log.joint("Num of constraints = " + str(len(list(ampl.get_constraints()))) + "\n")
 
     # Initialize coefficient risk structure
