@@ -1,10 +1,9 @@
-import sys
 import re
 import sympy as sp
 from decimal import Decimal
-from amplpy import AMPL
 
 RISKY_DECIMAL_THRESH = 3
+
 
 def parse_ampl_constraint(alldata, expression, constr_name):
     """
@@ -48,8 +47,8 @@ def parse_ampl_constraint(alldata, expression, constr_name):
 
     log = alldata['log']
     loud = alldata['loud']
-    variables = alldata['variables']
-    structure = alldata['structure']
+    variables = alldata['prob_data']['variables']
+    structure = alldata['struct_data']
 
     # ------------------------------------------------------------
     # 0. Clean up expression
@@ -68,17 +67,19 @@ def parse_ampl_constraint(alldata, expression, constr_name):
     # 1. Extract sense and RHS
     # ------------------------------------------------------------
     match = re.search(r"(<=|>=|=)", expression)
-
     if match is None:
         raise ValueError(
             f"Could not find constraint sense in {constr_name} : {expression!r}"
         )
 
+    # Get sense
     sense = match.group(1)
 
+    # Get raw lhs
     lhs_string = expression[:match.start()].strip()
-    rhs_string = expression[match.end():].strip().removesuffix(";")
 
+    # Process rhs
+    rhs_string = expression[match.end():].strip().removesuffix(";")
     try:
         rhs = float(rhs_string)
     except ValueError as exc:
@@ -94,16 +95,9 @@ def parse_ampl_constraint(alldata, expression, constr_name):
     lhs_string = lhs_string.replace("^", "**")
 
     # Find AMPL variable names appearing in the expression.
-    variable_pattern = re.compile(
-        r"\b(?:" + "|".join(map(re.escape, variables)) + r")\b"
-    )
-
-    variable_names = list(dict.fromkeys(
-        variable_pattern.findall(lhs_string)
-    ))
-
+    variable_pattern = re.compile(r"\b(?:" + "|".join(map(re.escape, variables)) + r")\b")
+    variable_names = list(dict.fromkeys(variable_pattern.findall(lhs_string)))
     symbols = {v: sp.Symbol(v) for v in variable_names}
-
     try:
         polynomial = sp.Poly(
             sp.expand(sp.sympify(lhs_string, locals=symbols)),
@@ -118,13 +112,11 @@ def parse_ampl_constraint(alldata, expression, constr_name):
     # ------------------------------------------------------------
     # 3. Separate constant / linear / quadratic terms
     # ------------------------------------------------------------
-    constant = float(polynomial.TC())
+    constant = float(polynomial.TC())  # get constant term
+    riskyconstr_flag = 0  # records if constraint has any risky coefficients (i.e., it is a feature)
 
     lin_terms = {}
     quad_terms = {}
-
-    riskyconstr_flag = 0  # records if constraint has any risky coefficients
-
     for powers, coeff in polynomial.terms():
 
         degree = sum(powers)
@@ -207,7 +199,7 @@ def parse_ampl_constraint(alldata, expression, constr_name):
                     log.joint('+ coeff %g of binomial %s in constr %s is deemed risky\n'%(coeff, (v1, v2), constr_name))
         
     # Update number of risky constraints
-    structure['I'] += riskyconstr_flag
+    structure['numfeats'] += riskyconstr_flag
 
     # ------------------------------------------------------------
     # 4. Coefficient norms
@@ -246,35 +238,52 @@ def parse_ampl_constraint(alldata, expression, constr_name):
 
 def readandstore(alldata):
     log = alldata['log'] 
-    ampl = alldata["ampl"]
+    loud = alldata['loud']
+    ampl = alldata['algo_data']["ampl"]
 
     # Read modfile with AMPL
     ampl.read(alldata['MODFILE'])
     log.joint(f"Read file {alldata['MODFILE']} with AMPL\n")
 
-    # Get list of all variables (remove artifical Phi_L variables)
+    # Get list of all variables (remove artifical Phi_L and phi, and dummy X variables)
     variables = [var[0] for var in ampl.get_variables()]
     if 'PHI_L' in variables: variables.remove('PHI_L')
     if 'cutPHI_L' in variables: variables.remove('cutPHI_L')
-    alldata['variables'] = variables
-    log.joint("Num of variables = " + str(len(variables)) + "\n")
+    if 'phi' in variables: variables.remove('phi')
+    if 'X' in variables: variables.remove('X')
+    alldata['prob_data']['variables'] = variables
+    log.joint("Num of variables = " + str(len(variables)) + " (excluding artifical and dummy vars)\n")
 
-    # Get list of all constraints (remove cuts)
-    constraints = [con[0] for con in ampl.get_constraints()]
-    print("Constraints present at start:")
-    print(constraints)
-    log.joint("Num of constraints = " + str(len(list(ampl.get_constraints()))) + "\n")
+    #TODO assigned later, after first read
+    ampl.get_set("variables").set_values(alldata['prob_data']['variables'])
+    ampl.get_set("features").set_values(alldata['prob_data']['features'])
+    ampl.get_parameter("Theta").set(0.0)
+    ampl.get_parameter("numcuts").set(0)
 
-    # Initialize coefficient risk structure
-    structure = alldata["structure"] = {}
-    structure["I"] = 0
-    structure["risky_coeffs"] = {}
-    structure['num_unique'] = 0
-    structure['budget'] = .01
+    # Test expand constraints
+    # for constr_name, constr in ampl.get_constraints():
+    #     # Skip artifical constraints
+    #     if constr_name.startswith("defn_") or constr_name.startswith("Phicut"):
+    #         print("skipping ", constr_name)
+    #         continue
+
+    #     print('attemtping to expand:', constr_name)
+    #     print(constr.expand())
 
     # Retrieve problem data and structure of risky coefficients
-    alldata["prob_data"] = {}
-    all_constr_data = alldata["prob_data"]['all_constr_data'] = {}
+    constraints = []
+    all_constr_data = alldata["prob_data"]['all_constr_data']
     for constr_name, constr in ampl.get_constraints():
+        # Skip artifical constraints
+        if constr_name.startswith("defn_") or constr_name.startswith("Phicut"):
+            if loud: log.joint("skipping %s\n"%constr_name)
+            continue
+
+        if loud: log.joint(' - attempting to read: %s\n'%constr_name)
+        constraints.append(constr_name)
         all_constr_data[constr_name] = parse_ampl_constraint(alldata, constr.expand(), constr_name)
+
+    # Store and display constraints
+    #alldata['prob_data']['features'] = constraints
+    log.joint("Num of constraints = " + str(len(list(ampl.get_constraints()))) + " (excluding artifical and dummy constraints)\n")
     log.joint("Retrieved problem data and structure\n")

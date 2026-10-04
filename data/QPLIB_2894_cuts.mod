@@ -1,3 +1,5 @@
+# Modified for derisking 10.04.2026
+
 #  QCP written by GAMS Convert at 02/15/18 15:46:29
 #  
 #  Equation counts
@@ -17,31 +19,22 @@
 #  Reformulation has removed 1 variable and 1 equation
 
 # PARAMETERS for exposure cuts
-set cutnonzeros dimen 2;  # cut num, feature num
-param CutWeights {cutnonzeros};
-param numcuts;
 param Theta;
-
-#set features;    # Index set for the features
-#set I;           # Index set for the variables
-#param numcuts;
-#param Q {1..numcuts, features, I, I};  # Quadratic coefficient matrix for each cut and feature 
-#param c {1..numcuts, features, I};     # Linear coefficients for each cut and feature
-#param d {features};                    # Constant terms for each feature (cut independent)
-#subject to Generic_Quadratic_Constraint {k in 1..numcuts, f in features}:
-#    sum {i in I, j in I} x[i] * Q[k, f, i, j] * x[j] + sum {i in I} c[k, f, i] * x[i] + d[f] >= 0;
+param numcuts;
+set nonzero_cutweights dimen 2;  # cut num, feature name
+param CutWeights {nonzero_cutweights};
 
 # PARAMETERS for phi definitions
-param numfeats;
-param numvars;
-param phiQuadCoeffs {1..numcuts, 1..numfeats, 1..numvars, 1..numvars};  # Quadratic coefficient matrix for each cut and feature 
-param phiLinCoeffs {1..numcuts, 1..numfeats, 1..numvars};               # Linear coefficients for each cut and feature
-param phiConstants {1..numfeats};                                       # Constant terms for each feature (cut independent)
+set variables;                                                     # index set for variables (excluding artifical and dummy)
+set features;                                                      # set of features
+param phiQuadCoeffs {1..numcuts, features, variables, variables};  # Quadratic coefficient matrix for each cut and feature 
+param phiLinCoeffs {1..numcuts, features, variables};              # Linear coefficients for each cut and feature
+param phiConstants {features};                                     # Constant terms for each feature (cut independent)
 
 # VARIABLES for exposure cuts
-var PHI_L >= 0;
-var cutPHI_L {i in 1..numcuts};
-var phi >= 0;
+var PHI_L >= 0;                                    # Exposure variable in objective
+var cutPHI_L {cut in 1..numcuts} >= 0;             # Value of each cut, largest is PHI_L
+var phi {cut in 1..numcuts, features} >= 0;        # Value of phi_feature(x|z^t) for each cut, evaluated at current X
 
 #VARIABLES
 var x2 >= 0, <= 6;
@@ -61,21 +54,39 @@ var x15 := 1.59481484, >= 1.59481484, <= 8.40518516;
 var x16 := 1.42893129, >= 1.42893129, <= 8.57106871;
 var x17 := 1.52785695, >= 1.52785695, <= 8.47214305;
 var x18 := 1.04912586, >= 1.04912586, <= 8.95087414;
+var X {variables};  # X = x, a little hack for indexing
 
 # OBJECTIVE with exposure term
 minimize obj:    Theta*PHI_L + x2;
 
 subject to
 
+# CONSTRAINTS defining X
+defn_X2: X[2] = x2;
+defn_X3: X[3] = x3;
+defn_X4: X[4] = x4;
+defn_X5: X[5] = x5;
+defn_X6: X[6] = x6;
+defn_X7: X[7] = x7;
+defn_X8: X[8] = x8;
+defn_X9: X[9] = x9;
+defn_X10: X[10] = x10;
+defn_X11: X[11] = x11;
+defn_X12: X[12] = x12;
+defn_X13: X[13] = x13;
+defn_X14: X[14] = x14;
+defn_X15: X[15] = x15;
+defn_X16: X[16] = x16;
+defn_X17: X[17] = x17;
+defn_X18: X[18] = x18;
+
 # CONSTRAINTS for cuts
-Phicutrep {i in 1..numcuts}: cutPHI_L[i] >= sum {(i,j) in cutnonzeros} MatrixValue[i,j] * phi[i, j];
-Phicut {i in 1..numcuts}: PHI_L >= cutPHI_L[i];
+Phicutrep {cut in 1..numcuts}: cutPHI_L[cut] >= sum {(cut, f) in nonzero_cutweights} CutWeights[cut, f] * phi[cut, f];
+Phicut {cut in 1..numcuts}: PHI_L >= cutPHI_L[cut];
 
 # CONSTRAINTS for phi definition
-phi_definition {cut in 1..numcuts, f in 1..numfeats}:
-     phi[cut, f] = sum {i in 1..numvars, j in 1..numvars} x[i] * phiQuadCoeffs[cut, f, i, j] * x[j]
-            + sum {i in 1..numvars} phiLinCoeffs[cut, f, i] * x[i] 
-            + phiConstants[f];
+defn_phi {cut in 1..numcuts, f in features}:
+     phi[cut, f] = sum {i in variables, j in variables} X[i] * phiQuadCoeffs[cut, f, i, j] * X[j] + sum {i in variables} phiLinCoeffs[cut, f, i] * X[i] + phiConstants[f];
 
 # other CONSTRAINTS
 

@@ -8,6 +8,7 @@ if str(src_dir) not in sys.path:
 ################################################
 from myutils import breakexit
 
+
 def read_cutfile(all_data, filename):
     log = all_data['log']
     maxcuts = all_data['maxcuts']

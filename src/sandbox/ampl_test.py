@@ -13,15 +13,26 @@ if str(src_dir) not in sys.path:
 from myutils import breakexit
 from log import danoLogger
 from parseampl import readandstore
+from drsk_ampl import eval_Phi_greedy
 from cutfilereader import read_cutfile
 
 
 def solve(alldata):
     log = alldata['log']
-    ampl = alldata['ampl']
-    solver = alldata['solver']
-    variables = alldata['variables']
-    soln_vector_dict = alldata['soln_vector_dict']
+    ampl = alldata['algo_data']['ampl']
+    solver = alldata['algo_data']['solver']
+    variables = alldata['prob_data']['variables']
+    constraints = alldata['prob_data']['constraints']
+    soln_vector_dict = alldata['algo_data']['soln_vector_dict']
+
+    # Read in all parameters and sets
+    ampl.get_parameter("Theta").set(alldata['prob_data']['Theta'])
+    ampl.get_parameter("numcuts").set(alldata['cut_data']['numcuts'])
+    ampl.get_set("nonzero_cutweights").set_values(alldata['cut_data']['nonzero_cutweights'])
+    ampl.get_parameter("CutWeights").set_values(alldata['cut_data']['cutweights'])
+    ampl.get_parameter("phiQuadCoeffs").set_values(alldata['cut_data']['quad_data'])
+    ampl.get_parameter("phiLinCoeffs").set_values(alldata['cut_data']['lin_data'])
+    ampl.get_parameter("phiConstants").set_values(alldata['cut_data']['const_data'])
 
     # Set solver
     ampl.setOption('solver', solver)
@@ -54,8 +65,9 @@ def solve(alldata):
     # Iterate through all constraints to find violations
     log.joint("Checking for violations...\n")
     count = 0
-    for name, constraint in ampl.get_constraints():
-        # Check if the constraint is violated (negative slack means the bound is breached)
+    for constr_name in constraints:
+        #Check if the constraint is violated (negative slack means the bound is breached)
+        constraint = ampl.get_constraint(constr_name)
         if constraint.slack() < -1e-6:
             count += 1
             log.joint(f"  Violation in {name}:\n")
@@ -63,169 +75,67 @@ def solve(alldata):
             log.joint(f"    Lower Bound: {constraint.lb()}, Upper Bound: {constraint.ub()}\n")
     log.joint(str(count) + " constraints violated\n\n")
 
-    
-def eval_Phi_greedy(alldata, soln_vector_dict):
-    log = alldata['log']
-    loud = alldata['loud']
-    all_constr_data = alldata['prob_data']['all_constr_data']
-    structure = alldata['structure']
-    budget = structure['budget']
-
-    log.joint("Computing Phi using greedy method...\n")
-
-    lhs_dict = {}  # Save lhs values for reused when applicable
-
-    # Running max Phi(x) with corresponding: constraint, z sign, z variable, and coefficient
-    maxPhi = 0.0
-    argmax_constr = ''
-    argmax_zsign = 0
-    argmax_zvar = ''
-    argmax_coeff = 0
-
-    # Also record running max sum phi(x)'s with corresponding: z sign, z varible, and coefficient
-    maxsumphi = 0.0
-    argmaxsum_zsign_list = 0
-    argmaxsum_zvar = ''
-    argmaxsum_coeff = 0
-
-    # Loop over all z, i.e., unique risky coefficients
-    for coeff, coeff_dict in structure['risky_coeffs'].items():
-        # Running max Phi(|z) and correesponding constraint and z sign
-        maxPhi_z = 0.0
-        argmax_constr_z = ''
-        argmax_zsign_z = 0
-
-        # Running sum of phi's, i.e., sum of violations
-        sumphis = 0.0
-
-        # Also record list of z signs to track changes
-        zsign_list = []
-
-        if loud: log.joint("  Coeff %g\n"%(coeff))
-
-        # Loop over all constraints this risky coefficient appears in
-        for constr_name, constr_instance_list in coeff_dict['instances'].items():
-            constr_dict = all_constr_data[constr_name]
-            rhs = constr_dict['RHS']
-
-            # Compute LHS
-            lhs = lhs_dict.get(constr_name)
-            if not lhs:
-                # Constant
-                lhs = constr_dict['constant']
-                # Linear terms
-                for v, c in constr_dict['lin_terms'].items():
-                    v_val = soln_vector_dict[v]
-                    lhs += c * v_val
-                # Quadratic terms
-                for v_tuple, c in constr_dict['quad_terms'].items():
-                    v1, v2 = v_tuple[0], v_tuple[1]
-                    v1_val, v2_val = soln_vector_dict[v1], soln_vector_dict[v2]
-                    lhs += c * v1_val * v2_val
-                lhs_dict[constr_name] = lhs
-
-            # Compute error term (from setting z = budget, for z corresponding to coeff)
-            error_term = 0.0
-            for degree, var in constr_instance_list:
-                if degree == 'quad':
-                    v1, v2 = var[0], var[1]
-                    v1_val, v2_val = soln_vector_dict[v1], soln_vector_dict[v2]
-                    error_term += v1_val * v2_val
-                else:  #linear
-                    var_val = soln_vector_dict[var]
-                    error_term += var_val
-            error_term *= coeff * budget  #save repetitive multiplcation for last
-
-            # Get constraint sense
-            sense = constr_dict['sense']
-
-            # Compute slack
-            if sense == '>':
-                slack = lhs - rhs
-            elif sense == '<':
-                slack = rhs - lhs
-            else:
-                slack = 0
-
-            # Compute constraint violation (depends on constraint sense)
-            if sense == '=':
-                violation = error_term
-                zsign = 1 if violation < 0 else -1
-            else:  #constr is inequality
-                violation = max(0, math.fabs(error_term) - slack)  #zero if infeasibility not possible
-                if sense == '>': 
-                    zsign = 1 if error_term < 0 else -1  
-                else:  #sense == '<':
-                    zsign = -1 if error_term < 0 else 1
-
-            zsign_list.append(zsign)
-
-            # Compute Phi (scaled violation)
-            percent_violation = violation / max(1, rhs)
-            scaled_abs_violation = violation / constr_dict['coeff_inf-norm']
-            phi_scale = alldata['algo']['phi_scale']
-            if phi_scale == 'percent_violation':
-                Phi_z = percent_violation
-            elif phi_scale == 'scaled_abs_violation':
-                Phi_z = scaled_abs_violation
-            else:
-                log.joint('ERROR: invalid phi_scale: %s\n'%(phi_scale))
-
-            # Update the running max Phi of this z
-            if Phi_z > maxPhi_z:
-                maxPhi_z = Phi_z
-                argmax_constr_z = constr_name
-                argmax_zsign_z = zsign
-
-            # Update sum of phis
-            sumphis += Phi_z
-
-            if loud: log.joint("    > constraint %s:  Phi = %g  for  %s = %g\n"%(constr_name, Phi_z, coeff_dict['zvar'], zsign*budget))
-
-        # Update the running max Phi
-        if maxPhi_z > maxPhi:
-            maxPhi = maxPhi_z
-            argmax_constr = argmax_constr_z
-            argmax_zsign = argmax_zsign_z
-            argmax_zvar = coeff_dict['zvar']
-            argmax_coeff = coeff
-
-        # Update running max sum phi
-        if sumphis > maxsumphi:
-            maxsumphi = sumphis
-            argmaxsum_zsign_list = zsign_list
-            argmaxsum_zvar = coeff_dict['zvar']
-            argmaxsum_coeff = coeff
-
-        if loud: log.joint("    Sum of phi_z's = %g\n"%sumphis)
-
-    # Store max Phi and greedy data
-    alldata['algo']['maxPhi'] = maxPhi
-    alldata['algo']['argmax_constr'] = argmax_constr
-    alldata['algo']['argmax_zsign'] = argmax_zsign
-    alldata['algo']['argmax_zvar'] = argmax_zvar
-    alldata['algo']['argmax_coeff'] = argmax_coeff
-
-    log.joint("\nGreedy Phi = %g\n"%(maxPhi))
-    log.joint("  coeff: %g\n"%argmax_coeff)
-    log.joint("  %s = %g\n"%(argmax_zvar, argmax_zsign*budget))
-    log.joint("  max feature: %s\n"%argmax_constr)
-
-    log.joint("\nGreedy max sum phis = %g\n"%(maxsumphi))
-    log.joint("  coeff: %g\n"%argmaxsum_coeff)
-    if len(set(argmaxsum_zsign_list)) != 1:
-        log.joint("  INVALID: zvar changed sign across constraints!\n"%argmaxsum_coeff)
-    else:
-        log.joint("  %s = %g\n"%(argmaxsum_zvar, argmaxsum_zsign_list[0]*budget))
-
-    return maxPhi
 
 def add_cut_greedy(alldata):
     log = alldata['log']
     loud = alldata['loud']
     all_constr_data = alldata['prob_data']['all_constr_data']
-    structure = alldata['structure']
+    structure = alldata['struct_data']
     budget = structure['budget']
+    alpha = alldata['algo_data']['alpha']
+
+    alldata['cut_data']['numcuts'] += 1
+    nonzero_cutweights = alldata['cut_data']['nonzero_cutweights']  # set: (cut number, feat name) pairs with nonzero weight
+    cutweights = alldata['cut_data']['cutweights']  # Dict: (cut number, feat name) --> weight
+    nonzero_quad_data = alldata['cut_data']['nonzero_quad_data']  # set: (cut number, feat name, var index, var index) tuples with nonzero weight
+    quad_data = alldata['cut_data']['quad_data']  # Quadratic coefficients defining phi_i(.|z) for each cut. Dict: (cut number, feat name, var index, var index) --> coefficient * (1 + z)
+    nonzero_lin_data = alldata['cut_data']['nonzero_lin_data']  # set: (cut number, feat name, var index) tuples with nonzero weight
+    lin_data = alldata['cut_data']['lin_data']  # Linear coefficients defining phi_i(.|z) for each cut. Dict: (cut number, feat name, var index) --> coefficient * (1 + z)
+    nonzero_const_data = alldata['cut_data']['nonzero_const_data'] = {}  # set: (cut number, feat name) tuples with nonzero weight
+    const_data = alldata['cut_data']['const_data']  # Constants defining phi_i(.|z), which are cut independent. Dict: feature name --> constant
+
+    maxPhi = alldata['algo_data']['maxPhi']
+    argmax_constr = alldata['algo_data']['argmax_constr']
+    argmax_zsign = alldata['algo_data']['argmax_zsign']
+    argmax_zvar = alldata['algo_data']['argmax_zvar']
+    argmax_coeff = alldata['algo_data']['argmax_coeff']
+    argmax_phis = alldata['algo_data']['argmax_phis']
+
+    cutnum = alldata['cut_data']['numcuts']
+
+    # Compute weight normalizer
+    sum_exp = 0.0
+    for _, phi in argmax_phis.items():
+        sum_exp += math.exp(alpha * phi)
+
+    # Compute and set cut weights
+    for feat_name, phi in argmax_phis.items():
+        nonzero_cutweights.add((cutnum, feat_name))
+        cutweights[(cutnum, feat_name)] = math.exp(alpha * phi) / sum_exp
+
+    # Retrieve coefficient data for each nonzero feature
+    for feat_name, phi in argmax_phis.items():
+        constraint_data = all_constr_data[feat_name]
+
+        # Set constant
+        nonzero_const_data.add((cutnum, feat_name))
+        const_data[(cutnum, feat_name)] = constraint_data['constant']
+
+        # Set linear coefficients
+        for var, coeff in constraint_data['lin_terms'].items():
+            nonzero_lin_data.add((cutnum, feat_name, var))
+            lin_data[(cutnum, feat_name, var)] = coeff
+
+        # Set quadratic coefficients
+        for var_tuple, coeff in constraint_data['quad_terms'].items():
+            v1, v2 = var_tuple[0], var_tuple[1]
+            nonzero_quad_data.add((cutnum, feat_name, v1, v2))
+            quad_data[(cutnum, feat_name, v1, v2)] = coeff
+
+    # Add budget to argmax_zvar terms
+
+    # Scale all coefficients by phi_scale
+    
 
     log.joint("Adding greedy cut\n")
 
@@ -235,32 +145,71 @@ if __name__ == "__main__":
         sys.exit('usage: ampl_test.py modfile cutfile')
 
     alldata = {}
-    alldata['MODFILE'] = sys.argv[1]
-    alldata['CUTFILE'] = 'cutsrun.dat' if len(sys.argv) == 2 else sys.argv[2]
     log = alldata['log'] = danoLogger('ampl_test.log')
     alldata['loud'] = False
 
-    # Retrieve problem data and risk structure
-    ampl = alldata["ampl"] = AMPL()
-    readandstore(alldata)  #structure defined inside
-    breakexit('Done parsing problem')
+    # Get files from arguments
+    alldata['MODFILE'] = sys.argv[1]
+    alldata['CUTFILE'] = 'cutsrun.dat' if len(sys.argv) == 2 else sys.argv[2]
 
+    # Initialize prob data TODO: maybe should be read automatically inside readandstore()
+    alldata['prob_data'] = {}  # All problem related data stored here
+    alldata['prob_data']['Theta'] = 0.0
+    alldata['prob_data']['features'] = [f"e{i}" for i in range(2, 210)]  #TODO inside readandstore()
+    #alldata['prob_data']['var_indicies'] = list(range(2, 19))  #TODO inside readandstore()
+    alldata['prob_data']['variables'] = []  # List of variable names (exluding artifical and dummy)
+    alldata['prob_data']['constraints'] = [f"e{i}" for i in range(2, 210)]  #TODO inside readandstore() NOT SAME as features
+    alldata["prob_data"]['all_constr_data'] = {}  # Dictionary: constraint name --> constraint data
+    # Read unchanging problem data into ampl
+
+    # Initialize coefficient risk structure
+    alldata["struct_data"] = {}  # All risky coeff. structure data stored here
+    alldata["struct_data"]["numfeats"] = 0  # Number features (constraints with risky coefficients)
+    alldata["struct_data"]["risky_coeffs"] = {}  # TODO
+    alldata["struct_data"]['num_unique'] = 0  # Number of unique risky coefficients
+    alldata["struct_data"]['budget'] = .01  # Constraint error budget
+
+    # Initialize cut data TODO: should be read in from cutfile
+    alldata['cut_data'] = {}  #  All cut related data stored here
+    alldata['cut_data']['numcuts'] = 0  # Number of cuts to use in solve
+    alldata['cut_data']['nonzero_cutweights'] = {}  # set: (cut number, feat name) pairs with nonzero weight
+    alldata['cut_data']['cutweights'] = {}  # Dict: (cut number, feat name) --> weight
+    alldata['cut_data']['nonzero_quad_data'] = {}  # set: (cut number, feat name, var, var) tuples with nonzero weight
+    alldata['cut_data']['quad_data'] = {}  # Quadratic coefficients defining phi_i(.|z) for each cut. Dict: (cut number, feat name, var, var) --> coefficient * (1 + z)
+    alldata['cut_data']['nonzero_lin_data'] = {}  # set: (cut number, feat name, var) tuples with nonzero weight
+    alldata['cut_data']['lin_data'] = {}  # Linear coefficients defining phi_i(.|z) for each cut. Dict: (cut number, feat name, var) --> coefficient * (1 + z)
+    alldata['cut_data']['nonzero_const_data'] = {}  # set: (cut number, feat name) tuples with nonzero weight
+    alldata['cut_data']['const_data'] = {}  # Constants defining phi_i(.|z). Dict: (cut number, feature name) --> constant
     # Read cut file
     # alldata['maxcuts'] = 100
     # log.joint("Max number of cuts = %d\n"%alldata['maxcuts'])
     # read_cutfile(alldata, alldata['CUTFILE'])
 
+    # Initialize algorithm data
+    alldata['algo_data'] = {}  # all algorithm related data stored here
+    alldata['algo_data']['ampl'] = AMPL()
+    alldata['algo_data']['alpha'] = 1.0
+    alldata['algo_data']['phi_scale'] = 'percent_violation'  #'scaled_abs_violation'
+    alldata['algo_data']["solver"] = 'gurobi' #"/Applications/knitro-16.0.0-ARM-MacOS/bin/knitroampl"
+    alldata['algo_data']["soln_vector_dict"] = {}
+    # Note: extra greedy specific algo data defined in greedy Phi method
+
+    ###########################################################################
+
+    # Retrieve problem data and risk structure
+    readandstore(alldata)
+    # TODO: first read variables, features, structure... then add vars, params, constraints to modfile... then ampl read that file
+    breakexit('Done parsing problem')
+
     # Solve and get solution x*
-    solver = alldata["solver"] = 'gurobi' #"/Applications/knitro-16.0.0-ARM-MacOS/bin/knitroampl"
-    soln_vector_dict = alldata["soln_vector_dict"] = {}
     solve(alldata)
     breakexit('Done solving problem')
 
     # Evaluate Phi(x*) and get z
-    alldata['algo'] = {}
-    alldata['algo']['phi_scale'] = 'percent_violation'  #'scaled_abs_violation'
-    Phi = eval_Phi_greedy(alldata, soln_vector_dict)
+    Phi = eval_Phi_greedy(alldata, alldata['algo_data']["soln_vector_dict"])
+    breakexit('Evaluated Phi')
 
     # Add cut
     add_cut_greedy(alldata)
+    breakexit('Computed cut')
 
