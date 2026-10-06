@@ -1,0 +1,10 @@
+\ Model obj_copy
+\ LP format - for model browsing. Use MPS format to capture full model detail.
+\ Signature: 0xe1e12c69cb4d4977
+Minimize
+ 
+Subject To
+ defphifunc_0_1: x1 + 2 x2 + phifunc_0_1 = 2
+ defphifunc_1_0: phifunc_1_0 + [ - x2 ^2 ] = -4
+Bounds
+End
