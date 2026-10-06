@@ -7,6 +7,7 @@
 # 10/6/2026
 ###############################################################################
 import re
+import os
 import time
 import math
 import sympy as sp
@@ -121,7 +122,7 @@ def parse_ampl_constraint(alldata, expression, constr_name):
 
     log = alldata['log']
     loud = alldata['loud']
-    variables = alldata['prob_data']['variables']
+    variables = alldata['prob_data']['variables']  # already populated
     structure = alldata['struct_data']
 
     # ------------------------------------------------------------
@@ -272,7 +273,7 @@ def parse_ampl_constraint(alldata, expression, constr_name):
                 else:  #degree == 2
                     log.joint('    + coeff %g of binomial %s in constr %s is deemed risky\n'%(coeff, (v1, v2), constr_name))
         
-    # Update number of risky constraints
+    # Update features number of risky constraints
     structure['numfeats'] += riskyconstr_flag
 
     # ------------------------------------------------------------
@@ -299,6 +300,7 @@ def parse_ampl_constraint(alldata, expression, constr_name):
     # 5. Return data dictionary
     # ------------------------------------------------------------
     return {
+        "isfeature": riskyconstr_flag,
         "sense": sense,
         "RHS": rhs,
         "degree": degree,
@@ -311,6 +313,7 @@ def parse_ampl_constraint(alldata, expression, constr_name):
 
 
 def read_and_store(alldata):
+    '''read and store for modfile without cut modifications'''
     log = alldata['log'] 
     loud = alldata['loud']
     ampl = alldata['algo_data']["ampl"]
@@ -319,27 +322,65 @@ def read_and_store(alldata):
     ampl.read(alldata['MODFILE'])
     log.joint(f"Read file {alldata['MODFILE']} with AMPL\n")
 
-    # Get list of all variables (remove artifical Phi_L and phi, and dummy X variables)
+    # Get list of all variables
     variables = {}
     for var_data in ampl.get_variables():
         var_name = var_data[0]
-
-        # Ignore artifical and dummy variables
-        if var_name == 'PHI_L' or var_name == 'cutPHI_L' or var_name == 'phi' or var_name == 'X':
-            continue
 
         # Retrieve variable index
         match = re.search(r'\d+$', var_name)
         var_idx = int(match.group())
         variables[var_name] = var_idx
 
+    # Save and display variables
     alldata['prob_data']['variables'] = variables
-    log.joint("Num of variables = " + str(len(variables)) + " (excluding artifical and dummy vars)\n")
+    log.joint("Num of variables = " + str(len(variables)) + "\n")
 
-    #TODO assigned later, after first read
-    #print("variables", variables)
-    #print("features", alldata['prob_data']['features'])
-    print('var_inds', list(variables.values()))
+    # Retrieve problem data and structure of risky coefficients
+    constraints = []
+    features = []
+    all_constr_data = alldata["prob_data"]['all_constr_data']
+    for constr_name, constr in ampl.get_constraints():
+        if loud: log.joint(' - attempting to read: %s\n'%constr_name)
+        all_constr_data[constr_name] = parse_ampl_constraint(alldata, constr.expand(), constr_name)
+
+        constraints.append(constr_name)
+        if all_constr_data[constr_name]['isfeature']:
+            features.append(constr_name)
+
+    # Save and display constraints and features
+    alldata['prob_data']['constraints'] = constraints
+    alldata['prob_data']['features'] = features
+    log.joint("Num of constraints = " + str(len(constraints)) + "\n")
+    log.joint("Num of features = " + str(len(features)) + "\n")
+    log.joint("Retrieved problem data and structure\n")
+
+    # Add parameters, sets, and variables for cuts
+    cut_params_and_sets = '''\
+        # PARAMETERS for exposure cuts and phi definitions
+        param Theta;                                     # theta (risk aversion) objective parameter
+        param numcuts;                                   # number of cuts to use
+        set nonzero_cutweights dimen 2;                  # cut num, feature name
+        param cutweights {nonzero_cutweights};           # cut weights for each cut and feature
+        set var_inds;                                    # set for variable indicies (excluding artifical and dummy)
+        set features;                                    # set of features
+        set nonzero_phiQuadWeights dimen 4;              # (cut num, feature name, var name, var name)
+        param phiQuadWeights {nonzero_phiQuadWeights};   # phi quadratic weight matrix for each cut and feature 
+        set nonzero_phiLinWeights dimen 3;               # (cut num, feature name, var name)
+        param phiLinWeights {nonzero_phiLinWeights};     # phi linear coefficients for each cut and feature
+        set nonzero_phiConstWeights dimen 2;             # (cut num, feature name)
+        param phiConstWeights {nonzero_phiConstWeights}; # Constant terms for each feature (cut independent)
+        param phiMinusToggle {nonzero_cutweights};       # Toggle for whether the minus constraint is needed in phi definition for this cut and feature
+
+        # VARIABLES for exposure cuts and phi definitions
+        var PHI_L >= 0;                                  # Exposure variable in objective
+        var cutPHI_L {cut in 1..numcuts} >= 0;           # Value of each cut, largest is PHI_L
+        var phi {cut in 1..numcuts, features} >= 0;      # Value of phi_feature(x|z^t) for each cut, evaluated at current X
+        var X {var_inds};                                # X = x, a little hack for indexing
+        '''
+    ampl.eval(cut_params_and_sets)
+
+    # Initialize params and Sets
     ampl.get_set("var_inds").set_values(list(variables.values()))
     ampl.get_set("features").set_values(alldata['prob_data']['features'])
     ampl.get_parameter("Theta").set(0.0)
@@ -354,20 +395,49 @@ def read_and_store(alldata):
     ampl.get_parameter("phiConstWeights").set_values(alldata['cut_data']['phiConstWeights'])
     ampl.get_parameter("phiMinusToggle").set_values(alldata['cut_data']['phiMinusToggle'])
 
-    # Retrieve problem data and structure of risky coefficients
-    constraints = []
-    all_constr_data = alldata["prob_data"]['all_constr_data']
-    for constr_name, constr in ampl.get_constraints():
-        # Skip artifical constraints
-        if constr_name.startswith("defn_") or constr_name.startswith("Phicut"):
-            if loud: log.joint(" - skipping %s\n"%constr_name)
-            continue
+    # Add dummy variables for indexing (needed becuase QPLIB hard coded variable indices)
+    X_constraint = ''
+    for var_name, var_idx in variables.items():
+        X_constraint += 'defn_X%d: X[%d] = %s;\n'%(var_idx, var_idx, var_name)
+    ampl.eval(X_constraint)
 
-        if loud: log.joint(' - attempting to read: %s\n'%constr_name)
-        constraints.append(constr_name)
-        all_constr_data[constr_name] = parse_ampl_constraint(alldata, constr.expand(), constr_name)
+    # Add cut constraints and phi definition constraints
+    cut_constraints = '''\
+        # CONSTRAINTS for cuts
+        Phicutrep {cut in 1..numcuts}: cutPHI_L[cut] >= sum {(cut, f) in nonzero_cutweights} cutweights[cut, f] * phi[cut, f];
+        Phicut {cut in 1..numcuts}: PHI_L >= cutPHI_L[cut];
 
-    # Store and display constraints
-    #alldata['prob_data']['features'] = constraints
-    log.joint("Num of constraints = " + str(len(list(ampl.get_constraints()))) + " (excluding artifical and dummy constraints)\n")
-    log.joint("Retrieved problem data and structure\n")
+        # CONSTRAINTS for phi definition
+        defn_phi_plus {(cut, f) in nonzero_cutweights}:
+            phi[cut, f] >= sum {(cut, f, i, j) in nonzero_phiQuadWeights} X[i] * phiQuadWeights[cut, f, i, j] * X[j] 
+                        + sum {(cut, f, i) in nonzero_phiLinWeights} phiLinWeights[cut, f, i] * X[i]
+                        + phiConstWeights[cut, f];
+        defn_phi_minus {(cut, f) in nonzero_cutweights}:
+            phi[cut, f] >= - (phiMinusToggle[cut, f])
+                        * (sum {(cut, f, i, j) in nonzero_phiQuadWeights} X[i] * phiQuadWeights[cut, f, i, j] * X[j] 
+                        + sum {(cut, f, i) in nonzero_phiLinWeights} phiLinWeights[cut, f, i] * X[i]
+                        + phiConstWeights[cut, f]);
+        '''
+    ampl.eval(cut_constraints)
+
+    # Update objective function
+    obj = ampl.get_objective("obj").expand()
+    obj_expr = obj.split(':')[1].rstrip().lstrip().removesuffix(";")
+    new_obj_expr = f"Theta * PHI_L + ({obj_expr})"
+    ampl.eval('drop obj;')
+    weighted_objective = f'''\
+        # OBJECTIVE with exposure term
+        minimize weighted_obj:    {new_obj_expr};
+        '''
+    ampl.eval(weighted_objective)
+    ampl.eval('objective weighted_obj;')
+
+    # Write the cut compatible model to a new .mod file
+    file_path = alldata['MODFILE']
+    base_path, extension = os.path.splitext(file_path)
+    new_file_path = base_path + "_cuts" + extension
+    ampl.export_model(new_file_path)
+
+    log.joint('Added parameters, sets, variables, and constraints to model for cut compatibility\n')
+    log.joint('Wrote new model to modfile: %s'%new_file_path)
+

@@ -16,8 +16,6 @@
 # 
 #  Reformulation has removed 1 variable and 1 equation
 
-set I = {2..18};
-var X {I};
 
 var x2 >= 0, <= 6;
 var x3 >= -1, <= 1;
@@ -40,13 +38,6 @@ var x18 := 1.04912586, >= 1.04912586, <= 8.95087414;
 minimize obj:    x2;
 
 subject to
-
-defn_X2: X[2] = x2;
-defn_X3: X[3] = x3;
-defn_X4: X[4] = x4;
-defn_X5: X[5] = x5;
-
-etest: sum {i in I} X[i] = 10;
 
 e2:    0.20410502*x3 + 2.24629156*x4 - x5 <= 0;
 
