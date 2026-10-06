@@ -21,20 +21,24 @@
 # PARAMETERS for exposure cuts
 param Theta;
 param numcuts;
-set nonzero_cutweights dimen 2;  # cut num, feature name
-param CutWeights {nonzero_cutweights};
+set nonzero_cutweights dimen 2;                  # cut num, feature name
+param cutweights {nonzero_cutweights};
 
 # PARAMETERS for phi definitions
-set variables;                                                     # index set for variables (excluding artifical and dummy)
-set features;                                                      # set of features
-param phiQuadCoeffs {1..numcuts, features, variables, variables};  # Quadratic coefficient matrix for each cut and feature 
-param phiLinCoeffs {1..numcuts, features, variables};              # Linear coefficients for each cut and feature
-param phiConstants {features};                                     # Constant terms for each feature (cut independent)
+set var_inds;                                    # set for variable indicies (excluding artifical and dummy)
+set features;                                    # set of features
+set nonzero_phiQuadWeights dimen 4;              # (cut num, feature name, var name, var name)
+param phiQuadWeights {nonzero_phiQuadWeights};   # phi quadratic weight matrix for each cut and feature 
+set nonzero_phiLinWeights dimen 3;               # (cut num, feature name, var name)
+param phiLinWeights {nonzero_phiLinWeights};     # phi linear coefficients for each cut and feature
+set nonzero_phiConstWeights dimen 2;             # (cut num, feature name)
+param phiConstWeights {nonzero_phiConstWeights}; # Constant terms for each feature (cut independent)
+param phiMinusToggle {nonzero_cutweights};       # Toggle for whether the minus constraint is needed in phi definition for this cut and feature
 
 # VARIABLES for exposure cuts
-var PHI_L >= 0;                                    # Exposure variable in objective
-var cutPHI_L {cut in 1..numcuts} >= 0;             # Value of each cut, largest is PHI_L
-var phi {cut in 1..numcuts, features} >= 0;        # Value of phi_feature(x|z^t) for each cut, evaluated at current X
+var PHI_L >= 0;                                  # Exposure variable in objective
+var cutPHI_L {cut in 1..numcuts} >= 0;           # Value of each cut, largest is PHI_L
+var phi {cut in 1..numcuts, features} >= 0;      # Value of phi_feature(x|z^t) for each cut, evaluated at current X
 
 #VARIABLES
 var x2 >= 0, <= 6;
@@ -54,7 +58,7 @@ var x15 := 1.59481484, >= 1.59481484, <= 8.40518516;
 var x16 := 1.42893129, >= 1.42893129, <= 8.57106871;
 var x17 := 1.52785695, >= 1.52785695, <= 8.47214305;
 var x18 := 1.04912586, >= 1.04912586, <= 8.95087414;
-var X {variables};  # X = x, a little hack for indexing
+var X {var_inds};  # X = x, a little hack for indexing
 
 # OBJECTIVE with exposure term
 minimize obj:    Theta*PHI_L + x2;
@@ -81,12 +85,29 @@ defn_X17: X[17] = x17;
 defn_X18: X[18] = x18;
 
 # CONSTRAINTS for cuts
-Phicutrep {cut in 1..numcuts}: cutPHI_L[cut] >= sum {(cut, f) in nonzero_cutweights} CutWeights[cut, f] * phi[cut, f];
+Phicutrep {cut in 1..numcuts}: cutPHI_L[cut] >= sum {(cut, f) in nonzero_cutweights} cutweights[cut, f] * phi[cut, f];
 Phicut {cut in 1..numcuts}: PHI_L >= cutPHI_L[cut];
 
 # CONSTRAINTS for phi definition
-defn_phi {cut in 1..numcuts, f in features}:
-     phi[cut, f] = sum {i in variables, j in variables} X[i] * phiQuadCoeffs[cut, f, i, j] * X[j] + sum {i in variables} phiLinCoeffs[cut, f, i] * X[i] + phiConstants[f];
+defn_phi_plus {(cut, f) in nonzero_cutweights}:
+     phi[cut, f] >= sum {(cut, f, i, j) in nonzero_phiQuadWeights} X[i] * phiQuadWeights[cut, f, i, j] * X[j] 
+                  + sum {(cut, f, i) in nonzero_phiLinWeights} phiLinWeights[cut, f, i] * X[i]
+                  + phiConstWeights[cut, f];
+defn_phi_minus {(cut, f) in nonzero_cutweights}:
+     phi[cut, f] >= - (phiMinusToggle[cut, f])
+                  * (sum {(cut, f, i, j) in nonzero_phiQuadWeights} X[i] * phiQuadWeights[cut, f, i, j] * X[j] 
+                  + sum {(cut, f, i) in nonzero_phiLinWeights} phiLinWeights[cut, f, i] * X[i]
+                  + phiConstWeights[cut, f]);
+
+#defn_phi_plus {cut in 1..numcuts, f in features}:
+#     phi[cut, f] >= sum {i in var_inds, j in var_inds} X[i] * phiQuadWeights[cut, f, i, j] * X[j] 
+#                  + sum {i in var_inds} phiLinWeights[cut, f, i] * X[i]
+#                  + phiConstWeights[cut, f];
+#defn_phi_minus {cut in 1..numcuts, f in features}:
+#     phi[cut, f] >= - (phiMinusToggle[cut, f])
+#                  * (sum {i in var_inds, j in var_inds} X[i] * phiQuadWeights[cut, f, i, j] * X[j]
+#                  + sum {i in var_inds} phiLinWeights[cut, f, i] * X[i]
+#                  + phiConstWeights[cut, f]);
 
 # other CONSTRAINTS
 

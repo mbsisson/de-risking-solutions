@@ -95,7 +95,7 @@ def parse_ampl_constraint(alldata, expression, constr_name):
     lhs_string = lhs_string.replace("^", "**")
 
     # Find AMPL variable names appearing in the expression.
-    variable_pattern = re.compile(r"\b(?:" + "|".join(map(re.escape, variables)) + r")\b")
+    variable_pattern = re.compile(r"\b(?:" + "|".join(map(re.escape, variables.keys())) + r")\b")
     variable_names = list(dict.fromkeys(variable_pattern.findall(lhs_string)))
     symbols = {v: sp.Symbol(v) for v in variable_names}
     try:
@@ -194,9 +194,9 @@ def parse_ampl_constraint(alldata, expression, constr_name):
 
             if loud: 
                 if degree == 1:
-                    log.joint('+ coeff %g of var %s in constr %s is deemed risky\n'%(coeff, var, constr_name))
+                    log.joint('    + coeff %g of var %s in constr %s is deemed risky\n'%(coeff, var, constr_name))
                 else:  #degree == 2
-                    log.joint('+ coeff %g of binomial %s in constr %s is deemed risky\n'%(coeff, (v1, v2), constr_name))
+                    log.joint('    + coeff %g of binomial %s in constr %s is deemed risky\n'%(coeff, (v1, v2), constr_name))
         
     # Update number of risky constraints
     structure['numfeats'] += riskyconstr_flag
@@ -246,29 +246,39 @@ def readandstore(alldata):
     log.joint(f"Read file {alldata['MODFILE']} with AMPL\n")
 
     # Get list of all variables (remove artifical Phi_L and phi, and dummy X variables)
-    variables = [var[0] for var in ampl.get_variables()]
-    if 'PHI_L' in variables: variables.remove('PHI_L')
-    if 'cutPHI_L' in variables: variables.remove('cutPHI_L')
-    if 'phi' in variables: variables.remove('phi')
-    if 'X' in variables: variables.remove('X')
+    variables = {}
+    for var_data in ampl.get_variables():
+        var_name = var_data[0]
+
+        # Ignore artifical and dummy variables
+        if var_name == 'PHI_L' or var_name == 'cutPHI_L' or var_name == 'phi' or var_name == 'X':
+            continue
+
+        # Retrieve variable index
+        match = re.search(r'\d+$', var_name)
+        var_idx = int(match.group())
+        variables[var_name] = var_idx
+
     alldata['prob_data']['variables'] = variables
     log.joint("Num of variables = " + str(len(variables)) + " (excluding artifical and dummy vars)\n")
 
     #TODO assigned later, after first read
-    ampl.get_set("variables").set_values(alldata['prob_data']['variables'])
+    #print("variables", variables)
+    #print("features", alldata['prob_data']['features'])
+    print('var_inds', list(variables.values()))
+    ampl.get_set("var_inds").set_values(list(variables.values()))
     ampl.get_set("features").set_values(alldata['prob_data']['features'])
     ampl.get_parameter("Theta").set(0.0)
     ampl.get_parameter("numcuts").set(0)
-
-    # Test expand constraints
-    # for constr_name, constr in ampl.get_constraints():
-    #     # Skip artifical constraints
-    #     if constr_name.startswith("defn_") or constr_name.startswith("Phicut"):
-    #         print("skipping ", constr_name)
-    #         continue
-
-    #     print('attemtping to expand:', constr_name)
-    #     print(constr.expand())
+    ampl.get_set("nonzero_cutweights").set_values(alldata['cut_data']['nonzero_cutweights'])
+    ampl.get_parameter("cutweights").set_values(alldata['cut_data']['cutweights'])
+    ampl.get_set("nonzero_phiQuadWeights").set_values(alldata['cut_data']['nonzero_phiQuadWeights'])
+    ampl.get_parameter("phiQuadWeights").set_values(alldata['cut_data']['phiQuadWeights'])
+    ampl.get_set("nonzero_phiLinWeights").set_values(alldata['cut_data']['nonzero_phiLinWeights'])
+    ampl.get_parameter("phiLinWeights").set_values(alldata['cut_data']['phiLinWeights'])
+    ampl.get_set("nonzero_phiConstWeights").set_values(alldata['cut_data']['nonzero_phiConstWeights'])
+    ampl.get_parameter("phiConstWeights").set_values(alldata['cut_data']['phiConstWeights'])
+    ampl.get_parameter("phiMinusToggle").set_values(alldata['cut_data']['phiMinusToggle'])
 
     # Retrieve problem data and structure of risky coefficients
     constraints = []
@@ -276,7 +286,7 @@ def readandstore(alldata):
     for constr_name, constr in ampl.get_constraints():
         # Skip artifical constraints
         if constr_name.startswith("defn_") or constr_name.startswith("Phicut"):
-            if loud: log.joint("skipping %s\n"%constr_name)
+            if loud: log.joint(" - skipping %s\n"%constr_name)
             continue
 
         if loud: log.joint(' - attempting to read: %s\n'%constr_name)
