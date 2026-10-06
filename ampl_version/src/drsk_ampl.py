@@ -1,164 +1,373 @@
+###############################################################################
+# Functions for interacting with AmplPy:
+#   1. parsing modfile and storing problem and structure data
+#   2. solving model with chosen solver
+#
+# Blake Sisson mbs2246@columbia.edu
+# 10/6/2026
+###############################################################################
+import re
+import time
 import math
+import sympy as sp
+from decimal import Decimal
 
-def eval_Phi_greedy(alldata, soln_vector_dict):
+RISKY_DECIMAL_THRESH = 3
+
+
+def solve(alldata):
+    log = alldata['log']
+    ampl = alldata['algo_data']['ampl']
+    solver = alldata['algo_data']['solver']
+    variables = alldata['prob_data']['variables']
+    constraints = alldata['prob_data']['constraints']
+    soln_vector_dict = alldata['algo_data']['soln_vector_dict']
+
+    # Read in all parameters and sets
+    ampl.get_parameter("Theta").set(alldata['prob_data']['Theta'])
+    ampl.get_parameter("numcuts").set(alldata['cut_data']['numcuts'])
+    ampl.get_set("nonzero_cutweights").set_values(alldata['cut_data']['nonzero_cutweights'])
+    ampl.get_parameter("cutweights").set_values(alldata['cut_data']['cutweights'])
+    ampl.get_set("nonzero_phiQuadWeights").set_values(alldata['cut_data']['nonzero_phiQuadWeights'])
+    ampl.get_parameter("phiQuadWeights").set_values(alldata['cut_data']['phiQuadWeights'])
+    ampl.get_set("nonzero_phiLinWeights").set_values(alldata['cut_data']['nonzero_phiLinWeights'])
+    ampl.get_parameter("phiLinWeights").set_values(alldata['cut_data']['phiLinWeights'])
+    ampl.get_set("nonzero_phiConstWeights").set_values(alldata['cut_data']['nonzero_phiConstWeights'])
+    ampl.get_parameter("phiConstWeights").set_values(alldata['cut_data']['phiConstWeights'])
+    ampl.get_parameter("phiMinusToggle").set_values(alldata['cut_data']['phiMinusToggle'])
+    
+
+    # Set solver
+    ampl.setOption('solver', solver)
+    log.joint("Using solver: %s\n"%solver)
+
+    # Solve                                                                                                                              
+    log.joint("Solving model ...\n")                                                                                                    
+    t0 = time.time()                                                                                                                     
+    ampl.solve()                                                                                                                         
+    t1 = time.time()
+    log.joint("===============================================================\n")                                                    
+    log.joint("===============================================================\n\n")
+    log.joint("Solved with %s in %f seconds\n"%(solver, t1-t0))
+
+    # Store solution
+    for name, objective in ampl.get_objectives():
+        log.joint('Optimal objective: %s = %g\n' % (name, objective.value()))
+    log.joint('Optimal variable values:\n')
+    count = 0
+    for v in variables.keys():
+        # Store solution
+        soln_vector_dict[v] = ampl.get_value(v)
+
+        # Log nonzero values
+        if math.fabs(soln_vector_dict[v]) > 1e-8:
+            log.joint('  %s = %g\n'%(v, soln_vector_dict[v]))
+            count += 1
+    log.joint(str(count) + " nonzero variables in solution\n\n")
+
+    # Iterate through all constraints to find violations
+    log.joint("Checking for violations...\n")
+    count = 0
+    for constr_name in constraints:
+        #Check if the constraint is violated (negative slack means the bound is breached)
+        constraint = ampl.get_constraint(constr_name)
+        if constraint.slack() < -1e-6:
+            count += 1
+            log.joint(f"  Violation in {name}:\n")
+            log.joint(f"    Slack: {constraint.slack()}\n")
+            log.joint(f"    Lower Bound: {constraint.lb()}, Upper Bound: {constraint.ub()}\n")
+    log.joint(str(count) + " constraints violated\n\n")
+
+
+def parse_ampl_constraint(alldata, expression, constr_name):
+    """
+    Parse an expanded AMPL constraint expression into linear/quadratic
+    polynomial data. Also extract risky coefficient structure.
+    (Based on code from ChatGPT 9/21/2026)
+
+    Parameters
+    ----------
+    alldata : dic
+        Dictionary of all data
+
+    expression : str
+        Expanded AMPL constraint, e.g.
+            "x5^2 - 2*x8*x5 + x8^2 >= 9.143040659"
+
+    variables : list
+        List of all variables of problem.
+        Effectively a 'word bank' and tracks variable indices
+
+    name : str
+        Constraint name, used only for error messages.
+
+    Returns
+    -------
+    dict
+        {
+            "sense": "<=" or ">=" or "=",
+            "RHS": float,
+            "coeff_1-norm": float,
+            "coeff_inf-norm": float,
+            "constant": float,
+            "lin_terms": {
+                variable_name: (index, coefficient)
+            },
+            "quad_terms": {
+                (variable1, variable2): (index, coefficient)
+            }
+        }
+    """
+
     log = alldata['log']
     loud = alldata['loud']
-    all_constr_data = alldata['prob_data']['all_constr_data']
+    variables = alldata['prob_data']['variables']
     structure = alldata['struct_data']
-    budget = structure['budget']
 
-    log.joint("Computing Phi using greedy method...\n")
+    # ------------------------------------------------------------
+    # 0. Clean up expression
+    # ------------------------------------------------------------
+    # Splitting by the character
+    parts = expression.split(':')
+    
+    # Error check
+    if len(parts) !=  2:
+        raise ValueError(f"Constraint {constr_name}: {expression} is missing or contains multiple colons.")
+        
+    # Return the text after the character and drop the semicolon
+    expression = parts[1].removesuffix(";")
 
-    lhs_dict = {}  # Save lhs values for reused when applicable
+    # ------------------------------------------------------------
+    # 1. Extract sense and RHS
+    # ------------------------------------------------------------
+    match = re.search(r"(<=|>=|=)", expression)
+    if match is None:
+        raise ValueError(
+            f"Could not find constraint sense in {constr_name} : {expression!r}"
+        )
 
-    # Running max Phi(x) with corresponding: constraint, z sign, z variable, and coefficient
-    maxPhi = 0.0
-    argmax_constr = ''
-    argmax_zsign = 0
-    argmax_zvar = ''
-    argmax_coeff = 0.0
-    argmax_phis = {}  # phi values for each feature using max greedy zvar, Dict: feat_name --> phi_i(x^t | z^t = greedy(zvar, budget))
+    # Get sense
+    sense = match.group(1)
 
-    # Also record running max sum phi(x)'s with corresponding: z sign, z varible, and coefficient
-    maxsumphi = 0.0
-    argmaxsum_zsign_list = 0
-    argmaxsum_zvar = ''
-    argmaxsum_coeff = 0
+    # Get raw lhs
+    lhs_string = expression[:match.start()].strip()
 
-    # Loop over all z, i.e., unique risky coefficients
-    for coeff, coeff_dict in structure['risky_coeffs'].items():
-        # Running max Phi(|z) and correesponding constraint and z sign
-        maxPhi_z = 0.0
-        argmax_constr_z = ''
-        argmax_zsign_z = 0
-        argmax_phis_z = {}  # phi values for each feature greedily using this zvar, Dict: feat_name --> phi_i(x^t | z^t = greedy(zvar, budget))
+    # Process rhs
+    rhs_string = expression[match.end():].strip().removesuffix(";")
+    try:
+        rhs = float(rhs_string)
+    except ValueError as exc:
+        raise ValueError(
+            f"Could not parse RHS {rhs_string!r} "
+            f"for constraint {constr_name!r}"
+        ) from exc
 
-        # Running sum of phi's, i.e., sum of violations
-        sumphis = 0.0
+    # ------------------------------------------------------------
+    # 2. Convert AMPL syntax to SymPy syntax
+    #    Warning: won't work if variable names contain '.' or brackets
+    # ------------------------------------------------------------
+    lhs_string = lhs_string.replace("^", "**")
 
-        # Also record list of z signs to track changes
-        zsign_list = []
+    # Find AMPL variable names appearing in the expression.
+    variable_pattern = re.compile(r"\b(?:" + "|".join(map(re.escape, variables.keys())) + r")\b")
+    variable_names = list(dict.fromkeys(variable_pattern.findall(lhs_string)))
+    symbols = {v: sp.Symbol(v) for v in variable_names}
+    try:
+        polynomial = sp.Poly(
+            sp.expand(sp.sympify(lhs_string, locals=symbols)),
+            *symbols.values()
+        )
+    except Exception as exc:
+        raise ValueError(
+            f"Could not parse polynomial for constraint {constr_name!r}:\n"
+            f"{lhs_string}"
+        ) from exc
 
-        if loud: log.joint("  Coeff %g\n"%(coeff))
+    # ------------------------------------------------------------
+    # 3. Separate constant / linear / quadratic terms
+    # ------------------------------------------------------------
+    constant = float(polynomial.TC())  # get constant term
+    riskyconstr_flag = 0  # records if constraint has any risky coefficients (i.e., it is a feature)
 
-        # Loop over all constraints this risky coefficient appears in
-        for constr_name, constr_instance_list in coeff_dict['instances'].items():
-            constr_dict = all_constr_data[constr_name]
-            rhs = constr_dict['RHS']
+    lin_terms = {}
+    quad_terms = {}
+    for powers, coeff in polynomial.terms():
 
-            # Compute LHS
-            lhs = lhs_dict.get(constr_name)
-            if not lhs:
-                # Constant
-                lhs = constr_dict['constant']
-                # Linear terms
-                for v, c in constr_dict['lin_terms'].items():
-                    v_val = soln_vector_dict[v]
-                    lhs += c * v_val
-                # Quadratic terms
-                for v_tuple, c in constr_dict['quad_terms'].items():
-                    v1, v2 = v_tuple[0], v_tuple[1]
-                    v1_val, v2_val = soln_vector_dict[v1], soln_vector_dict[v2]
-                    lhs += c * v1_val * v2_val
-                lhs_dict[constr_name] = lhs
+        degree = sum(powers)
+        coeff = float(coeff)
 
-            # Compute error term (from setting z = budget, for z corresponding to coeff)
-            error_term = 0.0
-            for degree, var in constr_instance_list:
-                if degree == 'quad':
-                    v1, v2 = var[0], var[1]
-                    v1_val, v2_val = soln_vector_dict[v1], soln_vector_dict[v2]
-                    error_term += v1_val * v2_val
-                else:  #linear
-                    var_val = soln_vector_dict[var]
-                    error_term += var_val
-            error_term *= coeff * budget  #save repetitive multiplcation for last
+        # Check if coefficient is risky, i.e., has more than RISKY_DECIMAL_THRESH decimal points
+        riskyterm_flag = 0  # records if term has risky coefficient
+        if abs(Decimal(str(coeff)).as_tuple().exponent) >= RISKY_DECIMAL_THRESH:
+            riskyconstr_flag = 1
+            riskyterm_flag = 1
 
-            # Get constraint sense
-            sense = constr_dict['sense']
+        # Constant term
+        if degree == 0:
+            continue
 
-            # Compute slack
-            if sense == '>':
-                slack = lhs - rhs
-            elif sense == '<':
-                slack = rhs - lhs
+        # Linear term
+        if degree == 1:
+            var = variable_names[powers.index(1)]
+
+            lin_terms[var] = coeff
+
+        # Quadratic term
+        elif degree == 2:
+            vars_in_term = []
+
+            for var, power in zip(variable_names, powers):
+                vars_in_term.extend([var] * power)
+
+            if len(vars_in_term) != 2:
+                raise ValueError(
+                    f"Unexpected quadratic term in constraint {constr_name!r}"
+                )
+
+            v1, v2 = sorted(vars_in_term)
+
+            quad_terms[(v1, v2)] = coeff
+
+        # Otherwise, problem
+        else:
+            raise ValueError(
+                f"Constraint {constr_name!r} is not quadratic. "
+                f"Found degree-{degree} term with powers {powers}."
+            )
+        
+        # Store structure data if term has risky coefficient
+        if riskyterm_flag:
+            riskycoeff_dict = structure['risky_coeffs'].get(coeff)
+            if riskycoeff_dict:
+                # Coefficient already stored in risky_coeffs dictionary
+                
+                if riskycoeff_dict['instances'].get(constr_name):
+                    # Coefficient already present in this constraint
+                    if degree == 1:
+                        riskycoeff_dict['instances'][constr_name].append(('linear', var))
+                    else:  #degree == 2
+                        riskycoeff_dict['instances'][constr_name].append(('quad', (v1, v2)))
+                else:
+                    # First instance of coefficient in this constraint
+                    if degree == 1:
+                        riskycoeff_dict['instances'][constr_name] = [('linear', var)]
+                    else:  #degree == 2
+                        riskycoeff_dict['instances'][constr_name] = [('quad', (v1, v2))]
+
             else:
-                slack = 0
+                # First instance of this coefficient
+                riskycoeff_dict = structure['risky_coeffs'][coeff] = {}
+                riskycoeff_dict['index'] = index = structure['num_unique']
+                riskycoeff_dict['zvar'] = 'z_' + str(index)
+                riskycoeff_dict['instances'] = {}
+                if degree == 1:
+                    riskycoeff_dict['instances'][constr_name] = [('linear', var)]
+                else:  #degree == 2
+                    riskycoeff_dict['instances'][constr_name] = [('quad', (v1, v2))]
+                structure['num_unique'] += 1
 
-            # Compute constraint violation (depends on constraint sense)
-            if sense == '=':
-                violation = error_term
-                zsign = 1 if violation < 0 else -1
-            else:  #constr is inequality
-                violation = max(0, math.fabs(error_term) - slack)  #zero if infeasibility not possible
-                if sense == '>': 
-                    zsign = 1 if error_term < 0 else -1  
-                else:  #sense == '<':
-                    zsign = -1 if error_term < 0 else 1
+            if loud: 
+                if degree == 1:
+                    log.joint('    + coeff %g of var %s in constr %s is deemed risky\n'%(coeff, var, constr_name))
+                else:  #degree == 2
+                    log.joint('    + coeff %g of binomial %s in constr %s is deemed risky\n'%(coeff, (v1, v2), constr_name))
+        
+    # Update number of risky constraints
+    structure['numfeats'] += riskyconstr_flag
 
-            zsign_list.append(zsign)
+    # ------------------------------------------------------------
+    # 4. Coefficient norms
+    #    Note: Norms of ALL nonconstant polynomial coefficients: 
+    #       linear + quadratic coefficients.
+    # ------------------------------------------------------------
+    coefficients = [
+        coefficient
+        for coefficient in lin_terms.values()
+    ] + [
+        coefficient
+        for coefficient in quad_terms.values()
+    ]
 
-            # Compute Phi (scaled violation)
-            percent_violation = violation / max(1, rhs)
-            scaled_abs_violation = violation / constr_dict['coeff_inf-norm']
-            phi_scale = alldata['algo_data']['phi_scale']
-            if phi_scale == 'percent_violation':
-                phi_z = percent_violation
-            elif phi_scale == 'scaled_abs_violation':
-                phi_z = scaled_abs_violation
-            else:
-                log.joint('ERROR: invalid phi_scale: %s\n'%(phi_scale))
-
-            # Update the running max Phi of this z
-            if phi_z > maxPhi_z:
-                maxPhi_z = phi_z
-                argmax_constr_z = constr_name
-                argmax_zsign_z = zsign
-
-            # Update sum of phis
-            sumphis += phi_z
-
-            # Track phi value
-            argmax_phis_z[constr_name] = phi_z
-
-            if loud: log.joint("    > constraint %s:  Phi = %g  for  %s = %g\n"%(constr_name, phi_z, coeff_dict['zvar'], zsign*budget))
-
-        # Update the running max Phi
-        if maxPhi_z > maxPhi:
-            maxPhi = maxPhi_z
-            argmax_constr = argmax_constr_z
-            argmax_zsign = argmax_zsign_z
-            argmax_zvar = coeff_dict['zvar']
-            argmax_coeff = coeff
-            argmax_phis = argmax_phis_z
-
-        # Update running max sum phi
-        if sumphis > maxsumphi:
-            maxsumphi = sumphis
-            argmaxsum_zsign_list = zsign_list
-            argmaxsum_zvar = coeff_dict['zvar']
-            argmaxsum_coeff = coeff
-
-        if loud: log.joint("    Sum of phi_z's = %g\n"%sumphis)
-
-    # Store max Phi and greedy data
-    alldata['algo_data']['maxPhi'] = maxPhi
-    alldata['algo_data']['argmax_constr'] = argmax_constr
-    alldata['algo_data']['argmax_zsign'] = argmax_zsign
-    alldata['algo_data']['argmax_zvar'] = argmax_zvar
-    alldata['algo_data']['argmax_coeff'] = argmax_coeff
-    alldata['algo_data']['argmax_phis'] = argmax_phis
-
-    log.joint("\nGreedy Phi = %g\n"%(maxPhi))
-    log.joint("  coeff: %g\n"%argmax_coeff)
-    log.joint("  %s = %g\n"%(argmax_zvar, argmax_zsign*budget))
-    log.joint("  max feature: %s\n"%argmax_constr)
-
-    log.joint("\nGreedy max sum phis = %g\n"%(maxsumphi))
-    log.joint("  coeff: %g\n"%argmaxsum_coeff)
-    if len(set(argmaxsum_zsign_list)) != 1:
-        log.joint("  INVALID: zvar changed sign across constraints!\n"%argmaxsum_coeff)
+    if coefficients:
+        coeff_1_norm = sum(abs(c) for c in coefficients)
+        coeff_inf_norm = max(abs(c) for c in coefficients)
     else:
-        log.joint("  %s = %g\n"%(argmaxsum_zvar, argmaxsum_zsign_list[0]*budget))
+        coeff_1_norm = 0.0
+        coeff_inf_norm = 0.0
 
-    return maxPhi
+    # ------------------------------------------------------------
+    # 5. Return data dictionary
+    # ------------------------------------------------------------
+    return {
+        "sense": sense,
+        "RHS": rhs,
+        "degree": degree,
+        "coeff_1-norm": coeff_1_norm,
+        "coeff_inf-norm": coeff_inf_norm,
+        "constant": constant,
+        "lin_terms": lin_terms,
+        "quad_terms": quad_terms,
+    }
+
+
+def read_and_store(alldata):
+    log = alldata['log'] 
+    loud = alldata['loud']
+    ampl = alldata['algo_data']["ampl"]
+
+    # Read modfile with AMPL
+    ampl.read(alldata['MODFILE'])
+    log.joint(f"Read file {alldata['MODFILE']} with AMPL\n")
+
+    # Get list of all variables (remove artifical Phi_L and phi, and dummy X variables)
+    variables = {}
+    for var_data in ampl.get_variables():
+        var_name = var_data[0]
+
+        # Ignore artifical and dummy variables
+        if var_name == 'PHI_L' or var_name == 'cutPHI_L' or var_name == 'phi' or var_name == 'X':
+            continue
+
+        # Retrieve variable index
+        match = re.search(r'\d+$', var_name)
+        var_idx = int(match.group())
+        variables[var_name] = var_idx
+
+    alldata['prob_data']['variables'] = variables
+    log.joint("Num of variables = " + str(len(variables)) + " (excluding artifical and dummy vars)\n")
+
+    #TODO assigned later, after first read
+    #print("variables", variables)
+    #print("features", alldata['prob_data']['features'])
+    print('var_inds', list(variables.values()))
+    ampl.get_set("var_inds").set_values(list(variables.values()))
+    ampl.get_set("features").set_values(alldata['prob_data']['features'])
+    ampl.get_parameter("Theta").set(0.0)
+    ampl.get_parameter("numcuts").set(0)
+    ampl.get_set("nonzero_cutweights").set_values(alldata['cut_data']['nonzero_cutweights'])
+    ampl.get_parameter("cutweights").set_values(alldata['cut_data']['cutweights'])
+    ampl.get_set("nonzero_phiQuadWeights").set_values(alldata['cut_data']['nonzero_phiQuadWeights'])
+    ampl.get_parameter("phiQuadWeights").set_values(alldata['cut_data']['phiQuadWeights'])
+    ampl.get_set("nonzero_phiLinWeights").set_values(alldata['cut_data']['nonzero_phiLinWeights'])
+    ampl.get_parameter("phiLinWeights").set_values(alldata['cut_data']['phiLinWeights'])
+    ampl.get_set("nonzero_phiConstWeights").set_values(alldata['cut_data']['nonzero_phiConstWeights'])
+    ampl.get_parameter("phiConstWeights").set_values(alldata['cut_data']['phiConstWeights'])
+    ampl.get_parameter("phiMinusToggle").set_values(alldata['cut_data']['phiMinusToggle'])
+
+    # Retrieve problem data and structure of risky coefficients
+    constraints = []
+    all_constr_data = alldata["prob_data"]['all_constr_data']
+    for constr_name, constr in ampl.get_constraints():
+        # Skip artifical constraints
+        if constr_name.startswith("defn_") or constr_name.startswith("Phicut"):
+            if loud: log.joint(" - skipping %s\n"%constr_name)
+            continue
+
+        if loud: log.joint(' - attempting to read: %s\n'%constr_name)
+        constraints.append(constr_name)
+        all_constr_data[constr_name] = parse_ampl_constraint(alldata, constr.expand(), constr_name)
+
+    # Store and display constraints
+    #alldata['prob_data']['features'] = constraints
+    log.joint("Num of constraints = " + str(len(list(ampl.get_constraints()))) + " (excluding artifical and dummy constraints)\n")
+    log.joint("Retrieved problem data and structure\n")
