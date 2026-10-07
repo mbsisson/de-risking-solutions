@@ -1,3 +1,5 @@
+import math
+import time
 from amplpy import AMPL
 from myutils import breakexit
 from log import danoLogger
@@ -5,23 +7,56 @@ from drsk_ampl import read_and_store, solve
 from drsk_boosting import evalPhi_greedy
 from drsk_separation import addCut_greedy, addCut_quasiGreedy
 
+relative_tol = .01  #TODO: should be read in
 
-def drsk_mainLoop(alldata):
-    # Solve and get solution x*
-    solve(alldata)
-    breakexit('Done solving problem')
+def drsk_logIteration(log, x, cost, Phi_L, Phi_max):
+    log.joint("  > Cost:    %g\n"%cost)
+    log.joint("  > Phi_L:   %g\n"%Phi_L)
+    log.joint("  > Phi_max: %g\n"%Phi_max)
+    log.joint("  Solution:\n")
+    for var_name, var_val in x.items():
+        if math.fabs(var_val) > 1e-8:
+            log.joint("    %s = %g\n"%(var_name, var_val))
+    log.joint("===============================================================\n\n")
 
-    # Evaluate Phi(x*) and get z
-    Phi = evalPhi_greedy(alldata, alldata['algo_data']["soln_vector_dict"])
-    breakexit('Evaluated Phi')
 
-    # Add cut
-    addCut_quasiGreedy(alldata)
-    breakexit('Computed cut')
+start_time = t0 = time.time()    
+def drsk_algoLoop(alldata):
+    log = alldata['log']
 
-    # Solve and get next iterate solution xt
-    solve(alldata)
-    breakexit('Done solving problem')
+    for iteration in range(2):
+        # Solve the master problem for optimal (x, Phi_L)
+        solve(alldata)
+        x = alldata['algo_data']['soln_vector_dict']
+        Phi_L = alldata['algo_data']['Phi_L']
+        cost = alldata['algo_data']['cost']
+        breakexit('Solved master problem')
+
+        # Boosting step: Evaluate Phi(x*) and get z
+        Phi_max = evalPhi_greedy(alldata, alldata['algo_data']["soln_vector_dict"])
+        breakexit('Completed boosting step: evaluated Phi and stored z')
+
+        # Convergence check
+        if (Phi_max - Phi_L) / Phi_max <= relative_tol:
+            log.joint("CONVERGED: achieved relative tolerance\n")
+            drsk_logIteration(log, x, cost, Phi_L, Phi_max)
+            break
+
+        # Add cut
+        addCut_quasiGreedy(alldata)
+        breakexit('Computed cut')
+
+        # Log progress
+        log.joint("Completed iteration %d\n"%iteration)
+        drsk_logIteration(log, x, cost, Phi_L, Phi_max)
+        breakexit('Run next iteration?')
+
+    # Log results
+    end_time = time.time()
+    elapsed_time = end_time - start_time
+    log.joint("Algorithm FINISHED after %d iterations in %g seconds\n"%(iteration, elapsed_time))
+
+
 
 
 def drsk_start(log_file, mod_file, cut_file):
@@ -65,13 +100,15 @@ def drsk_start(log_file, mod_file, cut_file):
     alldata['algo_data']['ampl'] = AMPL()
     alldata['algo_data']['alpha'] = 1.0
     alldata['algo_data']['phi_scale'] = 'percent_violation'  #'scaled_abs_violation'
-    alldata['algo_data']["solver"] = 'gurobi' #"/Applications/knitro-16.0.0-ARM-MacOS/bin/knitroampl"
-    alldata['algo_data']["soln_vector_dict"] = {}
+    alldata['algo_data']['solver'] = 'gurobi' #"/Applications/knitro-16.0.0-ARM-MacOS/bin/knitroampl"
+    alldata['algo_data']['soln_vector_dict'] = {}
+    alldata['algo_data']['Phi_L'] = 0.0
+    alldata['algo_data']['cost'] = 0.0
 
     # Retrieve problem data and risk structure
     read_and_store(alldata)
     breakexit('Done parsing problem')
 
-    drsk_mainLoop(alldata)
+    drsk_algoLoop(alldata)
 
     

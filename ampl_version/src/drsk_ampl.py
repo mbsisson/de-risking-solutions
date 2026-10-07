@@ -47,8 +47,7 @@ def solve(alldata):
     t0 = time.time()                                                                                                                     
     ampl.solve()                                                                                                                         
     t1 = time.time()
-    log.joint("===============================================================\n")                                                    
-    log.joint("===============================================================\n\n")
+    log.joint("= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =\n")                                                    
     log.joint("Solved with %s in %f seconds\n\n"%(solver, t1-t0))
 
     # Store solution
@@ -65,6 +64,12 @@ def solve(alldata):
             log.joint('  %s = %g\n'%(v, soln_vector_dict[v]))
             count += 1
     log.joint(str(count) + " nonzero variables in solution\n\n")
+
+    # Store Phi_L
+    alldata['algo_data']['Phi_L'] = ampl.get_variable('PHI_L').value()
+
+    # Store cost
+    alldata['algo_data']['cost'] = ampl.get_objective('obj').value()
 
     # Iterate through all constraints to find violations
     log.joint("Checking for violations...\n")
