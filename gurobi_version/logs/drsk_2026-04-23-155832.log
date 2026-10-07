@@ -1,0 +1,2101 @@
+Starting log: Thu Apr 23 15:58:32 2026.
+Running on: jasper.local.
+
+<Version 2025.Apr.20.230900@jasper>
+Reading config file drsk.conf.
+LPFILE ../data/myblending1.lp
+LOUDCONSTRAINTS 0
+STRUCTFILE ../data/struct_myblending1.conf
+PARAMFILE drskparams.conf
+Reading LP ../data/myblending1.lp.
+Number of variables = 10.
+Done reading LP.
+Now storing LP data.
+
+Storing linear constraints; 9 in total.
+Stored linear constraints with code 0.
+Storing quadratic constraints; 0 in total.
+Quad constraints read with code 0.
+Reading structure file ../data/struct_myblending1.conf.
+I = 5 budget = 0.5
+Read structure.
+Reading parameter file drskparams.conf.
+tol 0.01
+maxits 20
+lambda_hi 0.6
+lambda_lo 0.5
+xi 0.08
+Running Algo1.
+Solving Model
+  variables = 10
+  constraints = 9
+ OPTIMAL. optimal value: 4.8325e+02 in time 1.3868e-02
+Optimal objective = 483.247
+Optimal variable values:
+x1 = 16.4706
+x2 = 40
+x8 = 40
+x9 = 4.23529
+4 nonzero variables in solution
+Writing solution to file form_0.sol.
+Getting impact at iteration_cnt 0 using style 0-norm_per.
+>feat: 0  name: demand_A  numrisky: 10
+ riskyterm: 0  z: z_dA1  card: 1  vars: ['x1']
+ j 0 h 0 var = x1 xval = 16.47058823529415 coeff = 0.8
+ -> displacement 0.000e+00
+ riskyterm: 1  z: z_dA2  card: 1  vars: ['x2']
+ j 1 h 0 var = x2 xval = 40.0 coeff = 0.6
+ -> displacement 5.282e+00
+ riskyterm: 2  z: z_dA3  card: 1  vars: ['x3']
+ j 2 h 0 var = x3 xval = 0.0 coeff = 0.7
+ -> displacement 0.000e+00
+ riskyterm: 3  z: z_dA4  card: 1  vars: ['x4']
+ j 3 h 0 var = x4 xval = 0.0 coeff = 0.9
+ -> displacement 0.000e+00
+ riskyterm: 4  z: z_dA5  card: 1  vars: ['x5']
+ j 4 h 0 var = x5 xval = 0.0 coeff = 0.5
+ -> displacement 0.000e+00
+ riskyterm: 5  z: z_dA6  card: 1  vars: ['x6']
+ j 5 h 0 var = x6 xval = 0.0 coeff = 0.6
+ -> displacement 0.000e+00
+ riskyterm: 6  z: z_dA7  card: 1  vars: ['x7']
+ j 6 h 0 var = x7 xval = 0.0 coeff = 0.7
+ -> displacement 0.000e+00
+ riskyterm: 7  z: z_dA8  card: 1  vars: ['x8']
+ j 7 h 0 var = x8 xval = 40.0 coeff = 0.8
+ -> displacement 9.282e+00
+ riskyterm: 8  z: z_dA9  card: 1  vars: ['x9']
+ j 8 h 0 var = x9 xval = 4.235294117647023 coeff = 0.6
+ -> displacement 0.000e+00
+ riskyterm: 9  z: z_dA10  card: 1  vars: ['x10']
+ j 9 h 0 var = x10 xval = 0.0 coeff = 0.7
+ -> displacement 0.000e+00
+ feat: demand_A (>)  L0norm: 9.28235  L1norm: 14.5647  L2norm: 10.6801
+>feat: 1  name: demand_B  numrisky: 10
+ riskyterm: 0  z: z_dB1  card: 1  vars: ['x1']
+ j 0 h 0 var = x1 xval = 16.47058823529415 coeff = 0.5
+ -> displacement 0.000e+00
+ riskyterm: 1  z: z_dB2  card: 1  vars: ['x2']
+ j 1 h 0 var = x2 xval = 40.0 coeff = 0.7
+ -> displacement 9.800e+00
+ riskyterm: 2  z: z_dB3  card: 1  vars: ['x3']
+ j 2 h 0 var = x3 xval = 0.0 coeff = 0.6
+ -> displacement 0.000e+00
+ riskyterm: 3  z: z_dB4  card: 1  vars: ['x4']
+ j 3 h 0 var = x4 xval = 0.0 coeff = 0.4
+ -> displacement 0.000e+00
+ riskyterm: 4  z: z_dB5  card: 1  vars: ['x5']
+ j 4 h 0 var = x5 xval = 0.0 coeff = 0.8
+ -> displacement 0.000e+00
+ riskyterm: 5  z: z_dB6  card: 1  vars: ['x6']
+ j 5 h 0 var = x6 xval = 0.0 coeff = 0.7
+ -> displacement 0.000e+00
+ riskyterm: 6  z: z_dB7  card: 1  vars: ['x7']
+ j 6 h 0 var = x7 xval = 0.0 coeff = 0.6
+ -> displacement 0.000e+00
+ riskyterm: 7  z: z_dB8  card: 1  vars: ['x8']
+ j 7 h 0 var = x8 xval = 40.0 coeff = 0.5
+ -> displacement 5.800e+00
+ riskyterm: 8  z: z_dB9  card: 1  vars: ['x9']
+ j 8 h 0 var = x9 xval = 4.235294117647023 coeff = 0.7
+ -> displacement 0.000e+00
+ riskyterm: 9  z: z_dB10  card: 1  vars: ['x10']
+ j 9 h 0 var = x10 xval = 0.0 coeff = 0.6
+ -> displacement 0.000e+00
+ feat: demand_B (>)  L0norm: 9.8  L1norm: 15.6  L2norm: 11.3877
+>feat: 2  name: quality_1  numrisky: 10
+ riskyterm: 0  z: z_q1,1  card: 1  vars: ['x1']
+ j 0 h 0 var = x1 xval = 16.47058823529415 coeff = 0.92
+ -> displacement 7.096e+00
+ riskyterm: 1  z: z_q1,2  card: 1  vars: ['x2']
+ j 1 h 0 var = x2 xval = 40.0 coeff = 0.88
+ -> displacement 1.712e+01
+ riskyterm: 2  z: z_q1,3  card: 1  vars: ['x3']
+ j 2 h 0 var = x3 xval = 0.0 coeff = 0.95
+ -> displacement 0.000e+00
+ riskyterm: 3  z: z_q1,4  card: 1  vars: ['x4']
+ j 3 h 0 var = x4 xval = 0.0 coeff = 0.9
+ -> displacement 0.000e+00
+ riskyterm: 4  z: z_q1,5  card: 1  vars: ['x5']
+ j 4 h 0 var = x5 xval = 0.0 coeff = 0.87
+ -> displacement 0.000e+00
+ riskyterm: 5  z: z_q1,6  card: 1  vars: ['x6']
+ j 5 h 0 var = x6 xval = 0.0 coeff = 0.93
+ -> displacement 0.000e+00
+ riskyterm: 6  z: z_q1,7  card: 1  vars: ['x7']
+ j 6 h 0 var = x7 xval = 0.0 coeff = 0.89
+ -> displacement 0.000e+00
+ riskyterm: 7  z: z_q1,8  card: 1  vars: ['x8']
+ j 7 h 0 var = x8 xval = 40.0 coeff = 0.91
+ -> displacement 1.772e+01
+ riskyterm: 8  z: z_q1,9  card: 1  vars: ['x9']
+ j 8 h 0 var = x9 xval = 4.235294117647023 coeff = 0.88
+ -> displacement 1.384e+00
+ riskyterm: 9  z: z_q1,10  card: 1  vars: ['x10']
+ j 9 h 0 var = x10 xval = 0.0 coeff = 0.94
+ -> displacement 0.000e+00
+ feat: quality_1 (>)  L0norm: 17.72  L1norm: 43.32  L2norm: 25.6781
+>feat: 3  name: quality_2  numrisky: 10
+ riskyterm: 0  z: z_q2,1  card: 1  vars: ['x1']
+ j 0 h 0 var = x1 xval = 16.47058823529415 coeff = 0.55
+ -> displacement 4.529e+00
+ riskyterm: 1  z: z_q2,2  card: 1  vars: ['x2']
+ j 1 h 0 var = x2 xval = 40.0 coeff = 0.6
+ -> displacement 1.200e+01
+ riskyterm: 2  z: z_q2,3  card: 1  vars: ['x3']
+ j 2 h 0 var = x3 xval = 0.0 coeff = 0.58
+ -> displacement 0.000e+00
+ riskyterm: 3  z: z_q2,4  card: 1  vars: ['x4']
+ j 3 h 0 var = x4 xval = 0.0 coeff = 0.62
+ -> displacement 0.000e+00
+ riskyterm: 4  z: z_q2,5  card: 1  vars: ['x5']
+ j 4 h 0 var = x5 xval = 0.0 coeff = 0.57
+ -> displacement 0.000e+00
+ riskyterm: 5  z: z_q2,6  card: 1  vars: ['x6']
+ j 5 h 0 var = x6 xval = 0.0 coeff = 0.59
+ -> displacement 0.000e+00
+ riskyterm: 6  z: z_q2,7  card: 1  vars: ['x7']
+ j 6 h 0 var = x7 xval = 0.0 coeff = 0.61
+ -> displacement 0.000e+00
+ riskyterm: 7  z: z_q2,8  card: 1  vars: ['x8']
+ j 7 h 0 var = x8 xval = 40.0 coeff = 0.56
+ -> displacement 1.120e+01
+ riskyterm: 8  z: z_q2,9  card: 1  vars: ['x9']
+ j 8 h 0 var = x9 xval = 4.235294117647023 coeff = 0.6
+ -> displacement 1.271e+00
+ riskyterm: 9  z: z_q2,10  card: 1  vars: ['x10']
+ j 9 h 0 var = x10 xval = 0.0 coeff = 0.58
+ -> displacement 0.000e+00
+ feat: quality_2 (>)  L0norm: 12  L1norm: 29  L2norm: 17.0754
+>feat: 4  name: quality_3  numrisky: 10
+ riskyterm: 0  z: z_q3,1  card: 1  vars: ['x1']
+ j 0 h 0 var = x1 xval = 16.47058823529415 coeff = 1.2
+ -> displacement 9.882e+00
+ riskyterm: 1  z: z_q3,2  card: 1  vars: ['x2']
+ j 1 h 0 var = x2 xval = 40.0 coeff = 1.0
+ -> displacement 2.000e+01
+ riskyterm: 2  z: z_q3,3  card: 1  vars: ['x3']
+ j 2 h 0 var = x3 xval = 0.0 coeff = 1.3
+ -> displacement 0.000e+00
+ riskyterm: 3  z: z_q3,4  card: 1  vars: ['x4']
+ j 3 h 0 var = x4 xval = 0.0 coeff = 1.1
+ -> displacement 0.000e+00
+ riskyterm: 4  z: z_q3,5  card: 1  vars: ['x5']
+ j 4 h 0 var = x5 xval = 0.0 coeff = 0.9
+ -> displacement 0.000e+00
+ riskyterm: 5  z: z_q3,6  card: 1  vars: ['x6']
+ j 5 h 0 var = x6 xval = 0.0 coeff = 1.25
+ -> displacement 0.000e+00
+ riskyterm: 6  z: z_q3,7  card: 1  vars: ['x7']
+ j 6 h 0 var = x7 xval = 0.0 coeff = 1.05
+ -> displacement 0.000e+00
+ riskyterm: 7  z: z_q3,8  card: 1  vars: ['x8']
+ j 7 h 0 var = x8 xval = 40.0 coeff = 1.15
+ -> displacement 2.300e+01
+ riskyterm: 8  z: z_q3,9  card: 1  vars: ['x9']
+ j 8 h 0 var = x9 xval = 4.235294117647023 coeff = 1.0
+ -> displacement 2.118e+00
+ riskyterm: 9  z: z_q3,10  card: 1  vars: ['x10']
+ j 9 h 0 var = x10 xval = 0.0 coeff = 1.2
+ -> displacement 0.000e+00
+ feat: quality_3 (>)  L0norm: 23  L1norm: 55  L2norm: 32.1115
+Max feature value: 23 at 4  L1-norm: 55  L2-norm: 32.1115.
+Counter: 0  feature: 4  delta: 2.300e+01  ind: 7
+Counter: 1  feature: 2  delta: 1.772e+01  ind: 7
+Counter: 2  feature: 3  delta: 1.200e+01  ind: 1
+Counter: 3  feature: 1  delta: 9.800e+00  ind: 1
+Counter: 4  feature: 0  delta: 9.282e+00  ind: 7
+Iteration 0.  Obj 483.25  Cost 483.25  IMP 0  Max-Impact 23.
+Adding impact variable with Theta 16.8086.
+  NOTDONE: keep running.
+Adding greedy cuts at iteration_cnt 0.
+Writing LP to file form_1.lp.
+Solving Model
+  variables = 12
+  constraints = 11
+ OPTIMAL. optimal value: 5.1600e+02 in time 6.7711e-04
+Optimal objective = 516
+Optimal variable values:
+x1 = 40
+x2 = 20
+x4 = 20
+x9 = 20
+4 nonzero variables in solution
+Writing solution to file form_1.sol.
+Getting impact at iteration_cnt 1 using style 0-norm_per.
+>feat: 0  name: demand_A  numrisky: 10
+ riskyterm: 0  z: z_dA1  card: 1  vars: ['x1']
+ j 0 h 0 var = x1 xval = 40.0 coeff = 0.8
+ -> displacement 7.000e+00
+ riskyterm: 1  z: z_dA2  card: 1  vars: ['x2']
+ j 1 h 0 var = x2 xval = 20.0 coeff = 0.6
+ -> displacement 0.000e+00
+ riskyterm: 2  z: z_dA3  card: 1  vars: ['x3']
+ j 2 h 0 var = x3 xval = 0.0 coeff = 0.7
+ -> displacement 0.000e+00
+ riskyterm: 3  z: z_dA4  card: 1  vars: ['x4']
+ j 3 h 0 var = x4 xval = 19.999999999999982 coeff = 0.9
+ -> displacement 0.000e+00
+ riskyterm: 4  z: z_dA5  card: 1  vars: ['x5']
+ j 4 h 0 var = x5 xval = 0.0 coeff = 0.5
+ -> displacement 0.000e+00
+ riskyterm: 5  z: z_dA6  card: 1  vars: ['x6']
+ j 5 h 0 var = x6 xval = 0.0 coeff = 0.6
+ -> displacement 0.000e+00
+ riskyterm: 6  z: z_dA7  card: 1  vars: ['x7']
+ j 6 h 0 var = x7 xval = 0.0 coeff = 0.7
+ -> displacement 0.000e+00
+ riskyterm: 7  z: z_dA8  card: 1  vars: ['x8']
+ j 7 h 0 var = x8 xval = 0.0 coeff = 0.8
+ -> displacement 0.000e+00
+ riskyterm: 8  z: z_dA9  card: 1  vars: ['x9']
+ j 8 h 0 var = x9 xval = 20.000000000000018 coeff = 0.6
+ -> displacement 0.000e+00
+ riskyterm: 9  z: z_dA10  card: 1  vars: ['x10']
+ j 9 h 0 var = x10 xval = 0.0 coeff = 0.7
+ -> displacement 0.000e+00
+ feat: demand_A (>)  L0norm: 7  L1norm: 7  L2norm: 7
+>feat: 1  name: demand_B  numrisky: 10
+ riskyterm: 0  z: z_dB1  card: 1  vars: ['x1']
+ j 0 h 0 var = x1 xval = 40.0 coeff = 0.5
+ -> displacement 9.000e+00
+ riskyterm: 1  z: z_dB2  card: 1  vars: ['x2']
+ j 1 h 0 var = x2 xval = 20.0 coeff = 0.7
+ -> displacement 6.000e+00
+ riskyterm: 2  z: z_dB3  card: 1  vars: ['x3']
+ j 2 h 0 var = x3 xval = 0.0 coeff = 0.6
+ -> displacement 0.000e+00
+ riskyterm: 3  z: z_dB4  card: 1  vars: ['x4']
+ j 3 h 0 var = x4 xval = 19.999999999999982 coeff = 0.4
+ -> displacement 3.000e+00
+ riskyterm: 4  z: z_dB5  card: 1  vars: ['x5']
+ j 4 h 0 var = x5 xval = 0.0 coeff = 0.8
+ -> displacement 0.000e+00
+ riskyterm: 5  z: z_dB6  card: 1  vars: ['x6']
+ j 5 h 0 var = x6 xval = 0.0 coeff = 0.7
+ -> displacement 0.000e+00
+ riskyterm: 6  z: z_dB7  card: 1  vars: ['x7']
+ j 6 h 0 var = x7 xval = 0.0 coeff = 0.6
+ -> displacement 0.000e+00
+ riskyterm: 7  z: z_dB8  card: 1  vars: ['x8']
+ j 7 h 0 var = x8 xval = 0.0 coeff = 0.5
+ -> displacement 0.000e+00
+ riskyterm: 8  z: z_dB9  card: 1  vars: ['x9']
+ j 8 h 0 var = x9 xval = 20.000000000000018 coeff = 0.7
+ -> displacement 6.000e+00
+ riskyterm: 9  z: z_dB10  card: 1  vars: ['x10']
+ j 9 h 0 var = x10 xval = 0.0 coeff = 0.6
+ -> displacement 0.000e+00
+ feat: demand_B (>)  L0norm: 9  L1norm: 24  L2norm: 12.7279
+>feat: 2  name: quality_1  numrisky: 10
+ riskyterm: 0  z: z_q1,1  card: 1  vars: ['x1']
+ j 0 h 0 var = x1 xval = 40.0 coeff = 0.92
+ -> displacement 1.840e+01
+ riskyterm: 1  z: z_q1,2  card: 1  vars: ['x2']
+ j 1 h 0 var = x2 xval = 20.0 coeff = 0.88
+ -> displacement 8.800e+00
+ riskyterm: 2  z: z_q1,3  card: 1  vars: ['x3']
+ j 2 h 0 var = x3 xval = 0.0 coeff = 0.95
+ -> displacement 0.000e+00
+ riskyterm: 3  z: z_q1,4  card: 1  vars: ['x4']
+ j 3 h 0 var = x4 xval = 19.999999999999982 coeff = 0.9
+ -> displacement 9.000e+00
+ riskyterm: 4  z: z_q1,5  card: 1  vars: ['x5']
+ j 4 h 0 var = x5 xval = 0.0 coeff = 0.87
+ -> displacement 0.000e+00
+ riskyterm: 5  z: z_q1,6  card: 1  vars: ['x6']
+ j 5 h 0 var = x6 xval = 0.0 coeff = 0.93
+ -> displacement 0.000e+00
+ riskyterm: 6  z: z_q1,7  card: 1  vars: ['x7']
+ j 6 h 0 var = x7 xval = 0.0 coeff = 0.89
+ -> displacement 0.000e+00
+ riskyterm: 7  z: z_q1,8  card: 1  vars: ['x8']
+ j 7 h 0 var = x8 xval = 0.0 coeff = 0.91
+ -> displacement 0.000e+00
+ riskyterm: 8  z: z_q1,9  card: 1  vars: ['x9']
+ j 8 h 0 var = x9 xval = 20.000000000000018 coeff = 0.88
+ -> displacement 8.800e+00
+ riskyterm: 9  z: z_q1,10  card: 1  vars: ['x10']
+ j 9 h 0 var = x10 xval = 0.0 coeff = 0.94
+ -> displacement 0.000e+00
+ feat: quality_1 (>)  L0norm: 18.4  L1norm: 45  L2norm: 23.9675
+>feat: 3  name: quality_2  numrisky: 10
+ riskyterm: 0  z: z_q2,1  card: 1  vars: ['x1']
+ j 0 h 0 var = x1 xval = 40.0 coeff = 0.55
+ -> displacement 1.060e+01
+ riskyterm: 1  z: z_q2,2  card: 1  vars: ['x2']
+ j 1 h 0 var = x2 xval = 20.0 coeff = 0.6
+ -> displacement 5.600e+00
+ riskyterm: 2  z: z_q2,3  card: 1  vars: ['x3']
+ j 2 h 0 var = x3 xval = 0.0 coeff = 0.58
+ -> displacement 0.000e+00
+ riskyterm: 3  z: z_q2,4  card: 1  vars: ['x4']
+ j 3 h 0 var = x4 xval = 19.999999999999982 coeff = 0.62
+ -> displacement 5.800e+00
+ riskyterm: 4  z: z_q2,5  card: 1  vars: ['x5']
+ j 4 h 0 var = x5 xval = 0.0 coeff = 0.57
+ -> displacement 0.000e+00
+ riskyterm: 5  z: z_q2,6  card: 1  vars: ['x6']
+ j 5 h 0 var = x6 xval = 0.0 coeff = 0.59
+ -> displacement 0.000e+00
+ riskyterm: 6  z: z_q2,7  card: 1  vars: ['x7']
+ j 6 h 0 var = x7 xval = 0.0 coeff = 0.61
+ -> displacement 0.000e+00
+ riskyterm: 7  z: z_q2,8  card: 1  vars: ['x8']
+ j 7 h 0 var = x8 xval = 0.0 coeff = 0.56
+ -> displacement 0.000e+00
+ riskyterm: 8  z: z_q2,9  card: 1  vars: ['x9']
+ j 8 h 0 var = x9 xval = 20.000000000000018 coeff = 0.6
+ -> displacement 5.600e+00
+ riskyterm: 9  z: z_q2,10  card: 1  vars: ['x10']
+ j 9 h 0 var = x10 xval = 0.0 coeff = 0.58
+ -> displacement 0.000e+00
+ feat: quality_2 (>)  L0norm: 10.6  L1norm: 27.6  L2norm: 14.4471
+>feat: 4  name: quality_3  numrisky: 10
+ riskyterm: 0  z: z_q3,1  card: 1  vars: ['x1']
+ j 0 h 0 var = x1 xval = 40.0 coeff = 1.2
+ -> displacement 2.400e+01
+ riskyterm: 1  z: z_q3,2  card: 1  vars: ['x2']
+ j 1 h 0 var = x2 xval = 20.0 coeff = 1.0
+ -> displacement 1.000e+01
+ riskyterm: 2  z: z_q3,3  card: 1  vars: ['x3']
+ j 2 h 0 var = x3 xval = 0.0 coeff = 1.3
+ -> displacement 0.000e+00
+ riskyterm: 3  z: z_q3,4  card: 1  vars: ['x4']
+ j 3 h 0 var = x4 xval = 19.999999999999982 coeff = 1.1
+ -> displacement 1.100e+01
+ riskyterm: 4  z: z_q3,5  card: 1  vars: ['x5']
+ j 4 h 0 var = x5 xval = 0.0 coeff = 0.9
+ -> displacement 0.000e+00
+ riskyterm: 5  z: z_q3,6  card: 1  vars: ['x6']
+ j 5 h 0 var = x6 xval = 0.0 coeff = 1.25
+ -> displacement 0.000e+00
+ riskyterm: 6  z: z_q3,7  card: 1  vars: ['x7']
+ j 6 h 0 var = x7 xval = 0.0 coeff = 1.05
+ -> displacement 0.000e+00
+ riskyterm: 7  z: z_q3,8  card: 1  vars: ['x8']
+ j 7 h 0 var = x8 xval = 0.0 coeff = 1.15
+ -> displacement 0.000e+00
+ riskyterm: 8  z: z_q3,9  card: 1  vars: ['x9']
+ j 8 h 0 var = x9 xval = 20.000000000000018 coeff = 1.0
+ -> displacement 1.000e+01
+ riskyterm: 9  z: z_q3,10  card: 1  vars: ['x10']
+ j 9 h 0 var = x10 xval = 0.0 coeff = 1.2
+ -> displacement 0.000e+00
+ feat: quality_3 (>)  L0norm: 24  L1norm: 55  L2norm: 29.95
+Max feature value: 24 at 4  L1-norm: 55  L2-norm: 29.95.
+Counter: 0  feature: 4  delta: 2.400e+01  ind: 0
+Counter: 1  feature: 2  delta: 1.840e+01  ind: 0
+Counter: 2  feature: 3  delta: 1.060e+01  ind: 0
+Counter: 3  feature: 1  delta: 9.000e+00  ind: 0
+Counter: 4  feature: 0  delta: 7.000e+00  ind: 0
+Iteration 1.  Obj 516  Cost 516  IMP 0  Max-Impact 24.
+  NOTDONE: keep running.
+Adding greedy cuts at iteration_cnt 1.
+Writing LP to file form_2.lp.
+Solving Model
+  variables = 13
+  constraints = 13
+ OPTIMAL. optimal value: 5.3400e+02 in time 7.2217e-04
+Optimal objective = 534
+Optimal variable values:
+x2 = 40
+x3 = 20
+x4 = 40
+3 nonzero variables in solution
+Writing solution to file form_2.sol.
+Getting impact at iteration_cnt 2 using style 0-norm_per.
+>feat: 0  name: demand_A  numrisky: 10
+ riskyterm: 0  z: z_dA1  card: 1  vars: ['x1']
+ j 0 h 0 var = x1 xval = 0.0 coeff = 0.8
+ -> displacement 0.000e+00
+ riskyterm: 1  z: z_dA2  card: 1  vars: ['x2']
+ j 1 h 0 var = x2 xval = 40.0 coeff = 0.6
+ -> displacement 3.000e+00
+ riskyterm: 2  z: z_dA3  card: 1  vars: ['x3']
+ j 2 h 0 var = x3 xval = 20.0 coeff = 0.7
+ -> displacement 0.000e+00
+ riskyterm: 3  z: z_dA4  card: 1  vars: ['x4']
+ j 3 h 0 var = x4 xval = 39.99999999999996 coeff = 0.9
+ -> displacement 9.000e+00
+ riskyterm: 4  z: z_dA5  card: 1  vars: ['x5']
+ j 4 h 0 var = x5 xval = 0.0 coeff = 0.5
+ -> displacement 0.000e+00
+ riskyterm: 5  z: z_dA6  card: 1  vars: ['x6']
+ j 5 h 0 var = x6 xval = 0.0 coeff = 0.6
+ -> displacement 0.000e+00
+ riskyterm: 6  z: z_dA7  card: 1  vars: ['x7']
+ j 6 h 0 var = x7 xval = 0.0 coeff = 0.7
+ -> displacement 0.000e+00
+ riskyterm: 7  z: z_dA8  card: 1  vars: ['x8']
+ j 7 h 0 var = x8 xval = 0.0 coeff = 0.8
+ -> displacement 0.000e+00
+ riskyterm: 8  z: z_dA9  card: 1  vars: ['x9']
+ j 8 h 0 var = x9 xval = 0.0 coeff = 0.6
+ -> displacement 0.000e+00
+ riskyterm: 9  z: z_dA10  card: 1  vars: ['x10']
+ j 9 h 0 var = x10 xval = 0.0 coeff = 0.7
+ -> displacement 0.000e+00
+ feat: demand_A (>)  L0norm: 9  L1norm: 12  L2norm: 9.48683
+>feat: 1  name: demand_B  numrisky: 10
+ riskyterm: 0  z: z_dB1  card: 1  vars: ['x1']
+ j 0 h 0 var = x1 xval = 0.0 coeff = 0.5
+ -> displacement 0.000e+00
+ riskyterm: 1  z: z_dB2  card: 1  vars: ['x2']
+ j 1 h 0 var = x2 xval = 40.0 coeff = 0.7
+ -> displacement 1.300e+01
+ riskyterm: 2  z: z_dB3  card: 1  vars: ['x3']
+ j 2 h 0 var = x3 xval = 20.0 coeff = 0.6
+ -> displacement 5.000e+00
+ riskyterm: 3  z: z_dB4  card: 1  vars: ['x4']
+ j 3 h 0 var = x4 xval = 39.99999999999996 coeff = 0.4
+ -> displacement 7.000e+00
+ riskyterm: 4  z: z_dB5  card: 1  vars: ['x5']
+ j 4 h 0 var = x5 xval = 0.0 coeff = 0.8
+ -> displacement 0.000e+00
+ riskyterm: 5  z: z_dB6  card: 1  vars: ['x6']
+ j 5 h 0 var = x6 xval = 0.0 coeff = 0.7
+ -> displacement 0.000e+00
+ riskyterm: 6  z: z_dB7  card: 1  vars: ['x7']
+ j 6 h 0 var = x7 xval = 0.0 coeff = 0.6
+ -> displacement 0.000e+00
+ riskyterm: 7  z: z_dB8  card: 1  vars: ['x8']
+ j 7 h 0 var = x8 xval = 0.0 coeff = 0.5
+ -> displacement 0.000e+00
+ riskyterm: 8  z: z_dB9  card: 1  vars: ['x9']
+ j 8 h 0 var = x9 xval = 0.0 coeff = 0.7
+ -> displacement 0.000e+00
+ riskyterm: 9  z: z_dB10  card: 1  vars: ['x10']
+ j 9 h 0 var = x10 xval = 0.0 coeff = 0.6
+ -> displacement 0.000e+00
+ feat: demand_B (>)  L0norm: 13  L1norm: 25  L2norm: 15.5885
+>feat: 2  name: quality_1  numrisky: 10
+ riskyterm: 0  z: z_q1,1  card: 1  vars: ['x1']
+ j 0 h 0 var = x1 xval = 0.0 coeff = 0.92
+ -> displacement 0.000e+00
+ riskyterm: 1  z: z_q1,2  card: 1  vars: ['x2']
+ j 1 h 0 var = x2 xval = 40.0 coeff = 0.88
+ -> displacement 1.740e+01
+ riskyterm: 2  z: z_q1,3  card: 1  vars: ['x3']
+ j 2 h 0 var = x3 xval = 20.0 coeff = 0.95
+ -> displacement 9.300e+00
+ riskyterm: 3  z: z_q1,4  card: 1  vars: ['x4']
+ j 3 h 0 var = x4 xval = 39.99999999999996 coeff = 0.9
+ -> displacement 1.780e+01
+ riskyterm: 4  z: z_q1,5  card: 1  vars: ['x5']
+ j 4 h 0 var = x5 xval = 0.0 coeff = 0.87
+ -> displacement 0.000e+00
+ riskyterm: 5  z: z_q1,6  card: 1  vars: ['x6']
+ j 5 h 0 var = x6 xval = 0.0 coeff = 0.93
+ -> displacement 0.000e+00
+ riskyterm: 6  z: z_q1,7  card: 1  vars: ['x7']
+ j 6 h 0 var = x7 xval = 0.0 coeff = 0.89
+ -> displacement 0.000e+00
+ riskyterm: 7  z: z_q1,8  card: 1  vars: ['x8']
+ j 7 h 0 var = x8 xval = 0.0 coeff = 0.91
+ -> displacement 0.000e+00
+ riskyterm: 8  z: z_q1,9  card: 1  vars: ['x9']
+ j 8 h 0 var = x9 xval = 0.0 coeff = 0.88
+ -> displacement 0.000e+00
+ riskyterm: 9  z: z_q1,10  card: 1  vars: ['x10']
+ j 9 h 0 var = x10 xval = 0.0 coeff = 0.94
+ -> displacement 0.000e+00
+ feat: quality_1 (>)  L0norm: 17.8  L1norm: 44.5  L2norm: 26.5724
+>feat: 3  name: quality_2  numrisky: 10
+ riskyterm: 0  z: z_q2,1  card: 1  vars: ['x1']
+ j 0 h 0 var = x1 xval = 0.0 coeff = 0.55
+ -> displacement 0.000e+00
+ riskyterm: 1  z: z_q2,2  card: 1  vars: ['x2']
+ j 1 h 0 var = x2 xval = 40.0 coeff = 0.6
+ -> displacement 9.600e+00
+ riskyterm: 2  z: z_q2,3  card: 1  vars: ['x3']
+ j 2 h 0 var = x3 xval = 20.0 coeff = 0.58
+ -> displacement 3.400e+00
+ riskyterm: 3  z: z_q2,4  card: 1  vars: ['x4']
+ j 3 h 0 var = x4 xval = 39.99999999999996 coeff = 0.62
+ -> displacement 1.000e+01
+ riskyterm: 4  z: z_q2,5  card: 1  vars: ['x5']
+ j 4 h 0 var = x5 xval = 0.0 coeff = 0.57
+ -> displacement 0.000e+00
+ riskyterm: 5  z: z_q2,6  card: 1  vars: ['x6']
+ j 5 h 0 var = x6 xval = 0.0 coeff = 0.59
+ -> displacement 0.000e+00
+ riskyterm: 6  z: z_q2,7  card: 1  vars: ['x7']
+ j 6 h 0 var = x7 xval = 0.0 coeff = 0.61
+ -> displacement 0.000e+00
+ riskyterm: 7  z: z_q2,8  card: 1  vars: ['x8']
+ j 7 h 0 var = x8 xval = 0.0 coeff = 0.56
+ -> displacement 0.000e+00
+ riskyterm: 8  z: z_q2,9  card: 1  vars: ['x9']
+ j 8 h 0 var = x9 xval = 0.0 coeff = 0.6
+ -> displacement 0.000e+00
+ riskyterm: 9  z: z_q2,10  card: 1  vars: ['x10']
+ j 9 h 0 var = x10 xval = 0.0 coeff = 0.58
+ -> displacement 0.000e+00
+ feat: quality_2 (>)  L0norm: 10  L1norm: 23  L2norm: 14.2731
+>feat: 4  name: quality_3  numrisky: 10
+ riskyterm: 0  z: z_q3,1  card: 1  vars: ['x1']
+ j 0 h 0 var = x1 xval = 0.0 coeff = 1.2
+ -> displacement 4.263e-14
+ riskyterm: 1  z: z_q3,2  card: 1  vars: ['x2']
+ j 1 h 0 var = x2 xval = 40.0 coeff = 1.0
+ -> displacement 2.000e+01
+ riskyterm: 2  z: z_q3,3  card: 1  vars: ['x3']
+ j 2 h 0 var = x3 xval = 20.0 coeff = 1.3
+ -> displacement 1.300e+01
+ riskyterm: 3  z: z_q3,4  card: 1  vars: ['x4']
+ j 3 h 0 var = x4 xval = 39.99999999999996 coeff = 1.1
+ -> displacement 2.200e+01
+ riskyterm: 4  z: z_q3,5  card: 1  vars: ['x5']
+ j 4 h 0 var = x5 xval = 0.0 coeff = 0.9
+ -> displacement 4.263e-14
+ riskyterm: 5  z: z_q3,6  card: 1  vars: ['x6']
+ j 5 h 0 var = x6 xval = 0.0 coeff = 1.25
+ -> displacement 4.263e-14
+ riskyterm: 6  z: z_q3,7  card: 1  vars: ['x7']
+ j 6 h 0 var = x7 xval = 0.0 coeff = 1.05
+ -> displacement 4.263e-14
+ riskyterm: 7  z: z_q3,8  card: 1  vars: ['x8']
+ j 7 h 0 var = x8 xval = 0.0 coeff = 1.15
+ -> displacement 4.263e-14
+ riskyterm: 8  z: z_q3,9  card: 1  vars: ['x9']
+ j 8 h 0 var = x9 xval = 0.0 coeff = 1.0
+ -> displacement 4.263e-14
+ riskyterm: 9  z: z_q3,10  card: 1  vars: ['x10']
+ j 9 h 0 var = x10 xval = 0.0 coeff = 1.2
+ -> displacement 4.263e-14
+ feat: quality_3 (>)  L0norm: 22  L1norm: 55  L2norm: 32.45
+Max feature value: 22 at 4  L1-norm: 55  L2-norm: 32.45.
+Counter: 0  feature: 4  delta: 2.200e+01  ind: 3
+Counter: 1  feature: 2  delta: 1.780e+01  ind: 3
+Counter: 2  feature: 1  delta: 1.300e+01  ind: 1
+Counter: 3  feature: 3  delta: 1.000e+01  ind: 3
+Counter: 4  feature: 0  delta: 9.000e+00  ind: 3
+Iteration 2.  Obj 534  Cost 534  IMP 0  Max-Impact 22.
+  NOTDONE: keep running.
+Adding greedy cuts at iteration_cnt 2.
+Writing LP to file form_3.lp.
+Solving Model
+  variables = 14
+  constraints = 15
+ OPTIMAL. optimal value: 5.3725e+02 in time 7.6914e-04
+Optimal objective = 537.248
+Optimal variable values:
+x1 = 2.13466
+x2 = 23.5758
+x3 = 34.2896
+x4 = 2.32872
+x8 = 2.22747
+x9 = 35.4438
+6 nonzero variables in solution
+Writing solution to file form_3.sol.
+Getting impact at iteration_cnt 3 using style 0-norm_per.
+>feat: 0  name: demand_A  numrisky: 10
+ riskyterm: 0  z: z_dA1  card: 1  vars: ['x1']
+ j 0 h 0 var = x1 xval = 2.134660816739782 coeff = 0.8
+ -> displacement 8.539e-01
+ riskyterm: 1  z: z_dA2  card: 1  vars: ['x2']
+ j 1 h 0 var = x2 xval = 23.575767802902472 coeff = 0.6
+ -> displacement 7.073e+00
+ riskyterm: 2  z: z_dA3  card: 1  vars: ['x3']
+ j 2 h 0 var = x3 xval = 34.28957138035774 coeff = 0.7
+ -> displacement 1.200e+01
+ riskyterm: 3  z: z_dA4  card: 1  vars: ['x4']
+ j 3 h 0 var = x4 xval = 2.328720890988868 coeff = 0.9
+ -> displacement 1.048e+00
+ riskyterm: 4  z: z_dA5  card: 1  vars: ['x5']
+ j 4 h 0 var = x5 xval = 0.0 coeff = 0.5
+ -> displacement 0.000e+00
+ riskyterm: 5  z: z_dA6  card: 1  vars: ['x6']
+ j 5 h 0 var = x6 xval = 0.0 coeff = 0.6
+ -> displacement 0.000e+00
+ riskyterm: 6  z: z_dA7  card: 1  vars: ['x7']
+ j 6 h 0 var = x7 xval = 0.0 coeff = 0.7
+ -> displacement 0.000e+00
+ riskyterm: 7  z: z_dA8  card: 1  vars: ['x8']
+ j 7 h 0 var = x8 xval = 2.227472156598047 coeff = 0.8
+ -> displacement 8.910e-01
+ riskyterm: 8  z: z_dA9  card: 1  vars: ['x9']
+ j 8 h 0 var = x9 xval = 35.443806952413084 coeff = 0.6
+ -> displacement 1.063e+01
+ riskyterm: 9  z: z_dA10  card: 1  vars: ['x10']
+ j 9 h 0 var = x10 xval = 0.0 coeff = 0.7
+ -> displacement 0.000e+00
+ feat: demand_A (>)  L0norm: 12.0013  L1norm: 32.5  L2norm: 17.5995
+>feat: 1  name: demand_B  numrisky: 10
+ riskyterm: 0  z: z_dB1  card: 1  vars: ['x1']
+ j 0 h 0 var = x1 xval = 2.134660816739782 coeff = 0.5
+ -> displacement 0.000e+00
+ riskyterm: 1  z: z_dB2  card: 1  vars: ['x2']
+ j 1 h 0 var = x2 xval = 23.575767802902472 coeff = 0.7
+ -> displacement 0.000e+00
+ riskyterm: 2  z: z_dB3  card: 1  vars: ['x3']
+ j 2 h 0 var = x3 xval = 34.28957138035774 coeff = 0.6
+ -> displacement 2.869e-01
+ riskyterm: 3  z: z_dB4  card: 1  vars: ['x4']
+ j 3 h 0 var = x4 xval = 2.328720890988868 coeff = 0.4
+ -> displacement 0.000e+00
+ riskyterm: 4  z: z_dB5  card: 1  vars: ['x5']
+ j 4 h 0 var = x5 xval = 0.0 coeff = 0.8
+ -> displacement 0.000e+00
+ riskyterm: 5  z: z_dB6  card: 1  vars: ['x6']
+ j 5 h 0 var = x6 xval = 0.0 coeff = 0.7
+ -> displacement 0.000e+00
+ riskyterm: 6  z: z_dB7  card: 1  vars: ['x7']
+ j 6 h 0 var = x7 xval = 0.0 coeff = 0.6
+ -> displacement 0.000e+00
+ riskyterm: 7  z: z_dB8  card: 1  vars: ['x8']
+ j 7 h 0 var = x8 xval = 2.227472156598047 coeff = 0.5
+ -> displacement 0.000e+00
+ riskyterm: 8  z: z_dB9  card: 1  vars: ['x9']
+ j 8 h 0 var = x9 xval = 35.443806952413084 coeff = 0.7
+ -> displacement 2.405e+00
+ riskyterm: 9  z: z_dB10  card: 1  vars: ['x10']
+ j 9 h 0 var = x10 xval = 0.0 coeff = 0.6
+ -> displacement 0.000e+00
+ feat: demand_B (>)  L0norm: 2.40533  L1norm: 2.6922  L2norm: 2.42238
+>feat: 2  name: quality_1  numrisky: 10
+ riskyterm: 0  z: z_q1,1  card: 1  vars: ['x1']
+ j 0 h 0 var = x1 xval = 2.134660816739782 coeff = 0.92
+ -> displacement 3.829e-01
+ riskyterm: 1  z: z_q1,2  card: 1  vars: ['x2']
+ j 1 h 0 var = x2 xval = 23.575767802902472 coeff = 0.88
+ -> displacement 9.774e+00
+ riskyterm: 2  z: z_q1,3  card: 1  vars: ['x3']
+ j 2 h 0 var = x3 xval = 34.28957138035774 coeff = 0.95
+ -> displacement 1.569e+01
+ riskyterm: 3  z: z_q1,4  card: 1  vars: ['x4']
+ j 3 h 0 var = x4 xval = 2.328720890988868 coeff = 0.9
+ -> displacement 4.489e-01
+ riskyterm: 4  z: z_q1,5  card: 1  vars: ['x5']
+ j 4 h 0 var = x5 xval = 0.0 coeff = 0.87
+ -> displacement 0.000e+00
+ riskyterm: 5  z: z_q1,6  card: 1  vars: ['x6']
+ j 5 h 0 var = x6 xval = 0.0 coeff = 0.93
+ -> displacement 0.000e+00
+ riskyterm: 6  z: z_q1,7  card: 1  vars: ['x7']
+ j 6 h 0 var = x7 xval = 0.0 coeff = 0.89
+ -> displacement 0.000e+00
+ riskyterm: 7  z: z_q1,8  card: 1  vars: ['x8']
+ j 7 h 0 var = x8 xval = 2.227472156598047 coeff = 0.91
+ -> displacement 4.144e-01
+ riskyterm: 8  z: z_q1,9  card: 1  vars: ['x9']
+ j 8 h 0 var = x9 xval = 35.443806952413084 coeff = 0.88
+ -> displacement 1.500e+01
+ riskyterm: 9  z: z_q1,10  card: 1  vars: ['x10']
+ j 9 h 0 var = x10 xval = 0.0 coeff = 0.94
+ -> displacement 0.000e+00
+ feat: quality_1 (>)  L0norm: 15.6885  L1norm: 41.7052  L2norm: 23.8133
+>feat: 3  name: quality_2  numrisky: 10
+ riskyterm: 0  z: z_q2,1  card: 1  vars: ['x1']
+ j 0 h 0 var = x1 xval = 2.134660816739782 coeff = 0.55
+ -> displacement 0.000e+00
+ riskyterm: 1  z: z_q2,2  card: 1  vars: ['x2']
+ j 1 h 0 var = x2 xval = 23.575767802902472 coeff = 0.6
+ -> displacement 5.908e+00
+ riskyterm: 2  z: z_q2,3  card: 1  vars: ['x3']
+ j 2 h 0 var = x3 xval = 34.28957138035774 coeff = 0.58
+ -> displacement 8.779e+00
+ riskyterm: 3  z: z_q2,4  card: 1  vars: ['x4']
+ j 3 h 0 var = x4 xval = 2.328720890988868 coeff = 0.62
+ -> displacement 0.000e+00
+ riskyterm: 4  z: z_q2,5  card: 1  vars: ['x5']
+ j 4 h 0 var = x5 xval = 0.0 coeff = 0.57
+ -> displacement 0.000e+00
+ riskyterm: 5  z: z_q2,6  card: 1  vars: ['x6']
+ j 5 h 0 var = x6 xval = 0.0 coeff = 0.59
+ -> displacement 0.000e+00
+ riskyterm: 6  z: z_q2,7  card: 1  vars: ['x7']
+ j 6 h 0 var = x7 xval = 0.0 coeff = 0.61
+ -> displacement 0.000e+00
+ riskyterm: 7  z: z_q2,8  card: 1  vars: ['x8']
+ j 7 h 0 var = x8 xval = 2.227472156598047 coeff = 0.56
+ -> displacement 0.000e+00
+ riskyterm: 8  z: z_q2,9  card: 1  vars: ['x9']
+ j 8 h 0 var = x9 xval = 35.443806952413084 coeff = 0.6
+ -> displacement 9.468e+00
+ riskyterm: 9  z: z_q2,10  card: 1  vars: ['x10']
+ j 9 h 0 var = x10 xval = 0.0 coeff = 0.58
+ -> displacement 0.000e+00
+ feat: quality_2 (>)  L0norm: 9.46819  L1norm: 24.155  L2norm: 14.1993
+>feat: 4  name: quality_3  numrisky: 10
+ riskyterm: 0  z: z_q3,1  card: 1  vars: ['x1']
+ j 0 h 0 var = x1 xval = 2.134660816739782 coeff = 1.2
+ -> displacement 0.000e+00
+ riskyterm: 1  z: z_q3,2  card: 1  vars: ['x2']
+ j 1 h 0 var = x2 xval = 23.575767802902472 coeff = 1.0
+ -> displacement 1.051e+01
+ riskyterm: 2  z: z_q3,3  card: 1  vars: ['x3']
+ j 2 h 0 var = x3 xval = 34.28957138035774 coeff = 1.3
+ -> displacement 2.101e+01
+ riskyterm: 3  z: z_q3,4  card: 1  vars: ['x4']
+ j 3 h 0 var = x4 xval = 2.328720890988868 coeff = 1.1
+ -> displacement 8.438e-15
+ riskyterm: 4  z: z_q3,5  card: 1  vars: ['x5']
+ j 4 h 0 var = x5 xval = 0.0 coeff = 0.9
+ -> displacement 0.000e+00
+ riskyterm: 5  z: z_q3,6  card: 1  vars: ['x6']
+ j 5 h 0 var = x6 xval = 0.0 coeff = 1.25
+ -> displacement 0.000e+00
+ riskyterm: 6  z: z_q3,7  card: 1  vars: ['x7']
+ j 6 h 0 var = x7 xval = 0.0 coeff = 1.05
+ -> displacement 0.000e+00
+ riskyterm: 7  z: z_q3,8  card: 1  vars: ['x8']
+ j 7 h 0 var = x8 xval = 2.227472156598047 coeff = 1.15
+ -> displacement 7.994e-15
+ riskyterm: 8  z: z_q3,9  card: 1  vars: ['x9']
+ j 8 h 0 var = x9 xval = 35.443806952413084 coeff = 1.0
+ -> displacement 1.644e+01
+ riskyterm: 9  z: z_q3,10  card: 1  vars: ['x10']
+ j 9 h 0 var = x10 xval = 0.0 coeff = 1.2
+ -> displacement 0.000e+00
+ feat: quality_3 (>)  L0norm: 21.0074  L1norm: 47.9556  L2norm: 28.6709
+Max feature value: 21.0074 at 4  L1-norm: 47.9556  L2-norm: 28.6709.
+Counter: 0  feature: 4  delta: 2.101e+01  ind: 2
+Counter: 1  feature: 2  delta: 1.569e+01  ind: 2
+Counter: 2  feature: 0  delta: 1.200e+01  ind: 2
+Counter: 3  feature: 3  delta: 9.468e+00  ind: 8
+Counter: 4  feature: 1  delta: 2.405e+00  ind: 8
+Iteration 3.  Obj 537.25  Cost 537.25  IMP 0  Max-Impact 21.007.
+  NOTDONE: keep running.
+Adding greedy cuts at iteration_cnt 3.
+Writing LP to file form_4.lp.
+Solving Model
+  variables = 15
+  constraints = 17
+ OPTIMAL. optimal value: 5.5051e+02 in time 6.4898e-04
+Optimal objective = 550.505
+Optimal variable values:
+x1 = 7.14286
+x2 = 40
+x3 = 6.59341
+x4 = 7.79221
+x8 = 7.45342
+x9 = 40
+6 nonzero variables in solution
+Writing solution to file form_4.sol.
+Getting impact at iteration_cnt 4 using style 0-norm_per.
+>feat: 0  name: demand_A  numrisky: 10
+ riskyterm: 0  z: z_dA1  card: 1  vars: ['x1']
+ j 0 h 0 var = x1 xval = 7.142857142857143 coeff = 0.8
+ -> displacement 0.000e+00
+ riskyterm: 1  z: z_dA2  card: 1  vars: ['x2']
+ j 1 h 0 var = x2 xval = 40.0 coeff = 0.6
+ -> displacement 5.695e+00
+ riskyterm: 2  z: z_dA3  card: 1  vars: ['x3']
+ j 2 h 0 var = x3 xval = 6.593406593406593 coeff = 0.7
+ -> displacement 0.000e+00
+ riskyterm: 3  z: z_dA4  card: 1  vars: ['x4']
+ j 3 h 0 var = x4 xval = 7.792207792207791 coeff = 0.9
+ -> displacement 0.000e+00
+ riskyterm: 4  z: z_dA5  card: 1  vars: ['x5']
+ j 4 h 0 var = x5 xval = 0.0 coeff = 0.5
+ -> displacement 0.000e+00
+ riskyterm: 5  z: z_dA6  card: 1  vars: ['x6']
+ j 5 h 0 var = x6 xval = 0.0 coeff = 0.6
+ -> displacement 0.000e+00
+ riskyterm: 6  z: z_dA7  card: 1  vars: ['x7']
+ j 6 h 0 var = x7 xval = 0.0 coeff = 0.7
+ -> displacement 0.000e+00
+ riskyterm: 7  z: z_dA8  card: 1  vars: ['x8']
+ j 7 h 0 var = x8 xval = 7.453416149068324 coeff = 0.8
+ -> displacement 0.000e+00
+ riskyterm: 8  z: z_dA9  card: 1  vars: ['x9']
+ j 8 h 0 var = x9 xval = 40.0 coeff = 0.6
+ -> displacement 5.695e+00
+ riskyterm: 9  z: z_dA10  card: 1  vars: ['x10']
+ j 9 h 0 var = x10 xval = 0.0 coeff = 0.7
+ -> displacement 0.000e+00
+ feat: demand_A (>)  L0norm: 5.69461  L1norm: 11.3892  L2norm: 8.05339
+>feat: 1  name: demand_B  numrisky: 10
+ riskyterm: 0  z: z_dB1  card: 1  vars: ['x1']
+ j 0 h 0 var = x1 xval = 7.142857142857143 coeff = 0.5
+ -> displacement 0.000e+00
+ riskyterm: 1  z: z_dB2  card: 1  vars: ['x2']
+ j 1 h 0 var = x2 xval = 40.0 coeff = 0.7
+ -> displacement 0.000e+00
+ riskyterm: 2  z: z_dB3  card: 1  vars: ['x3']
+ j 2 h 0 var = x3 xval = 6.593406593406593 coeff = 0.6
+ -> displacement 0.000e+00
+ riskyterm: 3  z: z_dB4  card: 1  vars: ['x4']
+ j 3 h 0 var = x4 xval = 7.792207792207791 coeff = 0.4
+ -> displacement 0.000e+00
+ riskyterm: 4  z: z_dB5  card: 1  vars: ['x5']
+ j 4 h 0 var = x5 xval = 0.0 coeff = 0.8
+ -> displacement 0.000e+00
+ riskyterm: 5  z: z_dB6  card: 1  vars: ['x6']
+ j 5 h 0 var = x6 xval = 0.0 coeff = 0.7
+ -> displacement 0.000e+00
+ riskyterm: 6  z: z_dB7  card: 1  vars: ['x7']
+ j 6 h 0 var = x7 xval = 0.0 coeff = 0.6
+ -> displacement 0.000e+00
+ riskyterm: 7  z: z_dB8  card: 1  vars: ['x8']
+ j 7 h 0 var = x8 xval = 7.453416149068324 coeff = 0.5
+ -> displacement 0.000e+00
+ riskyterm: 8  z: z_dB9  card: 1  vars: ['x9']
+ j 8 h 0 var = x9 xval = 40.0 coeff = 0.7
+ -> displacement 0.000e+00
+ riskyterm: 9  z: z_dB10  card: 1  vars: ['x10']
+ j 9 h 0 var = x10 xval = 0.0 coeff = 0.6
+ -> displacement 0.000e+00
+ feat: demand_B (>)  L0norm: 0  L1norm: 0  L2norm: 0
+>feat: 2  name: quality_1  numrisky: 10
+ riskyterm: 0  z: z_q1,1  card: 1  vars: ['x1']
+ j 0 h 0 var = x1 xval = 7.142857142857143 coeff = 0.92
+ -> displacement 0.000e+00
+ riskyterm: 1  z: z_q1,2  card: 1  vars: ['x2']
+ j 1 h 0 var = x2 xval = 40.0 coeff = 0.88
+ -> displacement 1.057e+01
+ riskyterm: 2  z: z_q1,3  card: 1  vars: ['x3']
+ j 2 h 0 var = x3 xval = 6.593406593406593 coeff = 0.95
+ -> displacement 0.000e+00
+ riskyterm: 3  z: z_q1,4  card: 1  vars: ['x4']
+ j 3 h 0 var = x4 xval = 7.792207792207791 coeff = 0.9
+ -> displacement 0.000e+00
+ riskyterm: 4  z: z_q1,5  card: 1  vars: ['x5']
+ j 4 h 0 var = x5 xval = 0.0 coeff = 0.87
+ -> displacement 0.000e+00
+ riskyterm: 5  z: z_q1,6  card: 1  vars: ['x6']
+ j 5 h 0 var = x6 xval = 0.0 coeff = 0.93
+ -> displacement 0.000e+00
+ riskyterm: 6  z: z_q1,7  card: 1  vars: ['x7']
+ j 6 h 0 var = x7 xval = 0.0 coeff = 0.89
+ -> displacement 0.000e+00
+ riskyterm: 7  z: z_q1,8  card: 1  vars: ['x8']
+ j 7 h 0 var = x8 xval = 7.453416149068324 coeff = 0.91
+ -> displacement 0.000e+00
+ riskyterm: 8  z: z_q1,9  card: 1  vars: ['x9']
+ j 8 h 0 var = x9 xval = 40.0 coeff = 0.88
+ -> displacement 1.057e+01
+ riskyterm: 9  z: z_q1,10  card: 1  vars: ['x10']
+ j 9 h 0 var = x10 xval = 0.0 coeff = 0.94
+ -> displacement 0.000e+00
+ feat: quality_1 (>)  L0norm: 10.5692  L1norm: 21.1385  L2norm: 14.9472
+>feat: 3  name: quality_2  numrisky: 10
+ riskyterm: 0  z: z_q2,1  card: 1  vars: ['x1']
+ j 0 h 0 var = x1 xval = 7.142857142857143 coeff = 0.55
+ -> displacement 0.000e+00
+ riskyterm: 1  z: z_q2,2  card: 1  vars: ['x2']
+ j 1 h 0 var = x2 xval = 40.0 coeff = 0.6
+ -> displacement 5.242e+00
+ riskyterm: 2  z: z_q2,3  card: 1  vars: ['x3']
+ j 2 h 0 var = x3 xval = 6.593406593406593 coeff = 0.58
+ -> displacement 0.000e+00
+ riskyterm: 3  z: z_q2,4  card: 1  vars: ['x4']
+ j 3 h 0 var = x4 xval = 7.792207792207791 coeff = 0.62
+ -> displacement 0.000e+00
+ riskyterm: 4  z: z_q2,5  card: 1  vars: ['x5']
+ j 4 h 0 var = x5 xval = 0.0 coeff = 0.57
+ -> displacement 0.000e+00
+ riskyterm: 5  z: z_q2,6  card: 1  vars: ['x6']
+ j 5 h 0 var = x6 xval = 0.0 coeff = 0.59
+ -> displacement 0.000e+00
+ riskyterm: 6  z: z_q2,7  card: 1  vars: ['x7']
+ j 6 h 0 var = x7 xval = 0.0 coeff = 0.61
+ -> displacement 0.000e+00
+ riskyterm: 7  z: z_q2,8  card: 1  vars: ['x8']
+ j 7 h 0 var = x8 xval = 7.453416149068324 coeff = 0.56
+ -> displacement 0.000e+00
+ riskyterm: 8  z: z_q2,9  card: 1  vars: ['x9']
+ j 8 h 0 var = x9 xval = 40.0 coeff = 0.6
+ -> displacement 5.242e+00
+ riskyterm: 9  z: z_q2,10  card: 1  vars: ['x10']
+ j 9 h 0 var = x10 xval = 0.0 coeff = 0.58
+ -> displacement 0.000e+00
+ feat: quality_2 (>)  L0norm: 5.24217  L1norm: 10.4843  L2norm: 7.41355
+>feat: 4  name: quality_3  numrisky: 10
+ riskyterm: 0  z: z_q3,1  card: 1  vars: ['x1']
+ j 0 h 0 var = x1 xval = 7.142857142857143 coeff = 1.2
+ -> displacement 7.994e-15
+ riskyterm: 1  z: z_q3,2  card: 1  vars: ['x2']
+ j 1 h 0 var = x2 xval = 40.0 coeff = 1.0
+ -> displacement 1.571e+01
+ riskyterm: 2  z: z_q3,3  card: 1  vars: ['x3']
+ j 2 h 0 var = x3 xval = 6.593406593406593 coeff = 1.3
+ -> displacement 7.994e-15
+ riskyterm: 3  z: z_q3,4  card: 1  vars: ['x4']
+ j 3 h 0 var = x4 xval = 7.792207792207791 coeff = 1.1
+ -> displacement 7.994e-15
+ riskyterm: 4  z: z_q3,5  card: 1  vars: ['x5']
+ j 4 h 0 var = x5 xval = 0.0 coeff = 0.9
+ -> displacement 0.000e+00
+ riskyterm: 5  z: z_q3,6  card: 1  vars: ['x6']
+ j 5 h 0 var = x6 xval = 0.0 coeff = 1.25
+ -> displacement 0.000e+00
+ riskyterm: 6  z: z_q3,7  card: 1  vars: ['x7']
+ j 6 h 0 var = x7 xval = 0.0 coeff = 1.05
+ -> displacement 0.000e+00
+ riskyterm: 7  z: z_q3,8  card: 1  vars: ['x8']
+ j 7 h 0 var = x8 xval = 7.453416149068324 coeff = 1.15
+ -> displacement 7.994e-15
+ riskyterm: 8  z: z_q3,9  card: 1  vars: ['x9']
+ j 8 h 0 var = x9 xval = 40.0 coeff = 1.0
+ -> displacement 1.571e+01
+ riskyterm: 9  z: z_q3,10  card: 1  vars: ['x10']
+ j 9 h 0 var = x10 xval = 0.0 coeff = 1.2
+ -> displacement 0.000e+00
+ feat: quality_3 (>)  L0norm: 15.7143  L1norm: 31.4286  L2norm: 22.2234
+Max feature value: 15.7143 at 4  L1-norm: 31.4286  L2-norm: 22.2234.
+Counter: 0  feature: 4  delta: 1.571e+01  ind: 1
+Counter: 1  feature: 2  delta: 1.057e+01  ind: 1
+Counter: 2  feature: 0  delta: 5.695e+00  ind: 1
+Counter: 3  feature: 3  delta: 5.242e+00  ind: 1
+Counter: 4  feature: 1  delta: 0.000e+00  ind: -1
+Iteration 4.  Obj 550.51  Cost 550.51  IMP 0  Max-Impact 15.714.
+  NOTDONE: keep running.
+Adding greedy cuts at iteration_cnt 4.
+Writing LP to file form_5.lp.
+Solving Model
+  variables = 16
+  constraints = 19
+ OPTIMAL. optimal value: 5.5813e+02 in time 9.4509e-04
+Optimal objective = 558.133
+Optimal variable values:
+x1 = 19.2118
+x2 = 23.0542
+x3 = 17.734
+x4 = 20.9584
+x8 = 20.0471
+x9 = 6.25616
+6 nonzero variables in solution
+Writing solution to file form_5.sol.
+Getting impact at iteration_cnt 5 using style 0-norm_per.
+>feat: 0  name: demand_A  numrisky: 10
+ riskyterm: 0  z: z_dA1  card: 1  vars: ['x1']
+ j 0 h 0 var = x1 xval = 19.211822660098527 coeff = 0.8
+ -> displacement 0.000e+00
+ riskyterm: 1  z: z_dA2  card: 1  vars: ['x2']
+ j 1 h 0 var = x2 xval = 23.05418719211823 coeff = 0.6
+ -> displacement 0.000e+00
+ riskyterm: 2  z: z_dA3  card: 1  vars: ['x3']
+ j 2 h 0 var = x3 xval = 17.733990147783242 coeff = 0.7
+ -> displacement 0.000e+00
+ riskyterm: 3  z: z_dA4  card: 1  vars: ['x4']
+ j 3 h 0 var = x4 xval = 20.958351992834753 coeff = 0.9
+ -> displacement 0.000e+00
+ riskyterm: 4  z: z_dA5  card: 1  vars: ['x5']
+ j 4 h 0 var = x5 xval = 0.0 coeff = 0.5
+ -> displacement 0.000e+00
+ riskyterm: 5  z: z_dA6  card: 1  vars: ['x6']
+ j 5 h 0 var = x6 xval = 0.0 coeff = 0.6
+ -> displacement 0.000e+00
+ riskyterm: 6  z: z_dA7  card: 1  vars: ['x7']
+ j 6 h 0 var = x7 xval = 0.0 coeff = 0.7
+ -> displacement 0.000e+00
+ riskyterm: 7  z: z_dA8  card: 1  vars: ['x8']
+ j 7 h 0 var = x8 xval = 20.047119297494117 coeff = 0.8
+ -> displacement 0.000e+00
+ riskyterm: 8  z: z_dA9  card: 1  vars: ['x9']
+ j 8 h 0 var = x9 xval = 6.256157635467972 coeff = 0.6
+ -> displacement 0.000e+00
+ riskyterm: 9  z: z_dA10  card: 1  vars: ['x10']
+ j 9 h 0 var = x10 xval = 0.0 coeff = 0.7
+ -> displacement 0.000e+00
+ feat: demand_A (>)  L0norm: 0  L1norm: 0  L2norm: 0
+>feat: 1  name: demand_B  numrisky: 10
+ riskyterm: 0  z: z_dB1  card: 1  vars: ['x1']
+ j 0 h 0 var = x1 xval = 19.211822660098527 coeff = 0.5
+ -> displacement 6.325e-01
+ riskyterm: 1  z: z_dB2  card: 1  vars: ['x2']
+ j 1 h 0 var = x2 xval = 23.05418719211823 coeff = 0.7
+ -> displacement 3.899e+00
+ riskyterm: 2  z: z_dB3  card: 1  vars: ['x3']
+ j 2 h 0 var = x3 xval = 17.733990147783242 coeff = 0.6
+ -> displacement 1.150e+00
+ riskyterm: 3  z: z_dB4  card: 1  vars: ['x4']
+ j 3 h 0 var = x4 xval = 20.958351992834753 coeff = 0.4
+ -> displacement 2.122e-02
+ riskyterm: 4  z: z_dB5  card: 1  vars: ['x5']
+ j 4 h 0 var = x5 xval = 0.0 coeff = 0.8
+ -> displacement 0.000e+00
+ riskyterm: 5  z: z_dB6  card: 1  vars: ['x6']
+ j 5 h 0 var = x6 xval = 0.0 coeff = 0.7
+ -> displacement 0.000e+00
+ riskyterm: 6  z: z_dB7  card: 1  vars: ['x7']
+ j 6 h 0 var = x7 xval = 0.0 coeff = 0.6
+ -> displacement 0.000e+00
+ riskyterm: 7  z: z_dB8  card: 1  vars: ['x8']
+ j 7 h 0 var = x8 xval = 20.047119297494117 coeff = 0.5
+ -> displacement 8.413e-01
+ riskyterm: 8  z: z_dB9  card: 1  vars: ['x9']
+ j 8 h 0 var = x9 xval = 6.256157635467972 coeff = 0.7
+ -> displacement 0.000e+00
+ riskyterm: 9  z: z_dB10  card: 1  vars: ['x10']
+ j 9 h 0 var = x10 xval = 0.0 coeff = 0.6
+ -> displacement 0.000e+00
+ feat: demand_B (>)  L0norm: 3.89852  L1norm: 6.54333  L2norm: 4.19866
+>feat: 2  name: quality_1  numrisky: 10
+ riskyterm: 0  z: z_q1,1  card: 1  vars: ['x1']
+ j 0 h 0 var = x1 xval = 19.211822660098527 coeff = 0.92
+ -> displacement 1.417e+00
+ riskyterm: 1  z: z_q1,2  card: 1  vars: ['x2']
+ j 1 h 0 var = x2 xval = 23.05418719211823 coeff = 0.88
+ -> displacement 2.723e+00
+ riskyterm: 2  z: z_q1,3  card: 1  vars: ['x3']
+ j 2 h 0 var = x3 xval = 17.733990147783242 coeff = 0.95
+ -> displacement 1.003e+00
+ riskyterm: 3  z: z_q1,4  card: 1  vars: ['x4']
+ j 3 h 0 var = x4 xval = 20.958351992834753 coeff = 0.9
+ -> displacement 2.011e+00
+ riskyterm: 4  z: z_q1,5  card: 1  vars: ['x5']
+ j 4 h 0 var = x5 xval = 0.0 coeff = 0.87
+ -> displacement 0.000e+00
+ riskyterm: 5  z: z_q1,6  card: 1  vars: ['x6']
+ j 5 h 0 var = x6 xval = 0.0 coeff = 0.93
+ -> displacement 0.000e+00
+ riskyterm: 6  z: z_q1,7  card: 1  vars: ['x7']
+ j 6 h 0 var = x7 xval = 0.0 coeff = 0.89
+ -> displacement 0.000e+00
+ riskyterm: 7  z: z_q1,8  card: 1  vars: ['x8']
+ j 7 h 0 var = x8 xval = 20.047119297494117 coeff = 0.91
+ -> displacement 1.701e+00
+ riskyterm: 8  z: z_q1,9  card: 1  vars: ['x9']
+ j 8 h 0 var = x9 xval = 6.256157635467972 coeff = 0.88
+ -> displacement 0.000e+00
+ riskyterm: 9  z: z_q1,10  card: 1  vars: ['x10']
+ j 9 h 0 var = x10 xval = 0.0 coeff = 0.94
+ -> displacement 0.000e+00
+ feat: quality_1 (>)  L0norm: 2.72318  L1norm: 8.85429  L2norm: 4.16701
+>feat: 3  name: quality_2  numrisky: 10
+ riskyterm: 0  z: z_q2,1  card: 1  vars: ['x1']
+ j 0 h 0 var = x1 xval = 19.211822660098527 coeff = 0.55
+ -> displacement 6.243e-01
+ riskyterm: 1  z: z_q2,2  card: 1  vars: ['x2']
+ j 1 h 0 var = x2 xval = 23.05418719211823 coeff = 0.6
+ -> displacement 2.257e+00
+ riskyterm: 2  z: z_q2,3  card: 1  vars: ['x3']
+ j 2 h 0 var = x3 xval = 17.733990147783242 coeff = 0.58
+ -> displacement 4.839e-01
+ riskyterm: 3  z: z_q2,4  card: 1  vars: ['x4']
+ j 3 h 0 var = x4 xval = 20.958351992834753 coeff = 0.62
+ -> displacement 1.838e+00
+ riskyterm: 4  z: z_q2,5  card: 1  vars: ['x5']
+ j 4 h 0 var = x5 xval = 0.0 coeff = 0.57
+ -> displacement 0.000e+00
+ riskyterm: 5  z: z_q2,6  card: 1  vars: ['x6']
+ j 5 h 0 var = x6 xval = 0.0 coeff = 0.59
+ -> displacement 0.000e+00
+ riskyterm: 6  z: z_q2,7  card: 1  vars: ['x7']
+ j 6 h 0 var = x7 xval = 0.0 coeff = 0.61
+ -> displacement 0.000e+00
+ riskyterm: 7  z: z_q2,8  card: 1  vars: ['x8']
+ j 7 h 0 var = x8 xval = 20.047119297494117 coeff = 0.56
+ -> displacement 9.542e-01
+ riskyterm: 8  z: z_q2,9  card: 1  vars: ['x9']
+ j 8 h 0 var = x9 xval = 6.256157635467972 coeff = 0.6
+ -> displacement 0.000e+00
+ riskyterm: 9  z: z_q2,10  card: 1  vars: ['x10']
+ j 9 h 0 var = x10 xval = 0.0 coeff = 0.58
+ -> displacement 0.000e+00
+ feat: quality_2 (>)  L0norm: 2.25727  L1norm: 6.1577  L2norm: 3.16358
+>feat: 4  name: quality_3  numrisky: 10
+ riskyterm: 0  z: z_q3,1  card: 1  vars: ['x1']
+ j 0 h 0 var = x1 xval = 19.211822660098527 coeff = 1.2
+ -> displacement 0.000e+00
+ riskyterm: 1  z: z_q3,2  card: 1  vars: ['x2']
+ j 1 h 0 var = x2 xval = 23.05418719211823 coeff = 1.0
+ -> displacement 0.000e+00
+ riskyterm: 2  z: z_q3,3  card: 1  vars: ['x3']
+ j 2 h 0 var = x3 xval = 17.733990147783242 coeff = 1.3
+ -> displacement 0.000e+00
+ riskyterm: 3  z: z_q3,4  card: 1  vars: ['x4']
+ j 3 h 0 var = x4 xval = 20.958351992834753 coeff = 1.1
+ -> displacement 0.000e+00
+ riskyterm: 4  z: z_q3,5  card: 1  vars: ['x5']
+ j 4 h 0 var = x5 xval = 0.0 coeff = 0.9
+ -> displacement 0.000e+00
+ riskyterm: 5  z: z_q3,6  card: 1  vars: ['x6']
+ j 5 h 0 var = x6 xval = 0.0 coeff = 1.25
+ -> displacement 0.000e+00
+ riskyterm: 6  z: z_q3,7  card: 1  vars: ['x7']
+ j 6 h 0 var = x7 xval = 0.0 coeff = 1.05
+ -> displacement 0.000e+00
+ riskyterm: 7  z: z_q3,8  card: 1  vars: ['x8']
+ j 7 h 0 var = x8 xval = 20.047119297494117 coeff = 1.15
+ -> displacement 0.000e+00
+ riskyterm: 8  z: z_q3,9  card: 1  vars: ['x9']
+ j 8 h 0 var = x9 xval = 6.256157635467972 coeff = 1.0
+ -> displacement 0.000e+00
+ riskyterm: 9  z: z_q3,10  card: 1  vars: ['x10']
+ j 9 h 0 var = x10 xval = 0.0 coeff = 1.2
+ -> displacement 0.000e+00
+ feat: quality_3 (>)  L0norm: 0  L1norm: 0  L2norm: 0
+Max feature value: 3.89852 at 1  L1-norm: 6.54333  L2-norm: 4.19866.
+Counter: 0  feature: 1  delta: 3.899e+00  ind: 1
+Counter: 1  feature: 2  delta: 2.723e+00  ind: 1
+Counter: 2  feature: 3  delta: 2.257e+00  ind: 1
+Counter: 3  feature: 0  delta: 0.000e+00  ind: -1
+Counter: 4  feature: 4  delta: 0.000e+00  ind: -1
+Iteration 5.  Obj 558.13  Cost 558.13  IMP 0  Max-Impact 3.8985.
+  NOTDONE: keep running.
+Adding greedy cuts at iteration_cnt 5.
+Writing LP to file form_6.lp.
+Solving Model
+  variables = 17
+  constraints = 21
+ OPTIMAL. optimal value: 5.5856e+02 in time 6.2895e-04
+Optimal objective = 558.565
+Optimal variable values:
+x1 = 16.3199
+x2 = 19.5838
+x3 = 15.0645
+x4 = 17.8035
+x8 = 17.0294
+x9 = 21.8728
+6 nonzero variables in solution
+Writing solution to file form_6.sol.
+Getting impact at iteration_cnt 6 using style 0-norm_per.
+>feat: 0  name: demand_A  numrisky: 10
+ riskyterm: 0  z: z_dA1  card: 1  vars: ['x1']
+ j 0 h 0 var = x1 xval = 16.319856374076963 coeff = 0.8
+ -> displacement 0.000e+00
+ riskyterm: 1  z: z_dA2  card: 1  vars: ['x2']
+ j 1 h 0 var = x2 xval = 19.583827648892356 coeff = 0.6
+ -> displacement 0.000e+00
+ riskyterm: 2  z: z_dA3  card: 1  vars: ['x3']
+ j 2 h 0 var = x3 xval = 15.064482806840273 coeff = 0.7
+ -> displacement 0.000e+00
+ riskyterm: 3  z: z_dA4  card: 1  vars: ['x4']
+ j 3 h 0 var = x4 xval = 17.803479680811233 coeff = 0.9
+ -> displacement 0.000e+00
+ riskyterm: 4  z: z_dA5  card: 1  vars: ['x5']
+ j 4 h 0 var = x5 xval = 0.0 coeff = 0.5
+ -> displacement 0.000e+00
+ riskyterm: 5  z: z_dA6  card: 1  vars: ['x6']
+ j 5 h 0 var = x6 xval = 0.0 coeff = 0.6
+ -> displacement 0.000e+00
+ riskyterm: 6  z: z_dA7  card: 1  vars: ['x7']
+ j 6 h 0 var = x7 xval = 0.0 coeff = 0.7
+ -> displacement 0.000e+00
+ riskyterm: 7  z: z_dA8  card: 1  vars: ['x8']
+ j 7 h 0 var = x8 xval = 17.02941534686292 coeff = 0.8
+ -> displacement 0.000e+00
+ riskyterm: 8  z: z_dA9  card: 1  vars: ['x9']
+ j 8 h 0 var = x9 xval = 21.872775579984395 coeff = 0.6
+ -> displacement 0.000e+00
+ riskyterm: 9  z: z_dA10  card: 1  vars: ['x10']
+ j 9 h 0 var = x10 xval = 0.0 coeff = 0.7
+ -> displacement 0.000e+00
+ feat: demand_A (>)  L0norm: 0  L1norm: 0  L2norm: 0
+>feat: 1  name: demand_B  numrisky: 10
+ riskyterm: 0  z: z_dB1  card: 1  vars: ['x1']
+ j 0 h 0 var = x1 xval = 16.319856374076963 coeff = 0.5
+ -> displacement 0.000e+00
+ riskyterm: 1  z: z_dB2  card: 1  vars: ['x2']
+ j 1 h 0 var = x2 xval = 19.583827648892356 coeff = 0.7
+ -> displacement 2.665e-15
+ riskyterm: 2  z: z_dB3  card: 1  vars: ['x3']
+ j 2 h 0 var = x3 xval = 15.064482806840273 coeff = 0.6
+ -> displacement 0.000e+00
+ riskyterm: 3  z: z_dB4  card: 1  vars: ['x4']
+ j 3 h 0 var = x4 xval = 17.803479680811233 coeff = 0.4
+ -> displacement 0.000e+00
+ riskyterm: 4  z: z_dB5  card: 1  vars: ['x5']
+ j 4 h 0 var = x5 xval = 0.0 coeff = 0.8
+ -> displacement 0.000e+00
+ riskyterm: 5  z: z_dB6  card: 1  vars: ['x6']
+ j 5 h 0 var = x6 xval = 0.0 coeff = 0.7
+ -> displacement 0.000e+00
+ riskyterm: 6  z: z_dB7  card: 1  vars: ['x7']
+ j 6 h 0 var = x7 xval = 0.0 coeff = 0.6
+ -> displacement 0.000e+00
+ riskyterm: 7  z: z_dB8  card: 1  vars: ['x8']
+ j 7 h 0 var = x8 xval = 17.02941534686292 coeff = 0.5
+ -> displacement 0.000e+00
+ riskyterm: 8  z: z_dB9  card: 1  vars: ['x9']
+ j 8 h 0 var = x9 xval = 21.872775579984395 coeff = 0.7
+ -> displacement 8.011e-01
+ riskyterm: 9  z: z_dB10  card: 1  vars: ['x10']
+ j 9 h 0 var = x10 xval = 0.0 coeff = 0.6
+ -> displacement 0.000e+00
+ feat: demand_B (>)  L0norm: 0.801132  L1norm: 0.801132  L2norm: 0.801132
+>feat: 2  name: quality_1  numrisky: 10
+ riskyterm: 0  z: z_q1,1  card: 1  vars: ['x1']
+ j 0 h 0 var = x1 xval = 16.319856374076963 coeff = 0.92
+ -> displacement 1.799e-01
+ riskyterm: 1  z: z_q1,2  card: 1  vars: ['x2']
+ j 1 h 0 var = x2 xval = 19.583827648892356 coeff = 0.88
+ -> displacement 1.290e+00
+ riskyterm: 2  z: z_q1,3  card: 1  vars: ['x3']
+ j 2 h 0 var = x3 xval = 15.064482806840273 coeff = 0.95
+ -> displacement 0.000e+00
+ riskyterm: 3  z: z_q1,4  card: 1  vars: ['x4']
+ j 3 h 0 var = x4 xval = 17.803479680811233 coeff = 0.9
+ -> displacement 6.843e-01
+ riskyterm: 4  z: z_q1,5  card: 1  vars: ['x5']
+ j 4 h 0 var = x5 xval = 0.0 coeff = 0.87
+ -> displacement 0.000e+00
+ riskyterm: 5  z: z_q1,6  card: 1  vars: ['x6']
+ j 5 h 0 var = x6 xval = 0.0 coeff = 0.93
+ -> displacement 0.000e+00
+ riskyterm: 6  z: z_q1,7  card: 1  vars: ['x7']
+ j 6 h 0 var = x7 xval = 0.0 coeff = 0.89
+ -> displacement 0.000e+00
+ riskyterm: 7  z: z_q1,8  card: 1  vars: ['x8']
+ j 7 h 0 var = x8 xval = 17.02941534686292 coeff = 0.91
+ -> displacement 4.211e-01
+ riskyterm: 8  z: z_q1,9  card: 1  vars: ['x9']
+ j 8 h 0 var = x9 xval = 21.872775579984395 coeff = 0.88
+ -> displacement 2.297e+00
+ riskyterm: 9  z: z_q1,10  card: 1  vars: ['x10']
+ j 9 h 0 var = x10 xval = 0.0 coeff = 0.94
+ -> displacement 0.000e+00
+ feat: quality_1 (>)  L0norm: 2.29678  L1norm: 4.8718  L2norm: 2.75979
+>feat: 3  name: quality_2  numrisky: 10
+ riskyterm: 0  z: z_q2,1  card: 1  vars: ['x1']
+ j 0 h 0 var = x1 xval = 16.319856374076963 coeff = 0.55
+ -> displacement 0.000e+00
+ riskyterm: 1  z: z_q2,2  card: 1  vars: ['x2']
+ j 1 h 0 var = x2 xval = 19.583827648892356 coeff = 0.6
+ -> displacement 7.132e-01
+ riskyterm: 2  z: z_q2,3  card: 1  vars: ['x3']
+ j 2 h 0 var = x3 xval = 15.064482806840273 coeff = 0.58
+ -> displacement 0.000e+00
+ riskyterm: 3  z: z_q2,4  card: 1  vars: ['x4']
+ j 3 h 0 var = x4 xval = 17.803479680811233 coeff = 0.62
+ -> displacement 3.572e-01
+ riskyterm: 4  z: z_q2,5  card: 1  vars: ['x5']
+ j 4 h 0 var = x5 xval = 0.0 coeff = 0.57
+ -> displacement 0.000e+00
+ riskyterm: 5  z: z_q2,6  card: 1  vars: ['x6']
+ j 5 h 0 var = x6 xval = 0.0 coeff = 0.59
+ -> displacement 0.000e+00
+ riskyterm: 6  z: z_q2,7  card: 1  vars: ['x7']
+ j 6 h 0 var = x7 xval = 0.0 coeff = 0.61
+ -> displacement 0.000e+00
+ riskyterm: 7  z: z_q2,8  card: 1  vars: ['x8']
+ j 7 h 0 var = x8 xval = 17.02941534686292 coeff = 0.56
+ -> displacement 0.000e+00
+ riskyterm: 8  z: z_q2,9  card: 1  vars: ['x9']
+ j 8 h 0 var = x9 xval = 21.872775579984395 coeff = 0.6
+ -> displacement 1.400e+00
+ riskyterm: 9  z: z_q2,10  card: 1  vars: ['x10']
+ j 9 h 0 var = x10 xval = 0.0 coeff = 0.58
+ -> displacement 0.000e+00
+ feat: quality_2 (>)  L0norm: 1.39992  L1norm: 2.47032  L2norm: 1.61123
+>feat: 4  name: quality_3  numrisky: 10
+ riskyterm: 0  z: z_q3,1  card: 1  vars: ['x1']
+ j 0 h 0 var = x1 xval = 16.319856374076963 coeff = 1.2
+ -> displacement 8.882e-15
+ riskyterm: 1  z: z_q3,2  card: 1  vars: ['x2']
+ j 1 h 0 var = x2 xval = 19.583827648892356 coeff = 1.0
+ -> displacement 8.882e-15
+ riskyterm: 2  z: z_q3,3  card: 1  vars: ['x3']
+ j 2 h 0 var = x3 xval = 15.064482806840273 coeff = 1.3
+ -> displacement 8.882e-15
+ riskyterm: 3  z: z_q3,4  card: 1  vars: ['x4']
+ j 3 h 0 var = x4 xval = 17.803479680811233 coeff = 1.1
+ -> displacement 8.882e-15
+ riskyterm: 4  z: z_q3,5  card: 1  vars: ['x5']
+ j 4 h 0 var = x5 xval = 0.0 coeff = 0.9
+ -> displacement 0.000e+00
+ riskyterm: 5  z: z_q3,6  card: 1  vars: ['x6']
+ j 5 h 0 var = x6 xval = 0.0 coeff = 1.25
+ -> displacement 0.000e+00
+ riskyterm: 6  z: z_q3,7  card: 1  vars: ['x7']
+ j 6 h 0 var = x7 xval = 0.0 coeff = 1.05
+ -> displacement 0.000e+00
+ riskyterm: 7  z: z_q3,8  card: 1  vars: ['x8']
+ j 7 h 0 var = x8 xval = 17.02941534686292 coeff = 1.15
+ -> displacement 8.882e-15
+ riskyterm: 8  z: z_q3,9  card: 1  vars: ['x9']
+ j 8 h 0 var = x9 xval = 21.872775579984395 coeff = 1.0
+ -> displacement 1.144e+00
+ riskyterm: 9  z: z_q3,10  card: 1  vars: ['x10']
+ j 9 h 0 var = x10 xval = 0.0 coeff = 1.2
+ -> displacement 0.000e+00
+ feat: quality_3 (>)  L0norm: 1.14447  L1norm: 1.14447  L2norm: 1.14447
+Max feature value: 2.29678 at 2  L1-norm: 4.8718  L2-norm: 2.75979.
+Counter: 0  feature: 2  delta: 2.297e+00  ind: 8
+Counter: 1  feature: 3  delta: 1.400e+00  ind: 8
+Counter: 2  feature: 4  delta: 1.144e+00  ind: 8
+Counter: 3  feature: 1  delta: 8.011e-01  ind: 8
+Counter: 4  feature: 0  delta: 0.000e+00  ind: -1
+Iteration 6.  Obj 558.56  Cost 558.56  IMP 0  Max-Impact 2.2968.
+  NOTDONE: keep running.
+Adding greedy cuts at iteration_cnt 6.
+Writing LP to file form_7.lp.
+Solving Model
+  variables = 18
+  constraints = 23
+ OPTIMAL. optimal value: 5.5942e+02 in time 6.4993e-04
+Optimal objective = 559.425
+Optimal variable values:
+x1 = 16.6923
+x2 = 20.0307
+x3 = 15.4083
+x4 = 18.2098
+x5 = 2.95328
+x8 = 17.418
+x9 = 17.2037
+7 nonzero variables in solution
+Writing solution to file form_7.sol.
+Getting impact at iteration_cnt 7 using style 0-norm_per.
+>feat: 0  name: demand_A  numrisky: 10
+ riskyterm: 0  z: z_dA1  card: 1  vars: ['x1']
+ j 0 h 0 var = x1 xval = 16.692288334765657 coeff = 0.8
+ -> displacement 0.000e+00
+ riskyterm: 1  z: z_dA2  card: 1  vars: ['x2']
+ j 1 h 0 var = x2 xval = 20.03074600171879 coeff = 0.6
+ -> displacement 0.000e+00
+ riskyterm: 2  z: z_dA3  card: 1  vars: ['x3']
+ j 2 h 0 var = x3 xval = 15.408266155168299 coeff = 0.7
+ -> displacement 0.000e+00
+ riskyterm: 3  z: z_dA4  card: 1  vars: ['x4']
+ j 3 h 0 var = x4 xval = 18.209769092471625 coeff = 0.9
+ -> displacement 0.000e+00
+ riskyterm: 4  z: z_dA5  card: 1  vars: ['x5']
+ j 4 h 0 var = x5 xval = 2.953278274075599 coeff = 0.5
+ -> displacement 0.000e+00
+ riskyterm: 5  z: z_dA6  card: 1  vars: ['x6']
+ j 5 h 0 var = x6 xval = 0.0 coeff = 0.6
+ -> displacement 0.000e+00
+ riskyterm: 6  z: z_dA7  card: 1  vars: ['x7']
+ j 6 h 0 var = x7 xval = 0.0 coeff = 0.7
+ -> displacement 0.000e+00
+ riskyterm: 7  z: z_dA8  card: 1  vars: ['x8']
+ j 7 h 0 var = x8 xval = 17.418040001494592 coeff = 0.8
+ -> displacement 0.000e+00
+ riskyterm: 8  z: z_dA9  card: 1  vars: ['x9']
+ j 8 h 0 var = x9 xval = 17.203692545597416 coeff = 0.6
+ -> displacement 0.000e+00
+ riskyterm: 9  z: z_dA10  card: 1  vars: ['x10']
+ j 9 h 0 var = x10 xval = 0.0 coeff = 0.7
+ -> displacement 0.000e+00
+ feat: demand_A (>)  L0norm: 0  L1norm: 0  L2norm: 0
+>feat: 1  name: demand_B  numrisky: 10
+ riskyterm: 0  z: z_dB1  card: 1  vars: ['x1']
+ j 0 h 0 var = x1 xval = 16.692288334765657 coeff = 0.5
+ -> displacement 0.000e+00
+ riskyterm: 1  z: z_dB2  card: 1  vars: ['x2']
+ j 1 h 0 var = x2 xval = 20.03074600171879 coeff = 0.7
+ -> displacement 5.329e-15
+ riskyterm: 2  z: z_dB3  card: 1  vars: ['x3']
+ j 2 h 0 var = x3 xval = 15.408266155168299 coeff = 0.6
+ -> displacement 0.000e+00
+ riskyterm: 3  z: z_dB4  card: 1  vars: ['x4']
+ j 3 h 0 var = x4 xval = 18.209769092471625 coeff = 0.4
+ -> displacement 0.000e+00
+ riskyterm: 4  z: z_dB5  card: 1  vars: ['x5']
+ j 4 h 0 var = x5 xval = 2.953278274075599 coeff = 0.8
+ -> displacement 0.000e+00
+ riskyterm: 5  z: z_dB6  card: 1  vars: ['x6']
+ j 5 h 0 var = x6 xval = 0.0 coeff = 0.7
+ -> displacement 0.000e+00
+ riskyterm: 6  z: z_dB7  card: 1  vars: ['x7']
+ j 6 h 0 var = x7 xval = 0.0 coeff = 0.6
+ -> displacement 0.000e+00
+ riskyterm: 7  z: z_dB8  card: 1  vars: ['x8']
+ j 7 h 0 var = x8 xval = 17.418040001494592 coeff = 0.5
+ -> displacement 0.000e+00
+ riskyterm: 8  z: z_dB9  card: 1  vars: ['x9']
+ j 8 h 0 var = x9 xval = 17.203692545597416 coeff = 0.7
+ -> displacement 0.000e+00
+ riskyterm: 9  z: z_dB10  card: 1  vars: ['x10']
+ j 9 h 0 var = x10 xval = 0.0 coeff = 0.6
+ -> displacement 0.000e+00
+ feat: demand_B (>)  L0norm: 5.32907e-15  L1norm: 5.32907e-15  L2norm: 5.32907e-15
+>feat: 2  name: quality_1  numrisky: 10
+ riskyterm: 0  z: z_q1,1  card: 1  vars: ['x1']
+ j 0 h 0 var = x1 xval = 16.692288334765657 coeff = 0.92
+ -> displacement 1.088e-01
+ riskyterm: 1  z: z_q1,2  card: 1  vars: ['x2']
+ j 1 h 0 var = x2 xval = 20.03074600171879 coeff = 0.88
+ -> displacement 1.244e+00
+ riskyterm: 2  z: z_q1,3  card: 1  vars: ['x3']
+ j 2 h 0 var = x3 xval = 15.408266155168299 coeff = 0.95
+ -> displacement 0.000e+00
+ riskyterm: 3  z: z_q1,4  card: 1  vars: ['x4']
+ j 3 h 0 var = x4 xval = 18.209769092471625 coeff = 0.9
+ -> displacement 6.248e-01
+ riskyterm: 4  z: z_q1,5  card: 1  vars: ['x5']
+ j 4 h 0 var = x5 xval = 2.953278274075599 coeff = 0.87
+ -> displacement 0.000e+00
+ riskyterm: 5  z: z_q1,6  card: 1  vars: ['x6']
+ j 5 h 0 var = x6 xval = 0.0 coeff = 0.93
+ -> displacement 0.000e+00
+ riskyterm: 6  z: z_q1,7  card: 1  vars: ['x7']
+ j 6 h 0 var = x7 xval = 0.0 coeff = 0.89
+ -> displacement 0.000e+00
+ riskyterm: 7  z: z_q1,8  card: 1  vars: ['x8']
+ j 7 h 0 var = x8 xval = 17.418040001494592 coeff = 0.91
+ -> displacement 3.556e-01
+ riskyterm: 8  z: z_q1,9  card: 1  vars: ['x9']
+ j 8 h 0 var = x9 xval = 17.203692545597416 coeff = 0.88
+ -> displacement 8.882e-16
+ riskyterm: 9  z: z_q1,10  card: 1  vars: ['x10']
+ j 9 h 0 var = x10 xval = 0.0 coeff = 0.94
+ -> displacement 0.000e+00
+ feat: quality_1 (>)  L0norm: 1.2439  L1norm: 2.33309  L2norm: 1.4408
+>feat: 3  name: quality_2  numrisky: 10
+ riskyterm: 0  z: z_q2,1  card: 1  vars: ['x1']
+ j 0 h 0 var = x1 xval = 16.692288334765657 coeff = 0.55
+ -> displacement 0.000e+00
+ riskyterm: 1  z: z_q2,2  card: 1  vars: ['x2']
+ j 1 h 0 var = x2 xval = 20.03074600171879 coeff = 0.6
+ -> displacement 8.235e-01
+ riskyterm: 2  z: z_q2,3  card: 1  vars: ['x3']
+ j 2 h 0 var = x3 xval = 15.408266155168299 coeff = 0.58
+ -> displacement 0.000e+00
+ riskyterm: 3  z: z_q2,4  card: 1  vars: ['x4']
+ j 3 h 0 var = x4 xval = 18.209769092471625 coeff = 0.62
+ -> displacement 4.593e-01
+ riskyterm: 4  z: z_q2,5  card: 1  vars: ['x5']
+ j 4 h 0 var = x5 xval = 2.953278274075599 coeff = 0.57
+ -> displacement 0.000e+00
+ riskyterm: 5  z: z_q2,6  card: 1  vars: ['x6']
+ j 5 h 0 var = x6 xval = 0.0 coeff = 0.59
+ -> displacement 0.000e+00
+ riskyterm: 6  z: z_q2,7  card: 1  vars: ['x7']
+ j 6 h 0 var = x7 xval = 0.0 coeff = 0.61
+ -> displacement 0.000e+00
+ riskyterm: 7  z: z_q2,8  card: 1  vars: ['x8']
+ j 7 h 0 var = x8 xval = 17.418040001494592 coeff = 0.56
+ -> displacement 0.000e+00
+ riskyterm: 8  z: z_q2,9  card: 1  vars: ['x9']
+ j 8 h 0 var = x9 xval = 17.203692545597416 coeff = 0.6
+ -> displacement 0.000e+00
+ riskyterm: 9  z: z_q2,10  card: 1  vars: ['x10']
+ j 9 h 0 var = x10 xval = 0.0 coeff = 0.58
+ -> displacement 0.000e+00
+ feat: quality_2 (>)  L0norm: 0.82348  L1norm: 1.28276  L2norm: 0.9429
+>feat: 4  name: quality_3  numrisky: 10
+ riskyterm: 0  z: z_q3,1  card: 1  vars: ['x1']
+ j 0 h 0 var = x1 xval = 16.692288334765657 coeff = 1.2
+ -> displacement 0.000e+00
+ riskyterm: 1  z: z_q3,2  card: 1  vars: ['x2']
+ j 1 h 0 var = x2 xval = 20.03074600171879 coeff = 1.0
+ -> displacement 0.000e+00
+ riskyterm: 2  z: z_q3,3  card: 1  vars: ['x3']
+ j 2 h 0 var = x3 xval = 15.408266155168299 coeff = 1.3
+ -> displacement 0.000e+00
+ riskyterm: 3  z: z_q3,4  card: 1  vars: ['x4']
+ j 3 h 0 var = x4 xval = 18.209769092471625 coeff = 1.1
+ -> displacement 0.000e+00
+ riskyterm: 4  z: z_q3,5  card: 1  vars: ['x5']
+ j 4 h 0 var = x5 xval = 2.953278274075599 coeff = 0.9
+ -> displacement 0.000e+00
+ riskyterm: 5  z: z_q3,6  card: 1  vars: ['x6']
+ j 5 h 0 var = x6 xval = 0.0 coeff = 1.25
+ -> displacement 0.000e+00
+ riskyterm: 6  z: z_q3,7  card: 1  vars: ['x7']
+ j 6 h 0 var = x7 xval = 0.0 coeff = 1.05
+ -> displacement 0.000e+00
+ riskyterm: 7  z: z_q3,8  card: 1  vars: ['x8']
+ j 7 h 0 var = x8 xval = 17.418040001494592 coeff = 1.15
+ -> displacement 0.000e+00
+ riskyterm: 8  z: z_q3,9  card: 1  vars: ['x9']
+ j 8 h 0 var = x9 xval = 17.203692545597416 coeff = 1.0
+ -> displacement 0.000e+00
+ riskyterm: 9  z: z_q3,10  card: 1  vars: ['x10']
+ j 9 h 0 var = x10 xval = 0.0 coeff = 1.2
+ -> displacement 0.000e+00
+ feat: quality_3 (>)  L0norm: 0  L1norm: 0  L2norm: 0
+Max feature value: 1.2439 at 2  L1-norm: 2.33309  L2-norm: 1.4408.
+Counter: 0  feature: 2  delta: 1.244e+00  ind: 1
+Counter: 1  feature: 3  delta: 8.235e-01  ind: 1
+Counter: 2  feature: 1  delta: 5.329e-15  ind: 1
+Counter: 3  feature: 0  delta: 0.000e+00  ind: -1
+Counter: 4  feature: 4  delta: 0.000e+00  ind: -1
+Iteration 7.  Obj 559.42  Cost 559.42  IMP 0  Max-Impact 1.2439.
+  NOTDONE: keep running.
+Adding greedy cuts at iteration_cnt 7.
+Writing LP to file form_8.lp.
+Solving Model
+  variables = 19
+  constraints = 25
+ OPTIMAL. optimal value: 5.7391e+02 in time 8.7118e-04
+Optimal objective = 573.91
+Optimal variable values:
+x1 = 17.0927
+x2 = 18.298
+x3 = 14.0754
+x4 = 18.6466
+x5 = 3.02373
+x8 = 17.8358
+x9 = 18.298
+IMP = 1.1066
+phifunc_4_7 = 1.1066
+phifunc_4_0 = 1.1066
+phifunc_4_3 = 1.1066
+phifunc_2_8 = 1.1066
+phifunc_2_1 = 1.1066
+13 nonzero variables in solution
+Writing solution to file form_8.sol.
+Getting impact at iteration_cnt 8 using style 0-norm_per.
+>feat: 0  name: demand_A  numrisky: 10
+ riskyterm: 0  z: z_dA1  card: 1  vars: ['x1']
+ j 0 h 0 var = x1 xval = 17.092673042994296 coeff = 0.8
+ -> displacement 0.000e+00
+ riskyterm: 1  z: z_dA2  card: 1  vars: ['x2']
+ j 1 h 0 var = x2 xval = 18.298009066163708 coeff = 0.6
+ -> displacement 0.000e+00
+ riskyterm: 2  z: z_dA3  card: 1  vars: ['x3']
+ j 2 h 0 var = x3 xval = 14.075391589356693 coeff = 0.7
+ -> displacement 0.000e+00
+ riskyterm: 3  z: z_dA4  card: 1  vars: ['x4']
+ j 3 h 0 var = x4 xval = 18.646552410539226 coeff = 0.9
+ -> displacement 0.000e+00
+ riskyterm: 4  z: z_dA5  card: 1  vars: ['x5']
+ j 4 h 0 var = x5 xval = 3.0237270886791987 coeff = 0.5
+ -> displacement 0.000e+00
+ riskyterm: 5  z: z_dA6  card: 1  vars: ['x6']
+ j 5 h 0 var = x6 xval = 0.0 coeff = 0.6
+ -> displacement 0.000e+00
+ riskyterm: 6  z: z_dA7  card: 1  vars: ['x7']
+ j 6 h 0 var = x7 xval = 0.0 coeff = 0.7
+ -> displacement 0.000e+00
+ riskyterm: 7  z: z_dA8  card: 1  vars: ['x8']
+ j 7 h 0 var = x8 xval = 17.835832740515784 coeff = 0.8
+ -> displacement 0.000e+00
+ riskyterm: 8  z: z_dA9  card: 1  vars: ['x9']
+ j 8 h 0 var = x9 xval = 18.298009066163708 coeff = 0.6
+ -> displacement 0.000e+00
+ riskyterm: 9  z: z_dA10  card: 1  vars: ['x10']
+ j 9 h 0 var = x10 xval = 0.0 coeff = 0.7
+ -> displacement 0.000e+00
+ feat: demand_A (>)  L0norm: 0  L1norm: 0  L2norm: 0
+>feat: 1  name: demand_B  numrisky: 10
+ riskyterm: 0  z: z_dB1  card: 1  vars: ['x1']
+ j 0 h 0 var = x1 xval = 17.092673042994296 coeff = 0.5
+ -> displacement 0.000e+00
+ riskyterm: 1  z: z_dB2  card: 1  vars: ['x2']
+ j 1 h 0 var = x2 xval = 18.298009066163708 coeff = 0.7
+ -> displacement 8.882e-15
+ riskyterm: 2  z: z_dB3  card: 1  vars: ['x3']
+ j 2 h 0 var = x3 xval = 14.075391589356693 coeff = 0.6
+ -> displacement 0.000e+00
+ riskyterm: 3  z: z_dB4  card: 1  vars: ['x4']
+ j 3 h 0 var = x4 xval = 18.646552410539226 coeff = 0.4
+ -> displacement 0.000e+00
+ riskyterm: 4  z: z_dB5  card: 1  vars: ['x5']
+ j 4 h 0 var = x5 xval = 3.0237270886791987 coeff = 0.8
+ -> displacement 0.000e+00
+ riskyterm: 5  z: z_dB6  card: 1  vars: ['x6']
+ j 5 h 0 var = x6 xval = 0.0 coeff = 0.7
+ -> displacement 0.000e+00
+ riskyterm: 6  z: z_dB7  card: 1  vars: ['x7']
+ j 6 h 0 var = x7 xval = 0.0 coeff = 0.6
+ -> displacement 0.000e+00
+ riskyterm: 7  z: z_dB8  card: 1  vars: ['x8']
+ j 7 h 0 var = x8 xval = 17.835832740515784 coeff = 0.5
+ -> displacement 0.000e+00
+ riskyterm: 8  z: z_dB9  card: 1  vars: ['x9']
+ j 8 h 0 var = x9 xval = 18.298009066163708 coeff = 0.7
+ -> displacement 8.882e-15
+ riskyterm: 9  z: z_dB10  card: 1  vars: ['x10']
+ j 9 h 0 var = x10 xval = 0.0 coeff = 0.6
+ -> displacement 0.000e+00
+ feat: demand_B (>)  L0norm: 8.88178e-15  L1norm: 1.77636e-14  L2norm: 1.25607e-14
+>feat: 2  name: quality_1  numrisky: 10
+ riskyterm: 0  z: z_q1,1  card: 1  vars: ['x1']
+ j 0 h 0 var = x1 xval = 17.092673042994296 coeff = 0.92
+ -> displacement 9.181e-01
+ riskyterm: 1  z: z_q1,2  card: 1  vars: ['x2']
+ j 1 h 0 var = x2 xval = 18.298009066163708 coeff = 0.88
+ -> displacement 1.107e+00
+ riskyterm: 2  z: z_q1,3  card: 1  vars: ['x3']
+ j 2 h 0 var = x3 xval = 14.075391589356693 coeff = 0.95
+ -> displacement 0.000e+00
+ riskyterm: 3  z: z_q1,4  card: 1  vars: ['x4']
+ j 3 h 0 var = x4 xval = 18.646552410539226 coeff = 0.9
+ -> displacement 1.446e+00
+ riskyterm: 4  z: z_q1,5  card: 1  vars: ['x5']
+ j 4 h 0 var = x5 xval = 3.0237270886791987 coeff = 0.87
+ -> displacement 0.000e+00
+ riskyterm: 5  z: z_q1,6  card: 1  vars: ['x6']
+ j 5 h 0 var = x6 xval = 0.0 coeff = 0.93
+ -> displacement 0.000e+00
+ riskyterm: 6  z: z_q1,7  card: 1  vars: ['x7']
+ j 6 h 0 var = x7 xval = 0.0 coeff = 0.89
+ -> displacement 0.000e+00
+ riskyterm: 7  z: z_q1,8  card: 1  vars: ['x8']
+ j 7 h 0 var = x8 xval = 17.835832740515784 coeff = 0.91
+ -> displacement 1.171e+00
+ riskyterm: 8  z: z_q1,9  card: 1  vars: ['x9']
+ j 8 h 0 var = x9 xval = 18.298009066163708 coeff = 0.88
+ -> displacement 1.107e+00
+ riskyterm: 9  z: z_q1,10  card: 1  vars: ['x10']
+ j 9 h 0 var = x10 xval = 0.0 coeff = 0.94
+ -> displacement 0.000e+00
+ feat: quality_1 (>)  L0norm: 1.44642  L1norm: 5.74851  L2norm: 2.59902
+>feat: 3  name: quality_2  numrisky: 10
+ riskyterm: 0  z: z_q2,1  card: 1  vars: ['x1']
+ j 0 h 0 var = x1 xval = 17.092673042994296 coeff = 0.55
+ -> displacement 0.000e+00
+ riskyterm: 1  z: z_q2,2  card: 1  vars: ['x2']
+ j 1 h 0 var = x2 xval = 18.298009066163708 coeff = 0.6
+ -> displacement 6.946e-01
+ riskyterm: 2  z: z_q2,3  card: 1  vars: ['x3']
+ j 2 h 0 var = x3 xval = 14.075391589356693 coeff = 0.58
+ -> displacement 0.000e+00
+ riskyterm: 3  z: z_q2,4  card: 1  vars: ['x4']
+ j 3 h 0 var = x4 xval = 18.646552410539226 coeff = 0.62
+ -> displacement 9.857e-01
+ riskyterm: 4  z: z_q2,5  card: 1  vars: ['x5']
+ j 4 h 0 var = x5 xval = 3.0237270886791987 coeff = 0.57
+ -> displacement 0.000e+00
+ riskyterm: 5  z: z_q2,6  card: 1  vars: ['x6']
+ j 5 h 0 var = x6 xval = 0.0 coeff = 0.59
+ -> displacement 0.000e+00
+ riskyterm: 6  z: z_q2,7  card: 1  vars: ['x7']
+ j 6 h 0 var = x7 xval = 0.0 coeff = 0.61
+ -> displacement 0.000e+00
+ riskyterm: 7  z: z_q2,8  card: 1  vars: ['x8']
+ j 7 h 0 var = x8 xval = 17.835832740515784 coeff = 0.56
+ -> displacement 1.993e-01
+ riskyterm: 8  z: z_q2,9  card: 1  vars: ['x9']
+ j 8 h 0 var = x9 xval = 18.298009066163708 coeff = 0.6
+ -> displacement 6.946e-01
+ riskyterm: 9  z: z_q2,10  card: 1  vars: ['x10']
+ j 9 h 0 var = x10 xval = 0.0 coeff = 0.58
+ -> displacement 0.000e+00
+ feat: quality_2 (>)  L0norm: 0.98567  L1norm: 2.57422  L2norm: 1.40581
+>feat: 4  name: quality_3  numrisky: 10
+ riskyterm: 0  z: z_q3,1  card: 1  vars: ['x1']
+ j 0 h 0 var = x1 xval = 17.092673042994296 coeff = 1.2
+ -> displacement 1.107e+00
+ riskyterm: 1  z: z_q3,2  card: 1  vars: ['x2']
+ j 1 h 0 var = x2 xval = 18.298009066163708 coeff = 1.0
+ -> displacement 1.776e-14
+ riskyterm: 2  z: z_q3,3  card: 1  vars: ['x3']
+ j 2 h 0 var = x3 xval = 14.075391589356693 coeff = 1.3
+ -> displacement 1.421e-14
+ riskyterm: 3  z: z_q3,4  card: 1  vars: ['x4']
+ j 3 h 0 var = x4 xval = 18.646552410539226 coeff = 1.1
+ -> displacement 1.107e+00
+ riskyterm: 4  z: z_q3,5  card: 1  vars: ['x5']
+ j 4 h 0 var = x5 xval = 3.0237270886791987 coeff = 0.9
+ -> displacement 0.000e+00
+ riskyterm: 5  z: z_q3,6  card: 1  vars: ['x6']
+ j 5 h 0 var = x6 xval = 0.0 coeff = 1.25
+ -> displacement 0.000e+00
+ riskyterm: 6  z: z_q3,7  card: 1  vars: ['x7']
+ j 6 h 0 var = x7 xval = 0.0 coeff = 1.05
+ -> displacement 0.000e+00
+ riskyterm: 7  z: z_q3,8  card: 1  vars: ['x8']
+ j 7 h 0 var = x8 xval = 17.835832740515784 coeff = 1.15
+ -> displacement 1.107e+00
+ riskyterm: 8  z: z_q3,9  card: 1  vars: ['x9']
+ j 8 h 0 var = x9 xval = 18.298009066163708 coeff = 1.0
+ -> displacement 1.776e-14
+ riskyterm: 9  z: z_q3,10  card: 1  vars: ['x10']
+ j 9 h 0 var = x10 xval = 0.0 coeff = 1.2
+ -> displacement 0.000e+00
+ feat: quality_3 (>)  L0norm: 1.1066  L1norm: 3.3198  L2norm: 1.91669
+Max feature value: 1.44642 at 2  L1-norm: 5.74851  L2-norm: 2.59902.
+Counter: 0  feature: 2  delta: 1.446e+00  ind: 3
+Counter: 1  feature: 4  delta: 1.107e+00  ind: 0
+Counter: 2  feature: 3  delta: 9.857e-01  ind: 3
+Counter: 3  feature: 1  delta: 8.882e-15  ind: 1
+Counter: 4  feature: 0  delta: 0.000e+00  ind: -1
+Iteration 8.  Obj 573.91  Cost 555.31  IMP 1.1066  Max-Impact 1.4464.
+  NOTDONE: keep running.
+Adding greedy cuts at iteration_cnt 8.
+Writing LP to file form_9.lp.
+Solving Model
+  variables = 20
+  constraints = 27
+ OPTIMAL. optimal value: 5.7461e+02 in time 6.5398e-04
+Optimal objective = 574.608
+Optimal variable values:
+x1 = 17.3107
+x2 = 18.4501
+x3 = 14.1924
+x4 = 18.0401
+x5 = 2.76122
+x8 = 18.0633
+x9 = 18.4501
+IMP = 1.16138
+phifunc_4_7 = 1.16138
+phifunc_4_0 = 1.16138
+phifunc_4_3 = 0.697003
+phifunc_2_8 = 1.16138
+phifunc_2_1 = 1.16138
+phifunc_2_3 = 1.16138
+14 nonzero variables in solution
+Writing solution to file form_9.sol.
+Getting impact at iteration_cnt 9 using style 0-norm_per.
+>feat: 0  name: demand_A  numrisky: 10
+ riskyterm: 0  z: z_dA1  card: 1  vars: ['x1']
+ j 0 h 0 var = x1 xval = 17.310691761505108 coeff = 0.8
+ -> displacement 0.000e+00
+ riskyterm: 1  z: z_dA2  card: 1  vars: ['x2']
+ j 1 h 0 var = x2 xval = 18.45006794473308 coeff = 0.6
+ -> displacement 0.000e+00
+ riskyterm: 2  z: z_dA3  card: 1  vars: ['x3']
+ j 2 h 0 var = x3 xval = 14.192359957486993 coeff = 0.7
+ -> displacement 0.000e+00
+ riskyterm: 3  z: z_dA4  card: 1  vars: ['x4']
+ j 3 h 0 var = x4 xval = 18.04006643485012 coeff = 0.9
+ -> displacement 0.000e+00
+ riskyterm: 4  z: z_dA5  card: 1  vars: ['x5']
+ j 4 h 0 var = x5 xval = 2.761218702466547 coeff = 0.5
+ -> displacement 0.000e+00
+ riskyterm: 5  z: z_dA6  card: 1  vars: ['x6']
+ j 5 h 0 var = x6 xval = 0.0 coeff = 0.6
+ -> displacement 0.000e+00
+ riskyterm: 6  z: z_dA7  card: 1  vars: ['x7']
+ j 6 h 0 var = x7 xval = 0.0 coeff = 0.7
+ -> displacement 0.000e+00
+ riskyterm: 7  z: z_dA8  card: 1  vars: ['x8']
+ j 7 h 0 var = x8 xval = 18.06333053374446 coeff = 0.8
+ -> displacement 0.000e+00
+ riskyterm: 8  z: z_dA9  card: 1  vars: ['x9']
+ j 8 h 0 var = x9 xval = 18.45006794473308 coeff = 0.6
+ -> displacement 0.000e+00
+ riskyterm: 9  z: z_dA10  card: 1  vars: ['x10']
+ j 9 h 0 var = x10 xval = 0.0 coeff = 0.7
+ -> displacement 0.000e+00
+ feat: demand_A (>)  L0norm: 0  L1norm: 0  L2norm: 0
+>feat: 1  name: demand_B  numrisky: 10
+ riskyterm: 0  z: z_dB1  card: 1  vars: ['x1']
+ j 0 h 0 var = x1 xval = 17.310691761505108 coeff = 0.5
+ -> displacement 0.000e+00
+ riskyterm: 1  z: z_dB2  card: 1  vars: ['x2']
+ j 1 h 0 var = x2 xval = 18.45006794473308 coeff = 0.7
+ -> displacement 0.000e+00
+ riskyterm: 2  z: z_dB3  card: 1  vars: ['x3']
+ j 2 h 0 var = x3 xval = 14.192359957486993 coeff = 0.6
+ -> displacement 0.000e+00
+ riskyterm: 3  z: z_dB4  card: 1  vars: ['x4']
+ j 3 h 0 var = x4 xval = 18.04006643485012 coeff = 0.4
+ -> displacement 0.000e+00
+ riskyterm: 4  z: z_dB5  card: 1  vars: ['x5']
+ j 4 h 0 var = x5 xval = 2.761218702466547 coeff = 0.8
+ -> displacement 0.000e+00
+ riskyterm: 5  z: z_dB6  card: 1  vars: ['x6']
+ j 5 h 0 var = x6 xval = 0.0 coeff = 0.7
+ -> displacement 0.000e+00
+ riskyterm: 6  z: z_dB7  card: 1  vars: ['x7']
+ j 6 h 0 var = x7 xval = 0.0 coeff = 0.6
+ -> displacement 0.000e+00
+ riskyterm: 7  z: z_dB8  card: 1  vars: ['x8']
+ j 7 h 0 var = x8 xval = 18.06333053374446 coeff = 0.5
+ -> displacement 0.000e+00
+ riskyterm: 8  z: z_dB9  card: 1  vars: ['x9']
+ j 8 h 0 var = x9 xval = 18.45006794473308 coeff = 0.7
+ -> displacement 0.000e+00
+ riskyterm: 9  z: z_dB10  card: 1  vars: ['x10']
+ j 9 h 0 var = x10 xval = 0.0 coeff = 0.6
+ -> displacement 0.000e+00
+ feat: demand_B (>)  L0norm: 0  L1norm: 0  L2norm: 0
+>feat: 2  name: quality_1  numrisky: 10
+ riskyterm: 0  z: z_q1,1  card: 1  vars: ['x1']
+ j 0 h 0 var = x1 xval = 17.310691761505108 coeff = 0.92
+ -> displacement 1.006e+00
+ riskyterm: 1  z: z_q1,2  card: 1  vars: ['x2']
+ j 1 h 0 var = x2 xval = 18.45006794473308 coeff = 0.88
+ -> displacement 1.161e+00
+ riskyterm: 2  z: z_q1,3  card: 1  vars: ['x3']
+ j 2 h 0 var = x3 xval = 14.192359957486993 coeff = 0.95
+ -> displacement 0.000e+00
+ riskyterm: 3  z: z_q1,4  card: 1  vars: ['x4']
+ j 3 h 0 var = x4 xval = 18.04006643485012 coeff = 0.9
+ -> displacement 1.161e+00
+ riskyterm: 4  z: z_q1,5  card: 1  vars: ['x5']
+ j 4 h 0 var = x5 xval = 2.761218702466547 coeff = 0.87
+ -> displacement 0.000e+00
+ riskyterm: 5  z: z_q1,6  card: 1  vars: ['x6']
+ j 5 h 0 var = x6 xval = 0.0 coeff = 0.93
+ -> displacement 0.000e+00
+ riskyterm: 6  z: z_q1,7  card: 1  vars: ['x7']
+ j 6 h 0 var = x7 xval = 0.0 coeff = 0.89
+ -> displacement 0.000e+00
+ riskyterm: 7  z: z_q1,8  card: 1  vars: ['x8']
+ j 7 h 0 var = x8 xval = 18.06333053374446 coeff = 0.91
+ -> displacement 1.262e+00
+ riskyterm: 8  z: z_q1,9  card: 1  vars: ['x9']
+ j 8 h 0 var = x9 xval = 18.45006794473308 coeff = 0.88
+ -> displacement 1.161e+00
+ riskyterm: 9  z: z_q1,10  card: 1  vars: ['x10']
+ j 9 h 0 var = x10 xval = 0.0 coeff = 0.94
+ -> displacement 0.000e+00
+ feat: quality_1 (>)  L0norm: 1.26217  L1norm: 5.75258  L2norm: 2.57916
+>feat: 3  name: quality_2  numrisky: 10
+ riskyterm: 0  z: z_q2,1  card: 1  vars: ['x1']
+ j 0 h 0 var = x1 xval = 17.310691761505108 coeff = 0.55
+ -> displacement 0.000e+00
+ riskyterm: 1  z: z_q2,2  card: 1  vars: ['x2']
+ j 1 h 0 var = x2 xval = 18.45006794473308 coeff = 0.6
+ -> displacement 7.683e-01
+ riskyterm: 2  z: z_q2,3  card: 1  vars: ['x3']
+ j 2 h 0 var = x3 xval = 14.192359957486993 coeff = 0.58
+ -> displacement 0.000e+00
+ riskyterm: 3  z: z_q2,4  card: 1  vars: ['x4']
+ j 3 h 0 var = x4 xval = 18.04006643485012 coeff = 0.62
+ -> displacement 8.257e-01
+ riskyterm: 4  z: z_q2,5  card: 1  vars: ['x5']
+ j 4 h 0 var = x5 xval = 2.761218702466547 coeff = 0.57
+ -> displacement 0.000e+00
+ riskyterm: 5  z: z_q2,6  card: 1  vars: ['x6']
+ j 5 h 0 var = x6 xval = 0.0 coeff = 0.59
+ -> displacement 0.000e+00
+ riskyterm: 6  z: z_q2,7  card: 1  vars: ['x7']
+ j 6 h 0 var = x7 xval = 0.0 coeff = 0.61
+ -> displacement 0.000e+00
+ riskyterm: 7  z: z_q2,8  card: 1  vars: ['x8']
+ j 7 h 0 var = x8 xval = 18.06333053374446 coeff = 0.56
+ -> displacement 2.910e-01
+ riskyterm: 8  z: z_q2,9  card: 1  vars: ['x9']
+ j 8 h 0 var = x9 xval = 18.45006794473308 coeff = 0.6
+ -> displacement 7.683e-01
+ riskyterm: 9  z: z_q2,10  card: 1  vars: ['x10']
+ j 9 h 0 var = x10 xval = 0.0 coeff = 0.58
+ -> displacement 0.000e+00
+ feat: quality_2 (>)  L0norm: 0.825689  L1norm: 2.65327  L2norm: 1.39534
+>feat: 4  name: quality_3  numrisky: 10
+ riskyterm: 0  z: z_q3,1  card: 1  vars: ['x1']
+ j 0 h 0 var = x1 xval = 17.310691761505108 coeff = 1.2
+ -> displacement 1.161e+00
+ riskyterm: 1  z: z_q3,2  card: 1  vars: ['x2']
+ j 1 h 0 var = x2 xval = 18.45006794473308 coeff = 1.0
+ -> displacement 8.882e-15
+ riskyterm: 2  z: z_q3,3  card: 1  vars: ['x3']
+ j 2 h 0 var = x3 xval = 14.192359957486993 coeff = 1.3
+ -> displacement 1.421e-14
+ riskyterm: 3  z: z_q3,4  card: 1  vars: ['x4']
+ j 3 h 0 var = x4 xval = 18.04006643485012 coeff = 1.1
+ -> displacement 6.970e-01
+ riskyterm: 4  z: z_q3,5  card: 1  vars: ['x5']
+ j 4 h 0 var = x5 xval = 2.761218702466547 coeff = 0.9
+ -> displacement 0.000e+00
+ riskyterm: 5  z: z_q3,6  card: 1  vars: ['x6']
+ j 5 h 0 var = x6 xval = 0.0 coeff = 1.25
+ -> displacement 0.000e+00
+ riskyterm: 6  z: z_q3,7  card: 1  vars: ['x7']
+ j 6 h 0 var = x7 xval = 0.0 coeff = 1.05
+ -> displacement 0.000e+00
+ riskyterm: 7  z: z_q3,8  card: 1  vars: ['x8']
+ j 7 h 0 var = x8 xval = 18.06333053374446 coeff = 1.15
+ -> displacement 1.161e+00
+ riskyterm: 8  z: z_q3,9  card: 1  vars: ['x9']
+ j 8 h 0 var = x9 xval = 18.45006794473308 coeff = 1.0
+ -> displacement 8.882e-15
+ riskyterm: 9  z: z_q3,10  card: 1  vars: ['x10']
+ j 9 h 0 var = x10 xval = 0.0 coeff = 1.2
+ -> displacement 0.000e+00
+ feat: quality_3 (>)  L0norm: 1.16138  L1norm: 3.01976  L2norm: 1.78422
+Max feature value: 1.26217 at 2  L1-norm: 5.75258  L2-norm: 2.57916.
+Counter: 0  feature: 2  delta: 1.262e+00  ind: 7
+Counter: 1  feature: 4  delta: 1.161e+00  ind: 0
+Counter: 2  feature: 3  delta: 8.257e-01  ind: 3
+Counter: 3  feature: 0  delta: 0.000e+00  ind: -1
+Counter: 4  feature: 1  delta: 0.000e+00  ind: -1
+Iteration 9.  Obj 574.61  Cost 555.09  IMP 1.1614  Max-Impact 1.2622.
+  NOTDONE: keep running.
+Adding greedy cuts at iteration_cnt 9.
+Writing LP to file form_10.lp.
+Solving Model
+  variables = 21
+  constraints = 29
+ OPTIMAL. optimal value: 5.7490e+02 in time 7.9584e-04
+Optimal objective = 574.903
+Optimal variable values:
+x1 = 17.357
+x2 = 18.5003
+x3 = 14.231
+x4 = 18.0892
+x5 = 2.72089
+x8 = 17.8904
+x9 = 18.5003
+IMP = 1.16402
+phifunc_4_7 = 1.03683
+phifunc_4_0 = 1.16402
+phifunc_4_3 = 0.698901
+phifunc_2_8 = 1.16402
+phifunc_2_1 = 1.16402
+phifunc_2_3 = 1.16402
+phifunc_2_7 = 1.16402
+15 nonzero variables in solution
+Writing solution to file form_10.sol.
+Getting impact at iteration_cnt 10 using style 0-norm_per.
+>feat: 0  name: demand_A  numrisky: 10
+ riskyterm: 0  z: z_dA1  card: 1  vars: ['x1']
+ j 0 h 0 var = x1 xval = 17.35695418973189 coeff = 0.8
+ -> displacement 0.000e+00
+ riskyterm: 1  z: z_dA2  card: 1  vars: ['x2']
+ j 1 h 0 var = x2 xval = 18.50030880318635 coeff = 0.6
+ -> displacement 0.000e+00
+ riskyterm: 2  z: z_dA3  card: 1  vars: ['x3']
+ j 2 h 0 var = x3 xval = 14.231006771681805 coeff = 0.7
+ -> displacement 0.000e+00
+ riskyterm: 3  z: z_dA4  card: 1  vars: ['x4']
+ j 3 h 0 var = x4 xval = 18.089190829782208 coeff = 0.9
+ -> displacement 0.000e+00
+ riskyterm: 4  z: z_dA5  card: 1  vars: ['x5']
+ j 4 h 0 var = x5 xval = 2.7208925129758885 coeff = 0.5
+ -> displacement 0.000e+00
+ riskyterm: 5  z: z_dA6  card: 1  vars: ['x6']
+ j 5 h 0 var = x6 xval = 0.0 coeff = 0.6
+ -> displacement 0.000e+00
+ riskyterm: 6  z: z_dA7  card: 1  vars: ['x7']
+ j 6 h 0 var = x7 xval = 0.0 coeff = 0.7
+ -> displacement 0.000e+00
+ riskyterm: 7  z: z_dA8  card: 1  vars: ['x8']
+ j 7 h 0 var = x8 xval = 17.890408512971412 coeff = 0.8
+ -> displacement 0.000e+00
+ riskyterm: 8  z: z_dA9  card: 1  vars: ['x9']
+ j 8 h 0 var = x9 xval = 18.50030880318635 coeff = 0.6
+ -> displacement 0.000e+00
+ riskyterm: 9  z: z_dA10  card: 1  vars: ['x10']
+ j 9 h 0 var = x10 xval = 0.0 coeff = 0.7
+ -> displacement 0.000e+00
+ feat: demand_A (>)  L0norm: 0  L1norm: 0  L2norm: 0
+>feat: 1  name: demand_B  numrisky: 10
+ riskyterm: 0  z: z_dB1  card: 1  vars: ['x1']
+ j 0 h 0 var = x1 xval = 17.35695418973189 coeff = 0.5
+ -> displacement 0.000e+00
+ riskyterm: 1  z: z_dB2  card: 1  vars: ['x2']
+ j 1 h 0 var = x2 xval = 18.50030880318635 coeff = 0.7
+ -> displacement 0.000e+00
+ riskyterm: 2  z: z_dB3  card: 1  vars: ['x3']
+ j 2 h 0 var = x3 xval = 14.231006771681805 coeff = 0.6
+ -> displacement 0.000e+00
+ riskyterm: 3  z: z_dB4  card: 1  vars: ['x4']
+ j 3 h 0 var = x4 xval = 18.089190829782208 coeff = 0.4
+ -> displacement 0.000e+00
+ riskyterm: 4  z: z_dB5  card: 1  vars: ['x5']
+ j 4 h 0 var = x5 xval = 2.7208925129758885 coeff = 0.8
+ -> displacement 0.000e+00
+ riskyterm: 5  z: z_dB6  card: 1  vars: ['x6']
+ j 5 h 0 var = x6 xval = 0.0 coeff = 0.7
+ -> displacement 0.000e+00
+ riskyterm: 6  z: z_dB7  card: 1  vars: ['x7']
+ j 6 h 0 var = x7 xval = 0.0 coeff = 0.6
+ -> displacement 0.000e+00
+ riskyterm: 7  z: z_dB8  card: 1  vars: ['x8']
+ j 7 h 0 var = x8 xval = 17.890408512971412 coeff = 0.5
+ -> displacement 0.000e+00
+ riskyterm: 8  z: z_dB9  card: 1  vars: ['x9']
+ j 8 h 0 var = x9 xval = 18.50030880318635 coeff = 0.7
+ -> displacement 0.000e+00
+ riskyterm: 9  z: z_dB10  card: 1  vars: ['x10']
+ j 9 h 0 var = x10 xval = 0.0 coeff = 0.6
+ -> displacement 0.000e+00
+ feat: demand_B (>)  L0norm: 0  L1norm: 0  L2norm: 0
+>feat: 2  name: quality_1  numrisky: 10
+ riskyterm: 0  z: z_q1,1  card: 1  vars: ['x1']
+ j 0 h 0 var = x1 xval = 17.35695418973189 coeff = 0.92
+ -> displacement 1.008e+00
+ riskyterm: 1  z: z_q1,2  card: 1  vars: ['x2']
+ j 1 h 0 var = x2 xval = 18.50030880318635 coeff = 0.88
+ -> displacement 1.164e+00
+ riskyterm: 2  z: z_q1,3  card: 1  vars: ['x3']
+ j 2 h 0 var = x3 xval = 14.231006771681805 coeff = 0.95
+ -> displacement 0.000e+00
+ riskyterm: 3  z: z_q1,4  card: 1  vars: ['x4']
+ j 3 h 0 var = x4 xval = 18.089190829782208 coeff = 0.9
+ -> displacement 1.164e+00
+ riskyterm: 4  z: z_q1,5  card: 1  vars: ['x5']
+ j 4 h 0 var = x5 xval = 2.7208925129758885 coeff = 0.87
+ -> displacement 0.000e+00
+ riskyterm: 5  z: z_q1,6  card: 1  vars: ['x6']
+ j 5 h 0 var = x6 xval = 0.0 coeff = 0.93
+ -> displacement 0.000e+00
+ riskyterm: 6  z: z_q1,7  card: 1  vars: ['x7']
+ j 6 h 0 var = x7 xval = 0.0 coeff = 0.89
+ -> displacement 0.000e+00
+ riskyterm: 7  z: z_q1,8  card: 1  vars: ['x8']
+ j 7 h 0 var = x8 xval = 17.890408512971412 coeff = 0.91
+ -> displacement 1.164e+00
+ riskyterm: 8  z: z_q1,9  card: 1  vars: ['x9']
+ j 8 h 0 var = x9 xval = 18.50030880318635 coeff = 0.88
+ -> displacement 1.164e+00
+ riskyterm: 9  z: z_q1,10  card: 1  vars: ['x10']
+ j 9 h 0 var = x10 xval = 0.0 coeff = 0.94
+ -> displacement 0.000e+00
+ feat: quality_1 (>)  L0norm: 1.16402  L1norm: 5.66415  L2norm: 2.53692
+>feat: 3  name: quality_2  numrisky: 10
+ riskyterm: 0  z: z_q2,1  card: 1  vars: ['x1']
+ j 0 h 0 var = x1 xval = 17.35695418973189 coeff = 0.55
+ -> displacement 0.000e+00
+ riskyterm: 1  z: z_q2,2  card: 1  vars: ['x2']
+ j 1 h 0 var = x2 xval = 18.50030880318635 coeff = 0.6
+ -> displacement 7.646e-01
+ riskyterm: 2  z: z_q2,3  card: 1  vars: ['x3']
+ j 2 h 0 var = x3 xval = 14.231006771681805 coeff = 0.58
+ -> displacement 0.000e+00
+ riskyterm: 3  z: z_q2,4  card: 1  vars: ['x4']
+ j 3 h 0 var = x4 xval = 18.089190829782208 coeff = 0.62
+ -> displacement 8.221e-01
+ riskyterm: 4  z: z_q2,5  card: 1  vars: ['x5']
+ j 4 h 0 var = x5 xval = 2.7208925129758885 coeff = 0.57
+ -> displacement 0.000e+00
+ riskyterm: 5  z: z_q2,6  card: 1  vars: ['x6']
+ j 5 h 0 var = x6 xval = 0.0 coeff = 0.59
+ -> displacement 0.000e+00
+ riskyterm: 6  z: z_q2,7  card: 1  vars: ['x7']
+ j 6 h 0 var = x7 xval = 0.0 coeff = 0.61
+ -> displacement 0.000e+00
+ riskyterm: 7  z: z_q2,8  card: 1  vars: ['x8']
+ j 7 h 0 var = x8 xval = 17.890408512971412 coeff = 0.56
+ -> displacement 2.238e-01
+ riskyterm: 8  z: z_q2,9  card: 1  vars: ['x9']
+ j 8 h 0 var = x9 xval = 18.50030880318635 coeff = 0.6
+ -> displacement 7.646e-01
+ riskyterm: 9  z: z_q2,10  card: 1  vars: ['x10']
+ j 9 h 0 var = x10 xval = 0.0 coeff = 0.58
+ -> displacement 0.000e+00
+ feat: quality_2 (>)  L0norm: 0.822134  L1norm: 2.57509  L2norm: 1.37664
+>feat: 4  name: quality_3  numrisky: 10
+ riskyterm: 0  z: z_q3,1  card: 1  vars: ['x1']
+ j 0 h 0 var = x1 xval = 17.35695418973189 coeff = 1.2
+ -> displacement 1.164e+00
+ riskyterm: 1  z: z_q3,2  card: 1  vars: ['x2']
+ j 1 h 0 var = x2 xval = 18.50030880318635 coeff = 1.0
+ -> displacement 1.066e-14
+ riskyterm: 2  z: z_q3,3  card: 1  vars: ['x3']
+ j 2 h 0 var = x3 xval = 14.231006771681805 coeff = 1.3
+ -> displacement 8.882e-15
+ riskyterm: 3  z: z_q3,4  card: 1  vars: ['x4']
+ j 3 h 0 var = x4 xval = 18.089190829782208 coeff = 1.1
+ -> displacement 6.989e-01
+ riskyterm: 4  z: z_q3,5  card: 1  vars: ['x5']
+ j 4 h 0 var = x5 xval = 2.7208925129758885 coeff = 0.9
+ -> displacement 0.000e+00
+ riskyterm: 5  z: z_q3,6  card: 1  vars: ['x6']
+ j 5 h 0 var = x6 xval = 0.0 coeff = 1.25
+ -> displacement 0.000e+00
+ riskyterm: 6  z: z_q3,7  card: 1  vars: ['x7']
+ j 6 h 0 var = x7 xval = 0.0 coeff = 1.05
+ -> displacement 0.000e+00
+ riskyterm: 7  z: z_q3,8  card: 1  vars: ['x8']
+ j 7 h 0 var = x8 xval = 17.890408512971412 coeff = 1.15
+ -> displacement 1.037e+00
+ riskyterm: 8  z: z_q3,9  card: 1  vars: ['x9']
+ j 8 h 0 var = x9 xval = 18.50030880318635 coeff = 1.0
+ -> displacement 1.066e-14
+ riskyterm: 9  z: z_q3,10  card: 1  vars: ['x10']
+ j 9 h 0 var = x10 xval = 0.0 coeff = 1.2
+ -> displacement 0.000e+00
+ feat: quality_3 (>)  L0norm: 1.16402  L1norm: 2.89975  L2norm: 1.70834
+Max feature value: 1.16402 at 4  L1-norm: 2.89975  L2-norm: 1.70834.
+Counter: 0  feature: 4  delta: 1.164e+00  ind: 0
+Counter: 1  feature: 2  delta: 1.164e+00  ind: 1
+Counter: 2  feature: 3  delta: 8.221e-01  ind: 3
+Counter: 3  feature: 0  delta: 0.000e+00  ind: -1
+Counter: 4  feature: 1  delta: 0.000e+00  ind: -1
+Iteration 10.  Obj 574.9  Cost 555.34  IMP 1.164  Max-Impact 1.164.
+  DONE: impact converged
+Objective Value, Cost, Impact, and Max-Impact per iteration:
+  Iteration 0   Objval 483.2470588   Cost 483.2470588   IMP          0   Max-Impact         23
+  Iteration 1   Objval        516   Cost        516   IMP          0   Max-Impact         24
+  Iteration 2   Objval        534   Cost        534   IMP          0   Max-Impact         22
+  Iteration 3   Objval 537.2480594   Cost 537.2480594   IMP          0   Max-Impact 21.00742491
+  Iteration 4   Objval 550.5054945   Cost 550.5054945   IMP          0   Max-Impact 15.71428571
+  Iteration 5   Objval 558.1330049   Cost 558.1330049   IMP          0   Max-Impact 3.898518273
+  Iteration 6   Objval 558.5645753   Cost 558.5645753   IMP          0   Max-Impact 2.296784205
+  Iteration 7   Objval 559.4245132   Cost 559.4245132   IMP          0   Max-Impact 1.243903521
+  Iteration 8   Objval 573.9095874   Cost 555.3092099   IMP 1.106599293   Max-Impact 1.446423888
+  Iteration 9   Objval 574.6075054   Cost 555.086323   IMP 1.161381085   Max-Impact 1.262166582
+  Iteration 10   Objval 574.9026694   Cost 555.3371623   IMP 1.164018112   Max-Impact 1.164018112
+Impact Decrease (lambda): 0.0506095
+Cost Increase (multiplier): 1.14918
+Target Objective value, c(x*) + \Theta \lambda^hi \Phi(x*) : 715.2056471
+  Final objval is samller --> achieved desired impact decrease for small cost increase.
+ maximpact 1.164018112   desired_impact       13.8
+ cost 555.3371623   desired_cost 715.2056471
+Skipping solution check
+
+Closing log: Thu Apr 23 15:58:42 2026.

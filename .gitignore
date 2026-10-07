@@ -24,8 +24,8 @@ dist/
 # Jupyter
 .ipynb_checkpoints/
 
-# Logs
-*.log
+# Logs, I want them
+#*.log
 
 # Large binary outputs
 *.csv

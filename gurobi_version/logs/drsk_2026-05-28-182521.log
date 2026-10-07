@@ -1,0 +1,10 @@
+Starting log: Thu May 28 18:25:21 2026.
+Running on: jasper.local.
+
+<Version 2025.May.28.110600@jasper>
+Reading config file drsk.conf.
+LPFILE ../data/qplib_3318.lp
+LOUDCONSTRAINTS 0
+STRUCTFILE implicit
+PARAMFILE drskparams.conf
+Reading LP ../data/qplib_3318.lp.

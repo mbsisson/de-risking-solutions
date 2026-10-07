@@ -1,0 +1,148 @@
+Starting log: Tue May 26 13:20:15 2026.
+Running on: jasper.local.
+
+<Version 2025.May.21.152700@jasper>
+Reading config file drsk.conf.
+LPFILE ../data/simpleQuad.lp
+LOUDCONSTRAINTS 0
+STRUCTFILE implicit
+PARAMFILE drskparams.conf
+Reading LP ../data/simpleQuad.lp.
+Number of variables = 2.
+Done reading LP.
+Now storing LP data.
+
+Reading implicit structure.
+Storing linear constraints; 1 in total.
++ coeff 2 of var x1 (idx 0) in constr c1 (idx 0) is deemed risky
++ coeff 2 of var x2 (idx 1) in constr c1 (idx 0) is deemed risky
+Stored linear constraints with code 0.
+Storing quadratic constraints; 1 in total.
++ coeff 2 of var (x1,x1) (idx 0) in constr c2 (idx 1) is deemed risky
++ coeff 2 of var (x2,x2) (idx 1) in constr c2 (idx 1) is deemed risky
+Quad constraints read with code 0.
+Reading parameter file drskparams.conf.
+tol 0.01
+maxits 20
+lambda_hi 0.7
+lambda_lo 0.65
+xi 0.01
+Running Algo1.
+Solving Model
+  variables = 2
+  constraints = 1
+ OPTIMAL. optimal value: 2.0000e+00 in time 5.8751e-03
+Optimal objective = 2
+Optimal variable values:
+x1 = 1
+x2 = 1
+2 nonzero variables in solution
+Writing solution to file form_0.sol.
+Getting impact at iteration_cnt 0 using style 0-norm_per.
+>feat: 0  name: c1  numrisky: 2
+ >riskyterm: 0  z: z_0_0  card: 1  vars: ['x1']
+  j 0 h 0 var = x1 xval = 1.0000000017829256 coeff = 2.0
+  z=-1.000000 -> displacement 2.000e+00   scaled displacement 5.000e-01
+ >riskyterm: 1  z: z_0_1  card: 1  vars: ['x2']
+  j 1 h 0 var = x2 xval = 1.0000000017902493 coeff = 2.0
+  z=-1.000000 -> displacement 2.000e+00   scaled displacement 5.000e-01
+ feat: c1 (>)  L0norm: 0.5  L1norm: 4  L2norm: 2.82843
+>feat: 1  name: c2  numrisky: 2
+ >riskyterm: 0  z: z_1_quad0  card: 1  vars: [('x1', 'x1')]
+  j 0 h 0 var = ('x1', 'x1') xval = 1.0000000035658512 coeff = 2.0
+  z=1.000000 -> displacement 0.000e+00   scaled displacement 0.000e+00
+ >riskyterm: 1  z: z_1_quad1  card: 1  vars: [('x2', 'x2')]
+  j 1 h 0 var = ('x2', 'x2') xval = 1.0000000035804986 coeff = 2.0
+  z=1.000000 -> displacement 0.000e+00   scaled displacement 0.000e+00
+ feat: c2 (<)  L0norm: 0  L1norm: 0  L2norm: 0
+Max feature value: 0.5 at 0  L1-norm: 4  L2-norm: 2.82843.
+Counter: 0  feature: 0  delta: 5.000e-01  ind: 1
+Counter: 1  feature: 1  delta: 0.000e+00  ind: -1
+Iteration 0.  Obj 2  Cost 2  IMP 0  Max-Impact 0.5.
+Adding impact variable with Theta 0.8.
+  NOTDONE: keep running.
+Adding greedy cuts at iteration_cnt 0.
+Writing LP to file form_1.lp.
+Solving Model
+  variables = 4
+  constraints = 3
+ OPTIMAL. optimal value: 2.0000e+00 in time 1.2410e-03
+Optimal objective = 2
+Optimal variable values:
+x1 = 2
+IMP = 1.03203e-08
+phifunc_0_1 = 1.03203e-08
+3 nonzero variables in solution
+Writing solution to file form_1.sol.
+Getting impact at iteration_cnt 1 using style 0-norm_per.
+>feat: 0  name: c1  numrisky: 2
+ >riskyterm: 0  z: z_0_0  card: 1  vars: ['x1']
+  j 0 h 0 var = x1 xval = 1.9999999948398415 coeff = 2.0
+  z=-1.000000 -> displacement 4.000e+00   scaled displacement 1.000e+00
+ >riskyterm: 1  z: z_0_1  card: 1  vars: ['x2']
+  j 1 h 0 var = x2 xval = 5.684936288583181e-09 coeff = 2.0
+  z=-1.000000 -> displacement 1.032e-08   scaled displacement 2.580e-09
+ feat: c1 (>)  L0norm: 1  L1norm: 4  L2norm: 4
+>feat: 1  name: c2  numrisky: 2
+ >riskyterm: 0  z: z_1_quad0  card: 1  vars: [('x1', 'x1')]
+  j 0 h 0 var = ('x1', 'x1') xval = 3.999999979359366 coeff = 2.0
+  z=1.000000 -> displacement 8.000e+00   scaled displacement 2.000e+00
+ >riskyterm: 1  z: z_1_quad1  card: 1  vars: [('x2', 'x2')]
+  j 1 h 0 var = ('x2', 'x2') xval = 3.231850060524991e-17 coeff = 2.0
+  z=1.000000 -> displacement 0.000e+00   scaled displacement 0.000e+00
+ feat: c2 (<)  L0norm: 2  L1norm: 8  L2norm: 8
+Max feature value: 2 at 1  L1-norm: 8  L2-norm: 8.
+Counter: 0  feature: 1  delta: 2.000e+00  ind: 0
+Counter: 1  feature: 0  delta: 1.000e+00  ind: 0
+Iteration 1.  Obj 2  Cost 2  IMP 1.032e-08  Max-Impact 2.
+  NOTDONE: keep running.
+Adding greedy cuts at iteration_cnt 1.
+Writing LP to file form_2.lp.
+Solving Model
+  variables = 5
+  constraints = 4
+ OPTIMAL. optimal value: 2.8681e+00 in time 1.4653e-02
+Optimal objective = 2.86812
+Optimal variable values:
+x1 = 1.45743
+x2 = 0.542573
+IMP = 1.08515
+phifunc_0_1 = 1.08515
+phifunc_1_0 = 1.08515
+5 nonzero variables in solution
+Writing solution to file form_2.sol.
+Getting impact at iteration_cnt 2 using style 0-norm_per.
+>feat: 0  name: c1  numrisky: 2
+ >riskyterm: 0  z: z_0_0  card: 1  vars: ['x1']
+  j 0 h 0 var = x1 xval = 1.4574271066984923 coeff = 2.0
+  z=-1.000000 -> displacement 2.915e+00   scaled displacement 7.287e-01
+ >riskyterm: 1  z: z_0_1  card: 1  vars: ['x2']
+  j 1 h 0 var = x2 xval = 0.5425728945720236 coeff = 2.0
+  z=-1.000000 -> displacement 1.085e+00   scaled displacement 2.713e-01
+ feat: c1 (>)  L0norm: 0.728714  L1norm: 4  L2norm: 3.11029
+>feat: 1  name: c2  numrisky: 2
+ >riskyterm: 0  z: z_1_quad0  card: 1  vars: [('x1', 'x1')]
+  j 0 h 0 var = ('x1', 'x1') xval = 2.1240937713395383 coeff = 2.0
+  z=1.000000 -> displacement 1.085e+00   scaled displacement 2.713e-01
+ >riskyterm: 1  z: z_1_quad1  card: 1  vars: [('x2', 'x2')]
+  j 1 h 0 var = ('x2', 'x2') xval = 0.29438534592426424 coeff = 2.0
+  z=1.000000 -> displacement 0.000e+00   scaled displacement 0.000e+00
+ feat: c2 (<)  L0norm: 0.271286  L1norm: 1.08515  L2norm: 1.08515
+Max feature value: 0.728714 at 0  L1-norm: 4  L2-norm: 3.11029.
+Counter: 0  feature: 0  delta: 7.287e-01  ind: 0
+Counter: 1  feature: 1  delta: 2.713e-01  ind: 0
+Iteration 2.  Obj 2.8681  Cost 2  IMP 1.0851  Max-Impact 0.72871.
+  DONE: impact converged
+Objective Value, Cost, Impact, and Max-Impact per iteration:
+  Iteration 0   Objval 2.000000004   Cost 2.000000004   IMP          0   Max-Impact 0.4999999991
+  Iteration 1   Objval 2.000000009   Cost 2.000000001   IMP 1.032031705e-08   Max-Impact 1.999999979
+  Iteration 2   Objval 2.868116634   Cost 2.000000001   IMP 1.085145787   Max-Impact 0.7287135527
+Impact Decrease (lambda): 1.45743
+Cost Increase (multiplier): 1
+Target Objective value, c(x*) + \Theta \lambda^hi \Phi(x*) : 2.280000004
+  Final objval is larger --> no such point with desired impact and cost exists.
+ maximpact 0.7287135527   desired_impact 0.3499999994
+ cost 2.000000001   desired_cost 2.280000004
+Skipping solution check
+
+Closing log: Tue May 26 13:20:23 2026.

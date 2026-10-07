@@ -1,0 +1,156 @@
+Starting log: Wed Apr  1 17:45:10 2026.
+Running on: jasper.local.
+
+<Version 2025.Apr.01.163400@jasper>
+Reading config file drsk.conf.
+LPFILE ../data/case9_full.lp
+SOLFILE case9_full.sol
+NONZEROSINSOL 1
+LOUDCONSTRAINTS 0
+STRUCTFILE struct_case9dcfull.conf
+Reading LP ../data/case9_full.lp.
+Number of variables = 31.
+Done reading LP.
+Reading solution file case9_full.sol.
+Now storing LP data.
+
+Storing linear constraints; 27 in total.
+Stored linear constraints with code 0.
+Storing quadratic constraints; 0 in total.
+Quad constraints read with code 0.
+
+->quadratic objective!
+Iter 0 Quad term 3.4429e+03 lin term 1.7731e+03 constant 0.0000e+00 total 5.216036e+03.
+Reading structure file struct_case9dcfull.conf.
+I = 9 budget = 1
+Read structure.
+Running Algo1.
+Getting impact at iteration_cnt 0 using style 0-norm_per.
+>feat: 0  name: PBaldef_1_1  numrisky: 2
+ riskyterm: 0  z: z_1  card: 1  vars: ['theta_1']
+ j 0 h 0 var = theta_1 xval = 0.639789 coeff = 17.36111111111111
+ -> displacement 1.111e+01
+ riskyterm: 1  z: z_1_1_4  card: 1  vars: ['theta_4']
+ j 1 h 0 var = theta_4 xval = 0.589928 coeff = -17.36111111111111
+ -> displacement -1.024e+01
+ feat: PBaldef_1_1 (=)  L0norm: 11.1074  L1norm: 21.3493  L2norm: 15.1086
+>feat: 1  name: PBaldef_2_2  numrisky: 2
+ riskyterm: 0  z: z_2  card: 1  vars: ['theta_2']
+ j 0 h 0 var = theta_2 xval = 0.74521 coeff = 16.0
+ -> displacement 1.192e+01
+ riskyterm: 1  z: z_7_8_2  card: 1  vars: ['theta_8']
+ j 1 h 0 var = theta_8 xval = 0.661224 coeff = -16.0
+ -> displacement -1.058e+01
+ feat: PBaldef_2_2 (=)  L0norm: 11.9234  L1norm: 22.5029  L2norm: 15.9403
+>feat: 2  name: PBaldef_3_3  numrisky: 2
+ riskyterm: 0  z: z_3  card: 1  vars: ['theta_3']
+ j 0 h 0 var = theta_3 xval = 0.709653 coeff = 17.06484641638225
+ -> displacement 1.211e+01
+ riskyterm: 1  z: z_4_3_6  card: 1  vars: ['theta_6']
+ j 1 h 0 var = theta_6 xval = 0.654535 coeff = -17.06484641638225
+ -> displacement -1.117e+01
+ feat: PBaldef_3_3 (=)  L0norm: 12.1101  L1norm: 23.2797  L2norm: 16.4746
+>feat: 3  name: PBaldef_4_4  numrisky: 4
+ riskyterm: 0  z: z_4  card: 1  vars: ['theta_4']
+ j 0 h 0 var = theta_4 xval = 0.589928 coeff = 39.99538221085535
+ -> displacement 2.359e+01
+ riskyterm: 1  z: z_2_4_5  card: 1  vars: ['theta_5']
+ j 1 h 0 var = theta_5 xval = 0.558889 coeff = -10.8695652173913
+ -> displacement -6.075e+00
+ riskyterm: 2  z: z_1_1_4  card: 1  vars: ['theta_1']
+ j 2 h 0 var = theta_1 xval = 0.639789 coeff = -17.36111111111111
+ -> displacement -1.111e+01
+ riskyterm: 3  z: z_9_9_4  card: 1  vars: ['theta_9']
+ j 3 h 0 var = theta_9 xval = 0.545025 coeff = -11.76470588235294
+ -> displacement -6.412e+00
+ feat: PBaldef_4_4 (=)  L0norm: 23.5944  L1norm: 47.1888  L2norm: 27.5334
+>feat: 4  name: PBaldef_5_5  numrisky: 3
+ riskyterm: 0  z: z_5  card: 1  vars: ['theta_5']
+ j 0 h 0 var = theta_5 xval = 0.558889 coeff = 16.75191815856778
+ -> displacement 9.362e+00
+ riskyterm: 1  z: z_3_5_6  card: 1  vars: ['theta_6']
+ j 1 h 0 var = theta_6 xval = 0.654535 coeff = -5.88235294117647
+ -> displacement -3.850e+00
+ riskyterm: 2  z: z_2_4_5  card: 1  vars: ['theta_4']
+ j 2 h 0 var = theta_4 xval = 0.589928 coeff = -10.8695652173913
+ -> displacement -6.412e+00
+ feat: PBaldef_5_5 (=)  L0norm: 9.36246  L1norm: 19.6249  L2norm: 11.9832
+>feat: 5  name: PBaldef_6_6  numrisky: 4
+ riskyterm: 0  z: z_6  card: 1  vars: ['theta_6']
+ j 0 h 0 var = theta_6 xval = 0.654535 coeff = 32.86783427819364
+ -> displacement 2.151e+01
+ riskyterm: 1  z: z_5_6_7  card: 1  vars: ['theta_7']
+ j 1 h 0 var = theta_7 xval = 0.616437 coeff = -9.920634920634921
+ -> displacement -6.115e+00
+ riskyterm: 2  z: z_3_5_6  card: 1  vars: ['theta_5']
+ j 2 h 0 var = theta_5 xval = 0.558889 coeff = -5.88235294117647
+ -> displacement -3.288e+00
+ riskyterm: 3  z: z_4_3_6  card: 1  vars: ['theta_3']
+ j 3 h 0 var = theta_3 xval = 0.709653 coeff = -17.06484641638225
+ -> displacement -1.211e+01
+ feat: PBaldef_6_6 (=)  L0norm: 21.5131  L1norm: 43.0263  L2norm: 25.6452
+>feat: 6  name: PBaldef_7_7  numrisky: 3
+ riskyterm: 0  z: z_7  card: 1  vars: ['theta_7']
+ j 0 h 0 var = theta_7 xval = 0.616437 coeff = 23.80952380952381
+ -> displacement 1.468e+01
+ riskyterm: 1  z: z_6_7_8  card: 1  vars: ['theta_8']
+ j 1 h 0 var = theta_8 xval = 0.661224 coeff = -13.88888888888889
+ -> displacement -9.184e+00
+ riskyterm: 2  z: z_5_6_7  card: 1  vars: ['theta_6']
+ j 2 h 0 var = theta_6 xval = 0.654535 coeff = -9.920634920634921
+ -> displacement -6.493e+00
+ feat: PBaldef_7_7 (=)  L0norm: 14.6771  L1norm: 30.3541  L2norm: 18.4911
+>feat: 7  name: PBaldef_8_8  numrisky: 4
+ riskyterm: 0  z: z_8  card: 1  vars: ['theta_8']
+ j 0 h 0 var = theta_8 xval = 0.661224 coeff = 36.10006901311249
+ -> displacement 2.387e+01
+ riskyterm: 1  z: z_7_8_2  card: 1  vars: ['theta_2']
+ j 1 h 0 var = theta_2 xval = 0.74521 coeff = -16.0
+ -> displacement -1.192e+01
+ riskyterm: 2  z: z_8_8_9  card: 1  vars: ['theta_9']
+ j 2 h 0 var = theta_9 xval = 0.545025 coeff = -6.211180124223603
+ -> displacement -3.385e+00
+ riskyterm: 3  z: z_6_7_8  card: 1  vars: ['theta_7']
+ j 3 h 0 var = theta_7 xval = 0.616437 coeff = -13.88888888888889
+ -> displacement -8.562e+00
+ feat: PBaldef_8_8 (=)  L0norm: 23.8702  L1norm: 47.7405  L2norm: 28.2262
+>feat: 8  name: PBaldef_9_9  numrisky: 3
+ riskyterm: 0  z: z_9  card: 1  vars: ['theta_9']
+ j 0 h 0 var = theta_9 xval = 0.545025 coeff = 17.97588600657654
+ -> displacement 9.797e+00
+ riskyterm: 1  z: z_9_9_4  card: 1  vars: ['theta_4']
+ j 1 h 0 var = theta_4 xval = 0.589928 coeff = -11.76470588235294
+ -> displacement -6.940e+00
+ riskyterm: 2  z: z_8_8_9  card: 1  vars: ['theta_8']
+ j 2 h 0 var = theta_8 xval = 0.661224 coeff = -6.211180124223603
+ -> displacement -4.107e+00
+ feat: PBaldef_9_9 (=)  L0norm: 9.79731  L1norm: 20.8446  L2norm: 12.6895
+Max feature value: 23.8702 at 7  L1-norm: 47.7405  L2-norm: 28.2262.
+Counter: 0  feature: 7  delta: 2.387e+01  ind: 0
+Counter: 1  feature: 3  delta: 2.359e+01  ind: 0
+Counter: 2  feature: 5  delta: 2.151e+01  ind: 0
+Counter: 3  feature: 6  delta: 1.468e+01  ind: 0
+Counter: 4  feature: 2  delta: 1.211e+01  ind: 0
+Counter: 5  feature: 1  delta: 1.192e+01  ind: 0
+Counter: 6  feature: 0  delta: 1.111e+01  ind: 0
+Counter: 7  feature: 8  delta: 9.797e+00  ind: 0
+Counter: 8  feature: 4  delta: 9.362e+00  ind: 0
+Iteration 0.  Obj 5216.04  Impact 23.8702.
+Current impact 23.8702 target_impact 750 curr_obj 5216.04
+Adding impact variable with Theta 6.95471.
+Adding greedy cuts at iteration_cnt 0.
+Writing LP to file form_0.lp.
+Now checking solution.
+
+Checking variables.
+Warning: variable IMP in gurobimodel is not in solution.
+Warnings will be not repeated.
+3 variables in gurobimodel but not in solution.
+Variables checked with code 0. Max bound inf 0.000000e+00 at GP_1_1.
+
+Checking linear constraints; 29 in total.
+displacement_0 (2 lin nonz, const = 0.000000) = 0.000000: thisinf 23.870232
+Linear constraints checked with code 1.
+Solution checked with code 1.
+
+Closing log: Wed Apr  1 17:45:18 2026.

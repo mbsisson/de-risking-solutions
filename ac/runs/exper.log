@@ -1,0 +1,78 @@
+starting log: Sat May  9 15:41:10 2026
+running on: freestyle.local
+
+Version <Wed.Apr.3.114200.2024@cool1>
+reading config file ac.conf
+reading case file ../../data/case14.m
+reading case file thru lines
+found mpc.version on line 16
+found mpc.baseMVA on line 20
+ baseMVA: 100.0
+found mpc.bus on line 24
+ slack bus: 1
+ Bus 1 ID 1 is the reference bus
+found end of bus section on line 39
+ sumloadPd 258.99999999999994 numPload 11
+ sumloadQd 73.5
+ 14 buses
+found mpc.gen on line 43
+ found end of gen section on line 49
+ number of generators: 5 number of buses with gens: 5
+ summaxPg: 772.4 summaxQg: 148.0
+found mpc.branch on line 53
+ found end of branch section on line 74
+ branchcount: 20 active 20
+  20 unconstrained
+found mpc.gencost on line 80
+ found end of gencost section on line 86
+found mpc.bus_name on line 89
+read time: 0.0003249645233154297
+reading cut file ../cutdata/zerocuts.dat
+numcuts: 0; Theta: 0
+ creating ampl object ...
+ reading modfile ...
+ modfile read in time 0.0002942085266113281 AMPL presolve off
+ solver set to rocky
+ sets and parameters loaded
+ saving processed data to all_data
+Now expanding to NLP.out.
+ solving model ...
+
+ ===============================================================
+ ===============================================================
+Max metric 0 at -1
+Ordered branch 10 (5, 6) r 0 f 0 metric 0
+Ordered branch 18 (10, 11) r 0.08205 f 0 metric 0
+Ordered branch 17 (9, 14) r 0.12711 f 0 metric 0
+Ordered branch 16 (9, 10) r 0.03181 f 0 metric 0
+Ordered branch 15 (7, 9) r 0 f 0 metric 0
+Ordered branch 14 (7, 8) r 0 f 0 metric 0
+Ordered branch 13 (6, 13) r 0.06615 f 0 metric 0
+Ordered branch 12 (6, 12) r 0.12291 f 0 metric 0
+Ordered branch 11 (6, 11) r 0.09498 f 0 metric 0
+Ordered branch 19 (12, 13) r 0.22092 f 0 metric 0
+Ordered branch 20 (13, 14) r 0.17093 f 0 metric 0
+Ordered branch 8 (4, 7) r 0 f 0 metric 0
+Ordered branch 7 (4, 5) r 0.01335 f 0 metric 0
+Ordered branch 6 (3, 4) r 0.06701 f 0 metric 0
+Ordered branch 5 (2, 5) r 0.05695 f 0 metric 0
+Ordered branch 4 (2, 4) r 0.05811 f 0 metric 0
+Ordered branch 3 (2, 3) r 0.04699 f 0 metric 0
+Ordered branch 2 (1, 5) r 0.05403 f 0 metric 0
+Ordered branch 1 (1, 2) r 0.01938 f 0 metric 0
+Ordered branch 9 (4, 9) r 0 f 0 metric 0
+ case ../../data/case14.m
+ modfile ac.mod
+ solver rocky
+ objective 0.0
+ impvalue  0.0
+ actual_cost 0.0
+ active power generation 15
+ active power demand 2.59
+ active power loss 0
+ reactive power generation 15
+ reactive power demand 0.735
+ reactive power loss 0
+ solver runtime 0.0017390251159667969
+ time so far 1.6504168510437012
+ writing casename, modfile, obj and runtime to summary_ac.log

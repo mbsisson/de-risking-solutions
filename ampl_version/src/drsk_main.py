@@ -2,9 +2,29 @@ from amplpy import AMPL
 from myutils import breakexit
 from log import danoLogger
 from drsk_ampl import read_and_store, solve
-from drsk_greedy import eval_Phi_greedy, add_cut_greedy
+from drsk_boosting import evalPhi_greedy
+from drsk_separation import addCut_greedy, addCut_quasiGreedy
 
-def drsk(log_file, mod_file, cut_file):
+
+def drsk_mainLoop(alldata):
+    # Solve and get solution x*
+    solve(alldata)
+    breakexit('Done solving problem')
+
+    # Evaluate Phi(x*) and get z
+    Phi = evalPhi_greedy(alldata, alldata['algo_data']["soln_vector_dict"])
+    breakexit('Evaluated Phi')
+
+    # Add cut
+    addCut_quasiGreedy(alldata)
+    breakexit('Computed cut')
+
+    # Solve and get next iterate solution xt
+    solve(alldata)
+    breakexit('Done solving problem')
+
+
+def drsk_start(log_file, mod_file, cut_file):
     alldata = {}
     alldata['log'] = danoLogger(log_file)
     alldata['MODFILE'] = mod_file
@@ -48,24 +68,10 @@ def drsk(log_file, mod_file, cut_file):
     alldata['algo_data']["solver"] = 'gurobi' #"/Applications/knitro-16.0.0-ARM-MacOS/bin/knitroampl"
     alldata['algo_data']["soln_vector_dict"] = {}
 
-    ###########################################################################
-
     # Retrieve problem data and risk structure
     read_and_store(alldata)
     breakexit('Done parsing problem')
 
-    # Solve and get solution x*
-    solve(alldata)
-    breakexit('Done solving problem')
+    drsk_mainLoop(alldata)
 
-    # Evaluate Phi(x*) and get z
-    Phi = eval_Phi_greedy(alldata, alldata['algo_data']["soln_vector_dict"])
-    breakexit('Evaluated Phi')
-
-    # Add cut
-    add_cut_greedy(alldata)
-    breakexit('Computed cut')
-
-    # Solve and get next iterate solution xt
-    solve(alldata)
-    breakexit('Done solving problem')
+    

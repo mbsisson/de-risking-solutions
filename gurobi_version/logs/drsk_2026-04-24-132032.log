@@ -1,0 +1,31 @@
+Starting log: Fri Apr 24 13:20:32 2026.
+Running on: jasper.fios-router.home.
+
+<Version 2025.Apr.20.230900@jasper>
+Reading config file drsk.conf.
+LPFILE ../data/myblending1.lp
+LOUDCONSTRAINTS 0
+STRUCTFILE ../data/struct_myblending1.conf
+PARAMFILE drskparams.conf
+Reading LP ../data/myblending1.lp.
+Number of variables = 10.
+Done reading LP.
+Now storing LP data.
+
+Storing linear constraints; 9 in total.
+Stored linear constraints with code 0.
+Storing quadratic constraints; 0 in total.
+Quad constraints read with code 0.
+Reading structure file ../data/struct_myblending1.conf.
+I = 5 budget = 0.5
+Read structure.
+Reading parameter file drskparams.conf.
+tol 0.01
+maxits 20
+lambda_hi 0.7
+lambda_lo 0.65
+xi 0.01
+Running Algo1.
+Solving Model
+  variables = 10
+  constraints = 9

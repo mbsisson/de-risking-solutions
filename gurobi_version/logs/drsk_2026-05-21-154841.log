@@ -1,0 +1,10 @@
+Starting log: Thu May 21 15:48:41 2026.
+Running on: jasper.local.
+
+<Version 2025.May.21.152700@jasper>
+Reading config file drsk.conf.
+LPFILE ../data/simpleQuad.lp
+LOUDCONSTRAINTS 0
+STRUCTFILE ../data/struct_simpleQuad.conf
+PARAMFILE drskparams.conf
+Reading LP ../data/simpleQuad.lp.

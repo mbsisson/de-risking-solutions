@@ -1,12 +1,12 @@
 import sys
 from datetime import datetime
-from drsk_main import drsk
+from drsk_main import drsk_start
 
 
 if __name__ == "__main__":
     '''Get arguments and call drsk '''
     if len(sys.argv) < 2:
-        sys.exit('usage: ampl_test.py [modfile]')
+        sys.exit('usage: run.py [modfile]')
 
     # Get files from arguments
     mod_file = sys.argv[1]
@@ -16,7 +16,7 @@ if __name__ == "__main__":
     datetime_string = datetime.now().strftime("%Y-%m-%d-%H%M%S")
     log_file = "drsk_" + datetime_string + ".log"
 
-    drsk(log_file, mod_file, cut_file)
+    drsk_start(log_file, mod_file, cut_file)
 
     
 

@@ -1,0 +1,87 @@
+starting log: Wed May 13 15:05:31 2026
+running on: freestyle.local
+
+Version <Wed.Apr.3.114200.2024@cool1>
+reading config file ac.conf
+reading case file ../../data/pglib_opf_case13659_pegase__api.m
+reading case file thru lines
+found mpc.version on line 10
+found mpc.baseMVA on line 11
+ baseMVA: 100.0
+found mpc.bus on line 15
+ slack bus: 1
+ Bus 1 ID 1 is the reference bus
+found end of bus section on line 13675
+ sumloadPd 415883.4999999995 numPload 5043
+ sumloadQd 98523.40000000056
+ 13659 buses
+found mpc.gen on line 13679
+ found end of gen section on line 17772
+ number of generators: 4092 number of buses with gens: 4092
+ summaxPg: 868395.0 summaxQg: 1168629.7999999998
+found mpc.gencost on line 17776
+ found end of gencost section on line 21869
+found mpc.branch on line 21873
+ found end of branch section on line 42341
+ branchcount: 20467 active 20467
+  0 unconstrained
+read time: 0.12046599388122559
+reading cut file ../cutdata/zerocuts.dat
+numcuts: 0; Theta: 0
+ creating ampl object ...
+ reading modfile ...
+ modfile read in time 0.0002040863037109375 AMPL presolve off
+ solver set to knitro
+ sets and parameters loaded
+ saving processed data to all_data
+Now expanding to NLP.out.
+ solving model ...
+
+ ===============================================================
+ ===============================================================
+New max at branch 1 (7519, 4482) r 0.0006 f 2.69718 metric 0.00436488
+New max at branch 5 (5157, 1032) r 0.00143 f 8.64685 metric 0.106918
+New max at branch 6 (5157, 6653) r 0.00146 f -8.64685 metric 0.109161
+New max at branch 1776 (10332, 553) r 0.00203 f -7.65047 metric 0.118815
+New max at branch 1829 (10391, 3721) r 0.022909 f 2.4966 metric 0.142792
+New max at branch 3946 (582, 6704) r 0.00076 f 15.0314 metric 0.171718
+New max at branch 4104 (6973, 5154) r 0.00163 f -10.2893 metric 0.172568
+New max at branch 4419 (1388, 570) r 0.00396 f 7.27242 metric 0.209437
+New max at branch 10609 (12852, 4318) r 0.00368 f -8.04139 metric 0.237963
+New max at branch 12400 (7215, 8477) r 0.00112 f -15.3852 metric 0.26511
+Done.
+Max metric 0.26511 at 12400
+Ordered branch 12400 (7215, 8477) r 0.00112 f -15.3852 metric 0.26511 sum 0.26511 summ2 = 0.0702833
+Ordered branch 10609 (12852, 4318) r 0.00368 f -8.04139 metric 0.237963 sum 0.503073 summ2 = 0.12691
+Ordered branch 4419 (1388, 570) r 0.00396 f 7.27242 metric 0.209437 sum 0.71251 summ2 = 0.170774
+Ordered branch 5746 (668, 495) r 0.008021 f 5.03218 metric 0.203114 sum 0.915625 summ2 = 0.212029
+Ordered branch 6188 (13490, 13130) r 0.00136 f 12.2081 metric 0.202693 sum 1.11832 summ2 = 0.253113
+
+Metric comp branch 12400 (7215, 8477) metric 0.26511 scaledz 0.526949 value 0.0809618 summ = 0.0809618 c = 0.000342037 cff = 0.0809618
+Metric comp branch 10609 (12852, 4318) metric 0.237963 scaledz 0.472991 value 0.0701036 summ = 0.151065 c = 0.00108412 cff = 0.0701036
+Metric comp branch 4419 (1388, 570) metric 0.209437 scaledz 0.41629 value 0.0593247 summ = 0.21039 c = 0.0011217 cff = 0.0593247
+Metric comp branch 5746 (668, 495) metric 0.203114 scaledz 0.403722 value 0.0570232 summ = 0.267413 c = 0.00225185 cff = 0.0570232
+Metric comp branch 6188 (13490, 13130) metric 0.202693 scaledz 0.402885 value 0.0568709 summ = 0.324284 c = 0.000381585 cff = 0.0568709
+
+ 12400 0.000342037
+ 10609 0.00108412
+ 4419 0.0011217
+ 5746 0.00225185
+ 6188 0.000381585
+
+ ====> Adversarial value: 0.324284
+ case ../../data/pglib_opf_case13659_pegase__api.m
+ modfile newac.mod
+ solver knitro
+ objective 9385711.452921793
+ impvalue  0.0
+ actual_cost 9385711.452921793
+ active power generation 8374278
+ active power demand 4158.835
+ active power loss 85.54415945599166
+ reactive power generation 8374278
+ reactive power demand 985.234
+ reactive power loss 1401.2304098963325
+ solver runtime 23.266729831695557
+ time so far 25.677352905273438
+ writing casename, modfile, obj and runtime to summary_ac.log

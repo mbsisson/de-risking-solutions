@@ -1,0 +1,59 @@
+Starting log: Tue May 26 22:18:34 2026.
+Running on: jasper.local.
+
+<Version 2025.May.26.152000@jasper>
+Reading config file drsk.conf.
+LPFILE ../data/simpleQuad.lp
+LOUDCONSTRAINTS 0
+STRUCTFILE ../data/struct_simpleQuad.conf
+PARAMFILE drskparams.conf
+Reading LP ../data/simpleQuad.lp.
+Number of variables = 2.
+Done reading LP.
+Now storing LP data.
+
+Storing linear constraints; 1 in total.
+Stored linear constraints with code 0.
+Storing quadratic constraints; 1 in total.
+Quad constraints read with code 0.
+Reading structure file ../data/struct_simpleQuad.conf.
+I = 2 budget = 1
+Skipping structure check.
+Read structure.
+Reading parameter file drskparams.conf.
+tol 0.01
+maxits 20
+lambda_hi 0.75
+lambda_lo 0.74
+xi 0.01
+Running SOFTMAX-ADVERSARIAL.
+Solving Model
+  variables = 2
+  constraints = 1
+ OPTIMAL. optimal value: 2.0000e+00 in time 6.8369e-03
+Optimal objective = 2
+Optimal variable values:
+x1 = 1
+x2 = 1
+2 nonzero variables in solution
+Writing solution to file form_0.sol.
+Getting impact at iteration_cnt 0 using SOFTMAX.
+>feat: 0  name: c1  numrisky: 2
+ >riskyterm: 0  z: z_1x1  card: 1  vars: ['x1']
+  j=0 h=0 var=x1 xval=1.0000000017829256 coeff=2.0
+ >riskyterm: 1  z: z_1x2  card: 1  vars: ['x2']
+  j=1 h=0 var=x2 xval=1.0000000017902493 coeff=2.0
+>feat: 1  name: c2  numrisky: 2
+ >riskyterm: 0  z: z_2x1  card: 1  vars: [('x1', 'x1')]
+  j=0 h=0 var=('x1', 'x1') xyval=1.0000000035658512 coeff=2.0
+ >riskyterm: 1  z: z_2x2  card: 1  vars: [('x2', 'x2')]
+  j=1 h=0 var=('x2', 'x2') xyval=1.0000000035804986 coeff=2.0
+Running Red gradient ascent for SOFTMAX-ADVERSARIAL
+START: Running PyTorch FOM...
+  penalty parameter: 0.0
+    z: 
+    1.561e-01 -6.048e-04 -5.598e-01 -4.876e-01 
+    logsumexp: -1.7199621200561523
+    penalty: 0.5732741951942444
+    loss: -1.7199621200561523
+STOP: PyTorch finished in 0.10017 secs, after 1 rounds.

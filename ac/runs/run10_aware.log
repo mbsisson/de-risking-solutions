@@ -1,0 +1,204 @@
+starting log: Wed May 13 15:01:46 2026
+running on: freestyle.local
+
+Version <Wed.Apr.3.114200.2024@cool1>
+reading config file ac.conf
+reading case file ../../data/pglib_opf_case13659_pegase__api.m
+reading case file thru lines
+found mpc.version on line 10
+found mpc.baseMVA on line 11
+ baseMVA: 100.0
+found mpc.bus on line 15
+ slack bus: 1
+ Bus 1 ID 1 is the reference bus
+found end of bus section on line 13675
+ sumloadPd 415883.4999999995 numPload 5043
+ sumloadQd 98523.40000000056
+ 13659 buses
+found mpc.gen on line 13679
+ found end of gen section on line 17772
+ number of generators: 4092 number of buses with gens: 4092
+ summaxPg: 868395.0 summaxQg: 1168629.7999999998
+found mpc.gencost on line 17776
+ found end of gencost section on line 21869
+found mpc.branch on line 21873
+ found end of branch section on line 42341
+ branchcount: 20467 active 20467
+  0 unconstrained
+read time: 0.12395405769348145
+reading cut file ../../cutdata/cuts10_updated.dat
+numcuts: 60; Theta: 1.94275e+06
+cut 1 of length 5.
+cut 2 of length 5.
+cut 3 of length 5.
+cut 4 of length 5.
+cut 5 of length 5.
+cut 6 of length 5.
+cut 7 of length 5.
+cut 8 of length 5.
+cut 9 of length 5.
+cut 10 of length 5.
+cut 11 of length 5.
+cut 12 of length 5.
+cut 13 of length 5.
+cut 14 of length 5.
+cut 15 of length 5.
+cut 16 of length 5.
+cut 17 of length 5.
+cut 18 of length 5.
+cut 19 of length 5.
+cut 20 of length 5.
+cut 21 of length 5.
+cut 22 of length 5.
+cut 23 of length 5.
+cut 24 of length 5.
+cut 25 of length 5.
+cut 26 of length 5.
+cut 27 of length 5.
+cut 28 of length 5.
+cut 29 of length 5.
+cut 30 of length 5.
+cut 31 of length 5.
+cut 32 of length 5.
+cut 33 of length 5.
+cut 34 of length 5.
+cut 35 of length 5.
+cut 36 of length 5.
+cut 37 of length 5.
+cut 38 of length 5.
+cut 39 of length 5.
+cut 40 of length 5.
+cut 41 of length 5.
+cut 42 of length 5.
+cut 43 of length 5.
+cut 44 of length 5.
+cut 45 of length 5.
+cut 46 of length 5.
+cut 47 of length 5.
+cut 48 of length 5.
+cut 49 of length 5.
+cut 50 of length 5.
+cut 51 of length 5.
+cut 52 of length 5.
+cut 53 of length 5.
+cut 54 of length 5.
+cut 55 of length 5.
+cut 56 of length 5.
+cut 57 of length 5.
+cut 58 of length 5.
+cut 59 of length 5.
+cut 60 of length 5.
+ creating ampl object ...
+ reading modfile ...
+ modfile read in time 0.0003349781036376953 AMPL presolve off
+ solver set to knitro
+ sets and parameters loaded
+ saving processed data to all_data
+Now expanding to NLP.out.
+ solving model ...
+
+ ===============================================================
+ ===============================================================
+New max at branch 1 (7519, 4482) r 0.0006 f 1.72553 metric 0.00178647
+New max at branch 3 (3073, 4516) r 0.00107 f -1.57739 metric 0.00266234
+New max at branch 5 (5157, 1032) r 0.00143 f 7.95673 metric 0.0905327
+New max at branch 6 (5157, 6653) r 0.00146 f -7.95673 metric 0.092432
+New max at branch 144 (5383, 4802) r 0.00121 f -10.3237 metric 0.12896
+New max at branch 1776 (10332, 553) r 0.00203 f -8.57331 metric 0.149208
+New max at branch 6839 (6497, 8183) r 0.020771 f -2.68802 metric 0.15008
+Done.
+Max metric 0.15008 at 6839
+Ordered branch 6839 (6497, 8183) r 0.020771 f -2.68802 metric 0.15008 sum 0.15008 summ2 = 0.0225239
+Ordered branch 1776 (10332, 553) r 0.00203 f -8.57331 metric 0.149208 sum 0.299288 summ2 = 0.0447871
+Ordered branch 1829 (10391, 3721) r 0.022909 f 2.49213 metric 0.142281 sum 0.441569 summ2 = 0.0650308
+Ordered branch 7056 (2528, 7861) r 0.00861 f -3.98397 metric 0.136658 sum 0.578227 summ2 = 0.0837062
+Ordered branch 16378 (9066, 8958) r 0.000212 f -25.2994 metric 0.135692 sum 0.713919 summ2 = 0.102119
+
+Metric comp branch 6839 (6497, 8183) metric 0.15008 scaledz 0.469645 value 0.0441128 summ = 0.0441128 c = 0.0061052 cff = 0.0441128
+Metric comp branch 1776 (10332, 553) metric 0.149208 scaledz 0.466918 value 0.0437753 summ = 0.087888 c = 0.000595569 cff = 0.0437753
+Metric comp branch 1829 (10391, 3721) metric 0.142281 scaledz 0.445239 value 0.0411259 summ = 0.129014 c = 0.0066218 cff = 0.0411259
+Metric comp branch 7056 (2528, 7861) metric 0.136658 scaledz 0.427644 value 0.0390198 summ = 0.168034 c = 0.0024584 cff = 0.0390198
+Metric comp branch 16378 (9066, 8958) metric 0.135692 scaledz 0.424623 value 0.0386621 summ = 0.206696 c = 6.0404e-05 cff = 0.0386621
+
+ 6839 0.0061052
+ 1776 0.000595569
+ 1829 0.0066218
+ 7056 0.0024584
+ 16378 6.0404e-05
+
+ ====> Adversarial value: 0.206696
+ case ../../data/pglib_opf_case13659_pegase__api.m
+ modfile newac.mod
+ solver knitro
+ objective 9690889.40746771
+ impvalue  0.10741814442195251
+ cutIMP1 = 0.107418
+ cutIMP2 = 0.107418
+ cutIMP3 = 0.107225
+ cutIMP4 = 0.107418
+ cutIMP5 = 0.099926
+ cutIMP6 = 0.101454
+ cutIMP7 = 0.101962
+ cutIMP8 = 0.107316
+ cutIMP9 = 0.102727
+ cutIMP10 = 0.102409
+ cutIMP11 = 0.0973613
+ cutIMP12 = 0.0939737
+ cutIMP13 = 0.0945743
+ cutIMP14 = 0.107418
+ cutIMP15 = 0.0924036
+ cutIMP16 = 0.100727
+ cutIMP17 = 0.101134
+ cutIMP18 = 0.101134
+ cutIMP19 = 0.0921014
+ cutIMP20 = 0.0937764
+ cutIMP21 = 0.102444
+ cutIMP22 = 0.107418
+ cutIMP23 = 0.107418
+ cutIMP24 = 0.104779
+ cutIMP25 = 0.102532
+ cutIMP26 = 0.107418
+ cutIMP27 = 0.101699
+ cutIMP28 = 0.0971013
+ cutIMP29 = 0.107418
+ cutIMP30 = 0.107418
+ cutIMP31 = 0.0928236
+ cutIMP32 = 0.103092
+ cutIMP33 = 0.107418
+ cutIMP34 = 0.0981277
+ cutIMP35 = 0.102894
+ cutIMP36 = 0.097394
+ cutIMP37 = 0.102885
+ cutIMP38 = 0.102867
+ cutIMP39 = 0.100413
+ cutIMP40 = 0.0978609
+ cutIMP41 = 0.107418
+ cutIMP42 = 0.104881
+ cutIMP43 = 0.107418
+ cutIMP44 = 0.1074
+ cutIMP45 = 0.102234
+ cutIMP46 = 0.102198
+ cutIMP47 = 0.0967986
+ cutIMP48 = 0.107418
+ cutIMP49 = 0.106536
+ cutIMP50 = 0.107418
+ cutIMP51 = 0.107418
+ cutIMP52 = 0.107418
+ cutIMP53 = 0.0899449
+ cutIMP54 = 0.107249
+ cutIMP55 = 0.104733
+ cutIMP56 = 0.102787
+ cutIMP57 = 0.105738
+ cutIMP58 = 0.105001
+ cutIMP59 = 0.0996344
+ cutIMP60 = 0.104638
+ actual_cost 9482202.807391962
+ active power generation 8374278
+ active power demand 4158.835
+ active power loss 79.24090715496713
+ reactive power generation 8374278
+ reactive power demand 985.234
+ reactive power loss 1340.7360257509845
+ solver runtime 14.471494197845459
+ time so far 17.264294862747192
+ writing casename, modfile, obj and runtime to summary_ac.log

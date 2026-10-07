@@ -49,7 +49,7 @@ def solve(alldata):
     t1 = time.time()
     log.joint("===============================================================\n")                                                    
     log.joint("===============================================================\n\n")
-    log.joint("Solved with %s in %f seconds\n"%(solver, t1-t0))
+    log.joint("Solved with %s in %f seconds\n\n"%(solver, t1-t0))
 
     # Store solution
     for name, objective in ampl.get_objectives():
@@ -438,6 +438,6 @@ def read_and_store(alldata):
     new_file_path = base_path + "_cuts" + extension
     ampl.export_model(new_file_path)
 
-    log.joint('Added parameters, sets, variables, and constraints to model for cut compatibility\n')
-    log.joint('Wrote new model to modfile: %s'%new_file_path)
+    log.joint('Wrote new model to modfile: %s\n'%new_file_path)
+    log.joint('Added parameters, sets, variables, and constraints to model for cut compatibility\n\n')
 

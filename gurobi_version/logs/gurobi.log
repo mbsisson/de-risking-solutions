@@ -1,0 +1,130 @@
+
+Gurobi 12.0.3 (mac64[arm], gurobi_cl) logging started Tue May 26 14:17:14 2026
+
+Set parameter Username
+Set parameter LicenseID to value 2709558
+Set parameter LogFile to value "gurobi.log"
+Using license file /Users/blake/gurobi.lic
+Academic license - for non-commercial use only - expires 2026-09-16
+
+Gurobi 12.0.3 (mac64[arm], gurobi_cl) logging started Tue May 26 14:17:23 2026
+
+Set parameter Username
+Set parameter LicenseID to value 2709558
+Set parameter LogFile to value "gurobi.log"
+Using license file /Users/blake/gurobi.lic
+Academic license - for non-commercial use only - expires 2026-09-16
+
+Gurobi Optimizer version 12.0.3 build v12.0.3rc0 (mac64[arm] - Darwin 23.5.0 23F79)
+Copyright (c) 2025, Gurobi Optimization, LLC
+
+Read LP format model from file form_1.lp
+Reading time = 0.00 seconds
+: 56 rows, 19 columns, 177 nonzeros
+
+Using Gurobi shared library /Library/gurobi1203/macos_universal2/lib/libgurobi120.dylib
+
+CPU model: Apple M3 Pro
+Thread count: 11 physical cores, 11 logical processors, using up to 11 threads
+
+Optimize a model with 56 rows, 19 columns and 177 nonzeros
+Model fingerprint: 0x3fd44a20
+Model has 155 quadratic constraints
+Coefficient statistics:
+  Matrix range     [1e-01, 6e+00]
+  QMatrix range    [1e-01, 3e+01]
+  QLMatrix range   [1e+00, 1e+00]
+  Objective range  [5e-02, 1e+00]
+  Bounds range     [1e+00, 9e+00]
+  RHS range        [1e+01, 1e+01]
+  QRHS range       [3e-01, 1e+01]
+Presolve time: 0.00s
+
+Barrier solved model in 0 iterations and 0.00 seconds (0.00 work units)
+Model is infeasible or unbounded
+
+Gurobi 12.0.3 (mac64[arm], gurobi_cl) logging started Tue May 26 14:18:19 2026
+
+Set parameter Username
+Set parameter LicenseID to value 2709558
+Set parameter LogFile to value "gurobi.log"
+Using license file /Users/blake/gurobi.lic
+Academic license - for non-commercial use only - expires 2026-09-16
+
+Gurobi Optimizer version 12.0.3 build v12.0.3rc0 (mac64[arm] - Darwin 23.5.0 23F79)
+Copyright (c) 2025, Gurobi Optimization, LLC
+
+Read LP format model from file form_1.lp
+Reading time = 0.00 seconds
+: 55 rows, 19 columns, 175 nonzeros
+
+Using Gurobi shared library /Library/gurobi1203/macos_universal2/lib/libgurobi120.dylib
+
+CPU model: Apple M3 Pro
+Thread count: 11 physical cores, 11 logical processors, using up to 11 threads
+
+Optimize a model with 55 rows, 19 columns and 175 nonzeros
+Model fingerprint: 0xfb3bce60
+Model has 155 quadratic constraints
+Coefficient statistics:
+  Matrix range     [2e-01, 6e+00]
+  QMatrix range    [1e-01, 3e+01]
+  QLMatrix range   [1e+00, 1e+00]
+  Objective range  [5e-02, 1e+00]
+  Bounds range     [1e+00, 9e+00]
+  RHS range        [1e+01, 1e+01]
+  QRHS range       [3e-01, 1e+01]
+Presolve time: 0.00s
+
+Barrier solved model in 0 iterations and 0.00 seconds (0.00 work units)
+Model is infeasible or unbounded
+
+Gurobi 12.0.3 (mac64[arm], gurobi_cl) logging started Tue May 26 14:18:39 2026
+
+Set parameter Username
+Set parameter LicenseID to value 2709558
+Set parameter LogFile to value "gurobi.log"
+Using license file /Users/blake/gurobi.lic
+Academic license - for non-commercial use only - expires 2026-09-16
+
+Gurobi Optimizer version 12.0.3 build v12.0.3rc0 (mac64[arm] - Darwin 23.5.0 23F79)
+Copyright (c) 2025, Gurobi Optimization, LLC
+
+Read LP format model from file form_1.lp
+Reading time = 0.00 seconds
+: 55 rows, 18 columns, 175 nonzeros
+
+Using Gurobi shared library /Library/gurobi1203/macos_universal2/lib/libgurobi120.dylib
+
+CPU model: Apple M3 Pro
+Thread count: 11 physical cores, 11 logical processors, using up to 11 threads
+
+Optimize a model with 55 rows, 18 columns and 175 nonzeros
+Model fingerprint: 0x74bf279a
+Model has 154 quadratic constraints
+Coefficient statistics:
+  Matrix range     [2e-01, 6e+00]
+  QMatrix range    [1e-01, 3e+01]
+  Objective range  [5e-02, 1e+00]
+  Bounds range     [1e+00, 9e+00]
+  RHS range        [1e+01, 1e+01]
+  QRHS range       [3e-01, 1e+01]
+Presolve time: 0.00s
+
+Barrier solved model in 0 iterations and 0.00 seconds (0.00 work units)
+Model is infeasible or unbounded
+
+Gurobi 12.0.3 (mac64[arm], gurobi_cl) logging started Thu May 28 17:42:48 2026
+
+Set parameter Username
+Set parameter LicenseID to value 2709558
+Set parameter LogFile to value "gurobi.log"
+Using license file /Users/blake/gurobi.lic
+Academic license - for non-commercial use only - expires 2026-09-16
+
+Gurobi 13.0.2 (mac64[arm], gurobi_cl) logging started Fri May 29 15:44:52 2026
+
+Set parameter Username
+Set parameter LicenseID to value 2709558
+Set parameter LogFile to value "gurobi.log"
+Using license file /Users/blake/gurobi.lic

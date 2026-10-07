@@ -1,0 +1,108 @@
+Starting log: Mon May 25 18:46:02 2026.
+Running on: jasper.local.
+
+<Version 2025.May.21.152700@jasper>
+Reading config file drsk.conf.
+LPFILE ../data/simpleQuad.lp
+LOUDCONSTRAINTS 0
+STRUCTFILE ../data/struct_simpleQuad.conf
+PARAMFILE drskparams.conf
+Reading LP ../data/simpleQuad.lp.
+Number of variables = 2.
+Done reading LP.
+Now storing LP data.
+
+Storing linear constraints; 1 in total.
+Reading implicit structure.
+Stored linear constraints with code 0.
+Storing quadratic constraints; 1 in total.
+Quad constraints read with code 0.
+Reading structure file ../data/struct_simpleQuad.conf.
+I = 2 budget = 1
+Skipping structure check.
+Read structure.
+Reading parameter file drskparams.conf.
+tol 0.01
+maxits 20
+lambda_hi 0.7
+lambda_lo 0.65
+xi 0.01
+Running Algo1.
+Solving Model
+  variables = 2
+  constraints = 1
+ OPTIMAL. optimal value: 2.0000e+00 in time 8.7938e-03
+Optimal objective = 2
+Optimal variable values:
+x1 = 1
+x2 = 1
+2 nonzero variables in solution
+Writing solution to file form_0.sol.
+Getting impact at iteration_cnt 0 using style 0-norm_per.
+>feat: 0  name: c1  numrisky: 2
+ riskyterm: 0  z: z_1x1  card: 1  vars: ['x1']
+ j 0 h 0 var = x1 xval = 1.0000000001572498 coeff = 1.0
+ -> displacement 1.000e+00   scaled displacement 5.000e-01
+ riskyterm: 1  z: z_1x2  card: 1  vars: ['x2']
+ j 1 h 0 var = x2 xval = 1.0000000001752603 coeff = 1.0
+ -> displacement 1.000e+00   scaled displacement 5.000e-01
+ feat: c1 (>)  L0norm: 0.5  L1norm: 2  L2norm: 1.41421
+>feat: 1  name: c2  numrisky: 2
+ riskyterm: 0  z: z_2x1  card: 1  vars: [('x1', 'x1')]
+ j 0 h 0 var = ('x1', 'x1') xval = 1.0000000003144995 coeff = 1.0
+ -> displacement 0.000e+00   scaled displacement 0.000e+00
+ riskyterm: 1  z: z_2x2  card: 1  vars: [('x2', 'x2')]
+ j 1 h 0 var = ('x2', 'x2') xval = 1.0000000003505205 coeff = 1.0
+ -> displacement 0.000e+00   scaled displacement 0.000e+00
+ feat: c2 (<)  L0norm: 0  L1norm: 0  L2norm: 0
+Max feature value: 0.5 at 0  L1-norm: 2  L2-norm: 1.41421.
+Counter: 0  feature: 0  delta: 5.000e-01  ind: 1
+Counter: 1  feature: 1  delta: 0.000e+00  ind: -1
+Iteration 0.  Obj 2  Cost 2  IMP 0  Max-Impact 0.5.
+Adding impact variable with Theta 0.8.
+  NOTDONE: keep running.
+Adding greedy cuts at iteration_cnt 0.
+Writing LP to file form_1.lp.
+Solving Model
+  variables = 4
+  constraints = 3
+ OPTIMAL. optimal value: 2.0000e+00 in time 1.4920e-03
+Optimal objective = 2
+Optimal variable values:
+x1 = 2
+x2 = 3.26989e-07
+IMP = 1.04026e-07
+phifunc_0_1 = 1.04026e-07
+4 nonzero variables in solution
+Writing solution to file form_1.sol.
+Getting impact at iteration_cnt 1 using style 0-norm_per.
+>feat: 0  name: c1  numrisky: 2
+ riskyterm: 0  z: z_1x1  card: 1  vars: ['x1']
+ j 0 h 0 var = x1 xval = 1.999999594520564 coeff = 1.0
+ -> displacement 2.000e+00   scaled displacement 1.000e+00
+ riskyterm: 1  z: z_1x2  card: 1  vars: ['x2']
+ j 1 h 0 var = x2 xval = 3.2698885538516777e-07 coeff = 1.0
+ -> displacement 4.055e-07   scaled displacement 2.027e-07
+ feat: c1 (>)  L0norm: 1  L1norm: 2  L2norm: 2
+>feat: 1  name: c2  numrisky: 2
+ riskyterm: 0  z: z_2x1  card: 1  vars: [('x1', 'x1')]
+ j 0 h 0 var = ('x1', 'x1') xval = 3.99999837808242 coeff = 1.0
+ -> displacement 4.000e+00   scaled displacement 2.000e+00
+ riskyterm: 1  z: z_2x2  card: 1  vars: [('x2', 'x2')]
+ j 1 h 0 var = ('x2', 'x2') xval = 1.0692171154610215e-13 coeff = 1.0
+ -> displacement 0.000e+00   scaled displacement 0.000e+00
+ feat: c2 (<)  L0norm: 2  L1norm: 4  L2norm: 4
+Max feature value: 2 at 1  L1-norm: 4  L2-norm: 4.
+Counter: 0  feature: 1  delta: 2.000e+00  ind: 0
+Counter: 1  feature: 0  delta: 1.000e+00  ind: 0
+Iteration 1.  Obj 2  Cost 2  IMP 1.0403e-07  Max-Impact 2.
+  NOTDONE: keep running.
+Adding greedy cuts at iteration_cnt 1.
+Writing LP to file form_2.lp.
+Solving Model
+  variables = 5
+  constraints = 4
+->LP infeasible
+solveLP returns 1, INFEASIBLE at iter 2.
+
+Closing log: Mon May 25 18:46:10 2026.

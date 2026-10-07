@@ -1,0 +1,172 @@
+Starting log: Wed Apr  8 13:28:47 2026.
+Running on: jasper.local.
+
+<Version 2025.Apr.08.104600@jasper>
+Reading config file drsk.conf.
+LPFILE ../data/simple.lp
+SOLFILE ../data/simple.sol
+NONZEROSINSOL 1
+LOUDCONSTRAINTS 0
+STRUCTFILE struct_simple.conf
+Reading LP ../data/simple.lp.
+Number of variables = 2.
+Done reading LP.
+Reading solution file ../data/simple.sol.
+Now storing LP data.
+
+Storing linear constraints; 3 in total.
+Stored linear constraints with code 0.
+Storing quadratic constraints; 0 in total.
+Quad constraints read with code 0.
+
+->Linear objective!
+Iter 0 Quad term 0.0000e+00 lin term 6.0000e+00 constant 0.0000e+00 total 6.000000e+00.
+Reading structure file struct_simple.conf.
+I = 2 budget = 1
+Read structure.
+Running Algo1.
+Getting impact at iteration_cnt 0 using style 0-norm_per.
+>feat: 0  name: c1  numrisky: 1
+ riskyterm: 0  z: z_1y  card: 1  vars: ['y']
+ j 0 h 0 var = y xval = 0.0 coeff = 2.0
+ -> displacement 0.000e+00
+ feat: c1 (<)  L0norm: 0  L1norm: 0  L2norm: 0
+>feat: 1  name: c2  numrisky: 1
+ riskyterm: 0  z: z_2x  card: 1  vars: ['x']
+ j 0 h 0 var = x xval = 2.0 coeff = 3.0
+ -> displacement 6.000e+00
+ feat: c2 (>)  L0norm: 6  L1norm: 6  L2norm: 6
+Max feature value: 6 at 1  L1-norm: 6  L2-norm: 6.
+Counter: 0  feature: 1  delta: 6.000e+00  ind: 0
+Counter: 1  feature: 0  delta: 0.000e+00  ind: -1
+Iteration 0.  Obj 6  Impact 6.
+Current impact 6 target_impact 5.4 curr_obj 6
+Adding impact variable with Theta 1.11111.
+Adding greedy cuts at iteration_cnt 0.
+Writing LP to file form_0.lp.
+Solving Model
+  variables = 4
+  constraints = 5
+ OPTIMAL. optimal value: 1.2667e+01 in time 6.6361e-03Optimal objective = 12.6667
+Optimal variable values:
+x = 2
+IMP = 6
+phifunc_1_0 = 6
+3 nonzero variables in solution
+Getting impact at iteration_cnt 1 using style 0-norm_per.
+>feat: 0  name: c1  numrisky: 1
+ riskyterm: 0  z: z_1y  card: 1  vars: ['y']
+ j 0 h 0 var = y xval = 0.0 coeff = 2.0
+ -> displacement 0.000e+00
+ feat: c1 (<)  L0norm: 0  L1norm: 0  L2norm: 0
+>feat: 1  name: c2  numrisky: 1
+ riskyterm: 0  z: z_2x  card: 1  vars: ['x']
+ j 0 h 0 var = x xval = 2.0 coeff = 3.0
+ -> displacement 6.000e+00
+ feat: c2 (>)  L0norm: 6  L1norm: 6  L2norm: 6
+Max feature value: 6 at 1  L1-norm: 6  L2-norm: 6.
+Counter: 0  feature: 1  delta: 6.000e+00  ind: 0
+Counter: 1  feature: 0  delta: 0.000e+00  ind: -1
+Iteration 1.  Obj 6  Impact 6.
+Adding greedy cuts at iteration_cnt 1.
+Writing LP to file form_1.lp.
+Solving Model
+  variables = 5
+  constraints = 7
+ OPTIMAL. optimal value: 1.2667e+01 in time 1.1151e-03Optimal objective = 12.6667
+Optimal variable values:
+x = 2
+IMP = 6
+phifunc_1_0 = 6
+phifunc_1_0 = 6
+4 nonzero variables in solution
+Getting impact at iteration_cnt 2 using style 0-norm_per.
+>feat: 0  name: c1  numrisky: 1
+ riskyterm: 0  z: z_1y  card: 1  vars: ['y']
+ j 0 h 0 var = y xval = 0.0 coeff = 2.0
+ -> displacement 0.000e+00
+ feat: c1 (<)  L0norm: 0  L1norm: 0  L2norm: 0
+>feat: 1  name: c2  numrisky: 1
+ riskyterm: 0  z: z_2x  card: 1  vars: ['x']
+ j 0 h 0 var = x xval = 2.0 coeff = 3.0
+ -> displacement 6.000e+00
+ feat: c2 (>)  L0norm: 6  L1norm: 6  L2norm: 6
+Max feature value: 6 at 1  L1-norm: 6  L2-norm: 6.
+Counter: 0  feature: 1  delta: 6.000e+00  ind: 0
+Counter: 1  feature: 0  delta: 0.000e+00  ind: -1
+Iteration 2.  Obj 6  Impact 6.
+Adding greedy cuts at iteration_cnt 2.
+Writing LP to file form_2.lp.
+Solving Model
+  variables = 6
+  constraints = 9
+ OPTIMAL. optimal value: 1.2667e+01 in time 5.2285e-04Optimal objective = 12.6667
+Optimal variable values:
+x = 2
+IMP = 6
+phifunc_1_0 = 6
+phifunc_1_0 = 6
+phifunc_1_0 = 6
+5 nonzero variables in solution
+Getting impact at iteration_cnt 3 using style 0-norm_per.
+>feat: 0  name: c1  numrisky: 1
+ riskyterm: 0  z: z_1y  card: 1  vars: ['y']
+ j 0 h 0 var = y xval = 0.0 coeff = 2.0
+ -> displacement 0.000e+00
+ feat: c1 (<)  L0norm: 0  L1norm: 0  L2norm: 0
+>feat: 1  name: c2  numrisky: 1
+ riskyterm: 0  z: z_2x  card: 1  vars: ['x']
+ j 0 h 0 var = x xval = 2.0 coeff = 3.0
+ -> displacement 6.000e+00
+ feat: c2 (>)  L0norm: 6  L1norm: 6  L2norm: 6
+Max feature value: 6 at 1  L1-norm: 6  L2-norm: 6.
+Counter: 0  feature: 1  delta: 6.000e+00  ind: 0
+Counter: 1  feature: 0  delta: 0.000e+00  ind: -1
+Iteration 3.  Obj 6  Impact 6.
+Adding greedy cuts at iteration_cnt 3.
+Writing LP to file form_3.lp.
+Solving Model
+  variables = 7
+  constraints = 11
+ OPTIMAL. optimal value: 1.2667e+01 in time 7.5293e-04Optimal objective = 12.6667
+Optimal variable values:
+x = 2
+IMP = 6
+phifunc_1_0 = 6
+phifunc_1_0 = 6
+phifunc_1_0 = 6
+phifunc_1_0 = 6
+6 nonzero variables in solution
+Getting impact at iteration_cnt 4 using style 0-norm_per.
+>feat: 0  name: c1  numrisky: 1
+ riskyterm: 0  z: z_1y  card: 1  vars: ['y']
+ j 0 h 0 var = y xval = 0.0 coeff = 2.0
+ -> displacement 0.000e+00
+ feat: c1 (<)  L0norm: 0  L1norm: 0  L2norm: 0
+>feat: 1  name: c2  numrisky: 1
+ riskyterm: 0  z: z_2x  card: 1  vars: ['x']
+ j 0 h 0 var = x xval = 2.0 coeff = 3.0
+ -> displacement 6.000e+00
+ feat: c2 (>)  L0norm: 6  L1norm: 6  L2norm: 6
+Max feature value: 6 at 1  L1-norm: 6  L2-norm: 6.
+Counter: 0  feature: 1  delta: 6.000e+00  ind: 0
+Counter: 1  feature: 0  delta: 0.000e+00  ind: -1
+Iteration 4.  Obj 6  Impact 6.
+Adding greedy cuts at iteration_cnt 4.
+Writing LP to file form_4.lp.
+Solving Model
+  variables = 8
+  constraints = 13
+ OPTIMAL. optimal value: 1.2667e+01 in time 5.4312e-04Optimal objective = 12.6667
+Optimal variable values:
+x = 2
+IMP = 6
+phifunc_1_0 = 6
+phifunc_1_0 = 6
+phifunc_1_0 = 6
+phifunc_1_0 = 6
+phifunc_1_0 = 6
+7 nonzero variables in solution
+Skipping solution check
+
+Closing log: Wed Apr  8 13:29:31 2026.

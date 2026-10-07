@@ -1,0 +1,87 @@
+Starting log: Tue May 26 22:50:14 2026.
+Running on: jasper.local.
+
+<Version 2025.May.26.152000@jasper>
+Reading config file drsk.conf.
+LPFILE ../data/simpleQuad.lp
+LOUDCONSTRAINTS 0
+STRUCTFILE ../data/struct_simpleQuad.conf
+PARAMFILE drskparams.conf
+Reading LP ../data/simpleQuad.lp.
+Number of variables = 2.
+Done reading LP.
+Now storing LP data.
+
+Storing linear constraints; 1 in total.
+Stored linear constraints with code 0.
+Storing quadratic constraints; 1 in total.
+Quad constraints read with code 0.
+Reading structure file ../data/struct_simpleQuad.conf.
+I = 2 budget = 1
+Skipping structure check.
+Read structure.
+Reading parameter file drskparams.conf.
+tol 0.01
+maxits 20
+lambda_hi 0.75
+lambda_lo 0.74
+xi 0.01
+Running SOFTMAX-ADVERSARIAL.
+Solving Model
+  variables = 2
+  constraints = 1
+ OPTIMAL. optimal value: 2.0000e+00 in time 2.6798e-04
+Optimal objective = 2
+Optimal variable values:
+x1 = 1
+x2 = 1
+2 nonzero variables in solution
+Writing solution to file form_0.sol.
+Getting impact at iteration_cnt 0 using SOFTMAX.
+>feat: 0  name: c1  numrisky: 2
+ >riskyterm: 0  z: z_1x1  card: 1  vars: ['x1']
+  j=0 h=0 var=x1 xval=1.0000000017829256 coeff=2.0
+ >riskyterm: 1  z: z_1x2  card: 1  vars: ['x2']
+  j=1 h=0 var=x2 xval=1.0000000017902493 coeff=2.0
+>feat: 1  name: c2  numrisky: 2
+ >riskyterm: 0  z: z_2x1  card: 1  vars: [('x1', 'x1')]
+  j=0 h=0 var=('x1', 'x1') xyval=1.0000000035658512 coeff=2.0
+ >riskyterm: 1  z: z_2x2  card: 1  vars: [('x2', 'x2')]
+  j=1 h=0 var=('x2', 'x2') xyval=1.0000000035804986 coeff=2.0
+Running Red gradient ascent for SOFTMAX-ADVERSARIAL
+START: Running PyTorch FOM...
+  penalty parameter: 0.0
+    z: 
+    -1.003e+00 -1.106e+00 -9.923e-01 -1.007e+00 
+    logsumexp: -2.3272197246551514
+    penalty: 4.222308158874512
+    loss: -2.3272197246551514
+  penalty parameter: 0.1
+    z: 
+    -4.961e-01 -5.233e-01 -1.546e+00 -1.554e+00 
+    logsumexp: -2.6715292930603027
+    penalty: 5.320847034454346
+    loss: -2.139444589614868
+  penalty parameter: 0.2
+    z: 
+    -1.449e-01 -1.455e-01 -1.158e+00 -1.159e+00 
+    logsumexp: -2.283857583999634
+    penalty: 2.7264418601989746
+    loss: -1.7385692596435547
+  penalty parameter: 0.30000000000000004
+    z: 
+    -1.455e-01 -1.454e-01 -6.947e-01 -6.948e-01 
+    logsumexp: -1.88739013671875
+    penalty: 1.0078049898147583
+    loss: -1.5850486755371094
+Gradient converged
+  penalty parameter: 0.4
+    z: 
+    -1.263e-01 -1.263e-01 -4.996e-01 -4.996e-01 
+    logsumexp: -1.7253278493881226
+    penalty: 0.5310333967208862
+    loss: -1.5129145383834839
+STOP: PyTorch finished in 0.514865 secs, after 5 rounds.
+zvalues: 
+-1.263e-01 -1.263e-01 -4.996e-01 -4.996e-01 
+2-norm(z): 0.728708

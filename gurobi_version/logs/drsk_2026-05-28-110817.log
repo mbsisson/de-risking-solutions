@@ -1,0 +1,123 @@
+Starting log: Thu May 28 11:08:17 2026.
+Running on: jasper.local.
+
+<Version 2025.May.28.110600@jasper>
+Reading config file drsk.conf.
+LPFILE ../data/simpleQuad.lp
+LOUDCONSTRAINTS 0
+STRUCTFILE ../data/struct_simpleQuad.conf
+PARAMFILE drskparams.conf
+Reading LP ../data/simpleQuad.lp.
+Number of variables = 2.
+Done reading LP.
+Now storing LP data.
+
+Storing linear constraints; 1 in total.
+Stored linear constraints with code 0.
+Storing quadratic constraints; 1 in total.
+Quad constraints read with code 0.
+Reading structure file ../data/struct_simpleQuad.conf.
+I = 2 budget = 1
+Skipping structure check.
+Read structure.
+Reading parameter file drskparams.conf.
+tol 0.01
+maxits 20
+lambda_hi 0.75
+lambda_lo 0.74
+xi 0.01
+Running SOFTMAX-ADVERSARIAL.
+Solving Model
+  variables = 2
+  constraints = 1
+ OPTIMAL. optimal value: 2.0000e+00 in time 7.7140e-03
+Optimal objective = 2
+Optimal variable values:
+x1 = 1
+x2 = 1
+2 nonzero variables in solution
+Writing solution to file form_0.sol.
+Getting impact at iteration_cnt 0 using SOFTMAX.
+>feat: 0  name: c1  numrisky: 2
+ >riskyterm: 0  z: z_1x1  card: 1  vars: ['x1']
+  j=0 h=0 var=x1 xval=1.0000000017829256 coeff=2.0
+ >riskyterm: 1  z: z_1x2  card: 1  vars: ['x2']
+  j=1 h=0 var=x2 xval=1.0000000017902493 coeff=2.0
+>feat: 1  name: c2  numrisky: 2
+ >riskyterm: 0  z: z_2x1  card: 1  vars: [('x1', 'x1')]
+  j=0 h=0 var=('x1', 'x1') xyval=1.0000000035658512 coeff=2.0
+ >riskyterm: 1  z: z_2x2  card: 1  vars: [('x2', 'x2')]
+  j=1 h=0 var=('x2', 'x2') xyval=1.0000000035804986 coeff=2.0
+Running Red gradient ascent for SOFTMAX-ADVERSARIAL
+START: Running PyTorch FOM...
+  penalty parameter: 0.30000000000000004
+    gradient converged? True
+    zvalues: 
+     -1.470e-01 -1.470e-01 -6.874e-01 -6.874e-01 
+    norm: 0.9941608905792236
+    logsumexp: -1.881606101989746
+    penalty: 0.9883959293365479
+    loss: -1.5850872993469238
+STOP: PyTorch finished in 0.69701 secs, after 7 rounds.
+Max impact: 0.147014  feature: c1 (idx=1)
+Iteration 0.  Obj 2  Cost 2  IMP 0  Max-Impact 0.14701.
+Adding impact variable with Theta 13.6042.
+  NOTDONE: keep running.
+Computing softmax cut.
+ + Adding feature c1 (>) to cut with weight 0.536687
+ + Adding feature c2 (<) to cut with weight 0.463313
+Added softmax cut.
+Writing LP to file form_1.lp.
+Solving Model
+  variables = 5
+  constraints = 2
+ OPTIMAL. optimal value: 3.0734e+00 in time 8.7905e-04
+Optimal objective = 3.07337
+Optimal variable values:
+x1 = 0.0736676
+x2 = 1.92633
+IMP = 0.0789
+phi_0_iter0 = 0.147013
+4 nonzero variables in solution
+Writing solution to file form_1.sol.
+Getting impact at iteration_cnt 1 using SOFTMAX.
+>feat: 0  name: c1  numrisky: 2
+ >riskyterm: 0  z: z_1x1  card: 1  vars: ['x1']
+  j=0 h=0 var=x1 xval=0.07366758987799936 coeff=2.0
+ >riskyterm: 1  z: z_1x2  card: 1  vars: ['x2']
+  j=1 h=0 var=x2 xval=1.9263324135324447 coeff=2.0
+>feat: 1  name: c2  numrisky: 2
+ >riskyterm: 0  z: z_2x1  card: 1  vars: [('x1', 'x1')]
+  j=0 h=0 var=('x1', 'x1') xyval=0.005426913798433113 coeff=2.0
+ >riskyterm: 1  z: z_2x2  card: 1  vars: [('x2', 'x2')]
+  j=1 h=0 var=('x2', 'x2') xyval=3.7107565674257335 coeff=2.0
+Running Red gradient ascent for SOFTMAX-ADVERSARIAL
+START: Running PyTorch FOM...
+  penalty parameter: 0.9500000000000001
+    gradient converged? True
+    zvalues: 
+     -5.107e-04 -1.335e-02 -1.390e-03 -9.513e-01 
+    norm: 0.9513673186302185
+    logsumexp: -3.649820566177368
+    penalty: 0.9051706790924072
+    loss: -2.7899084091186523
+STOP: PyTorch finished in 1.33121 secs, after 20 rounds.
+Max impact: 0.012874  feature: c1 (idx=1)
+Iteration 1.  Obj 3.0734  Cost 2  IMP 0.0789  Max-Impact 0.012874.
+  > 1.0000 increase over original cost 2.00
+  > 0.0876 decrease from original maximpact 0.15
+  DONE: impact converged
+
+ITERATION SUMMARY:
+  Iteration 0   Objval 2.0000000036   Cost 2.0000000036   IMP 0.0000000000   Max-Impact 0.1470136776
+  Iteration 1   Objval 3.0733698044   Cost 2.0000000034   IMP 0.0789000208   Max-Impact 0.0128741064
+
+Impact Decrease (lambda): 0.0875708
+Cost Increase (multiplier): 1
+Target Objective value : 3.5000000063   (i.e. c(x*) + \Theta \lambda^hi \Phi(x*))
+  Final objval is samller --> achieved desired impact decrease for small cost increase.
+ maximpact 0.0128741064   desired_impact 0.1102602582
+ cost 2.0000000034   desired_cost 3.5000000063
+Skipping solution check
+
+Closing log: Thu May 28 11:08:50 2026.

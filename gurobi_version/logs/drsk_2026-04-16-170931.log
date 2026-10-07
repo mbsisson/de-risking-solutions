@@ -1,0 +1,198 @@
+Starting log: Thu Apr 16 17:09:31 2026.
+Running on: jasper.local.
+
+<Version 2025.Apr.08.104600@jasper>
+Reading config file drsk.conf.
+LPFILE ../data/blend2.lp
+SOLFILE ../data/blend2.sol
+NONZEROSINSOL 0
+LOUDCONSTRAINTS 0
+STRUCTFILE ../data/struct_blend2.conf
+Reading LP ../data/blend2.lp.
+Number of variables = 353.
+Done reading LP.
+Reading solution file ../data/blend2.sol.
+Now storing LP data.
+
+Storing linear constraints; 274 in total.
+Stored linear constraints with code 0.
+Storing quadratic constraints; 0 in total.
+Quad constraints read with code 0.
+
+->Linear objective!
+Iter 0 Quad term 0.0000e+00 lin term 6.9157e+00 constant 0.0000e+00 total 6.915675e+00.
+Reading structure file ../data/struct_blend2.conf.
+I = 2 budget = 1
+Read structure.
+Running Algo1.
+Getting impact at iteration_cnt 0 using style 0-norm_per.
+>feat: 0  name: VV114  numrisky: 1
+ riskyterm: 0  z: z565  card: 1  vars: ['VV565']
+ j 0 h 0 var = VV565 xval = 0.7319289271772782 coeff = -3128.0
+ -> displacement 2.289e+03
+ feat: VV114 (<)  L0norm: 2289.47  L1norm: 2289.47  L2norm: 2289.47
+>feat: 1  name: VV133  numrisky: 1
+ riskyterm: 0  z: z584  card: 1  vars: ['VV584']
+ j 0 h 0 var = VV584 xval = 0.9595246852385914 coeff = -1350.0
+ -> displacement 1.295e+03
+ feat: VV133 (<)  L0norm: 1295.36  L1norm: 1295.36  L2norm: 1295.36
+Max feature value: 2289.47 at 0  L1-norm: 2289.47  L2-norm: 2289.47.
+Counter: 0  feature: 0  delta: 2.289e+03  ind: 0
+Counter: 1  feature: 1  delta: 1.295e+03  ind: 0
+Iteration 0.  Obj 6.9157  Impact 2289.5.
+Current impact 2289.47 curr_obj 6.91568 lambda_lo 0.5 lambda_hi 0.6 xi 0.01
+Adding impact variable with Theta 0.000302064.
+Adding greedy cuts at iteration_cnt 0.
+Writing LP to file form_original.lp.
+Solving Model
+  variables = 355
+  constraints = 276
+ OPTIMAL. optimal value: 7.1753e+00 in time 8.1472e-03Optimal objective = 7.17534
+Optimal variable values:
+VV558 = 0.779829
+VV562 = 0.506952
+VV576 = 0.0278254
+VV584 = 1
+VV585 = 1
+VV587 = 1
+VV604 = 1
+VV605 = 1
+VV611 = 1
+VV612 = 1
+VV617 = 0.893373
+VV624 = 0.543441
+VV625 = 1
+VV626 = 1
+VV293 = 1.73746
+VV469 = 1737.46
+VV297 = 0.980446
+VV473 = 980.446
+VV311 = 0.0278254
+VV487 = 27.8254
+VV319 = 1
+VV407 = 1
+VV495 = 1350
+VV320 = 1
+VV408 = 1
+VV496 = 1828
+VV322 = 1
+VV410 = 1
+VV498 = 1443
+VV339 = 1
+VV427 = 1
+VV515 = 1605
+VV340 = 1
+VV428 = 1
+VV516 = 1430
+VV346 = 2
+VV522 = 2000
+VV347 = 1
+VV435 = 1
+VV523 = 1830
+VV352 = 0.80338
+VV440 = 1
+VV528 = 1647.38
+VV359 = 0.96189
+VV535 = 961.89
+VV360 = 1
+VV448 = 1
+VV536 = 1450
+VV361 = 2
+VV449 = 1
+VV537 = 2009
+VV540 = 20300
+52 nonzero variables in solution
+Getting impact at iteration_cnt 1 using style 0-norm_per.
+>feat: 0  name: VV114  numrisky: 1
+ riskyterm: 0  z: z565  card: 1  vars: ['VV565']
+ j 0 h 0 var = VV565 xval = 0.0 coeff = -3128.0
+ -> displacement 0.000e+00
+ feat: VV114 (<)  L0norm: 0  L1norm: 0  L2norm: 0
+>feat: 1  name: VV133  numrisky: 1
+ riskyterm: 0  z: z584  card: 1  vars: ['VV584']
+ j 0 h 0 var = VV584 xval = 1.0 coeff = -1350.0
+ -> displacement 1.350e+03
+ feat: VV133 (<)  L0norm: 1350  L1norm: 1350  L2norm: 1350
+Max feature value: 1350 at 1  L1-norm: 1350  L2-norm: 1350.
+Counter: 0  feature: 1  delta: 1.350e+03  ind: 0
+Counter: 1  feature: 0  delta: 0.000e+00  ind: -1
+Iteration 1.  Obj 7.1753  Impact 1350.
+Adding greedy cuts at iteration_cnt 1.
+Writing LP to file form_1.lp.
+Solving Model
+  variables = 356
+  constraints = 278
+ OPTIMAL. optimal value: 7.2066e+00 in time 9.0218e-04Optimal objective = 7.20659
+Optimal variable values:
+VV558 = 0.860864
+VV562 = 0.39978
+VV576 = 0.878065
+VV585 = 1
+VV587 = 1
+VV604 = 1
+VV605 = 1
+VV611 = 1
+VV612 = 1
+VV617 = 0.970629
+VV624 = 0.760405
+VV625 = 1
+VV626 = 1
+VV293 = 1.91801
+VV469 = 1918.01
+VV297 = 0.773174
+VV473 = 773.174
+VV311 = 0.878065
+VV487 = 878.065
+VV320 = 1
+VV408 = 1
+VV496 = 1828
+VV322 = 1
+VV410 = 1
+VV498 = 1443
+VV339 = 1
+VV427 = 1
+VV515 = 1605
+VV340 = 1
+VV428 = 1
+VV516 = 1430
+VV346 = 2
+VV522 = 2000
+VV347 = 1
+VV435 = 1
+VV523 = 1830
+VV352 = 0.945839
+VV440 = 1
+VV528 = 1789.84
+VV359 = 1
+VV447 = 0.449243
+VV535 = 1345.92
+VV360 = 1
+VV448 = 1
+VV536 = 1450
+VV361 = 2
+VV449 = 1
+VV537 = 2009
+VV540 = 20300
+49 nonzero variables in solution
+Getting impact at iteration_cnt 2 using style 0-norm_per.
+>feat: 0  name: VV114  numrisky: 1
+ riskyterm: 0  z: z565  card: 1  vars: ['VV565']
+ j 0 h 0 var = VV565 xval = 0.0 coeff = -3128.0
+ -> displacement 0.000e+00
+ feat: VV114 (<)  L0norm: 0  L1norm: 0  L2norm: 0
+>feat: 1  name: VV133  numrisky: 1
+ riskyterm: 0  z: z584  card: 1  vars: ['VV584']
+ j 0 h 0 var = VV584 xval = 0.0 coeff = -1350.0
+ -> displacement 0.000e+00
+ feat: VV133 (<)  L0norm: 0  L1norm: 0  L2norm: 0
+Max feature value: 0 at -1  L1-norm: 0  L2-norm: 0.
+Counter: 0  feature: 0  delta: 0.000e+00  ind: -1
+Counter: 1  feature: 1  delta: 0.000e+00  ind: -1
+Iteration 2.  Obj 7.2066  Impact 0.
+Objective value and Impact per iteration:
+  Iteration 0   Objval 6.915675114   Impact 2289.473684
+  Iteration 1   Objval 7.175339621   Impact 1350
+  Iteration 2   Objval 7.206593196   Impact 0
+Skipping solution check
+
+Closing log: Thu Apr 16 17:09:39 2026.

@@ -1,0 +1,34 @@
+starting log: Wed May 27 14:43:19 2026
+running on: freestyle.local
+
+Version <Wed.May.13.155121.2026@freestyle>
+reading config file ac.conf
+reading case file ../../data/pglib_opf_case30000_goc__api.m
+reading case file thru lines
+found mpc.version on line 10
+found mpc.baseMVA on line 11
+ baseMVA: 100.0
+found mpc.bus on line 15
+ slack bus: 20006
+ Bus 20006 ID 20006 is the reference bus
+found end of bus section on line 30016
+ sumloadPd 223182.02000000107 numPload 10648
+ sumloadQd 30768.81000000003
+ 30000 buses
+found mpc.gen on line 30020
+ found end of gen section on line 33547
+ number of generators: 3526 number of buses with gens: 2278
+ summaxPg: 406292.0 summaxQg: 237492.05899999914
+found mpc.gencost on line 33551
+ found end of gencost section on line 37078
+found mpc.branch on line 37082
+ found end of branch section on line 72476
+ branchcount: 35393 active 35393
+  0 unconstrained
+read time: 0.2189178466796875
+reading cut file ../cutdata/zerocuts.dat
+numcuts: 0; Theta: 0
+ creating ampl object ...
+ reading modfile ...
+ modfile read in time 0.00026988983154296875 AMPL presolve off
+ solver set to knitro

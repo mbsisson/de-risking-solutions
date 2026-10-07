@@ -1,0 +1,32 @@
+starting log: Mon Jun 15 12:57:31 2026
+running on: freestyle.local
+
+Version <Wed.May.13.155121.2026@freestyle>
+reading config file ac.conf
+reading case file ../../data/pglib_opf_case13659_pegase__api.m
+reading case file thru lines
+found mpc.version on line 10
+found mpc.baseMVA on line 11
+ baseMVA: 100.0
+found mpc.bus on line 15
+ slack bus: 1
+ Bus 1 ID 1 is the reference bus
+found end of bus section on line 13675
+ sumloadPd 415883.4999999995 numPload 5043
+ sumloadQd 98523.40000000056
+ 13659 buses
+found mpc.gen on line 13679
+ found end of gen section on line 17772
+ number of generators: 4092 number of buses with gens: 4092
+ summaxPg: 868395.0 summaxQg: 1168629.7999999998
+found mpc.gencost on line 17776
+ found end of gencost section on line 21869
+found mpc.branch on line 21873
+ found end of branch section on line 42341
+ branchcount: 20467 active 20467
+  0 unconstrained
+read time: 0.12000298500061035
+reading cut file ../../cutdata/cuts_explicit13659_ave10.dat
+Using 100 cuts.
+numcuts: 100; Theta: 1
+ creating ampl object ...

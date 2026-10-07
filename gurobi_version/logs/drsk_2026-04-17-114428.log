@@ -1,0 +1,2334 @@
+Starting log: Fri Apr 17 11:44:28 2026.
+Running on: jasper.local.
+
+<Version 2025.Apr.08.104600@jasper>
+Reading config file drsk.conf.
+LPFILE ../data/case30dc.lp
+SOLFILE ../data/case30dc.sol
+NONZEROSINSOL 0
+LOUDCONSTRAINTS 0
+STRUCTFILE ../data/structure_case30dc.conf
+Reading LP ../data/case30dc.lp.
+Number of variables = 110.
+Done reading LP.
+Reading solution file ../data/case30dc.sol.
+Now storing LP data.
+
+Storing linear constraints; 78 in total.
+Stored linear constraints with code 0.
+Storing quadratic constraints; 1 in total.
+Quad constraints read with code 0.
+
+->Linear objective!
+Iter 0 Quad term 0.0000e+00 lin term 5.6521e+02 constant 0.0000e+00 total 5.652060e+02.
+Reading structure file ../data/structure_case30dc.conf.
+I = 41 budget = 1
+Read structure.
+Running Algo1.
+Getting impact at iteration_cnt 0 using style 0-norm_per.
+>feat: 0  name: Pdef_1,1,2  numrisky: 1
+ riskyterm: 0  z: z_1,1,2  card: 2  vars: ['theta_1', 'theta_2']
+ j 0 h 0 var = theta_1 xval = 0 coeff = -16.66666666666667
+ j 0 h 1 var = theta_2 xval = -0.013875796900880998 coeff = 16.66666666666667
+ -> displacement -2.313e-01
+ feat: Pdef_1,1,2 (=)  L0norm: 0.231263  L1norm: 0.231263  L2norm: 0.231263
+>feat: 1  name: Pdef_2,1,3  numrisky: 1
+ riskyterm: 0  z: z_2,1,3  card: 2  vars: ['theta_1', 'theta_3']
+ j 0 h 0 var = theta_1 xval = 0 coeff = -5.263157894736842
+ j 0 h 1 var = theta_3 xval = -0.041046801180562434 coeff = 5.263157894736842
+ -> displacement -2.160e-01
+ feat: Pdef_2,1,3 (=)  L0norm: 0.216036  L1norm: 0.216036  L2norm: 0.216036
+>feat: 2  name: Pdef_3,2,4  numrisky: 1
+ riskyterm: 0  z: z_3,2,4  card: 2  vars: ['theta_2', 'theta_4']
+ j 0 h 0 var = theta_2 xval = -0.013875796900880998 coeff = -5.88235294117647
+ j 0 h 1 var = theta_4 xval = -0.04872823300804944 coeff = 5.88235294117647
+ -> displacement -2.050e-01
+ feat: Pdef_3,2,4 (=)  L0norm: 0.205014  L1norm: 0.205014  L2norm: 0.205014
+>feat: 3  name: Pdef_4,3,4  numrisky: 1
+ riskyterm: 0  z: z_4,3,4  card: 2  vars: ['theta_3', 'theta_4']
+ j 0 h 0 var = theta_3 xval = -0.041046801180562434 coeff = -25.0
+ j 0 h 1 var = theta_4 xval = -0.04872823300804944 coeff = 25.0
+ -> displacement -1.920e-01
+ feat: Pdef_4,3,4 (=)  L0norm: 0.192036  L1norm: 0.192036  L2norm: 0.192036
+>feat: 4  name: Pdef_5,2,5  numrisky: 1
+ riskyterm: 0  z: z_5,2,5  card: 2  vars: ['theta_2', 'theta_5']
+ j 0 h 0 var = theta_2 xval = -0.013875796900880998 coeff = -5.0
+ j 0 h 1 var = theta_5 xval = -0.044488819088752796 coeff = 5.0
+ -> displacement -1.531e-01
+ feat: Pdef_5,2,5 (=)  L0norm: 0.153065  L1norm: 0.153065  L2norm: 0.153065
+>feat: 5  name: Pdef_6,2,6  numrisky: 1
+ riskyterm: 0  z: z_6,2,6  card: 2  vars: ['theta_2', 'theta_6']
+ j 0 h 0 var = theta_2 xval = -0.013875796900880998 coeff = -5.555555555555555
+ j 0 h 1 var = theta_6 xval = -0.05686184127662459 coeff = 5.555555555555555
+ -> displacement -2.388e-01
+ feat: Pdef_6,2,6 (=)  L0norm: 0.238811  L1norm: 0.238811  L2norm: 0.238811
+>feat: 6  name: Pdef_7,4,6  numrisky: 1
+ riskyterm: 0  z: z_7,4,6  card: 2  vars: ['theta_4', 'theta_6']
+ j 0 h 0 var = theta_4 xval = -0.04872823300804944 coeff = -25.0
+ j 0 h 1 var = theta_6 xval = -0.05686184127662459 coeff = 25.0
+ -> displacement -2.033e-01
+ feat: Pdef_7,4,6 (=)  L0norm: 0.20334  L1norm: 0.20334  L2norm: 0.20334
+>feat: 7  name: Pdef_8,5,7  numrisky: 1
+ riskyterm: 0  z: z_8,5,7  card: 2  vars: ['theta_5', 'theta_7']
+ j 0 h 0 var = theta_5 xval = -0.044488819088752796 coeff = -8.333333333333334
+ j 0 h 1 var = theta_7 xval = -0.06285663240147588 coeff = 8.333333333333334
+ -> displacement -1.531e-01
+ feat: Pdef_8,5,7 (=)  L0norm: 0.153065  L1norm: 0.153065  L2norm: 0.153065
+>feat: 8  name: Pdef_9,6,7  numrisky: 1
+ riskyterm: 0  z: z_9,6,7  card: 2  vars: ['theta_6', 'theta_7']
+ j 0 h 0 var = theta_6 xval = -0.05686184127662459 coeff = -12.5
+ j 0 h 1 var = theta_7 xval = -0.06285663240147588 coeff = 12.5
+ -> displacement -7.493e-02
+ feat: Pdef_9,6,7 (=)  L0norm: 0.0749349  L1norm: 0.0749349  L2norm: 0.0749349
+>feat: 9  name: Pdef_10,6,8  numrisky: 1
+ riskyterm: 0  z: z_10,6,8  card: 2  vars: ['theta_6', 'theta_8']
+ j 0 h 0 var = theta_6 xval = -0.05686184127662459 coeff = -25.0
+ j 0 h 1 var = theta_8 xval = -0.06664637982236168 coeff = 25.0
+ -> displacement -2.446e-01
+ feat: Pdef_10,6,8 (=)  L0norm: 0.244613  L1norm: 0.244613  L2norm: 0.244613
+>feat: 10  name: Pdef_11,6,9  numrisky: 1
+ riskyterm: 0  z: z_11,6,9  card: 2  vars: ['theta_6', 'theta_9']
+ j 0 h 0 var = theta_6 xval = -0.05686184127662459 coeff = -4.761904761904762
+ j 0 h 1 var = theta_9 xval = -0.07612543717682116 coeff = 4.761904761904762
+ -> displacement -9.173e-02
+ feat: Pdef_11,6,9 (=)  L0norm: 0.0917314  L1norm: 0.0917314  L2norm: 0.0917314
+>feat: 11  name: Pdef_12,6,10  numrisky: 1
+ riskyterm: 0  z: z_12,6,10  card: 2  vars: ['theta_6', 'theta_10']
+ j 0 h 0 var = theta_6 xval = -0.05686184127662459 coeff = -1.785714285714286
+ j 0 h 1 var = theta_10 xval = -0.08621589217216674 coeff = 1.785714285714286
+ -> displacement -5.242e-02
+ feat: Pdef_12,6,10 (=)  L0norm: 0.0524179  L1norm: 0.0524179  L2norm: 0.0524179
+>feat: 12  name: Pdef_13,9,11  numrisky: 1
+ riskyterm: 0  z: z_13,9,11  card: 2  vars: ['theta_9', 'theta_11']
+ j 0 h 0 var = theta_9 xval = -0.07612543717682116 coeff = -4.761904761904762
+ j 0 h 1 var = theta_11 xval = -0.07612543717682116 coeff = 4.761904761904762
+ -> displacement 0.000e+00
+ feat: Pdef_13,9,11 (=)  L0norm: 0  L1norm: 0  L2norm: 0
+>feat: 13  name: Pdef_14,9,10  numrisky: 1
+ riskyterm: 0  z: z_14,9,10  card: 2  vars: ['theta_9', 'theta_10']
+ j 0 h 0 var = theta_9 xval = -0.07612543717682116 coeff = -9.090909090909092
+ j 0 h 1 var = theta_10 xval = -0.08621589217216674 coeff = 9.090909090909092
+ -> displacement -9.173e-02
+ feat: Pdef_14,9,10 (=)  L0norm: 0.0917314  L1norm: 0.0917314  L2norm: 0.0917314
+>feat: 14  name: Pdef_15,4,12  numrisky: 1
+ riskyterm: 0  z: z_15,4,12  card: 2  vars: ['theta_4', 'theta_12']
+ j 0 h 0 var = theta_4 xval = -0.04872823300804944 coeff = -3.846153846153846
+ j 0 h 1 var = theta_12 xval = -0.07933281195193334 coeff = 3.846153846153846
+ -> displacement -1.177e-01
+ feat: Pdef_15,4,12 (=)  L0norm: 0.11771  L1norm: 0.11771  L2norm: 0.11771
+>feat: 15  name: Pdef_16,12,13  numrisky: 1
+ riskyterm: 0  z: z_16,12,13  card: 2  vars: ['theta_12', 'theta_13']
+ j 0 h 0 var = theta_12 xval = -0.07933281195193334 coeff = -7.142857142857142
+ j 0 h 1 var = theta_13 xval = -0.05723531547419203 coeff = 7.142857142857142
+ -> displacement 1.578e-01
+ feat: Pdef_16,12,13 (=)  L0norm: 0.157839  L1norm: 0.157839  L2norm: 0.157839
+>feat: 16  name: Pdef_17,12,14  numrisky: 1
+ riskyterm: 0  z: z_17,12,14  card: 2  vars: ['theta_12', 'theta_14']
+ j 0 h 0 var = theta_12 xval = -0.07933281195193334 coeff = -3.846153846153846
+ j 0 h 1 var = theta_14 xval = -0.09129820739085659 coeff = 3.846153846153846
+ -> displacement -4.602e-02
+ feat: Pdef_17,12,14 (=)  L0norm: 0.0460208  L1norm: 0.0460208  L2norm: 0.0460208
+>feat: 17  name: Pdef_18,12,15  numrisky: 1
+ riskyterm: 0  z: z_18,12,15  card: 2  vars: ['theta_12', 'theta_15']
+ j 0 h 0 var = theta_12 xval = -0.07933281195193334 coeff = -7.692307692307692
+ j 0 h 1 var = theta_15 xval = -0.08810235772848986 coeff = 7.692307692307692
+ -> displacement -6.746e-02
+ feat: Pdef_18,12,15 (=)  L0norm: 0.067458  L1norm: 0.067458  L2norm: 0.067458
+>feat: 18  name: Pdef_19,12,16  numrisky: 1
+ riskyterm: 0  z: z_19,12,16  card: 2  vars: ['theta_12', 'theta_16']
+ j 0 h 0 var = theta_12 xval = -0.07933281195193334 coeff = -5.0
+ j 0 h 1 var = theta_16 xval = -0.08934688864140379 coeff = 5.0
+ -> displacement -5.007e-02
+ feat: Pdef_19,12,16 (=)  L0norm: 0.0500704  L1norm: 0.0500704  L2norm: 0.0500704
+>feat: 19  name: Pdef_20,14,15  numrisky: 1
+ riskyterm: 0  z: z_20,14,15  card: 2  vars: ['theta_14', 'theta_15']
+ j 0 h 0 var = theta_14 xval = -0.09129820739085659 coeff = -5.0
+ j 0 h 1 var = theta_15 xval = -0.08810235772848986 coeff = 5.0
+ -> displacement 1.598e-02
+ feat: Pdef_20,14,15 (=)  L0norm: 0.0159792  L1norm: 0.0159792  L2norm: 0.0159792
+>feat: 20  name: Pdef_21,16,17  numrisky: 1
+ riskyterm: 0  z: z_21,16,17  card: 2  vars: ['theta_16', 'theta_17']
+ j 0 h 0 var = theta_16 xval = -0.08934688864140379 coeff = -5.263157894736842
+ j 0 h 1 var = theta_17 xval = -0.09221026149638513 coeff = 5.263157894736842
+ -> displacement -1.507e-02
+ feat: Pdef_21,16,17 (=)  L0norm: 0.0150704  L1norm: 0.0150704  L2norm: 0.0150704
+>feat: 21  name: Pdef_22,15,18  numrisky: 1
+ riskyterm: 0  z: z_22,15,18  card: 2  vars: ['theta_15', 'theta_18']
+ j 0 h 0 var = theta_15 xval = -0.08810235772848986 coeff = -4.545454545454546
+ j 0 h 1 var = theta_18 xval = -0.10292740150249435 coeff = 4.545454545454546
+ -> displacement -6.739e-02
+ feat: Pdef_22,15,18 (=)  L0norm: 0.0673866  L1norm: 0.0673866  L2norm: 0.0673866
+>feat: 22  name: Pdef_23,18,19  numrisky: 1
+ riskyterm: 0  z: z_23,18,19  card: 2  vars: ['theta_18', 'theta_19']
+ j 0 h 0 var = theta_18 xval = -0.10292740150249435 coeff = -7.692307692307692
+ j 0 h 1 var = theta_19 xval = -0.10752765464166036 coeff = 7.692307692307692
+ -> displacement -3.539e-02
+ feat: Pdef_23,18,19 (=)  L0norm: 0.0353866  L1norm: 0.0353866  L2norm: 0.0353866
+>feat: 23  name: Pdef_24,19,20  numrisky: 1
+ riskyterm: 0  z: z_24,19,20  card: 2  vars: ['theta_19', 'theta_20']
+ j 0 h 0 var = theta_19 xval = -0.10752765464166036 coeff = -14.28571428571428
+ j 0 h 1 var = theta_20 xval = -0.10335471402428696 coeff = 14.28571428571428
+ -> displacement 5.961e-02
+ feat: Pdef_24,19,20 (=)  L0norm: 0.0596134  L1norm: 0.0596134  L2norm: 0.0596134
+>feat: 24  name: Pdef_25,10,20  numrisky: 1
+ riskyterm: 0  z: z_25,10,20  card: 2  vars: ['theta_10', 'theta_20']
+ j 0 h 0 var = theta_10 xval = -0.08621589217216674 coeff = -4.761904761904762
+ j 0 h 1 var = theta_20 xval = -0.10335471402428696 coeff = 4.761904761904762
+ -> displacement -8.161e-02
+ feat: Pdef_25,10,20 (=)  L0norm: 0.0816134  L1norm: 0.0816134  L2norm: 0.0816134
+>feat: 25  name: Pdef_26,10,17  numrisky: 1
+ riskyterm: 0  z: z_26,10,17  card: 2  vars: ['theta_10', 'theta_17']
+ j 0 h 0 var = theta_10 xval = -0.08621589217216674 coeff = -12.5
+ j 0 h 1 var = theta_17 xval = -0.09221026149638513 coeff = 12.5
+ -> displacement -7.493e-02
+ feat: Pdef_26,10,17 (=)  L0norm: 0.0749296  L1norm: 0.0749296  L2norm: 0.0749296
+>feat: 26  name: Pdef_27,10,21  numrisky: 1
+ riskyterm: 0  z: z_27,10,21  card: 2  vars: ['theta_10', 'theta_21']
+ j 0 h 0 var = theta_10 xval = -0.08621589217216674 coeff = -14.28571428571428
+ j 0 h 1 var = theta_21 xval = -0.08415700126753345 coeff = 14.28571428571428
+ -> displacement 2.941e-02
+ feat: Pdef_27,10,21 (=)  L0norm: 0.0294127  L1norm: 0.0294127  L2norm: 0.0294127
+>feat: 27  name: Pdef_28,10,22  numrisky: 1
+ riskyterm: 0  z: z_28,10,22  card: 2  vars: ['theta_10', 'theta_22']
+ j 0 h 0 var = theta_10 xval = -0.08621589217216674 coeff = -6.666666666666667
+ j 0 h 1 var = theta_22 xval = -0.08006874672335484 coeff = 6.666666666666667
+ -> displacement 4.098e-02
+ feat: Pdef_28,10,22 (=)  L0norm: 0.040981  L1norm: 0.040981  L2norm: 0.040981
+>feat: 28  name: Pdef_29,21,22  numrisky: 1
+ riskyterm: 0  z: z_29,21,22  card: 2  vars: ['theta_21', 'theta_22']
+ j 0 h 0 var = theta_21 xval = -0.08415700126753345 coeff = -50.0
+ j 0 h 1 var = theta_22 xval = -0.08006874672335484 coeff = 50.0
+ -> displacement 2.044e-01
+ feat: Pdef_29,21,22 (=)  L0norm: 0.204413  L1norm: 0.204413  L2norm: 0.204413
+>feat: 29  name: Pdef_30,15,23  numrisky: 1
+ riskyterm: 0  z: z_30,15,23  card: 2  vars: ['theta_15', 'theta_23']
+ j 0 h 0 var = theta_15 xval = -0.08810235772848986 coeff = -5.0
+ j 0 h 1 var = theta_23 xval = -0.06852080443134288 coeff = 5.0
+ -> displacement 9.791e-02
+ feat: Pdef_30,15,23 (=)  L0norm: 0.0979078  L1norm: 0.0979078  L2norm: 0.0979078
+>feat: 30  name: Pdef_31,22,24  numrisky: 1
+ riskyterm: 0  z: z_31,22,24  card: 2  vars: ['theta_22', 'theta_24']
+ j 0 h 0 var = theta_22 xval = -0.08006874672335484 coeff = -5.555555555555555
+ j 0 h 1 var = theta_24 xval = -0.07606230814535449 coeff = 5.555555555555555
+ -> displacement 2.226e-02
+ feat: Pdef_31,22,24 (=)  L0norm: 0.022258  L1norm: 0.022258  L2norm: 0.022258
+>feat: 31  name: Pdef_32,23,24  numrisky: 1
+ riskyterm: 0  z: z_32,23,24  card: 2  vars: ['theta_23', 'theta_24']
+ j 0 h 0 var = theta_23 xval = -0.06852080443134288 coeff = -3.703703703703703
+ j 0 h 1 var = theta_24 xval = -0.07606230814535449 coeff = 3.703703703703703
+ -> displacement -2.793e-02
+ feat: Pdef_32,23,24 (=)  L0norm: 0.0279315  L1norm: 0.0279315  L2norm: 0.0279315
+>feat: 32  name: Pdef_33,24,25  numrisky: 1
+ riskyterm: 0  z: z_33,24,25  card: 2  vars: ['theta_24', 'theta_25']
+ j 0 h 0 var = theta_24 xval = -0.07606230814535449 coeff = -3.03030303030303
+ j 0 h 1 var = theta_25 xval = -0.04922456418059021 coeff = 3.03030303030303
+ -> displacement 8.133e-02
+ feat: Pdef_33,24,25 (=)  L0norm: 0.0813265  L1norm: 0.0813265  L2norm: 0.0813265
+>feat: 33  name: Pdef_34,25,26  numrisky: 1
+ riskyterm: 0  z: z_34,25,26  card: 2  vars: ['theta_25', 'theta_26']
+ j 0 h 0 var = theta_25 xval = -0.04922456418059021 coeff = -2.631578947368421
+ j 0 h 1 var = theta_26 xval = -0.06252456418059021 coeff = 2.631578947368421
+ -> displacement -3.500e-02
+ feat: Pdef_34,25,26 (=)  L0norm: 0.035  L1norm: 0.035  L2norm: 0.035
+>feat: 34  name: Pdef_35,25,27  numrisky: 1
+ riskyterm: 0  z: z_35,25,27  card: 2  vars: ['theta_25', 'theta_27']
+ j 0 h 0 var = theta_25 xval = -0.04922456418059021 coeff = -4.761904761904762
+ j 0 h 1 var = theta_27 xval = -0.02479599983937658 coeff = 4.761904761904762
+ -> displacement 1.163e-01
+ feat: Pdef_35,25,27 (=)  L0norm: 0.116326  L1norm: 0.116326  L2norm: 0.116326
+>feat: 35  name: Pdef_36,28,27  numrisky: 1
+ riskyterm: 0  z: z_36,28,27  card: 2  vars: ['theta_27', 'theta_28']
+ j 0 h 0 var = theta_27 xval = -0.02479599983937658 coeff = 2.5
+ j 0 h 1 var = theta_28 xval = -0.05556907255120661 coeff = -2.5
+ -> displacement 7.693e-02
+ feat: Pdef_36,28,27 (=)  L0norm: 0.0769327  L1norm: 0.0769327  L2norm: 0.0769327
+>feat: 36  name: Pdef_37,27,29  numrisky: 1
+ riskyterm: 0  z: z_37,27,29  card: 2  vars: ['theta_27', 'theta_29']
+ j 0 h 0 var = theta_27 xval = -0.02479599983937658 coeff = -2.380952380952381
+ j 0 h 1 var = theta_29 xval = -0.05016742841083732 coeff = 2.380952380952381
+ -> displacement -6.041e-02
+ feat: Pdef_37,27,29 (=)  L0norm: 0.0604082  L1norm: 0.0604082  L2norm: 0.0604082
+>feat: 37  name: Pdef_38,27,30  numrisky: 1
+ riskyterm: 0  z: z_38,27,30  card: 2  vars: ['theta_27', 'theta_30']
+ j 0 h 0 var = theta_27 xval = -0.02479599983937658 coeff = -1.666666666666667
+ j 0 h 1 var = theta_30 xval = -0.06655110188022761 coeff = 1.666666666666667
+ -> displacement -6.959e-02
+ feat: Pdef_38,27,30 (=)  L0norm: 0.0695918  L1norm: 0.0695918  L2norm: 0.0695918
+>feat: 38  name: Pdef_39,29,30  numrisky: 1
+ riskyterm: 0  z: z39,29,30  card: 2  vars: ['theta_29', 'theta_30']
+ j 0 h 0 var = theta_29 xval = -0.05016742841083732 coeff = -2.222222222222222
+ j 0 h 1 var = theta_30 xval = -0.06655110188022761 coeff = 2.222222222222222
+ -> displacement -3.641e-02
+ feat: Pdef_39,29,30 (=)  L0norm: 0.0364082  L1norm: 0.0364082  L2norm: 0.0364082
+>feat: 39  name: Pdef_40,8,28  numrisky: 1
+ riskyterm: 0  z: z_40,8,28  card: 2  vars: ['theta_8', 'theta_28']
+ j 0 h 0 var = theta_8 xval = -0.06664637982236168 coeff = -5.0
+ j 0 h 1 var = theta_28 xval = -0.05556907255120661 coeff = 5.0
+ -> displacement 5.539e-02
+ feat: Pdef_40,8,28 (=)  L0norm: 0.0553865  L1norm: 0.0553865  L2norm: 0.0553865
+>feat: 40  name: Pdef_41,6,28  numrisky: 1
+ riskyterm: 0  z: z_41,6,28  card: 2  vars: ['theta_6', 'theta_28']
+ j 0 h 0 var = theta_6 xval = -0.05686184127662459 coeff = -16.66666666666667
+ j 0 h 1 var = theta_28 xval = -0.05556907255120661 coeff = 16.66666666666667
+ -> displacement 2.155e-02
+ feat: Pdef_41,6,28 (=)  L0norm: 0.0215461  L1norm: 0.0215461  L2norm: 0.0215461
+Max feature value: 0.244613 at 9  L1-norm: 0.244613  L2-norm: 0.244613.
+Counter: 0  feature: 9  delta: 2.446e-01  ind: 0
+Counter: 1  feature: 5  delta: 2.388e-01  ind: 0
+Counter: 2  feature: 0  delta: 2.313e-01  ind: 0
+Counter: 3  feature: 1  delta: 2.160e-01  ind: 0
+Counter: 4  feature: 2  delta: 2.050e-01  ind: 0
+Counter: 5  feature: 28  delta: 2.044e-01  ind: 0
+Counter: 6  feature: 6  delta: 2.033e-01  ind: 0
+Counter: 7  feature: 3  delta: 1.920e-01  ind: 0
+Counter: 8  feature: 15  delta: 1.578e-01  ind: 0
+Counter: 9  feature: 7  delta: 1.531e-01  ind: 0
+Counter: 10  feature: 4  delta: 1.531e-01  ind: 0
+Counter: 11  feature: 14  delta: 1.177e-01  ind: 0
+Counter: 12  feature: 34  delta: 1.163e-01  ind: 0
+Counter: 13  feature: 29  delta: 9.791e-02  ind: 0
+Counter: 14  feature: 13  delta: 9.173e-02  ind: 0
+Counter: 15  feature: 10  delta: 9.173e-02  ind: 0
+Counter: 16  feature: 24  delta: 8.161e-02  ind: 0
+Counter: 17  feature: 32  delta: 8.133e-02  ind: 0
+Counter: 18  feature: 35  delta: 7.693e-02  ind: 0
+Counter: 19  feature: 8  delta: 7.493e-02  ind: 0
+Counter: 20  feature: 25  delta: 7.493e-02  ind: 0
+Counter: 21  feature: 37  delta: 6.959e-02  ind: 0
+Counter: 22  feature: 17  delta: 6.746e-02  ind: 0
+Counter: 23  feature: 21  delta: 6.739e-02  ind: 0
+Counter: 24  feature: 36  delta: 6.041e-02  ind: 0
+Counter: 25  feature: 23  delta: 5.961e-02  ind: 0
+Counter: 26  feature: 39  delta: 5.539e-02  ind: 0
+Counter: 27  feature: 11  delta: 5.242e-02  ind: 0
+Counter: 28  feature: 18  delta: 5.007e-02  ind: 0
+Counter: 29  feature: 16  delta: 4.602e-02  ind: 0
+Counter: 30  feature: 27  delta: 4.098e-02  ind: 0
+Counter: 31  feature: 38  delta: 3.641e-02  ind: 0
+Counter: 32  feature: 22  delta: 3.539e-02  ind: 0
+Counter: 33  feature: 33  delta: 3.500e-02  ind: 0
+Counter: 34  feature: 26  delta: 2.941e-02  ind: 0
+Counter: 35  feature: 31  delta: 2.793e-02  ind: 0
+Counter: 36  feature: 30  delta: 2.226e-02  ind: 0
+Counter: 37  feature: 40  delta: 2.155e-02  ind: 0
+Counter: 38  feature: 19  delta: 1.598e-02  ind: 0
+Counter: 39  feature: 20  delta: 1.507e-02  ind: 0
+Counter: 40  feature: 12  delta: 0.000e+00  ind: -1
+Iteration 0.  Obj 565.21  Impact 0.24461.
+Current impact 0.244613 curr_obj 565.206 lambda_lo 0.5 lambda_hi 0.6 xi 0.01
+Adding impact variable with Theta 231.061.
+Adding greedy cuts at iteration_cnt 0.
+Writing LP to file form_1.lp.
+Solving Model
+  variables = 111
+  constraints = 80
+ OPTIMAL. optimal value: 6.2029e+02 in time 3.1309e-03Optimal objective = 620.289
+Optimal variable values:
+lincost = 424.834
+quadcost = 141.81
+constant = 1
+GP_1_1 = 0.415732
+GP_2_2 = 0.546428
+GP_6_13 = 0.139711
+GP_3_22 = 0.217671
+GP_5_23 = 0.14667
+GP_4_27 = 0.425788
+theta_2 = -0.0129702
+P_1,1,2 = 0.21617
+theta_3 = -0.0379168
+P_2,1,3 = 0.199562
+theta_4 = -0.0449392
+P_3,2,4 = 0.188053
+P_4,3,4 = 0.175562
+theta_5 = -0.0414523
+P_5,2,5 = 0.14241
+theta_6 = -0.0516944
+P_6,2,6 = 0.215134
+P_7,4,6 = 0.168878
+theta_7 = -0.0585415
+P_8,5,7 = 0.14241
+P_9,6,7 = 0.0855896
+theta_8 = -0.0609812
+P_10,6,8 = 0.232172
+theta_9 = -0.0700777
+P_11,6,9 = 0.0875395
+theta_10 = -0.079707
+P_12,6,10 = 0.0500226
+theta_11 = -0.0700777
+P_14,9,10 = 0.0875395
+theta_12 = -0.0758109
+P_15,4,12 = 0.118737
+theta_13 = -0.0562514
+P_16,12,13 = -0.139711
+theta_14 = -0.0871606
+P_17,12,14 = 0.043653
+theta_15 = -0.0834912
+P_18,12,15 = 0.0590797
+theta_16 = -0.0845539
+P_19,12,16 = 0.0437152
+P_20,14,15 = -0.018347
+theta_17 = -0.0862098
+P_21,16,17 = 0.00871518
+theta_18 = -0.0976536
+P_22,15,18 = 0.0643742
+theta_19 = -0.101862
+P_23,18,19 = 0.0323742
+theta_20 = -0.0974784
+P_24,19,20 = -0.0626258
+P_25,10,20 = 0.0846258
+P_26,10,17 = 0.0812848
+theta_21 = -0.0769501
+P_27,10,21 = -0.0393845
+theta_22 = -0.0726624
+P_28,10,22 = -0.046964
+P_29,21,22 = -0.214384
+theta_23 = -0.0623629
+P_30,15,23 = -0.105642
+theta_24 = -0.0648005
+P_31,22,24 = -0.0436772
+P_32,23,24 = 0.00902814
+theta_25 = -0.0246563
+P_33,24,25 = -0.121649
+theta_26 = -0.0379563
+P_34,25,26 = 0.035
+theta_27 = 0.00823999
+P_35,25,27 = -0.156649
+theta_28 = -0.0474157
+P_36,28,27 = -0.139139
+theta_29 = -0.0171314
+P_37,27,29 = 0.0604082
+theta_30 = -0.0335151
+P_38,27,30 = 0.0695918
+P_39,29,30 = 0.0364082
+P_40,8,28 = -0.0678278
+P_41,6,28 = -0.0713114
+IP_1 = 0.415732
+IP_2 = 0.329428
+IP_3 = -0.024
+IP_4 = -0.076
+IP_7 = -0.228
+IP_8 = -0.3
+IP_10 = -0.058
+IP_12 = -0.112
+IP_13 = 0.139711
+IP_14 = -0.062
+IP_15 = -0.082
+IP_16 = -0.035
+IP_17 = -0.09
+IP_18 = -0.032
+IP_19 = -0.095
+IP_20 = -0.022
+IP_21 = -0.175
+IP_22 = 0.217671
+IP_23 = 0.11467
+IP_24 = -0.087
+IP_26 = -0.035
+IP_27 = 0.425788
+IP_29 = -0.024
+IP_30 = -0.106
+IMP = 0.232172
+103 nonzero variables in solution
+Getting impact at iteration_cnt 1 using style 0-norm_per.
+>feat: 0  name: Pdef_1,1,2  numrisky: 1
+ riskyterm: 0  z: z_1,1,2  card: 2  vars: ['theta_1', 'theta_2']
+ j 0 h 0 var = theta_1 xval = 0.0 coeff = -16.66666666666667
+ j 0 h 1 var = theta_2 xval = -0.012970183230538775 coeff = 16.66666666666667
+ -> displacement -2.162e-01
+ feat: Pdef_1,1,2 (=)  L0norm: 0.21617  L1norm: 0.21617  L2norm: 0.21617
+>feat: 1  name: Pdef_2,1,3  numrisky: 1
+ riskyterm: 0  z: z_2,1,3  card: 2  vars: ['theta_1', 'theta_3']
+ j 0 h 0 var = theta_1 xval = 0.0 coeff = -5.263157894736842
+ j 0 h 1 var = theta_3 xval = -0.03791676195315886 coeff = 5.263157894736842
+ -> displacement -1.996e-01
+ feat: Pdef_2,1,3 (=)  L0norm: 0.199562  L1norm: 0.199562  L2norm: 0.199562
+>feat: 2  name: Pdef_3,2,4  numrisky: 1
+ riskyterm: 0  z: z_3,2,4  card: 2  vars: ['theta_2', 'theta_4']
+ j 0 h 0 var = theta_2 xval = -0.012970183230538775 coeff = -5.88235294117647
+ j 0 h 1 var = theta_4 xval = -0.04493923815530309 coeff = 5.88235294117647
+ -> displacement -1.881e-01
+ feat: Pdef_3,2,4 (=)  L0norm: 0.188053  L1norm: 0.188053  L2norm: 0.188053
+>feat: 3  name: Pdef_4,3,4  numrisky: 1
+ riskyterm: 0  z: z_4,3,4  card: 2  vars: ['theta_3', 'theta_4']
+ j 0 h 0 var = theta_3 xval = -0.03791676195315886 coeff = -25.0
+ j 0 h 1 var = theta_4 xval = -0.04493923815530309 coeff = 25.0
+ -> displacement -1.756e-01
+ feat: Pdef_4,3,4 (=)  L0norm: 0.175562  L1norm: 0.175562  L2norm: 0.175562
+>feat: 4  name: Pdef_5,2,5  numrisky: 1
+ riskyterm: 0  z: z_5,2,5  card: 2  vars: ['theta_2', 'theta_5']
+ j 0 h 0 var = theta_2 xval = -0.012970183230538775 coeff = -5.0
+ j 0 h 1 var = theta_5 xval = -0.04145227307815643 coeff = 5.0
+ -> displacement -1.424e-01
+ feat: Pdef_5,2,5 (=)  L0norm: 0.14241  L1norm: 0.14241  L2norm: 0.14241
+>feat: 5  name: Pdef_6,2,6  numrisky: 1
+ riskyterm: 0  z: z_6,2,6  card: 2  vars: ['theta_2', 'theta_6']
+ j 0 h 0 var = theta_2 xval = -0.012970183230538775 coeff = -5.555555555555555
+ j 0 h 1 var = theta_6 xval = -0.051694362925774076 coeff = 5.555555555555555
+ -> displacement -2.151e-01
+ feat: Pdef_6,2,6 (=)  L0norm: 0.215134  L1norm: 0.215134  L2norm: 0.215134
+>feat: 6  name: Pdef_7,4,6  numrisky: 1
+ riskyterm: 0  z: z_7,4,6  card: 2  vars: ['theta_4', 'theta_6']
+ j 0 h 0 var = theta_4 xval = -0.04493923815530309 coeff = -25.0
+ j 0 h 1 var = theta_6 xval = -0.051694362925774076 coeff = 25.0
+ -> displacement -1.689e-01
+ feat: Pdef_7,4,6 (=)  L0norm: 0.168878  L1norm: 0.168878  L2norm: 0.168878
+>feat: 7  name: Pdef_8,5,7  numrisky: 1
+ riskyterm: 0  z: z_8,5,7  card: 2  vars: ['theta_5', 'theta_7']
+ j 0 h 0 var = theta_5 xval = -0.04145227307815643 coeff = -8.333333333333334
+ j 0 h 1 var = theta_7 xval = -0.05854152698672702 coeff = 8.333333333333334
+ -> displacement -1.424e-01
+ feat: Pdef_8,5,7 (=)  L0norm: 0.14241  L1norm: 0.14241  L2norm: 0.14241
+>feat: 8  name: Pdef_9,6,7  numrisky: 1
+ riskyterm: 0  z: z_9,6,7  card: 2  vars: ['theta_6', 'theta_7']
+ j 0 h 0 var = theta_6 xval = -0.051694362925774076 coeff = -12.5
+ j 0 h 1 var = theta_7 xval = -0.05854152698672702 coeff = 12.5
+ -> displacement -8.559e-02
+ feat: Pdef_9,6,7 (=)  L0norm: 0.0855896  L1norm: 0.0855896  L2norm: 0.0855896
+>feat: 9  name: Pdef_10,6,8  numrisky: 1
+ riskyterm: 0  z: z_10,6,8  card: 2  vars: ['theta_6', 'theta_8']
+ j 0 h 0 var = theta_6 xval = -0.051694362925774076 coeff = -25.0
+ j 0 h 1 var = theta_8 xval = -0.06098124940516079 coeff = 25.0
+ -> displacement -2.322e-01
+ feat: Pdef_10,6,8 (=)  L0norm: 0.232172  L1norm: 0.232172  L2norm: 0.232172
+>feat: 10  name: Pdef_11,6,9  numrisky: 1
+ riskyterm: 0  z: z_11,6,9  card: 2  vars: ['theta_6', 'theta_9']
+ j 0 h 0 var = theta_6 xval = -0.051694362925774076 coeff = -4.761904761904762
+ j 0 h 1 var = theta_9 xval = -0.07007766041408521 coeff = 4.761904761904762
+ -> displacement -8.754e-02
+ feat: Pdef_11,6,9 (=)  L0norm: 0.0875395  L1norm: 0.0875395  L2norm: 0.0875395
+>feat: 11  name: Pdef_12,6,10  numrisky: 1
+ riskyterm: 0  z: z_12,6,10  card: 2  vars: ['theta_6', 'theta_10']
+ j 0 h 0 var = theta_6 xval = -0.051694362925774076 coeff = -1.785714285714286
+ j 0 h 1 var = theta_10 xval = -0.07970700672062375 coeff = 1.785714285714286
+ -> displacement -5.002e-02
+ feat: Pdef_12,6,10 (=)  L0norm: 0.0500226  L1norm: 0.0500226  L2norm: 0.0500226
+>feat: 12  name: Pdef_13,9,11  numrisky: 1
+ riskyterm: 0  z: z_13,9,11  card: 2  vars: ['theta_9', 'theta_11']
+ j 0 h 0 var = theta_9 xval = -0.07007766041408521 coeff = -4.761904761904762
+ j 0 h 1 var = theta_11 xval = -0.07007766041408521 coeff = 4.761904761904762
+ -> displacement 0.000e+00
+ feat: Pdef_13,9,11 (=)  L0norm: 0  L1norm: 0  L2norm: 0
+>feat: 13  name: Pdef_14,9,10  numrisky: 1
+ riskyterm: 0  z: z_14,9,10  card: 2  vars: ['theta_9', 'theta_10']
+ j 0 h 0 var = theta_9 xval = -0.07007766041408521 coeff = -9.090909090909092
+ j 0 h 1 var = theta_10 xval = -0.07970700672062375 coeff = 9.090909090909092
+ -> displacement -8.754e-02
+ feat: Pdef_14,9,10 (=)  L0norm: 0.0875395  L1norm: 0.0875395  L2norm: 0.0875395
+>feat: 14  name: Pdef_15,4,12  numrisky: 1
+ riskyterm: 0  z: z_15,4,12  card: 2  vars: ['theta_4', 'theta_12']
+ j 0 h 0 var = theta_4 xval = -0.04493923815530309 coeff = -3.846153846153846
+ j 0 h 1 var = theta_12 xval = -0.07581087115322774 coeff = 3.846153846153846
+ -> displacement -1.187e-01
+ feat: Pdef_15,4,12 (=)  L0norm: 0.118737  L1norm: 0.118737  L2norm: 0.118737
+>feat: 15  name: Pdef_16,12,13  numrisky: 1
+ riskyterm: 0  z: z_16,12,13  card: 2  vars: ['theta_12', 'theta_13']
+ j 0 h 0 var = theta_12 xval = -0.07581087115322774 coeff = -7.142857142857142
+ j 0 h 1 var = theta_13 xval = -0.056251363936655085 coeff = 7.142857142857142
+ -> displacement 1.397e-01
+ feat: Pdef_16,12,13 (=)  L0norm: 0.139711  L1norm: 0.139711  L2norm: 0.139711
+>feat: 16  name: Pdef_17,12,14  numrisky: 1
+ riskyterm: 0  z: z_17,12,14  card: 2  vars: ['theta_12', 'theta_14']
+ j 0 h 0 var = theta_12 xval = -0.07581087115322774 coeff = -3.846153846153846
+ j 0 h 1 var = theta_14 xval = -0.08716063898546209 coeff = 3.846153846153846
+ -> displacement -4.365e-02
+ feat: Pdef_17,12,14 (=)  L0norm: 0.043653  L1norm: 0.043653  L2norm: 0.043653
+>feat: 17  name: Pdef_18,12,15  numrisky: 1
+ riskyterm: 0  z: z_18,12,15  card: 2  vars: ['theta_12', 'theta_15']
+ j 0 h 0 var = theta_12 xval = -0.07581087115322774 coeff = -7.692307692307692
+ j 0 h 1 var = theta_15 xval = -0.08349122962564236 coeff = 7.692307692307692
+ -> displacement -5.908e-02
+ feat: Pdef_18,12,15 (=)  L0norm: 0.0590797  L1norm: 0.0590797  L2norm: 0.0590797
+>feat: 18  name: Pdef_19,12,16  numrisky: 1
+ riskyterm: 0  z: z_19,12,16  card: 2  vars: ['theta_12', 'theta_16']
+ j 0 h 0 var = theta_12 xval = -0.07581087115322774 coeff = -5.0
+ j 0 h 1 var = theta_16 xval = -0.08455390756474775 coeff = 5.0
+ -> displacement -4.372e-02
+ feat: Pdef_19,12,16 (=)  L0norm: 0.0437152  L1norm: 0.0437152  L2norm: 0.0437152
+>feat: 19  name: Pdef_20,14,15  numrisky: 1
+ riskyterm: 0  z: z_20,14,15  card: 2  vars: ['theta_14', 'theta_15']
+ j 0 h 0 var = theta_14 xval = -0.08716063898546209 coeff = -5.0
+ j 0 h 1 var = theta_15 xval = -0.08349122962564236 coeff = 5.0
+ -> displacement 1.835e-02
+ feat: Pdef_20,14,15 (=)  L0norm: 0.018347  L1norm: 0.018347  L2norm: 0.018347
+>feat: 20  name: Pdef_21,16,17  numrisky: 1
+ riskyterm: 0  z: z_21,16,17  card: 2  vars: ['theta_16', 'theta_17']
+ j 0 h 0 var = theta_16 xval = -0.08455390756474775 coeff = -5.263157894736842
+ j 0 h 1 var = theta_17 xval = -0.08620979215591974 coeff = 5.263157894736842
+ -> displacement -8.715e-03
+ feat: Pdef_21,16,17 (=)  L0norm: 0.00871518  L1norm: 0.00871518  L2norm: 0.00871518
+>feat: 21  name: Pdef_22,15,18  numrisky: 1
+ riskyterm: 0  z: z_22,15,18  card: 2  vars: ['theta_15', 'theta_18']
+ j 0 h 0 var = theta_15 xval = -0.08349122962564236 coeff = -4.545454545454546
+ j 0 h 1 var = theta_18 xval = -0.09765356447140028 coeff = 4.545454545454546
+ -> displacement -6.437e-02
+ feat: Pdef_22,15,18 (=)  L0norm: 0.0643742  L1norm: 0.0643742  L2norm: 0.0643742
+>feat: 22  name: Pdef_23,18,19  numrisky: 1
+ riskyterm: 0  z: z_23,18,19  card: 2  vars: ['theta_18', 'theta_19']
+ j 0 h 0 var = theta_18 xval = -0.09765356447140028 coeff = -7.692307692307692
+ j 0 h 1 var = theta_19 xval = -0.10186221689042085 coeff = 7.692307692307692
+ -> displacement -3.237e-02
+ feat: Pdef_23,18,19 (=)  L0norm: 0.0323742  L1norm: 0.0323742  L2norm: 0.0323742
+>feat: 23  name: Pdef_24,19,20  numrisky: 1
+ riskyterm: 0  z: z_24,19,20  card: 2  vars: ['theta_19', 'theta_20']
+ j 0 h 0 var = theta_19 xval = -0.10186221689042085 coeff = -14.28571428571428
+ j 0 h 1 var = theta_20 xval = -0.09747841434894777 coeff = 14.28571428571428
+ -> displacement 6.263e-02
+ feat: Pdef_24,19,20 (=)  L0norm: 0.0626258  L1norm: 0.0626258  L2norm: 0.0626258
+>feat: 24  name: Pdef_25,10,20  numrisky: 1
+ riskyterm: 0  z: z_25,10,20  card: 2  vars: ['theta_10', 'theta_20']
+ j 0 h 0 var = theta_10 xval = -0.07970700672062375 coeff = -4.761904761904762
+ j 0 h 1 var = theta_20 xval = -0.09747841434894777 coeff = 4.761904761904762
+ -> displacement -8.463e-02
+ feat: Pdef_25,10,20 (=)  L0norm: 0.0846258  L1norm: 0.0846258  L2norm: 0.0846258
+>feat: 25  name: Pdef_26,10,17  numrisky: 1
+ riskyterm: 0  z: z_26,10,17  card: 2  vars: ['theta_10', 'theta_17']
+ j 0 h 0 var = theta_10 xval = -0.07970700672062375 coeff = -12.5
+ j 0 h 1 var = theta_17 xval = -0.08620979215591974 coeff = 12.5
+ -> displacement -8.128e-02
+ feat: Pdef_26,10,17 (=)  L0norm: 0.0812848  L1norm: 0.0812848  L2norm: 0.0812848
+>feat: 26  name: Pdef_27,10,21  numrisky: 1
+ riskyterm: 0  z: z_27,10,21  card: 2  vars: ['theta_10', 'theta_21']
+ j 0 h 0 var = theta_10 xval = -0.07970700672062375 coeff = -14.28571428571428
+ j 0 h 1 var = theta_21 xval = -0.07695009412109531 coeff = 14.28571428571428
+ -> displacement 3.938e-02
+ feat: Pdef_27,10,21 (=)  L0norm: 0.0393845  L1norm: 0.0393845  L2norm: 0.0393845
+>feat: 27  name: Pdef_28,10,22  numrisky: 1
+ riskyterm: 0  z: z_28,10,22  card: 2  vars: ['theta_10', 'theta_22']
+ j 0 h 0 var = theta_10 xval = -0.07970700672062375 coeff = -6.666666666666667
+ j 0 h 1 var = theta_22 xval = -0.07266240480690667 coeff = 6.666666666666667
+ -> displacement 4.696e-02
+ feat: Pdef_28,10,22 (=)  L0norm: 0.046964  L1norm: 0.046964  L2norm: 0.046964
+>feat: 28  name: Pdef_29,21,22  numrisky: 1
+ riskyterm: 0  z: z_29,21,22  card: 2  vars: ['theta_21', 'theta_22']
+ j 0 h 0 var = theta_21 xval = -0.07695009412109531 coeff = -50.0
+ j 0 h 1 var = theta_22 xval = -0.07266240480690667 coeff = 50.0
+ -> displacement 2.144e-01
+ feat: Pdef_29,21,22 (=)  L0norm: 0.214384  L1norm: 0.214384  L2norm: 0.214384
+>feat: 29  name: Pdef_30,15,23  numrisky: 1
+ riskyterm: 0  z: z_30,15,23  card: 2  vars: ['theta_15', 'theta_23']
+ j 0 h 0 var = theta_15 xval = -0.08349122962564236 coeff = -5.0
+ j 0 h 1 var = theta_23 xval = -0.062362906501160185 coeff = 5.0
+ -> displacement 1.056e-01
+ feat: Pdef_30,15,23 (=)  L0norm: 0.105642  L1norm: 0.105642  L2norm: 0.105642
+>feat: 30  name: Pdef_31,22,24  numrisky: 1
+ riskyterm: 0  z: z_31,22,24  card: 2  vars: ['theta_22', 'theta_24']
+ j 0 h 0 var = theta_22 xval = -0.07266240480690667 coeff = -5.555555555555555
+ j 0 h 1 var = theta_24 xval = -0.06480050553834263 coeff = 5.555555555555555
+ -> displacement 4.368e-02
+ feat: Pdef_31,22,24 (=)  L0norm: 0.0436772  L1norm: 0.0436772  L2norm: 0.0436772
+>feat: 31  name: Pdef_32,23,24  numrisky: 1
+ riskyterm: 0  z: z_32,23,24  card: 2  vars: ['theta_23', 'theta_24']
+ j 0 h 0 var = theta_23 xval = -0.062362906501160185 coeff = -3.703703703703703
+ j 0 h 1 var = theta_24 xval = -0.06480050553834263 coeff = 3.703703703703703
+ -> displacement -9.028e-03
+ feat: Pdef_32,23,24 (=)  L0norm: 0.00902814  L1norm: 0.00902814  L2norm: 0.00902814
+>feat: 32  name: Pdef_33,24,25  numrisky: 1
+ riskyterm: 0  z: z_33,24,25  card: 2  vars: ['theta_24', 'theta_25']
+ j 0 h 0 var = theta_24 xval = -0.06480050553834263 coeff = -3.03030303030303
+ j 0 h 1 var = theta_25 xval = -0.02465631125822451 coeff = 3.03030303030303
+ -> displacement 1.216e-01
+ feat: Pdef_33,24,25 (=)  L0norm: 0.121649  L1norm: 0.121649  L2norm: 0.121649
+>feat: 33  name: Pdef_34,25,26  numrisky: 1
+ riskyterm: 0  z: z_34,25,26  card: 2  vars: ['theta_25', 'theta_26']
+ j 0 h 0 var = theta_25 xval = -0.02465631125822451 coeff = -2.631578947368421
+ j 0 h 1 var = theta_26 xval = -0.03795631125822452 coeff = 2.631578947368421
+ -> displacement -3.500e-02
+ feat: Pdef_34,25,26 (=)  L0norm: 0.035  L1norm: 0.035  L2norm: 0.035
+>feat: 34  name: Pdef_35,25,27  numrisky: 1
+ riskyterm: 0  z: z_35,25,27  card: 2  vars: ['theta_25', 'theta_27']
+ j 0 h 0 var = theta_25 xval = -0.02465631125822451 coeff = -4.761904761904762
+ j 0 h 1 var = theta_27 xval = 0.008239994192750327 coeff = 4.761904761904762
+ -> displacement 1.566e-01
+ feat: Pdef_35,25,27 (=)  L0norm: 0.156649  L1norm: 0.156649  L2norm: 0.156649
+>feat: 35  name: Pdef_36,28,27  numrisky: 1
+ riskyterm: 0  z: z_36,28,27  card: 2  vars: ['theta_27', 'theta_28']
+ j 0 h 0 var = theta_27 xval = 0.008239994192750327 coeff = 2.5
+ j 0 h 1 var = theta_28 xval = -0.047415681786666095 coeff = -2.5
+ -> displacement 1.391e-01
+ feat: Pdef_36,28,27 (=)  L0norm: 0.139139  L1norm: 0.139139  L2norm: 0.139139
+>feat: 36  name: Pdef_37,27,29  numrisky: 1
+ riskyterm: 0  z: z_37,27,29  card: 2  vars: ['theta_27', 'theta_29']
+ j 0 h 0 var = theta_27 xval = 0.008239994192750327 coeff = -2.380952380952381
+ j 0 h 1 var = theta_29 xval = -0.01713143437867824 coeff = 2.380952380952381
+ -> displacement -6.041e-02
+ feat: Pdef_37,27,29 (=)  L0norm: 0.0604082  L1norm: 0.0604082  L2norm: 0.0604082
+>feat: 37  name: Pdef_38,27,30  numrisky: 1
+ riskyterm: 0  z: z_38,27,30  card: 2  vars: ['theta_27', 'theta_30']
+ j 0 h 0 var = theta_27 xval = 0.008239994192750327 coeff = -1.666666666666667
+ j 0 h 1 var = theta_30 xval = -0.03351510784806599 coeff = 1.666666666666667
+ -> displacement -6.959e-02
+ feat: Pdef_38,27,30 (=)  L0norm: 0.0695918  L1norm: 0.0695918  L2norm: 0.0695918
+>feat: 38  name: Pdef_39,29,30  numrisky: 1
+ riskyterm: 0  z: z39,29,30  card: 2  vars: ['theta_29', 'theta_30']
+ j 0 h 0 var = theta_29 xval = -0.01713143437867824 coeff = -2.222222222222222
+ j 0 h 1 var = theta_30 xval = -0.03351510784806599 coeff = 2.222222222222222
+ -> displacement -3.641e-02
+ feat: Pdef_39,29,30 (=)  L0norm: 0.0364082  L1norm: 0.0364082  L2norm: 0.0364082
+>feat: 39  name: Pdef_40,8,28  numrisky: 1
+ riskyterm: 0  z: z_40,8,28  card: 2  vars: ['theta_8', 'theta_28']
+ j 0 h 0 var = theta_8 xval = -0.06098124940516079 coeff = -5.0
+ j 0 h 1 var = theta_28 xval = -0.047415681786666095 coeff = 5.0
+ -> displacement 6.783e-02
+ feat: Pdef_40,8,28 (=)  L0norm: 0.0678278  L1norm: 0.0678278  L2norm: 0.0678278
+>feat: 40  name: Pdef_41,6,28  numrisky: 1
+ riskyterm: 0  z: z_41,6,28  card: 2  vars: ['theta_6', 'theta_28']
+ j 0 h 0 var = theta_6 xval = -0.051694362925774076 coeff = -16.66666666666667
+ j 0 h 1 var = theta_28 xval = -0.047415681786666095 coeff = 16.66666666666667
+ -> displacement 7.131e-02
+ feat: Pdef_41,6,28 (=)  L0norm: 0.0713114  L1norm: 0.0713114  L2norm: 0.0713114
+Max feature value: 0.232172 at 9  L1-norm: 0.232172  L2-norm: 0.232172.
+Counter: 0  feature: 9  delta: 2.322e-01  ind: 0
+Counter: 1  feature: 0  delta: 2.162e-01  ind: 0
+Counter: 2  feature: 5  delta: 2.151e-01  ind: 0
+Counter: 3  feature: 28  delta: 2.144e-01  ind: 0
+Counter: 4  feature: 1  delta: 1.996e-01  ind: 0
+Counter: 5  feature: 2  delta: 1.881e-01  ind: 0
+Counter: 6  feature: 3  delta: 1.756e-01  ind: 0
+Counter: 7  feature: 6  delta: 1.689e-01  ind: 0
+Counter: 8  feature: 34  delta: 1.566e-01  ind: 0
+Counter: 9  feature: 4  delta: 1.424e-01  ind: 0
+Counter: 10  feature: 7  delta: 1.424e-01  ind: 0
+Counter: 11  feature: 15  delta: 1.397e-01  ind: 0
+Counter: 12  feature: 35  delta: 1.391e-01  ind: 0
+Counter: 13  feature: 32  delta: 1.216e-01  ind: 0
+Counter: 14  feature: 14  delta: 1.187e-01  ind: 0
+Counter: 15  feature: 29  delta: 1.056e-01  ind: 0
+Counter: 16  feature: 13  delta: 8.754e-02  ind: 0
+Counter: 17  feature: 10  delta: 8.754e-02  ind: 0
+Counter: 18  feature: 8  delta: 8.559e-02  ind: 0
+Counter: 19  feature: 24  delta: 8.463e-02  ind: 0
+Counter: 20  feature: 25  delta: 8.128e-02  ind: 0
+Counter: 21  feature: 40  delta: 7.131e-02  ind: 0
+Counter: 22  feature: 37  delta: 6.959e-02  ind: 0
+Counter: 23  feature: 39  delta: 6.783e-02  ind: 0
+Counter: 24  feature: 21  delta: 6.437e-02  ind: 0
+Counter: 25  feature: 23  delta: 6.263e-02  ind: 0
+Counter: 26  feature: 36  delta: 6.041e-02  ind: 0
+Counter: 27  feature: 17  delta: 5.908e-02  ind: 0
+Counter: 28  feature: 11  delta: 5.002e-02  ind: 0
+Counter: 29  feature: 27  delta: 4.696e-02  ind: 0
+Counter: 30  feature: 18  delta: 4.372e-02  ind: 0
+Counter: 31  feature: 30  delta: 4.368e-02  ind: 0
+Counter: 32  feature: 16  delta: 4.365e-02  ind: 0
+Counter: 33  feature: 26  delta: 3.938e-02  ind: 0
+Counter: 34  feature: 38  delta: 3.641e-02  ind: 0
+Counter: 35  feature: 33  delta: 3.500e-02  ind: 0
+Counter: 36  feature: 22  delta: 3.237e-02  ind: 0
+Counter: 37  feature: 19  delta: 1.835e-02  ind: 0
+Counter: 38  feature: 31  delta: 9.028e-03  ind: 0
+Counter: 39  feature: 20  delta: 8.715e-03  ind: 0
+Counter: 40  feature: 12  delta: 0.000e+00  ind: -1
+Iteration 1.  Obj 566.64  Impact 0.23217.
+Adding greedy cuts at iteration_cnt 1.
+Writing LP to file form_2.lp.
+Solving Model
+  variables = 111
+  constraints = 82
+ OPTIMAL. optimal value: 6.2029e+02 in time 2.2800e-03Optimal objective = 620.289
+Optimal variable values:
+lincost = 424.834
+quadcost = 141.81
+constant = 1
+GP_1_1 = 0.415732
+GP_2_2 = 0.546428
+GP_6_13 = 0.139711
+GP_3_22 = 0.217671
+GP_5_23 = 0.14667
+GP_4_27 = 0.425788
+theta_2 = -0.0129702
+P_1,1,2 = 0.21617
+theta_3 = -0.0379168
+P_2,1,3 = 0.199562
+theta_4 = -0.0449392
+P_3,2,4 = 0.188053
+P_4,3,4 = 0.175562
+theta_5 = -0.0414523
+P_5,2,5 = 0.14241
+theta_6 = -0.0516944
+P_6,2,6 = 0.215134
+P_7,4,6 = 0.168878
+theta_7 = -0.0585415
+P_8,5,7 = 0.14241
+P_9,6,7 = 0.0855896
+theta_8 = -0.0609812
+P_10,6,8 = 0.232172
+theta_9 = -0.0700777
+P_11,6,9 = 0.0875395
+theta_10 = -0.079707
+P_12,6,10 = 0.0500226
+theta_11 = -0.0700777
+P_14,9,10 = 0.0875395
+theta_12 = -0.0758109
+P_15,4,12 = 0.118737
+theta_13 = -0.0562514
+P_16,12,13 = -0.139711
+theta_14 = -0.0871606
+P_17,12,14 = 0.043653
+theta_15 = -0.0834912
+P_18,12,15 = 0.0590797
+theta_16 = -0.0845539
+P_19,12,16 = 0.0437152
+P_20,14,15 = -0.018347
+theta_17 = -0.0862098
+P_21,16,17 = 0.00871518
+theta_18 = -0.0976536
+P_22,15,18 = 0.0643742
+theta_19 = -0.101862
+P_23,18,19 = 0.0323742
+theta_20 = -0.0974784
+P_24,19,20 = -0.0626258
+P_25,10,20 = 0.0846258
+P_26,10,17 = 0.0812848
+theta_21 = -0.0769501
+P_27,10,21 = -0.0393845
+theta_22 = -0.0726624
+P_28,10,22 = -0.046964
+P_29,21,22 = -0.214384
+theta_23 = -0.0623629
+P_30,15,23 = -0.105642
+theta_24 = -0.0648005
+P_31,22,24 = -0.0436772
+P_32,23,24 = 0.00902814
+theta_25 = -0.0246563
+P_33,24,25 = -0.121649
+theta_26 = -0.0379563
+P_34,25,26 = 0.035
+theta_27 = 0.00823999
+P_35,25,27 = -0.156649
+theta_28 = -0.0474157
+P_36,28,27 = -0.139139
+theta_29 = -0.0171314
+P_37,27,29 = 0.0604082
+theta_30 = -0.0335151
+P_38,27,30 = 0.0695918
+P_39,29,30 = 0.0364082
+P_40,8,28 = -0.0678278
+P_41,6,28 = -0.0713114
+IP_1 = 0.415732
+IP_2 = 0.329428
+IP_3 = -0.024
+IP_4 = -0.076
+IP_7 = -0.228
+IP_8 = -0.3
+IP_10 = -0.058
+IP_12 = -0.112
+IP_13 = 0.139711
+IP_14 = -0.062
+IP_15 = -0.082
+IP_16 = -0.035
+IP_17 = -0.09
+IP_18 = -0.032
+IP_19 = -0.095
+IP_20 = -0.022
+IP_21 = -0.175
+IP_22 = 0.217671
+IP_23 = 0.11467
+IP_24 = -0.087
+IP_26 = -0.035
+IP_27 = 0.425788
+IP_29 = -0.024
+IP_30 = -0.106
+IMP = 0.232172
+103 nonzero variables in solution
+Getting impact at iteration_cnt 2 using style 0-norm_per.
+>feat: 0  name: Pdef_1,1,2  numrisky: 1
+ riskyterm: 0  z: z_1,1,2  card: 2  vars: ['theta_1', 'theta_2']
+ j 0 h 0 var = theta_1 xval = 0.0 coeff = -16.66666666666667
+ j 0 h 1 var = theta_2 xval = -0.012970183230538775 coeff = 16.66666666666667
+ -> displacement -2.162e-01
+ feat: Pdef_1,1,2 (=)  L0norm: 0.21617  L1norm: 0.21617  L2norm: 0.21617
+>feat: 1  name: Pdef_2,1,3  numrisky: 1
+ riskyterm: 0  z: z_2,1,3  card: 2  vars: ['theta_1', 'theta_3']
+ j 0 h 0 var = theta_1 xval = 0.0 coeff = -5.263157894736842
+ j 0 h 1 var = theta_3 xval = -0.03791676195315886 coeff = 5.263157894736842
+ -> displacement -1.996e-01
+ feat: Pdef_2,1,3 (=)  L0norm: 0.199562  L1norm: 0.199562  L2norm: 0.199562
+>feat: 2  name: Pdef_3,2,4  numrisky: 1
+ riskyterm: 0  z: z_3,2,4  card: 2  vars: ['theta_2', 'theta_4']
+ j 0 h 0 var = theta_2 xval = -0.012970183230538775 coeff = -5.88235294117647
+ j 0 h 1 var = theta_4 xval = -0.04493923815530309 coeff = 5.88235294117647
+ -> displacement -1.881e-01
+ feat: Pdef_3,2,4 (=)  L0norm: 0.188053  L1norm: 0.188053  L2norm: 0.188053
+>feat: 3  name: Pdef_4,3,4  numrisky: 1
+ riskyterm: 0  z: z_4,3,4  card: 2  vars: ['theta_3', 'theta_4']
+ j 0 h 0 var = theta_3 xval = -0.03791676195315886 coeff = -25.0
+ j 0 h 1 var = theta_4 xval = -0.04493923815530309 coeff = 25.0
+ -> displacement -1.756e-01
+ feat: Pdef_4,3,4 (=)  L0norm: 0.175562  L1norm: 0.175562  L2norm: 0.175562
+>feat: 4  name: Pdef_5,2,5  numrisky: 1
+ riskyterm: 0  z: z_5,2,5  card: 2  vars: ['theta_2', 'theta_5']
+ j 0 h 0 var = theta_2 xval = -0.012970183230538775 coeff = -5.0
+ j 0 h 1 var = theta_5 xval = -0.04145227307815643 coeff = 5.0
+ -> displacement -1.424e-01
+ feat: Pdef_5,2,5 (=)  L0norm: 0.14241  L1norm: 0.14241  L2norm: 0.14241
+>feat: 5  name: Pdef_6,2,6  numrisky: 1
+ riskyterm: 0  z: z_6,2,6  card: 2  vars: ['theta_2', 'theta_6']
+ j 0 h 0 var = theta_2 xval = -0.012970183230538775 coeff = -5.555555555555555
+ j 0 h 1 var = theta_6 xval = -0.051694362925774076 coeff = 5.555555555555555
+ -> displacement -2.151e-01
+ feat: Pdef_6,2,6 (=)  L0norm: 0.215134  L1norm: 0.215134  L2norm: 0.215134
+>feat: 6  name: Pdef_7,4,6  numrisky: 1
+ riskyterm: 0  z: z_7,4,6  card: 2  vars: ['theta_4', 'theta_6']
+ j 0 h 0 var = theta_4 xval = -0.04493923815530309 coeff = -25.0
+ j 0 h 1 var = theta_6 xval = -0.051694362925774076 coeff = 25.0
+ -> displacement -1.689e-01
+ feat: Pdef_7,4,6 (=)  L0norm: 0.168878  L1norm: 0.168878  L2norm: 0.168878
+>feat: 7  name: Pdef_8,5,7  numrisky: 1
+ riskyterm: 0  z: z_8,5,7  card: 2  vars: ['theta_5', 'theta_7']
+ j 0 h 0 var = theta_5 xval = -0.04145227307815643 coeff = -8.333333333333334
+ j 0 h 1 var = theta_7 xval = -0.05854152698672702 coeff = 8.333333333333334
+ -> displacement -1.424e-01
+ feat: Pdef_8,5,7 (=)  L0norm: 0.14241  L1norm: 0.14241  L2norm: 0.14241
+>feat: 8  name: Pdef_9,6,7  numrisky: 1
+ riskyterm: 0  z: z_9,6,7  card: 2  vars: ['theta_6', 'theta_7']
+ j 0 h 0 var = theta_6 xval = -0.051694362925774076 coeff = -12.5
+ j 0 h 1 var = theta_7 xval = -0.05854152698672702 coeff = 12.5
+ -> displacement -8.559e-02
+ feat: Pdef_9,6,7 (=)  L0norm: 0.0855896  L1norm: 0.0855896  L2norm: 0.0855896
+>feat: 9  name: Pdef_10,6,8  numrisky: 1
+ riskyterm: 0  z: z_10,6,8  card: 2  vars: ['theta_6', 'theta_8']
+ j 0 h 0 var = theta_6 xval = -0.051694362925774076 coeff = -25.0
+ j 0 h 1 var = theta_8 xval = -0.06098124940516079 coeff = 25.0
+ -> displacement -2.322e-01
+ feat: Pdef_10,6,8 (=)  L0norm: 0.232172  L1norm: 0.232172  L2norm: 0.232172
+>feat: 10  name: Pdef_11,6,9  numrisky: 1
+ riskyterm: 0  z: z_11,6,9  card: 2  vars: ['theta_6', 'theta_9']
+ j 0 h 0 var = theta_6 xval = -0.051694362925774076 coeff = -4.761904761904762
+ j 0 h 1 var = theta_9 xval = -0.07007766041408521 coeff = 4.761904761904762
+ -> displacement -8.754e-02
+ feat: Pdef_11,6,9 (=)  L0norm: 0.0875395  L1norm: 0.0875395  L2norm: 0.0875395
+>feat: 11  name: Pdef_12,6,10  numrisky: 1
+ riskyterm: 0  z: z_12,6,10  card: 2  vars: ['theta_6', 'theta_10']
+ j 0 h 0 var = theta_6 xval = -0.051694362925774076 coeff = -1.785714285714286
+ j 0 h 1 var = theta_10 xval = -0.07970700672062375 coeff = 1.785714285714286
+ -> displacement -5.002e-02
+ feat: Pdef_12,6,10 (=)  L0norm: 0.0500226  L1norm: 0.0500226  L2norm: 0.0500226
+>feat: 12  name: Pdef_13,9,11  numrisky: 1
+ riskyterm: 0  z: z_13,9,11  card: 2  vars: ['theta_9', 'theta_11']
+ j 0 h 0 var = theta_9 xval = -0.07007766041408521 coeff = -4.761904761904762
+ j 0 h 1 var = theta_11 xval = -0.07007766041408521 coeff = 4.761904761904762
+ -> displacement 0.000e+00
+ feat: Pdef_13,9,11 (=)  L0norm: 0  L1norm: 0  L2norm: 0
+>feat: 13  name: Pdef_14,9,10  numrisky: 1
+ riskyterm: 0  z: z_14,9,10  card: 2  vars: ['theta_9', 'theta_10']
+ j 0 h 0 var = theta_9 xval = -0.07007766041408521 coeff = -9.090909090909092
+ j 0 h 1 var = theta_10 xval = -0.07970700672062375 coeff = 9.090909090909092
+ -> displacement -8.754e-02
+ feat: Pdef_14,9,10 (=)  L0norm: 0.0875395  L1norm: 0.0875395  L2norm: 0.0875395
+>feat: 14  name: Pdef_15,4,12  numrisky: 1
+ riskyterm: 0  z: z_15,4,12  card: 2  vars: ['theta_4', 'theta_12']
+ j 0 h 0 var = theta_4 xval = -0.04493923815530309 coeff = -3.846153846153846
+ j 0 h 1 var = theta_12 xval = -0.07581087115322774 coeff = 3.846153846153846
+ -> displacement -1.187e-01
+ feat: Pdef_15,4,12 (=)  L0norm: 0.118737  L1norm: 0.118737  L2norm: 0.118737
+>feat: 15  name: Pdef_16,12,13  numrisky: 1
+ riskyterm: 0  z: z_16,12,13  card: 2  vars: ['theta_12', 'theta_13']
+ j 0 h 0 var = theta_12 xval = -0.07581087115322774 coeff = -7.142857142857142
+ j 0 h 1 var = theta_13 xval = -0.056251363936655085 coeff = 7.142857142857142
+ -> displacement 1.397e-01
+ feat: Pdef_16,12,13 (=)  L0norm: 0.139711  L1norm: 0.139711  L2norm: 0.139711
+>feat: 16  name: Pdef_17,12,14  numrisky: 1
+ riskyterm: 0  z: z_17,12,14  card: 2  vars: ['theta_12', 'theta_14']
+ j 0 h 0 var = theta_12 xval = -0.07581087115322774 coeff = -3.846153846153846
+ j 0 h 1 var = theta_14 xval = -0.08716063898546209 coeff = 3.846153846153846
+ -> displacement -4.365e-02
+ feat: Pdef_17,12,14 (=)  L0norm: 0.043653  L1norm: 0.043653  L2norm: 0.043653
+>feat: 17  name: Pdef_18,12,15  numrisky: 1
+ riskyterm: 0  z: z_18,12,15  card: 2  vars: ['theta_12', 'theta_15']
+ j 0 h 0 var = theta_12 xval = -0.07581087115322774 coeff = -7.692307692307692
+ j 0 h 1 var = theta_15 xval = -0.08349122962564236 coeff = 7.692307692307692
+ -> displacement -5.908e-02
+ feat: Pdef_18,12,15 (=)  L0norm: 0.0590797  L1norm: 0.0590797  L2norm: 0.0590797
+>feat: 18  name: Pdef_19,12,16  numrisky: 1
+ riskyterm: 0  z: z_19,12,16  card: 2  vars: ['theta_12', 'theta_16']
+ j 0 h 0 var = theta_12 xval = -0.07581087115322774 coeff = -5.0
+ j 0 h 1 var = theta_16 xval = -0.08455390756474775 coeff = 5.0
+ -> displacement -4.372e-02
+ feat: Pdef_19,12,16 (=)  L0norm: 0.0437152  L1norm: 0.0437152  L2norm: 0.0437152
+>feat: 19  name: Pdef_20,14,15  numrisky: 1
+ riskyterm: 0  z: z_20,14,15  card: 2  vars: ['theta_14', 'theta_15']
+ j 0 h 0 var = theta_14 xval = -0.08716063898546209 coeff = -5.0
+ j 0 h 1 var = theta_15 xval = -0.08349122962564236 coeff = 5.0
+ -> displacement 1.835e-02
+ feat: Pdef_20,14,15 (=)  L0norm: 0.018347  L1norm: 0.018347  L2norm: 0.018347
+>feat: 20  name: Pdef_21,16,17  numrisky: 1
+ riskyterm: 0  z: z_21,16,17  card: 2  vars: ['theta_16', 'theta_17']
+ j 0 h 0 var = theta_16 xval = -0.08455390756474775 coeff = -5.263157894736842
+ j 0 h 1 var = theta_17 xval = -0.08620979215591974 coeff = 5.263157894736842
+ -> displacement -8.715e-03
+ feat: Pdef_21,16,17 (=)  L0norm: 0.00871518  L1norm: 0.00871518  L2norm: 0.00871518
+>feat: 21  name: Pdef_22,15,18  numrisky: 1
+ riskyterm: 0  z: z_22,15,18  card: 2  vars: ['theta_15', 'theta_18']
+ j 0 h 0 var = theta_15 xval = -0.08349122962564236 coeff = -4.545454545454546
+ j 0 h 1 var = theta_18 xval = -0.09765356447140028 coeff = 4.545454545454546
+ -> displacement -6.437e-02
+ feat: Pdef_22,15,18 (=)  L0norm: 0.0643742  L1norm: 0.0643742  L2norm: 0.0643742
+>feat: 22  name: Pdef_23,18,19  numrisky: 1
+ riskyterm: 0  z: z_23,18,19  card: 2  vars: ['theta_18', 'theta_19']
+ j 0 h 0 var = theta_18 xval = -0.09765356447140028 coeff = -7.692307692307692
+ j 0 h 1 var = theta_19 xval = -0.10186221689042085 coeff = 7.692307692307692
+ -> displacement -3.237e-02
+ feat: Pdef_23,18,19 (=)  L0norm: 0.0323742  L1norm: 0.0323742  L2norm: 0.0323742
+>feat: 23  name: Pdef_24,19,20  numrisky: 1
+ riskyterm: 0  z: z_24,19,20  card: 2  vars: ['theta_19', 'theta_20']
+ j 0 h 0 var = theta_19 xval = -0.10186221689042085 coeff = -14.28571428571428
+ j 0 h 1 var = theta_20 xval = -0.09747841434894777 coeff = 14.28571428571428
+ -> displacement 6.263e-02
+ feat: Pdef_24,19,20 (=)  L0norm: 0.0626258  L1norm: 0.0626258  L2norm: 0.0626258
+>feat: 24  name: Pdef_25,10,20  numrisky: 1
+ riskyterm: 0  z: z_25,10,20  card: 2  vars: ['theta_10', 'theta_20']
+ j 0 h 0 var = theta_10 xval = -0.07970700672062375 coeff = -4.761904761904762
+ j 0 h 1 var = theta_20 xval = -0.09747841434894777 coeff = 4.761904761904762
+ -> displacement -8.463e-02
+ feat: Pdef_25,10,20 (=)  L0norm: 0.0846258  L1norm: 0.0846258  L2norm: 0.0846258
+>feat: 25  name: Pdef_26,10,17  numrisky: 1
+ riskyterm: 0  z: z_26,10,17  card: 2  vars: ['theta_10', 'theta_17']
+ j 0 h 0 var = theta_10 xval = -0.07970700672062375 coeff = -12.5
+ j 0 h 1 var = theta_17 xval = -0.08620979215591974 coeff = 12.5
+ -> displacement -8.128e-02
+ feat: Pdef_26,10,17 (=)  L0norm: 0.0812848  L1norm: 0.0812848  L2norm: 0.0812848
+>feat: 26  name: Pdef_27,10,21  numrisky: 1
+ riskyterm: 0  z: z_27,10,21  card: 2  vars: ['theta_10', 'theta_21']
+ j 0 h 0 var = theta_10 xval = -0.07970700672062375 coeff = -14.28571428571428
+ j 0 h 1 var = theta_21 xval = -0.07695009412109531 coeff = 14.28571428571428
+ -> displacement 3.938e-02
+ feat: Pdef_27,10,21 (=)  L0norm: 0.0393845  L1norm: 0.0393845  L2norm: 0.0393845
+>feat: 27  name: Pdef_28,10,22  numrisky: 1
+ riskyterm: 0  z: z_28,10,22  card: 2  vars: ['theta_10', 'theta_22']
+ j 0 h 0 var = theta_10 xval = -0.07970700672062375 coeff = -6.666666666666667
+ j 0 h 1 var = theta_22 xval = -0.07266240480690667 coeff = 6.666666666666667
+ -> displacement 4.696e-02
+ feat: Pdef_28,10,22 (=)  L0norm: 0.046964  L1norm: 0.046964  L2norm: 0.046964
+>feat: 28  name: Pdef_29,21,22  numrisky: 1
+ riskyterm: 0  z: z_29,21,22  card: 2  vars: ['theta_21', 'theta_22']
+ j 0 h 0 var = theta_21 xval = -0.07695009412109531 coeff = -50.0
+ j 0 h 1 var = theta_22 xval = -0.07266240480690667 coeff = 50.0
+ -> displacement 2.144e-01
+ feat: Pdef_29,21,22 (=)  L0norm: 0.214384  L1norm: 0.214384  L2norm: 0.214384
+>feat: 29  name: Pdef_30,15,23  numrisky: 1
+ riskyterm: 0  z: z_30,15,23  card: 2  vars: ['theta_15', 'theta_23']
+ j 0 h 0 var = theta_15 xval = -0.08349122962564236 coeff = -5.0
+ j 0 h 1 var = theta_23 xval = -0.062362906501160185 coeff = 5.0
+ -> displacement 1.056e-01
+ feat: Pdef_30,15,23 (=)  L0norm: 0.105642  L1norm: 0.105642  L2norm: 0.105642
+>feat: 30  name: Pdef_31,22,24  numrisky: 1
+ riskyterm: 0  z: z_31,22,24  card: 2  vars: ['theta_22', 'theta_24']
+ j 0 h 0 var = theta_22 xval = -0.07266240480690667 coeff = -5.555555555555555
+ j 0 h 1 var = theta_24 xval = -0.06480050553834263 coeff = 5.555555555555555
+ -> displacement 4.368e-02
+ feat: Pdef_31,22,24 (=)  L0norm: 0.0436772  L1norm: 0.0436772  L2norm: 0.0436772
+>feat: 31  name: Pdef_32,23,24  numrisky: 1
+ riskyterm: 0  z: z_32,23,24  card: 2  vars: ['theta_23', 'theta_24']
+ j 0 h 0 var = theta_23 xval = -0.062362906501160185 coeff = -3.703703703703703
+ j 0 h 1 var = theta_24 xval = -0.06480050553834263 coeff = 3.703703703703703
+ -> displacement -9.028e-03
+ feat: Pdef_32,23,24 (=)  L0norm: 0.00902814  L1norm: 0.00902814  L2norm: 0.00902814
+>feat: 32  name: Pdef_33,24,25  numrisky: 1
+ riskyterm: 0  z: z_33,24,25  card: 2  vars: ['theta_24', 'theta_25']
+ j 0 h 0 var = theta_24 xval = -0.06480050553834263 coeff = -3.03030303030303
+ j 0 h 1 var = theta_25 xval = -0.02465631125822451 coeff = 3.03030303030303
+ -> displacement 1.216e-01
+ feat: Pdef_33,24,25 (=)  L0norm: 0.121649  L1norm: 0.121649  L2norm: 0.121649
+>feat: 33  name: Pdef_34,25,26  numrisky: 1
+ riskyterm: 0  z: z_34,25,26  card: 2  vars: ['theta_25', 'theta_26']
+ j 0 h 0 var = theta_25 xval = -0.02465631125822451 coeff = -2.631578947368421
+ j 0 h 1 var = theta_26 xval = -0.03795631125822452 coeff = 2.631578947368421
+ -> displacement -3.500e-02
+ feat: Pdef_34,25,26 (=)  L0norm: 0.035  L1norm: 0.035  L2norm: 0.035
+>feat: 34  name: Pdef_35,25,27  numrisky: 1
+ riskyterm: 0  z: z_35,25,27  card: 2  vars: ['theta_25', 'theta_27']
+ j 0 h 0 var = theta_25 xval = -0.02465631125822451 coeff = -4.761904761904762
+ j 0 h 1 var = theta_27 xval = 0.008239994192750327 coeff = 4.761904761904762
+ -> displacement 1.566e-01
+ feat: Pdef_35,25,27 (=)  L0norm: 0.156649  L1norm: 0.156649  L2norm: 0.156649
+>feat: 35  name: Pdef_36,28,27  numrisky: 1
+ riskyterm: 0  z: z_36,28,27  card: 2  vars: ['theta_27', 'theta_28']
+ j 0 h 0 var = theta_27 xval = 0.008239994192750327 coeff = 2.5
+ j 0 h 1 var = theta_28 xval = -0.047415681786666095 coeff = -2.5
+ -> displacement 1.391e-01
+ feat: Pdef_36,28,27 (=)  L0norm: 0.139139  L1norm: 0.139139  L2norm: 0.139139
+>feat: 36  name: Pdef_37,27,29  numrisky: 1
+ riskyterm: 0  z: z_37,27,29  card: 2  vars: ['theta_27', 'theta_29']
+ j 0 h 0 var = theta_27 xval = 0.008239994192750327 coeff = -2.380952380952381
+ j 0 h 1 var = theta_29 xval = -0.01713143437867824 coeff = 2.380952380952381
+ -> displacement -6.041e-02
+ feat: Pdef_37,27,29 (=)  L0norm: 0.0604082  L1norm: 0.0604082  L2norm: 0.0604082
+>feat: 37  name: Pdef_38,27,30  numrisky: 1
+ riskyterm: 0  z: z_38,27,30  card: 2  vars: ['theta_27', 'theta_30']
+ j 0 h 0 var = theta_27 xval = 0.008239994192750327 coeff = -1.666666666666667
+ j 0 h 1 var = theta_30 xval = -0.03351510784806599 coeff = 1.666666666666667
+ -> displacement -6.959e-02
+ feat: Pdef_38,27,30 (=)  L0norm: 0.0695918  L1norm: 0.0695918  L2norm: 0.0695918
+>feat: 38  name: Pdef_39,29,30  numrisky: 1
+ riskyterm: 0  z: z39,29,30  card: 2  vars: ['theta_29', 'theta_30']
+ j 0 h 0 var = theta_29 xval = -0.01713143437867824 coeff = -2.222222222222222
+ j 0 h 1 var = theta_30 xval = -0.03351510784806599 coeff = 2.222222222222222
+ -> displacement -3.641e-02
+ feat: Pdef_39,29,30 (=)  L0norm: 0.0364082  L1norm: 0.0364082  L2norm: 0.0364082
+>feat: 39  name: Pdef_40,8,28  numrisky: 1
+ riskyterm: 0  z: z_40,8,28  card: 2  vars: ['theta_8', 'theta_28']
+ j 0 h 0 var = theta_8 xval = -0.06098124940516079 coeff = -5.0
+ j 0 h 1 var = theta_28 xval = -0.047415681786666095 coeff = 5.0
+ -> displacement 6.783e-02
+ feat: Pdef_40,8,28 (=)  L0norm: 0.0678278  L1norm: 0.0678278  L2norm: 0.0678278
+>feat: 40  name: Pdef_41,6,28  numrisky: 1
+ riskyterm: 0  z: z_41,6,28  card: 2  vars: ['theta_6', 'theta_28']
+ j 0 h 0 var = theta_6 xval = -0.051694362925774076 coeff = -16.66666666666667
+ j 0 h 1 var = theta_28 xval = -0.047415681786666095 coeff = 16.66666666666667
+ -> displacement 7.131e-02
+ feat: Pdef_41,6,28 (=)  L0norm: 0.0713114  L1norm: 0.0713114  L2norm: 0.0713114
+Max feature value: 0.232172 at 9  L1-norm: 0.232172  L2-norm: 0.232172.
+Counter: 0  feature: 9  delta: 2.322e-01  ind: 0
+Counter: 1  feature: 0  delta: 2.162e-01  ind: 0
+Counter: 2  feature: 5  delta: 2.151e-01  ind: 0
+Counter: 3  feature: 28  delta: 2.144e-01  ind: 0
+Counter: 4  feature: 1  delta: 1.996e-01  ind: 0
+Counter: 5  feature: 2  delta: 1.881e-01  ind: 0
+Counter: 6  feature: 3  delta: 1.756e-01  ind: 0
+Counter: 7  feature: 6  delta: 1.689e-01  ind: 0
+Counter: 8  feature: 34  delta: 1.566e-01  ind: 0
+Counter: 9  feature: 4  delta: 1.424e-01  ind: 0
+Counter: 10  feature: 7  delta: 1.424e-01  ind: 0
+Counter: 11  feature: 15  delta: 1.397e-01  ind: 0
+Counter: 12  feature: 35  delta: 1.391e-01  ind: 0
+Counter: 13  feature: 32  delta: 1.216e-01  ind: 0
+Counter: 14  feature: 14  delta: 1.187e-01  ind: 0
+Counter: 15  feature: 29  delta: 1.056e-01  ind: 0
+Counter: 16  feature: 13  delta: 8.754e-02  ind: 0
+Counter: 17  feature: 10  delta: 8.754e-02  ind: 0
+Counter: 18  feature: 8  delta: 8.559e-02  ind: 0
+Counter: 19  feature: 24  delta: 8.463e-02  ind: 0
+Counter: 20  feature: 25  delta: 8.128e-02  ind: 0
+Counter: 21  feature: 40  delta: 7.131e-02  ind: 0
+Counter: 22  feature: 37  delta: 6.959e-02  ind: 0
+Counter: 23  feature: 39  delta: 6.783e-02  ind: 0
+Counter: 24  feature: 21  delta: 6.437e-02  ind: 0
+Counter: 25  feature: 23  delta: 6.263e-02  ind: 0
+Counter: 26  feature: 36  delta: 6.041e-02  ind: 0
+Counter: 27  feature: 17  delta: 5.908e-02  ind: 0
+Counter: 28  feature: 11  delta: 5.002e-02  ind: 0
+Counter: 29  feature: 27  delta: 4.696e-02  ind: 0
+Counter: 30  feature: 18  delta: 4.372e-02  ind: 0
+Counter: 31  feature: 30  delta: 4.368e-02  ind: 0
+Counter: 32  feature: 16  delta: 4.365e-02  ind: 0
+Counter: 33  feature: 26  delta: 3.938e-02  ind: 0
+Counter: 34  feature: 38  delta: 3.641e-02  ind: 0
+Counter: 35  feature: 33  delta: 3.500e-02  ind: 0
+Counter: 36  feature: 22  delta: 3.237e-02  ind: 0
+Counter: 37  feature: 19  delta: 1.835e-02  ind: 0
+Counter: 38  feature: 31  delta: 9.028e-03  ind: 0
+Counter: 39  feature: 20  delta: 8.715e-03  ind: 0
+Counter: 40  feature: 12  delta: 0.000e+00  ind: -1
+Iteration 2.  Obj 566.64  Impact 0.23217.
+Adding greedy cuts at iteration_cnt 2.
+Writing LP to file form_3.lp.
+Solving Model
+  variables = 111
+  constraints = 84
+ OPTIMAL. optimal value: 6.2029e+02 in time 2.5051e-03Optimal objective = 620.289
+Optimal variable values:
+lincost = 424.834
+quadcost = 141.81
+constant = 1
+GP_1_1 = 0.415732
+GP_2_2 = 0.546428
+GP_6_13 = 0.139711
+GP_3_22 = 0.217671
+GP_5_23 = 0.14667
+GP_4_27 = 0.425788
+theta_2 = -0.0129702
+P_1,1,2 = 0.21617
+theta_3 = -0.0379168
+P_2,1,3 = 0.199562
+theta_4 = -0.0449392
+P_3,2,4 = 0.188053
+P_4,3,4 = 0.175562
+theta_5 = -0.0414523
+P_5,2,5 = 0.14241
+theta_6 = -0.0516944
+P_6,2,6 = 0.215134
+P_7,4,6 = 0.168878
+theta_7 = -0.0585415
+P_8,5,7 = 0.14241
+P_9,6,7 = 0.0855896
+theta_8 = -0.0609812
+P_10,6,8 = 0.232172
+theta_9 = -0.0700777
+P_11,6,9 = 0.0875395
+theta_10 = -0.079707
+P_12,6,10 = 0.0500226
+theta_11 = -0.0700777
+P_14,9,10 = 0.0875395
+theta_12 = -0.0758109
+P_15,4,12 = 0.118737
+theta_13 = -0.0562514
+P_16,12,13 = -0.139711
+theta_14 = -0.0871606
+P_17,12,14 = 0.043653
+theta_15 = -0.0834912
+P_18,12,15 = 0.0590797
+theta_16 = -0.0845539
+P_19,12,16 = 0.0437152
+P_20,14,15 = -0.018347
+theta_17 = -0.0862098
+P_21,16,17 = 0.00871518
+theta_18 = -0.0976536
+P_22,15,18 = 0.0643742
+theta_19 = -0.101862
+P_23,18,19 = 0.0323742
+theta_20 = -0.0974784
+P_24,19,20 = -0.0626258
+P_25,10,20 = 0.0846258
+P_26,10,17 = 0.0812848
+theta_21 = -0.0769501
+P_27,10,21 = -0.0393845
+theta_22 = -0.0726624
+P_28,10,22 = -0.046964
+P_29,21,22 = -0.214384
+theta_23 = -0.0623629
+P_30,15,23 = -0.105642
+theta_24 = -0.0648005
+P_31,22,24 = -0.0436772
+P_32,23,24 = 0.00902814
+theta_25 = -0.0246563
+P_33,24,25 = -0.121649
+theta_26 = -0.0379563
+P_34,25,26 = 0.035
+theta_27 = 0.00823999
+P_35,25,27 = -0.156649
+theta_28 = -0.0474157
+P_36,28,27 = -0.139139
+theta_29 = -0.0171314
+P_37,27,29 = 0.0604082
+theta_30 = -0.0335151
+P_38,27,30 = 0.0695918
+P_39,29,30 = 0.0364082
+P_40,8,28 = -0.0678278
+P_41,6,28 = -0.0713114
+IP_1 = 0.415732
+IP_2 = 0.329428
+IP_3 = -0.024
+IP_4 = -0.076
+IP_7 = -0.228
+IP_8 = -0.3
+IP_10 = -0.058
+IP_12 = -0.112
+IP_13 = 0.139711
+IP_14 = -0.062
+IP_15 = -0.082
+IP_16 = -0.035
+IP_17 = -0.09
+IP_18 = -0.032
+IP_19 = -0.095
+IP_20 = -0.022
+IP_21 = -0.175
+IP_22 = 0.217671
+IP_23 = 0.11467
+IP_24 = -0.087
+IP_26 = -0.035
+IP_27 = 0.425788
+IP_29 = -0.024
+IP_30 = -0.106
+IMP = 0.232172
+103 nonzero variables in solution
+Getting impact at iteration_cnt 3 using style 0-norm_per.
+>feat: 0  name: Pdef_1,1,2  numrisky: 1
+ riskyterm: 0  z: z_1,1,2  card: 2  vars: ['theta_1', 'theta_2']
+ j 0 h 0 var = theta_1 xval = 0.0 coeff = -16.66666666666667
+ j 0 h 1 var = theta_2 xval = -0.012970183230538775 coeff = 16.66666666666667
+ -> displacement -2.162e-01
+ feat: Pdef_1,1,2 (=)  L0norm: 0.21617  L1norm: 0.21617  L2norm: 0.21617
+>feat: 1  name: Pdef_2,1,3  numrisky: 1
+ riskyterm: 0  z: z_2,1,3  card: 2  vars: ['theta_1', 'theta_3']
+ j 0 h 0 var = theta_1 xval = 0.0 coeff = -5.263157894736842
+ j 0 h 1 var = theta_3 xval = -0.03791676195315886 coeff = 5.263157894736842
+ -> displacement -1.996e-01
+ feat: Pdef_2,1,3 (=)  L0norm: 0.199562  L1norm: 0.199562  L2norm: 0.199562
+>feat: 2  name: Pdef_3,2,4  numrisky: 1
+ riskyterm: 0  z: z_3,2,4  card: 2  vars: ['theta_2', 'theta_4']
+ j 0 h 0 var = theta_2 xval = -0.012970183230538775 coeff = -5.88235294117647
+ j 0 h 1 var = theta_4 xval = -0.04493923815530309 coeff = 5.88235294117647
+ -> displacement -1.881e-01
+ feat: Pdef_3,2,4 (=)  L0norm: 0.188053  L1norm: 0.188053  L2norm: 0.188053
+>feat: 3  name: Pdef_4,3,4  numrisky: 1
+ riskyterm: 0  z: z_4,3,4  card: 2  vars: ['theta_3', 'theta_4']
+ j 0 h 0 var = theta_3 xval = -0.03791676195315886 coeff = -25.0
+ j 0 h 1 var = theta_4 xval = -0.04493923815530309 coeff = 25.0
+ -> displacement -1.756e-01
+ feat: Pdef_4,3,4 (=)  L0norm: 0.175562  L1norm: 0.175562  L2norm: 0.175562
+>feat: 4  name: Pdef_5,2,5  numrisky: 1
+ riskyterm: 0  z: z_5,2,5  card: 2  vars: ['theta_2', 'theta_5']
+ j 0 h 0 var = theta_2 xval = -0.012970183230538775 coeff = -5.0
+ j 0 h 1 var = theta_5 xval = -0.04145227307815643 coeff = 5.0
+ -> displacement -1.424e-01
+ feat: Pdef_5,2,5 (=)  L0norm: 0.14241  L1norm: 0.14241  L2norm: 0.14241
+>feat: 5  name: Pdef_6,2,6  numrisky: 1
+ riskyterm: 0  z: z_6,2,6  card: 2  vars: ['theta_2', 'theta_6']
+ j 0 h 0 var = theta_2 xval = -0.012970183230538775 coeff = -5.555555555555555
+ j 0 h 1 var = theta_6 xval = -0.051694362925774076 coeff = 5.555555555555555
+ -> displacement -2.151e-01
+ feat: Pdef_6,2,6 (=)  L0norm: 0.215134  L1norm: 0.215134  L2norm: 0.215134
+>feat: 6  name: Pdef_7,4,6  numrisky: 1
+ riskyterm: 0  z: z_7,4,6  card: 2  vars: ['theta_4', 'theta_6']
+ j 0 h 0 var = theta_4 xval = -0.04493923815530309 coeff = -25.0
+ j 0 h 1 var = theta_6 xval = -0.051694362925774076 coeff = 25.0
+ -> displacement -1.689e-01
+ feat: Pdef_7,4,6 (=)  L0norm: 0.168878  L1norm: 0.168878  L2norm: 0.168878
+>feat: 7  name: Pdef_8,5,7  numrisky: 1
+ riskyterm: 0  z: z_8,5,7  card: 2  vars: ['theta_5', 'theta_7']
+ j 0 h 0 var = theta_5 xval = -0.04145227307815643 coeff = -8.333333333333334
+ j 0 h 1 var = theta_7 xval = -0.05854152698672702 coeff = 8.333333333333334
+ -> displacement -1.424e-01
+ feat: Pdef_8,5,7 (=)  L0norm: 0.14241  L1norm: 0.14241  L2norm: 0.14241
+>feat: 8  name: Pdef_9,6,7  numrisky: 1
+ riskyterm: 0  z: z_9,6,7  card: 2  vars: ['theta_6', 'theta_7']
+ j 0 h 0 var = theta_6 xval = -0.051694362925774076 coeff = -12.5
+ j 0 h 1 var = theta_7 xval = -0.05854152698672702 coeff = 12.5
+ -> displacement -8.559e-02
+ feat: Pdef_9,6,7 (=)  L0norm: 0.0855896  L1norm: 0.0855896  L2norm: 0.0855896
+>feat: 9  name: Pdef_10,6,8  numrisky: 1
+ riskyterm: 0  z: z_10,6,8  card: 2  vars: ['theta_6', 'theta_8']
+ j 0 h 0 var = theta_6 xval = -0.051694362925774076 coeff = -25.0
+ j 0 h 1 var = theta_8 xval = -0.06098124940516079 coeff = 25.0
+ -> displacement -2.322e-01
+ feat: Pdef_10,6,8 (=)  L0norm: 0.232172  L1norm: 0.232172  L2norm: 0.232172
+>feat: 10  name: Pdef_11,6,9  numrisky: 1
+ riskyterm: 0  z: z_11,6,9  card: 2  vars: ['theta_6', 'theta_9']
+ j 0 h 0 var = theta_6 xval = -0.051694362925774076 coeff = -4.761904761904762
+ j 0 h 1 var = theta_9 xval = -0.07007766041408521 coeff = 4.761904761904762
+ -> displacement -8.754e-02
+ feat: Pdef_11,6,9 (=)  L0norm: 0.0875395  L1norm: 0.0875395  L2norm: 0.0875395
+>feat: 11  name: Pdef_12,6,10  numrisky: 1
+ riskyterm: 0  z: z_12,6,10  card: 2  vars: ['theta_6', 'theta_10']
+ j 0 h 0 var = theta_6 xval = -0.051694362925774076 coeff = -1.785714285714286
+ j 0 h 1 var = theta_10 xval = -0.07970700672062375 coeff = 1.785714285714286
+ -> displacement -5.002e-02
+ feat: Pdef_12,6,10 (=)  L0norm: 0.0500226  L1norm: 0.0500226  L2norm: 0.0500226
+>feat: 12  name: Pdef_13,9,11  numrisky: 1
+ riskyterm: 0  z: z_13,9,11  card: 2  vars: ['theta_9', 'theta_11']
+ j 0 h 0 var = theta_9 xval = -0.07007766041408521 coeff = -4.761904761904762
+ j 0 h 1 var = theta_11 xval = -0.07007766041408521 coeff = 4.761904761904762
+ -> displacement 0.000e+00
+ feat: Pdef_13,9,11 (=)  L0norm: 0  L1norm: 0  L2norm: 0
+>feat: 13  name: Pdef_14,9,10  numrisky: 1
+ riskyterm: 0  z: z_14,9,10  card: 2  vars: ['theta_9', 'theta_10']
+ j 0 h 0 var = theta_9 xval = -0.07007766041408521 coeff = -9.090909090909092
+ j 0 h 1 var = theta_10 xval = -0.07970700672062375 coeff = 9.090909090909092
+ -> displacement -8.754e-02
+ feat: Pdef_14,9,10 (=)  L0norm: 0.0875395  L1norm: 0.0875395  L2norm: 0.0875395
+>feat: 14  name: Pdef_15,4,12  numrisky: 1
+ riskyterm: 0  z: z_15,4,12  card: 2  vars: ['theta_4', 'theta_12']
+ j 0 h 0 var = theta_4 xval = -0.04493923815530309 coeff = -3.846153846153846
+ j 0 h 1 var = theta_12 xval = -0.07581087115322774 coeff = 3.846153846153846
+ -> displacement -1.187e-01
+ feat: Pdef_15,4,12 (=)  L0norm: 0.118737  L1norm: 0.118737  L2norm: 0.118737
+>feat: 15  name: Pdef_16,12,13  numrisky: 1
+ riskyterm: 0  z: z_16,12,13  card: 2  vars: ['theta_12', 'theta_13']
+ j 0 h 0 var = theta_12 xval = -0.07581087115322774 coeff = -7.142857142857142
+ j 0 h 1 var = theta_13 xval = -0.056251363936655085 coeff = 7.142857142857142
+ -> displacement 1.397e-01
+ feat: Pdef_16,12,13 (=)  L0norm: 0.139711  L1norm: 0.139711  L2norm: 0.139711
+>feat: 16  name: Pdef_17,12,14  numrisky: 1
+ riskyterm: 0  z: z_17,12,14  card: 2  vars: ['theta_12', 'theta_14']
+ j 0 h 0 var = theta_12 xval = -0.07581087115322774 coeff = -3.846153846153846
+ j 0 h 1 var = theta_14 xval = -0.08716063898546209 coeff = 3.846153846153846
+ -> displacement -4.365e-02
+ feat: Pdef_17,12,14 (=)  L0norm: 0.043653  L1norm: 0.043653  L2norm: 0.043653
+>feat: 17  name: Pdef_18,12,15  numrisky: 1
+ riskyterm: 0  z: z_18,12,15  card: 2  vars: ['theta_12', 'theta_15']
+ j 0 h 0 var = theta_12 xval = -0.07581087115322774 coeff = -7.692307692307692
+ j 0 h 1 var = theta_15 xval = -0.08349122962564236 coeff = 7.692307692307692
+ -> displacement -5.908e-02
+ feat: Pdef_18,12,15 (=)  L0norm: 0.0590797  L1norm: 0.0590797  L2norm: 0.0590797
+>feat: 18  name: Pdef_19,12,16  numrisky: 1
+ riskyterm: 0  z: z_19,12,16  card: 2  vars: ['theta_12', 'theta_16']
+ j 0 h 0 var = theta_12 xval = -0.07581087115322774 coeff = -5.0
+ j 0 h 1 var = theta_16 xval = -0.08455390756474775 coeff = 5.0
+ -> displacement -4.372e-02
+ feat: Pdef_19,12,16 (=)  L0norm: 0.0437152  L1norm: 0.0437152  L2norm: 0.0437152
+>feat: 19  name: Pdef_20,14,15  numrisky: 1
+ riskyterm: 0  z: z_20,14,15  card: 2  vars: ['theta_14', 'theta_15']
+ j 0 h 0 var = theta_14 xval = -0.08716063898546209 coeff = -5.0
+ j 0 h 1 var = theta_15 xval = -0.08349122962564236 coeff = 5.0
+ -> displacement 1.835e-02
+ feat: Pdef_20,14,15 (=)  L0norm: 0.018347  L1norm: 0.018347  L2norm: 0.018347
+>feat: 20  name: Pdef_21,16,17  numrisky: 1
+ riskyterm: 0  z: z_21,16,17  card: 2  vars: ['theta_16', 'theta_17']
+ j 0 h 0 var = theta_16 xval = -0.08455390756474775 coeff = -5.263157894736842
+ j 0 h 1 var = theta_17 xval = -0.08620979215591974 coeff = 5.263157894736842
+ -> displacement -8.715e-03
+ feat: Pdef_21,16,17 (=)  L0norm: 0.00871518  L1norm: 0.00871518  L2norm: 0.00871518
+>feat: 21  name: Pdef_22,15,18  numrisky: 1
+ riskyterm: 0  z: z_22,15,18  card: 2  vars: ['theta_15', 'theta_18']
+ j 0 h 0 var = theta_15 xval = -0.08349122962564236 coeff = -4.545454545454546
+ j 0 h 1 var = theta_18 xval = -0.09765356447140028 coeff = 4.545454545454546
+ -> displacement -6.437e-02
+ feat: Pdef_22,15,18 (=)  L0norm: 0.0643742  L1norm: 0.0643742  L2norm: 0.0643742
+>feat: 22  name: Pdef_23,18,19  numrisky: 1
+ riskyterm: 0  z: z_23,18,19  card: 2  vars: ['theta_18', 'theta_19']
+ j 0 h 0 var = theta_18 xval = -0.09765356447140028 coeff = -7.692307692307692
+ j 0 h 1 var = theta_19 xval = -0.10186221689042085 coeff = 7.692307692307692
+ -> displacement -3.237e-02
+ feat: Pdef_23,18,19 (=)  L0norm: 0.0323742  L1norm: 0.0323742  L2norm: 0.0323742
+>feat: 23  name: Pdef_24,19,20  numrisky: 1
+ riskyterm: 0  z: z_24,19,20  card: 2  vars: ['theta_19', 'theta_20']
+ j 0 h 0 var = theta_19 xval = -0.10186221689042085 coeff = -14.28571428571428
+ j 0 h 1 var = theta_20 xval = -0.09747841434894777 coeff = 14.28571428571428
+ -> displacement 6.263e-02
+ feat: Pdef_24,19,20 (=)  L0norm: 0.0626258  L1norm: 0.0626258  L2norm: 0.0626258
+>feat: 24  name: Pdef_25,10,20  numrisky: 1
+ riskyterm: 0  z: z_25,10,20  card: 2  vars: ['theta_10', 'theta_20']
+ j 0 h 0 var = theta_10 xval = -0.07970700672062375 coeff = -4.761904761904762
+ j 0 h 1 var = theta_20 xval = -0.09747841434894777 coeff = 4.761904761904762
+ -> displacement -8.463e-02
+ feat: Pdef_25,10,20 (=)  L0norm: 0.0846258  L1norm: 0.0846258  L2norm: 0.0846258
+>feat: 25  name: Pdef_26,10,17  numrisky: 1
+ riskyterm: 0  z: z_26,10,17  card: 2  vars: ['theta_10', 'theta_17']
+ j 0 h 0 var = theta_10 xval = -0.07970700672062375 coeff = -12.5
+ j 0 h 1 var = theta_17 xval = -0.08620979215591974 coeff = 12.5
+ -> displacement -8.128e-02
+ feat: Pdef_26,10,17 (=)  L0norm: 0.0812848  L1norm: 0.0812848  L2norm: 0.0812848
+>feat: 26  name: Pdef_27,10,21  numrisky: 1
+ riskyterm: 0  z: z_27,10,21  card: 2  vars: ['theta_10', 'theta_21']
+ j 0 h 0 var = theta_10 xval = -0.07970700672062375 coeff = -14.28571428571428
+ j 0 h 1 var = theta_21 xval = -0.07695009412109531 coeff = 14.28571428571428
+ -> displacement 3.938e-02
+ feat: Pdef_27,10,21 (=)  L0norm: 0.0393845  L1norm: 0.0393845  L2norm: 0.0393845
+>feat: 27  name: Pdef_28,10,22  numrisky: 1
+ riskyterm: 0  z: z_28,10,22  card: 2  vars: ['theta_10', 'theta_22']
+ j 0 h 0 var = theta_10 xval = -0.07970700672062375 coeff = -6.666666666666667
+ j 0 h 1 var = theta_22 xval = -0.07266240480690667 coeff = 6.666666666666667
+ -> displacement 4.696e-02
+ feat: Pdef_28,10,22 (=)  L0norm: 0.046964  L1norm: 0.046964  L2norm: 0.046964
+>feat: 28  name: Pdef_29,21,22  numrisky: 1
+ riskyterm: 0  z: z_29,21,22  card: 2  vars: ['theta_21', 'theta_22']
+ j 0 h 0 var = theta_21 xval = -0.07695009412109531 coeff = -50.0
+ j 0 h 1 var = theta_22 xval = -0.07266240480690667 coeff = 50.0
+ -> displacement 2.144e-01
+ feat: Pdef_29,21,22 (=)  L0norm: 0.214384  L1norm: 0.214384  L2norm: 0.214384
+>feat: 29  name: Pdef_30,15,23  numrisky: 1
+ riskyterm: 0  z: z_30,15,23  card: 2  vars: ['theta_15', 'theta_23']
+ j 0 h 0 var = theta_15 xval = -0.08349122962564236 coeff = -5.0
+ j 0 h 1 var = theta_23 xval = -0.062362906501160185 coeff = 5.0
+ -> displacement 1.056e-01
+ feat: Pdef_30,15,23 (=)  L0norm: 0.105642  L1norm: 0.105642  L2norm: 0.105642
+>feat: 30  name: Pdef_31,22,24  numrisky: 1
+ riskyterm: 0  z: z_31,22,24  card: 2  vars: ['theta_22', 'theta_24']
+ j 0 h 0 var = theta_22 xval = -0.07266240480690667 coeff = -5.555555555555555
+ j 0 h 1 var = theta_24 xval = -0.06480050553834263 coeff = 5.555555555555555
+ -> displacement 4.368e-02
+ feat: Pdef_31,22,24 (=)  L0norm: 0.0436772  L1norm: 0.0436772  L2norm: 0.0436772
+>feat: 31  name: Pdef_32,23,24  numrisky: 1
+ riskyterm: 0  z: z_32,23,24  card: 2  vars: ['theta_23', 'theta_24']
+ j 0 h 0 var = theta_23 xval = -0.062362906501160185 coeff = -3.703703703703703
+ j 0 h 1 var = theta_24 xval = -0.06480050553834263 coeff = 3.703703703703703
+ -> displacement -9.028e-03
+ feat: Pdef_32,23,24 (=)  L0norm: 0.00902814  L1norm: 0.00902814  L2norm: 0.00902814
+>feat: 32  name: Pdef_33,24,25  numrisky: 1
+ riskyterm: 0  z: z_33,24,25  card: 2  vars: ['theta_24', 'theta_25']
+ j 0 h 0 var = theta_24 xval = -0.06480050553834263 coeff = -3.03030303030303
+ j 0 h 1 var = theta_25 xval = -0.02465631125822451 coeff = 3.03030303030303
+ -> displacement 1.216e-01
+ feat: Pdef_33,24,25 (=)  L0norm: 0.121649  L1norm: 0.121649  L2norm: 0.121649
+>feat: 33  name: Pdef_34,25,26  numrisky: 1
+ riskyterm: 0  z: z_34,25,26  card: 2  vars: ['theta_25', 'theta_26']
+ j 0 h 0 var = theta_25 xval = -0.02465631125822451 coeff = -2.631578947368421
+ j 0 h 1 var = theta_26 xval = -0.03795631125822452 coeff = 2.631578947368421
+ -> displacement -3.500e-02
+ feat: Pdef_34,25,26 (=)  L0norm: 0.035  L1norm: 0.035  L2norm: 0.035
+>feat: 34  name: Pdef_35,25,27  numrisky: 1
+ riskyterm: 0  z: z_35,25,27  card: 2  vars: ['theta_25', 'theta_27']
+ j 0 h 0 var = theta_25 xval = -0.02465631125822451 coeff = -4.761904761904762
+ j 0 h 1 var = theta_27 xval = 0.008239994192750327 coeff = 4.761904761904762
+ -> displacement 1.566e-01
+ feat: Pdef_35,25,27 (=)  L0norm: 0.156649  L1norm: 0.156649  L2norm: 0.156649
+>feat: 35  name: Pdef_36,28,27  numrisky: 1
+ riskyterm: 0  z: z_36,28,27  card: 2  vars: ['theta_27', 'theta_28']
+ j 0 h 0 var = theta_27 xval = 0.008239994192750327 coeff = 2.5
+ j 0 h 1 var = theta_28 xval = -0.047415681786666095 coeff = -2.5
+ -> displacement 1.391e-01
+ feat: Pdef_36,28,27 (=)  L0norm: 0.139139  L1norm: 0.139139  L2norm: 0.139139
+>feat: 36  name: Pdef_37,27,29  numrisky: 1
+ riskyterm: 0  z: z_37,27,29  card: 2  vars: ['theta_27', 'theta_29']
+ j 0 h 0 var = theta_27 xval = 0.008239994192750327 coeff = -2.380952380952381
+ j 0 h 1 var = theta_29 xval = -0.01713143437867824 coeff = 2.380952380952381
+ -> displacement -6.041e-02
+ feat: Pdef_37,27,29 (=)  L0norm: 0.0604082  L1norm: 0.0604082  L2norm: 0.0604082
+>feat: 37  name: Pdef_38,27,30  numrisky: 1
+ riskyterm: 0  z: z_38,27,30  card: 2  vars: ['theta_27', 'theta_30']
+ j 0 h 0 var = theta_27 xval = 0.008239994192750327 coeff = -1.666666666666667
+ j 0 h 1 var = theta_30 xval = -0.03351510784806599 coeff = 1.666666666666667
+ -> displacement -6.959e-02
+ feat: Pdef_38,27,30 (=)  L0norm: 0.0695918  L1norm: 0.0695918  L2norm: 0.0695918
+>feat: 38  name: Pdef_39,29,30  numrisky: 1
+ riskyterm: 0  z: z39,29,30  card: 2  vars: ['theta_29', 'theta_30']
+ j 0 h 0 var = theta_29 xval = -0.01713143437867824 coeff = -2.222222222222222
+ j 0 h 1 var = theta_30 xval = -0.03351510784806599 coeff = 2.222222222222222
+ -> displacement -3.641e-02
+ feat: Pdef_39,29,30 (=)  L0norm: 0.0364082  L1norm: 0.0364082  L2norm: 0.0364082
+>feat: 39  name: Pdef_40,8,28  numrisky: 1
+ riskyterm: 0  z: z_40,8,28  card: 2  vars: ['theta_8', 'theta_28']
+ j 0 h 0 var = theta_8 xval = -0.06098124940516079 coeff = -5.0
+ j 0 h 1 var = theta_28 xval = -0.047415681786666095 coeff = 5.0
+ -> displacement 6.783e-02
+ feat: Pdef_40,8,28 (=)  L0norm: 0.0678278  L1norm: 0.0678278  L2norm: 0.0678278
+>feat: 40  name: Pdef_41,6,28  numrisky: 1
+ riskyterm: 0  z: z_41,6,28  card: 2  vars: ['theta_6', 'theta_28']
+ j 0 h 0 var = theta_6 xval = -0.051694362925774076 coeff = -16.66666666666667
+ j 0 h 1 var = theta_28 xval = -0.047415681786666095 coeff = 16.66666666666667
+ -> displacement 7.131e-02
+ feat: Pdef_41,6,28 (=)  L0norm: 0.0713114  L1norm: 0.0713114  L2norm: 0.0713114
+Max feature value: 0.232172 at 9  L1-norm: 0.232172  L2-norm: 0.232172.
+Counter: 0  feature: 9  delta: 2.322e-01  ind: 0
+Counter: 1  feature: 0  delta: 2.162e-01  ind: 0
+Counter: 2  feature: 5  delta: 2.151e-01  ind: 0
+Counter: 3  feature: 28  delta: 2.144e-01  ind: 0
+Counter: 4  feature: 1  delta: 1.996e-01  ind: 0
+Counter: 5  feature: 2  delta: 1.881e-01  ind: 0
+Counter: 6  feature: 3  delta: 1.756e-01  ind: 0
+Counter: 7  feature: 6  delta: 1.689e-01  ind: 0
+Counter: 8  feature: 34  delta: 1.566e-01  ind: 0
+Counter: 9  feature: 4  delta: 1.424e-01  ind: 0
+Counter: 10  feature: 7  delta: 1.424e-01  ind: 0
+Counter: 11  feature: 15  delta: 1.397e-01  ind: 0
+Counter: 12  feature: 35  delta: 1.391e-01  ind: 0
+Counter: 13  feature: 32  delta: 1.216e-01  ind: 0
+Counter: 14  feature: 14  delta: 1.187e-01  ind: 0
+Counter: 15  feature: 29  delta: 1.056e-01  ind: 0
+Counter: 16  feature: 13  delta: 8.754e-02  ind: 0
+Counter: 17  feature: 10  delta: 8.754e-02  ind: 0
+Counter: 18  feature: 8  delta: 8.559e-02  ind: 0
+Counter: 19  feature: 24  delta: 8.463e-02  ind: 0
+Counter: 20  feature: 25  delta: 8.128e-02  ind: 0
+Counter: 21  feature: 40  delta: 7.131e-02  ind: 0
+Counter: 22  feature: 37  delta: 6.959e-02  ind: 0
+Counter: 23  feature: 39  delta: 6.783e-02  ind: 0
+Counter: 24  feature: 21  delta: 6.437e-02  ind: 0
+Counter: 25  feature: 23  delta: 6.263e-02  ind: 0
+Counter: 26  feature: 36  delta: 6.041e-02  ind: 0
+Counter: 27  feature: 17  delta: 5.908e-02  ind: 0
+Counter: 28  feature: 11  delta: 5.002e-02  ind: 0
+Counter: 29  feature: 27  delta: 4.696e-02  ind: 0
+Counter: 30  feature: 18  delta: 4.372e-02  ind: 0
+Counter: 31  feature: 30  delta: 4.368e-02  ind: 0
+Counter: 32  feature: 16  delta: 4.365e-02  ind: 0
+Counter: 33  feature: 26  delta: 3.938e-02  ind: 0
+Counter: 34  feature: 38  delta: 3.641e-02  ind: 0
+Counter: 35  feature: 33  delta: 3.500e-02  ind: 0
+Counter: 36  feature: 22  delta: 3.237e-02  ind: 0
+Counter: 37  feature: 19  delta: 1.835e-02  ind: 0
+Counter: 38  feature: 31  delta: 9.028e-03  ind: 0
+Counter: 39  feature: 20  delta: 8.715e-03  ind: 0
+Counter: 40  feature: 12  delta: 0.000e+00  ind: -1
+Iteration 3.  Obj 566.64  Impact 0.23217.
+Adding greedy cuts at iteration_cnt 3.
+Writing LP to file form_4.lp.
+Solving Model
+  variables = 111
+  constraints = 86
+ OPTIMAL. optimal value: 6.2029e+02 in time 3.1941e-03Optimal objective = 620.289
+Optimal variable values:
+lincost = 424.834
+quadcost = 141.81
+constant = 1
+GP_1_1 = 0.415732
+GP_2_2 = 0.546428
+GP_6_13 = 0.139711
+GP_3_22 = 0.217671
+GP_5_23 = 0.14667
+GP_4_27 = 0.425788
+theta_2 = -0.0129702
+P_1,1,2 = 0.21617
+theta_3 = -0.0379168
+P_2,1,3 = 0.199562
+theta_4 = -0.0449392
+P_3,2,4 = 0.188053
+P_4,3,4 = 0.175562
+theta_5 = -0.0414523
+P_5,2,5 = 0.14241
+theta_6 = -0.0516944
+P_6,2,6 = 0.215134
+P_7,4,6 = 0.168878
+theta_7 = -0.0585415
+P_8,5,7 = 0.14241
+P_9,6,7 = 0.0855896
+theta_8 = -0.0609812
+P_10,6,8 = 0.232172
+theta_9 = -0.0700777
+P_11,6,9 = 0.0875395
+theta_10 = -0.079707
+P_12,6,10 = 0.0500226
+theta_11 = -0.0700777
+P_14,9,10 = 0.0875395
+theta_12 = -0.0758109
+P_15,4,12 = 0.118737
+theta_13 = -0.0562514
+P_16,12,13 = -0.139711
+theta_14 = -0.0871606
+P_17,12,14 = 0.043653
+theta_15 = -0.0834912
+P_18,12,15 = 0.0590797
+theta_16 = -0.0845539
+P_19,12,16 = 0.0437152
+P_20,14,15 = -0.018347
+theta_17 = -0.0862098
+P_21,16,17 = 0.00871518
+theta_18 = -0.0976536
+P_22,15,18 = 0.0643742
+theta_19 = -0.101862
+P_23,18,19 = 0.0323742
+theta_20 = -0.0974784
+P_24,19,20 = -0.0626258
+P_25,10,20 = 0.0846258
+P_26,10,17 = 0.0812848
+theta_21 = -0.0769501
+P_27,10,21 = -0.0393845
+theta_22 = -0.0726624
+P_28,10,22 = -0.046964
+P_29,21,22 = -0.214384
+theta_23 = -0.0623629
+P_30,15,23 = -0.105642
+theta_24 = -0.0648005
+P_31,22,24 = -0.0436772
+P_32,23,24 = 0.00902814
+theta_25 = -0.0246563
+P_33,24,25 = -0.121649
+theta_26 = -0.0379563
+P_34,25,26 = 0.035
+theta_27 = 0.00823999
+P_35,25,27 = -0.156649
+theta_28 = -0.0474157
+P_36,28,27 = -0.139139
+theta_29 = -0.0171314
+P_37,27,29 = 0.0604082
+theta_30 = -0.0335151
+P_38,27,30 = 0.0695918
+P_39,29,30 = 0.0364082
+P_40,8,28 = -0.0678278
+P_41,6,28 = -0.0713114
+IP_1 = 0.415732
+IP_2 = 0.329428
+IP_3 = -0.024
+IP_4 = -0.076
+IP_7 = -0.228
+IP_8 = -0.3
+IP_10 = -0.058
+IP_12 = -0.112
+IP_13 = 0.139711
+IP_14 = -0.062
+IP_15 = -0.082
+IP_16 = -0.035
+IP_17 = -0.09
+IP_18 = -0.032
+IP_19 = -0.095
+IP_20 = -0.022
+IP_21 = -0.175
+IP_22 = 0.217671
+IP_23 = 0.11467
+IP_24 = -0.087
+IP_26 = -0.035
+IP_27 = 0.425788
+IP_29 = -0.024
+IP_30 = -0.106
+IMP = 0.232172
+103 nonzero variables in solution
+Getting impact at iteration_cnt 4 using style 0-norm_per.
+>feat: 0  name: Pdef_1,1,2  numrisky: 1
+ riskyterm: 0  z: z_1,1,2  card: 2  vars: ['theta_1', 'theta_2']
+ j 0 h 0 var = theta_1 xval = 0.0 coeff = -16.66666666666667
+ j 0 h 1 var = theta_2 xval = -0.012970183230538775 coeff = 16.66666666666667
+ -> displacement -2.162e-01
+ feat: Pdef_1,1,2 (=)  L0norm: 0.21617  L1norm: 0.21617  L2norm: 0.21617
+>feat: 1  name: Pdef_2,1,3  numrisky: 1
+ riskyterm: 0  z: z_2,1,3  card: 2  vars: ['theta_1', 'theta_3']
+ j 0 h 0 var = theta_1 xval = 0.0 coeff = -5.263157894736842
+ j 0 h 1 var = theta_3 xval = -0.03791676195315886 coeff = 5.263157894736842
+ -> displacement -1.996e-01
+ feat: Pdef_2,1,3 (=)  L0norm: 0.199562  L1norm: 0.199562  L2norm: 0.199562
+>feat: 2  name: Pdef_3,2,4  numrisky: 1
+ riskyterm: 0  z: z_3,2,4  card: 2  vars: ['theta_2', 'theta_4']
+ j 0 h 0 var = theta_2 xval = -0.012970183230538775 coeff = -5.88235294117647
+ j 0 h 1 var = theta_4 xval = -0.04493923815530309 coeff = 5.88235294117647
+ -> displacement -1.881e-01
+ feat: Pdef_3,2,4 (=)  L0norm: 0.188053  L1norm: 0.188053  L2norm: 0.188053
+>feat: 3  name: Pdef_4,3,4  numrisky: 1
+ riskyterm: 0  z: z_4,3,4  card: 2  vars: ['theta_3', 'theta_4']
+ j 0 h 0 var = theta_3 xval = -0.03791676195315886 coeff = -25.0
+ j 0 h 1 var = theta_4 xval = -0.04493923815530309 coeff = 25.0
+ -> displacement -1.756e-01
+ feat: Pdef_4,3,4 (=)  L0norm: 0.175562  L1norm: 0.175562  L2norm: 0.175562
+>feat: 4  name: Pdef_5,2,5  numrisky: 1
+ riskyterm: 0  z: z_5,2,5  card: 2  vars: ['theta_2', 'theta_5']
+ j 0 h 0 var = theta_2 xval = -0.012970183230538775 coeff = -5.0
+ j 0 h 1 var = theta_5 xval = -0.04145227307815643 coeff = 5.0
+ -> displacement -1.424e-01
+ feat: Pdef_5,2,5 (=)  L0norm: 0.14241  L1norm: 0.14241  L2norm: 0.14241
+>feat: 5  name: Pdef_6,2,6  numrisky: 1
+ riskyterm: 0  z: z_6,2,6  card: 2  vars: ['theta_2', 'theta_6']
+ j 0 h 0 var = theta_2 xval = -0.012970183230538775 coeff = -5.555555555555555
+ j 0 h 1 var = theta_6 xval = -0.051694362925774076 coeff = 5.555555555555555
+ -> displacement -2.151e-01
+ feat: Pdef_6,2,6 (=)  L0norm: 0.215134  L1norm: 0.215134  L2norm: 0.215134
+>feat: 6  name: Pdef_7,4,6  numrisky: 1
+ riskyterm: 0  z: z_7,4,6  card: 2  vars: ['theta_4', 'theta_6']
+ j 0 h 0 var = theta_4 xval = -0.04493923815530309 coeff = -25.0
+ j 0 h 1 var = theta_6 xval = -0.051694362925774076 coeff = 25.0
+ -> displacement -1.689e-01
+ feat: Pdef_7,4,6 (=)  L0norm: 0.168878  L1norm: 0.168878  L2norm: 0.168878
+>feat: 7  name: Pdef_8,5,7  numrisky: 1
+ riskyterm: 0  z: z_8,5,7  card: 2  vars: ['theta_5', 'theta_7']
+ j 0 h 0 var = theta_5 xval = -0.04145227307815643 coeff = -8.333333333333334
+ j 0 h 1 var = theta_7 xval = -0.05854152698672702 coeff = 8.333333333333334
+ -> displacement -1.424e-01
+ feat: Pdef_8,5,7 (=)  L0norm: 0.14241  L1norm: 0.14241  L2norm: 0.14241
+>feat: 8  name: Pdef_9,6,7  numrisky: 1
+ riskyterm: 0  z: z_9,6,7  card: 2  vars: ['theta_6', 'theta_7']
+ j 0 h 0 var = theta_6 xval = -0.051694362925774076 coeff = -12.5
+ j 0 h 1 var = theta_7 xval = -0.05854152698672702 coeff = 12.5
+ -> displacement -8.559e-02
+ feat: Pdef_9,6,7 (=)  L0norm: 0.0855896  L1norm: 0.0855896  L2norm: 0.0855896
+>feat: 9  name: Pdef_10,6,8  numrisky: 1
+ riskyterm: 0  z: z_10,6,8  card: 2  vars: ['theta_6', 'theta_8']
+ j 0 h 0 var = theta_6 xval = -0.051694362925774076 coeff = -25.0
+ j 0 h 1 var = theta_8 xval = -0.06098124940516079 coeff = 25.0
+ -> displacement -2.322e-01
+ feat: Pdef_10,6,8 (=)  L0norm: 0.232172  L1norm: 0.232172  L2norm: 0.232172
+>feat: 10  name: Pdef_11,6,9  numrisky: 1
+ riskyterm: 0  z: z_11,6,9  card: 2  vars: ['theta_6', 'theta_9']
+ j 0 h 0 var = theta_6 xval = -0.051694362925774076 coeff = -4.761904761904762
+ j 0 h 1 var = theta_9 xval = -0.07007766041408521 coeff = 4.761904761904762
+ -> displacement -8.754e-02
+ feat: Pdef_11,6,9 (=)  L0norm: 0.0875395  L1norm: 0.0875395  L2norm: 0.0875395
+>feat: 11  name: Pdef_12,6,10  numrisky: 1
+ riskyterm: 0  z: z_12,6,10  card: 2  vars: ['theta_6', 'theta_10']
+ j 0 h 0 var = theta_6 xval = -0.051694362925774076 coeff = -1.785714285714286
+ j 0 h 1 var = theta_10 xval = -0.07970700672062375 coeff = 1.785714285714286
+ -> displacement -5.002e-02
+ feat: Pdef_12,6,10 (=)  L0norm: 0.0500226  L1norm: 0.0500226  L2norm: 0.0500226
+>feat: 12  name: Pdef_13,9,11  numrisky: 1
+ riskyterm: 0  z: z_13,9,11  card: 2  vars: ['theta_9', 'theta_11']
+ j 0 h 0 var = theta_9 xval = -0.07007766041408521 coeff = -4.761904761904762
+ j 0 h 1 var = theta_11 xval = -0.07007766041408521 coeff = 4.761904761904762
+ -> displacement 0.000e+00
+ feat: Pdef_13,9,11 (=)  L0norm: 0  L1norm: 0  L2norm: 0
+>feat: 13  name: Pdef_14,9,10  numrisky: 1
+ riskyterm: 0  z: z_14,9,10  card: 2  vars: ['theta_9', 'theta_10']
+ j 0 h 0 var = theta_9 xval = -0.07007766041408521 coeff = -9.090909090909092
+ j 0 h 1 var = theta_10 xval = -0.07970700672062375 coeff = 9.090909090909092
+ -> displacement -8.754e-02
+ feat: Pdef_14,9,10 (=)  L0norm: 0.0875395  L1norm: 0.0875395  L2norm: 0.0875395
+>feat: 14  name: Pdef_15,4,12  numrisky: 1
+ riskyterm: 0  z: z_15,4,12  card: 2  vars: ['theta_4', 'theta_12']
+ j 0 h 0 var = theta_4 xval = -0.04493923815530309 coeff = -3.846153846153846
+ j 0 h 1 var = theta_12 xval = -0.07581087115322774 coeff = 3.846153846153846
+ -> displacement -1.187e-01
+ feat: Pdef_15,4,12 (=)  L0norm: 0.118737  L1norm: 0.118737  L2norm: 0.118737
+>feat: 15  name: Pdef_16,12,13  numrisky: 1
+ riskyterm: 0  z: z_16,12,13  card: 2  vars: ['theta_12', 'theta_13']
+ j 0 h 0 var = theta_12 xval = -0.07581087115322774 coeff = -7.142857142857142
+ j 0 h 1 var = theta_13 xval = -0.056251363936655085 coeff = 7.142857142857142
+ -> displacement 1.397e-01
+ feat: Pdef_16,12,13 (=)  L0norm: 0.139711  L1norm: 0.139711  L2norm: 0.139711
+>feat: 16  name: Pdef_17,12,14  numrisky: 1
+ riskyterm: 0  z: z_17,12,14  card: 2  vars: ['theta_12', 'theta_14']
+ j 0 h 0 var = theta_12 xval = -0.07581087115322774 coeff = -3.846153846153846
+ j 0 h 1 var = theta_14 xval = -0.08716063898546209 coeff = 3.846153846153846
+ -> displacement -4.365e-02
+ feat: Pdef_17,12,14 (=)  L0norm: 0.043653  L1norm: 0.043653  L2norm: 0.043653
+>feat: 17  name: Pdef_18,12,15  numrisky: 1
+ riskyterm: 0  z: z_18,12,15  card: 2  vars: ['theta_12', 'theta_15']
+ j 0 h 0 var = theta_12 xval = -0.07581087115322774 coeff = -7.692307692307692
+ j 0 h 1 var = theta_15 xval = -0.08349122962564236 coeff = 7.692307692307692
+ -> displacement -5.908e-02
+ feat: Pdef_18,12,15 (=)  L0norm: 0.0590797  L1norm: 0.0590797  L2norm: 0.0590797
+>feat: 18  name: Pdef_19,12,16  numrisky: 1
+ riskyterm: 0  z: z_19,12,16  card: 2  vars: ['theta_12', 'theta_16']
+ j 0 h 0 var = theta_12 xval = -0.07581087115322774 coeff = -5.0
+ j 0 h 1 var = theta_16 xval = -0.08455390756474775 coeff = 5.0
+ -> displacement -4.372e-02
+ feat: Pdef_19,12,16 (=)  L0norm: 0.0437152  L1norm: 0.0437152  L2norm: 0.0437152
+>feat: 19  name: Pdef_20,14,15  numrisky: 1
+ riskyterm: 0  z: z_20,14,15  card: 2  vars: ['theta_14', 'theta_15']
+ j 0 h 0 var = theta_14 xval = -0.08716063898546209 coeff = -5.0
+ j 0 h 1 var = theta_15 xval = -0.08349122962564236 coeff = 5.0
+ -> displacement 1.835e-02
+ feat: Pdef_20,14,15 (=)  L0norm: 0.018347  L1norm: 0.018347  L2norm: 0.018347
+>feat: 20  name: Pdef_21,16,17  numrisky: 1
+ riskyterm: 0  z: z_21,16,17  card: 2  vars: ['theta_16', 'theta_17']
+ j 0 h 0 var = theta_16 xval = -0.08455390756474775 coeff = -5.263157894736842
+ j 0 h 1 var = theta_17 xval = -0.08620979215591974 coeff = 5.263157894736842
+ -> displacement -8.715e-03
+ feat: Pdef_21,16,17 (=)  L0norm: 0.00871518  L1norm: 0.00871518  L2norm: 0.00871518
+>feat: 21  name: Pdef_22,15,18  numrisky: 1
+ riskyterm: 0  z: z_22,15,18  card: 2  vars: ['theta_15', 'theta_18']
+ j 0 h 0 var = theta_15 xval = -0.08349122962564236 coeff = -4.545454545454546
+ j 0 h 1 var = theta_18 xval = -0.09765356447140028 coeff = 4.545454545454546
+ -> displacement -6.437e-02
+ feat: Pdef_22,15,18 (=)  L0norm: 0.0643742  L1norm: 0.0643742  L2norm: 0.0643742
+>feat: 22  name: Pdef_23,18,19  numrisky: 1
+ riskyterm: 0  z: z_23,18,19  card: 2  vars: ['theta_18', 'theta_19']
+ j 0 h 0 var = theta_18 xval = -0.09765356447140028 coeff = -7.692307692307692
+ j 0 h 1 var = theta_19 xval = -0.10186221689042085 coeff = 7.692307692307692
+ -> displacement -3.237e-02
+ feat: Pdef_23,18,19 (=)  L0norm: 0.0323742  L1norm: 0.0323742  L2norm: 0.0323742
+>feat: 23  name: Pdef_24,19,20  numrisky: 1
+ riskyterm: 0  z: z_24,19,20  card: 2  vars: ['theta_19', 'theta_20']
+ j 0 h 0 var = theta_19 xval = -0.10186221689042085 coeff = -14.28571428571428
+ j 0 h 1 var = theta_20 xval = -0.09747841434894777 coeff = 14.28571428571428
+ -> displacement 6.263e-02
+ feat: Pdef_24,19,20 (=)  L0norm: 0.0626258  L1norm: 0.0626258  L2norm: 0.0626258
+>feat: 24  name: Pdef_25,10,20  numrisky: 1
+ riskyterm: 0  z: z_25,10,20  card: 2  vars: ['theta_10', 'theta_20']
+ j 0 h 0 var = theta_10 xval = -0.07970700672062375 coeff = -4.761904761904762
+ j 0 h 1 var = theta_20 xval = -0.09747841434894777 coeff = 4.761904761904762
+ -> displacement -8.463e-02
+ feat: Pdef_25,10,20 (=)  L0norm: 0.0846258  L1norm: 0.0846258  L2norm: 0.0846258
+>feat: 25  name: Pdef_26,10,17  numrisky: 1
+ riskyterm: 0  z: z_26,10,17  card: 2  vars: ['theta_10', 'theta_17']
+ j 0 h 0 var = theta_10 xval = -0.07970700672062375 coeff = -12.5
+ j 0 h 1 var = theta_17 xval = -0.08620979215591974 coeff = 12.5
+ -> displacement -8.128e-02
+ feat: Pdef_26,10,17 (=)  L0norm: 0.0812848  L1norm: 0.0812848  L2norm: 0.0812848
+>feat: 26  name: Pdef_27,10,21  numrisky: 1
+ riskyterm: 0  z: z_27,10,21  card: 2  vars: ['theta_10', 'theta_21']
+ j 0 h 0 var = theta_10 xval = -0.07970700672062375 coeff = -14.28571428571428
+ j 0 h 1 var = theta_21 xval = -0.07695009412109531 coeff = 14.28571428571428
+ -> displacement 3.938e-02
+ feat: Pdef_27,10,21 (=)  L0norm: 0.0393845  L1norm: 0.0393845  L2norm: 0.0393845
+>feat: 27  name: Pdef_28,10,22  numrisky: 1
+ riskyterm: 0  z: z_28,10,22  card: 2  vars: ['theta_10', 'theta_22']
+ j 0 h 0 var = theta_10 xval = -0.07970700672062375 coeff = -6.666666666666667
+ j 0 h 1 var = theta_22 xval = -0.07266240480690667 coeff = 6.666666666666667
+ -> displacement 4.696e-02
+ feat: Pdef_28,10,22 (=)  L0norm: 0.046964  L1norm: 0.046964  L2norm: 0.046964
+>feat: 28  name: Pdef_29,21,22  numrisky: 1
+ riskyterm: 0  z: z_29,21,22  card: 2  vars: ['theta_21', 'theta_22']
+ j 0 h 0 var = theta_21 xval = -0.07695009412109531 coeff = -50.0
+ j 0 h 1 var = theta_22 xval = -0.07266240480690667 coeff = 50.0
+ -> displacement 2.144e-01
+ feat: Pdef_29,21,22 (=)  L0norm: 0.214384  L1norm: 0.214384  L2norm: 0.214384
+>feat: 29  name: Pdef_30,15,23  numrisky: 1
+ riskyterm: 0  z: z_30,15,23  card: 2  vars: ['theta_15', 'theta_23']
+ j 0 h 0 var = theta_15 xval = -0.08349122962564236 coeff = -5.0
+ j 0 h 1 var = theta_23 xval = -0.062362906501160185 coeff = 5.0
+ -> displacement 1.056e-01
+ feat: Pdef_30,15,23 (=)  L0norm: 0.105642  L1norm: 0.105642  L2norm: 0.105642
+>feat: 30  name: Pdef_31,22,24  numrisky: 1
+ riskyterm: 0  z: z_31,22,24  card: 2  vars: ['theta_22', 'theta_24']
+ j 0 h 0 var = theta_22 xval = -0.07266240480690667 coeff = -5.555555555555555
+ j 0 h 1 var = theta_24 xval = -0.06480050553834263 coeff = 5.555555555555555
+ -> displacement 4.368e-02
+ feat: Pdef_31,22,24 (=)  L0norm: 0.0436772  L1norm: 0.0436772  L2norm: 0.0436772
+>feat: 31  name: Pdef_32,23,24  numrisky: 1
+ riskyterm: 0  z: z_32,23,24  card: 2  vars: ['theta_23', 'theta_24']
+ j 0 h 0 var = theta_23 xval = -0.062362906501160185 coeff = -3.703703703703703
+ j 0 h 1 var = theta_24 xval = -0.06480050553834263 coeff = 3.703703703703703
+ -> displacement -9.028e-03
+ feat: Pdef_32,23,24 (=)  L0norm: 0.00902814  L1norm: 0.00902814  L2norm: 0.00902814
+>feat: 32  name: Pdef_33,24,25  numrisky: 1
+ riskyterm: 0  z: z_33,24,25  card: 2  vars: ['theta_24', 'theta_25']
+ j 0 h 0 var = theta_24 xval = -0.06480050553834263 coeff = -3.03030303030303
+ j 0 h 1 var = theta_25 xval = -0.02465631125822451 coeff = 3.03030303030303
+ -> displacement 1.216e-01
+ feat: Pdef_33,24,25 (=)  L0norm: 0.121649  L1norm: 0.121649  L2norm: 0.121649
+>feat: 33  name: Pdef_34,25,26  numrisky: 1
+ riskyterm: 0  z: z_34,25,26  card: 2  vars: ['theta_25', 'theta_26']
+ j 0 h 0 var = theta_25 xval = -0.02465631125822451 coeff = -2.631578947368421
+ j 0 h 1 var = theta_26 xval = -0.03795631125822452 coeff = 2.631578947368421
+ -> displacement -3.500e-02
+ feat: Pdef_34,25,26 (=)  L0norm: 0.035  L1norm: 0.035  L2norm: 0.035
+>feat: 34  name: Pdef_35,25,27  numrisky: 1
+ riskyterm: 0  z: z_35,25,27  card: 2  vars: ['theta_25', 'theta_27']
+ j 0 h 0 var = theta_25 xval = -0.02465631125822451 coeff = -4.761904761904762
+ j 0 h 1 var = theta_27 xval = 0.008239994192750327 coeff = 4.761904761904762
+ -> displacement 1.566e-01
+ feat: Pdef_35,25,27 (=)  L0norm: 0.156649  L1norm: 0.156649  L2norm: 0.156649
+>feat: 35  name: Pdef_36,28,27  numrisky: 1
+ riskyterm: 0  z: z_36,28,27  card: 2  vars: ['theta_27', 'theta_28']
+ j 0 h 0 var = theta_27 xval = 0.008239994192750327 coeff = 2.5
+ j 0 h 1 var = theta_28 xval = -0.047415681786666095 coeff = -2.5
+ -> displacement 1.391e-01
+ feat: Pdef_36,28,27 (=)  L0norm: 0.139139  L1norm: 0.139139  L2norm: 0.139139
+>feat: 36  name: Pdef_37,27,29  numrisky: 1
+ riskyterm: 0  z: z_37,27,29  card: 2  vars: ['theta_27', 'theta_29']
+ j 0 h 0 var = theta_27 xval = 0.008239994192750327 coeff = -2.380952380952381
+ j 0 h 1 var = theta_29 xval = -0.01713143437867824 coeff = 2.380952380952381
+ -> displacement -6.041e-02
+ feat: Pdef_37,27,29 (=)  L0norm: 0.0604082  L1norm: 0.0604082  L2norm: 0.0604082
+>feat: 37  name: Pdef_38,27,30  numrisky: 1
+ riskyterm: 0  z: z_38,27,30  card: 2  vars: ['theta_27', 'theta_30']
+ j 0 h 0 var = theta_27 xval = 0.008239994192750327 coeff = -1.666666666666667
+ j 0 h 1 var = theta_30 xval = -0.03351510784806599 coeff = 1.666666666666667
+ -> displacement -6.959e-02
+ feat: Pdef_38,27,30 (=)  L0norm: 0.0695918  L1norm: 0.0695918  L2norm: 0.0695918
+>feat: 38  name: Pdef_39,29,30  numrisky: 1
+ riskyterm: 0  z: z39,29,30  card: 2  vars: ['theta_29', 'theta_30']
+ j 0 h 0 var = theta_29 xval = -0.01713143437867824 coeff = -2.222222222222222
+ j 0 h 1 var = theta_30 xval = -0.03351510784806599 coeff = 2.222222222222222
+ -> displacement -3.641e-02
+ feat: Pdef_39,29,30 (=)  L0norm: 0.0364082  L1norm: 0.0364082  L2norm: 0.0364082
+>feat: 39  name: Pdef_40,8,28  numrisky: 1
+ riskyterm: 0  z: z_40,8,28  card: 2  vars: ['theta_8', 'theta_28']
+ j 0 h 0 var = theta_8 xval = -0.06098124940516079 coeff = -5.0
+ j 0 h 1 var = theta_28 xval = -0.047415681786666095 coeff = 5.0
+ -> displacement 6.783e-02
+ feat: Pdef_40,8,28 (=)  L0norm: 0.0678278  L1norm: 0.0678278  L2norm: 0.0678278
+>feat: 40  name: Pdef_41,6,28  numrisky: 1
+ riskyterm: 0  z: z_41,6,28  card: 2  vars: ['theta_6', 'theta_28']
+ j 0 h 0 var = theta_6 xval = -0.051694362925774076 coeff = -16.66666666666667
+ j 0 h 1 var = theta_28 xval = -0.047415681786666095 coeff = 16.66666666666667
+ -> displacement 7.131e-02
+ feat: Pdef_41,6,28 (=)  L0norm: 0.0713114  L1norm: 0.0713114  L2norm: 0.0713114
+Max feature value: 0.232172 at 9  L1-norm: 0.232172  L2-norm: 0.232172.
+Counter: 0  feature: 9  delta: 2.322e-01  ind: 0
+Counter: 1  feature: 0  delta: 2.162e-01  ind: 0
+Counter: 2  feature: 5  delta: 2.151e-01  ind: 0
+Counter: 3  feature: 28  delta: 2.144e-01  ind: 0
+Counter: 4  feature: 1  delta: 1.996e-01  ind: 0
+Counter: 5  feature: 2  delta: 1.881e-01  ind: 0
+Counter: 6  feature: 3  delta: 1.756e-01  ind: 0
+Counter: 7  feature: 6  delta: 1.689e-01  ind: 0
+Counter: 8  feature: 34  delta: 1.566e-01  ind: 0
+Counter: 9  feature: 4  delta: 1.424e-01  ind: 0
+Counter: 10  feature: 7  delta: 1.424e-01  ind: 0
+Counter: 11  feature: 15  delta: 1.397e-01  ind: 0
+Counter: 12  feature: 35  delta: 1.391e-01  ind: 0
+Counter: 13  feature: 32  delta: 1.216e-01  ind: 0
+Counter: 14  feature: 14  delta: 1.187e-01  ind: 0
+Counter: 15  feature: 29  delta: 1.056e-01  ind: 0
+Counter: 16  feature: 13  delta: 8.754e-02  ind: 0
+Counter: 17  feature: 10  delta: 8.754e-02  ind: 0
+Counter: 18  feature: 8  delta: 8.559e-02  ind: 0
+Counter: 19  feature: 24  delta: 8.463e-02  ind: 0
+Counter: 20  feature: 25  delta: 8.128e-02  ind: 0
+Counter: 21  feature: 40  delta: 7.131e-02  ind: 0
+Counter: 22  feature: 37  delta: 6.959e-02  ind: 0
+Counter: 23  feature: 39  delta: 6.783e-02  ind: 0
+Counter: 24  feature: 21  delta: 6.437e-02  ind: 0
+Counter: 25  feature: 23  delta: 6.263e-02  ind: 0
+Counter: 26  feature: 36  delta: 6.041e-02  ind: 0
+Counter: 27  feature: 17  delta: 5.908e-02  ind: 0
+Counter: 28  feature: 11  delta: 5.002e-02  ind: 0
+Counter: 29  feature: 27  delta: 4.696e-02  ind: 0
+Counter: 30  feature: 18  delta: 4.372e-02  ind: 0
+Counter: 31  feature: 30  delta: 4.368e-02  ind: 0
+Counter: 32  feature: 16  delta: 4.365e-02  ind: 0
+Counter: 33  feature: 26  delta: 3.938e-02  ind: 0
+Counter: 34  feature: 38  delta: 3.641e-02  ind: 0
+Counter: 35  feature: 33  delta: 3.500e-02  ind: 0
+Counter: 36  feature: 22  delta: 3.237e-02  ind: 0
+Counter: 37  feature: 19  delta: 1.835e-02  ind: 0
+Counter: 38  feature: 31  delta: 9.028e-03  ind: 0
+Counter: 39  feature: 20  delta: 8.715e-03  ind: 0
+Counter: 40  feature: 12  delta: 0.000e+00  ind: -1
+Iteration 4.  Obj 566.64  Impact 0.23217.
+Adding greedy cuts at iteration_cnt 4.
+Writing LP to file form_5.lp.
+Solving Model
+  variables = 111
+  constraints = 88
+ OPTIMAL. optimal value: 6.2029e+02 in time 2.5642e-03Optimal objective = 620.289
+Optimal variable values:
+lincost = 424.834
+quadcost = 141.81
+constant = 1
+GP_1_1 = 0.415732
+GP_2_2 = 0.546428
+GP_6_13 = 0.139711
+GP_3_22 = 0.217671
+GP_5_23 = 0.14667
+GP_4_27 = 0.425788
+theta_2 = -0.0129702
+P_1,1,2 = 0.21617
+theta_3 = -0.0379168
+P_2,1,3 = 0.199562
+theta_4 = -0.0449392
+P_3,2,4 = 0.188053
+P_4,3,4 = 0.175562
+theta_5 = -0.0414523
+P_5,2,5 = 0.14241
+theta_6 = -0.0516944
+P_6,2,6 = 0.215134
+P_7,4,6 = 0.168878
+theta_7 = -0.0585415
+P_8,5,7 = 0.14241
+P_9,6,7 = 0.0855896
+theta_8 = -0.0609812
+P_10,6,8 = 0.232172
+theta_9 = -0.0700777
+P_11,6,9 = 0.0875395
+theta_10 = -0.079707
+P_12,6,10 = 0.0500226
+theta_11 = -0.0700777
+P_14,9,10 = 0.0875395
+theta_12 = -0.0758109
+P_15,4,12 = 0.118737
+theta_13 = -0.0562514
+P_16,12,13 = -0.139711
+theta_14 = -0.0871606
+P_17,12,14 = 0.043653
+theta_15 = -0.0834912
+P_18,12,15 = 0.0590797
+theta_16 = -0.0845539
+P_19,12,16 = 0.0437152
+P_20,14,15 = -0.018347
+theta_17 = -0.0862098
+P_21,16,17 = 0.00871518
+theta_18 = -0.0976536
+P_22,15,18 = 0.0643742
+theta_19 = -0.101862
+P_23,18,19 = 0.0323742
+theta_20 = -0.0974784
+P_24,19,20 = -0.0626258
+P_25,10,20 = 0.0846258
+P_26,10,17 = 0.0812848
+theta_21 = -0.0769501
+P_27,10,21 = -0.0393845
+theta_22 = -0.0726624
+P_28,10,22 = -0.046964
+P_29,21,22 = -0.214384
+theta_23 = -0.0623629
+P_30,15,23 = -0.105642
+theta_24 = -0.0648005
+P_31,22,24 = -0.0436772
+P_32,23,24 = 0.00902814
+theta_25 = -0.0246563
+P_33,24,25 = -0.121649
+theta_26 = -0.0379563
+P_34,25,26 = 0.035
+theta_27 = 0.00823999
+P_35,25,27 = -0.156649
+theta_28 = -0.0474157
+P_36,28,27 = -0.139139
+theta_29 = -0.0171314
+P_37,27,29 = 0.0604082
+theta_30 = -0.0335151
+P_38,27,30 = 0.0695918
+P_39,29,30 = 0.0364082
+P_40,8,28 = -0.0678278
+P_41,6,28 = -0.0713114
+IP_1 = 0.415732
+IP_2 = 0.329428
+IP_3 = -0.024
+IP_4 = -0.076
+IP_7 = -0.228
+IP_8 = -0.3
+IP_10 = -0.058
+IP_12 = -0.112
+IP_13 = 0.139711
+IP_14 = -0.062
+IP_15 = -0.082
+IP_16 = -0.035
+IP_17 = -0.09
+IP_18 = -0.032
+IP_19 = -0.095
+IP_20 = -0.022
+IP_21 = -0.175
+IP_22 = 0.217671
+IP_23 = 0.11467
+IP_24 = -0.087
+IP_26 = -0.035
+IP_27 = 0.425788
+IP_29 = -0.024
+IP_30 = -0.106
+IMP = 0.232172
+103 nonzero variables in solution
+Getting impact at iteration_cnt 5 using style 0-norm_per.
+>feat: 0  name: Pdef_1,1,2  numrisky: 1
+ riskyterm: 0  z: z_1,1,2  card: 2  vars: ['theta_1', 'theta_2']
+ j 0 h 0 var = theta_1 xval = 0.0 coeff = -16.66666666666667
+ j 0 h 1 var = theta_2 xval = -0.012970183230538775 coeff = 16.66666666666667
+ -> displacement -2.162e-01
+ feat: Pdef_1,1,2 (=)  L0norm: 0.21617  L1norm: 0.21617  L2norm: 0.21617
+>feat: 1  name: Pdef_2,1,3  numrisky: 1
+ riskyterm: 0  z: z_2,1,3  card: 2  vars: ['theta_1', 'theta_3']
+ j 0 h 0 var = theta_1 xval = 0.0 coeff = -5.263157894736842
+ j 0 h 1 var = theta_3 xval = -0.03791676195315886 coeff = 5.263157894736842
+ -> displacement -1.996e-01
+ feat: Pdef_2,1,3 (=)  L0norm: 0.199562  L1norm: 0.199562  L2norm: 0.199562
+>feat: 2  name: Pdef_3,2,4  numrisky: 1
+ riskyterm: 0  z: z_3,2,4  card: 2  vars: ['theta_2', 'theta_4']
+ j 0 h 0 var = theta_2 xval = -0.012970183230538775 coeff = -5.88235294117647
+ j 0 h 1 var = theta_4 xval = -0.04493923815530309 coeff = 5.88235294117647
+ -> displacement -1.881e-01
+ feat: Pdef_3,2,4 (=)  L0norm: 0.188053  L1norm: 0.188053  L2norm: 0.188053
+>feat: 3  name: Pdef_4,3,4  numrisky: 1
+ riskyterm: 0  z: z_4,3,4  card: 2  vars: ['theta_3', 'theta_4']
+ j 0 h 0 var = theta_3 xval = -0.03791676195315886 coeff = -25.0
+ j 0 h 1 var = theta_4 xval = -0.04493923815530309 coeff = 25.0
+ -> displacement -1.756e-01
+ feat: Pdef_4,3,4 (=)  L0norm: 0.175562  L1norm: 0.175562  L2norm: 0.175562
+>feat: 4  name: Pdef_5,2,5  numrisky: 1
+ riskyterm: 0  z: z_5,2,5  card: 2  vars: ['theta_2', 'theta_5']
+ j 0 h 0 var = theta_2 xval = -0.012970183230538775 coeff = -5.0
+ j 0 h 1 var = theta_5 xval = -0.04145227307815643 coeff = 5.0
+ -> displacement -1.424e-01
+ feat: Pdef_5,2,5 (=)  L0norm: 0.14241  L1norm: 0.14241  L2norm: 0.14241
+>feat: 5  name: Pdef_6,2,6  numrisky: 1
+ riskyterm: 0  z: z_6,2,6  card: 2  vars: ['theta_2', 'theta_6']
+ j 0 h 0 var = theta_2 xval = -0.012970183230538775 coeff = -5.555555555555555
+ j 0 h 1 var = theta_6 xval = -0.051694362925774076 coeff = 5.555555555555555
+ -> displacement -2.151e-01
+ feat: Pdef_6,2,6 (=)  L0norm: 0.215134  L1norm: 0.215134  L2norm: 0.215134
+>feat: 6  name: Pdef_7,4,6  numrisky: 1
+ riskyterm: 0  z: z_7,4,6  card: 2  vars: ['theta_4', 'theta_6']
+ j 0 h 0 var = theta_4 xval = -0.04493923815530309 coeff = -25.0
+ j 0 h 1 var = theta_6 xval = -0.051694362925774076 coeff = 25.0
+ -> displacement -1.689e-01
+ feat: Pdef_7,4,6 (=)  L0norm: 0.168878  L1norm: 0.168878  L2norm: 0.168878
+>feat: 7  name: Pdef_8,5,7  numrisky: 1
+ riskyterm: 0  z: z_8,5,7  card: 2  vars: ['theta_5', 'theta_7']
+ j 0 h 0 var = theta_5 xval = -0.04145227307815643 coeff = -8.333333333333334
+ j 0 h 1 var = theta_7 xval = -0.05854152698672702 coeff = 8.333333333333334
+ -> displacement -1.424e-01
+ feat: Pdef_8,5,7 (=)  L0norm: 0.14241  L1norm: 0.14241  L2norm: 0.14241
+>feat: 8  name: Pdef_9,6,7  numrisky: 1
+ riskyterm: 0  z: z_9,6,7  card: 2  vars: ['theta_6', 'theta_7']
+ j 0 h 0 var = theta_6 xval = -0.051694362925774076 coeff = -12.5
+ j 0 h 1 var = theta_7 xval = -0.05854152698672702 coeff = 12.5
+ -> displacement -8.559e-02
+ feat: Pdef_9,6,7 (=)  L0norm: 0.0855896  L1norm: 0.0855896  L2norm: 0.0855896
+>feat: 9  name: Pdef_10,6,8  numrisky: 1
+ riskyterm: 0  z: z_10,6,8  card: 2  vars: ['theta_6', 'theta_8']
+ j 0 h 0 var = theta_6 xval = -0.051694362925774076 coeff = -25.0
+ j 0 h 1 var = theta_8 xval = -0.06098124940516079 coeff = 25.0
+ -> displacement -2.322e-01
+ feat: Pdef_10,6,8 (=)  L0norm: 0.232172  L1norm: 0.232172  L2norm: 0.232172
+>feat: 10  name: Pdef_11,6,9  numrisky: 1
+ riskyterm: 0  z: z_11,6,9  card: 2  vars: ['theta_6', 'theta_9']
+ j 0 h 0 var = theta_6 xval = -0.051694362925774076 coeff = -4.761904761904762
+ j 0 h 1 var = theta_9 xval = -0.07007766041408521 coeff = 4.761904761904762
+ -> displacement -8.754e-02
+ feat: Pdef_11,6,9 (=)  L0norm: 0.0875395  L1norm: 0.0875395  L2norm: 0.0875395
+>feat: 11  name: Pdef_12,6,10  numrisky: 1
+ riskyterm: 0  z: z_12,6,10  card: 2  vars: ['theta_6', 'theta_10']
+ j 0 h 0 var = theta_6 xval = -0.051694362925774076 coeff = -1.785714285714286
+ j 0 h 1 var = theta_10 xval = -0.07970700672062375 coeff = 1.785714285714286
+ -> displacement -5.002e-02
+ feat: Pdef_12,6,10 (=)  L0norm: 0.0500226  L1norm: 0.0500226  L2norm: 0.0500226
+>feat: 12  name: Pdef_13,9,11  numrisky: 1
+ riskyterm: 0  z: z_13,9,11  card: 2  vars: ['theta_9', 'theta_11']
+ j 0 h 0 var = theta_9 xval = -0.07007766041408521 coeff = -4.761904761904762
+ j 0 h 1 var = theta_11 xval = -0.07007766041408521 coeff = 4.761904761904762
+ -> displacement 0.000e+00
+ feat: Pdef_13,9,11 (=)  L0norm: 0  L1norm: 0  L2norm: 0
+>feat: 13  name: Pdef_14,9,10  numrisky: 1
+ riskyterm: 0  z: z_14,9,10  card: 2  vars: ['theta_9', 'theta_10']
+ j 0 h 0 var = theta_9 xval = -0.07007766041408521 coeff = -9.090909090909092
+ j 0 h 1 var = theta_10 xval = -0.07970700672062375 coeff = 9.090909090909092
+ -> displacement -8.754e-02
+ feat: Pdef_14,9,10 (=)  L0norm: 0.0875395  L1norm: 0.0875395  L2norm: 0.0875395
+>feat: 14  name: Pdef_15,4,12  numrisky: 1
+ riskyterm: 0  z: z_15,4,12  card: 2  vars: ['theta_4', 'theta_12']
+ j 0 h 0 var = theta_4 xval = -0.04493923815530309 coeff = -3.846153846153846
+ j 0 h 1 var = theta_12 xval = -0.07581087115322774 coeff = 3.846153846153846
+ -> displacement -1.187e-01
+ feat: Pdef_15,4,12 (=)  L0norm: 0.118737  L1norm: 0.118737  L2norm: 0.118737
+>feat: 15  name: Pdef_16,12,13  numrisky: 1
+ riskyterm: 0  z: z_16,12,13  card: 2  vars: ['theta_12', 'theta_13']
+ j 0 h 0 var = theta_12 xval = -0.07581087115322774 coeff = -7.142857142857142
+ j 0 h 1 var = theta_13 xval = -0.056251363936655085 coeff = 7.142857142857142
+ -> displacement 1.397e-01
+ feat: Pdef_16,12,13 (=)  L0norm: 0.139711  L1norm: 0.139711  L2norm: 0.139711
+>feat: 16  name: Pdef_17,12,14  numrisky: 1
+ riskyterm: 0  z: z_17,12,14  card: 2  vars: ['theta_12', 'theta_14']
+ j 0 h 0 var = theta_12 xval = -0.07581087115322774 coeff = -3.846153846153846
+ j 0 h 1 var = theta_14 xval = -0.08716063898546209 coeff = 3.846153846153846
+ -> displacement -4.365e-02
+ feat: Pdef_17,12,14 (=)  L0norm: 0.043653  L1norm: 0.043653  L2norm: 0.043653
+>feat: 17  name: Pdef_18,12,15  numrisky: 1
+ riskyterm: 0  z: z_18,12,15  card: 2  vars: ['theta_12', 'theta_15']
+ j 0 h 0 var = theta_12 xval = -0.07581087115322774 coeff = -7.692307692307692
+ j 0 h 1 var = theta_15 xval = -0.08349122962564236 coeff = 7.692307692307692
+ -> displacement -5.908e-02
+ feat: Pdef_18,12,15 (=)  L0norm: 0.0590797  L1norm: 0.0590797  L2norm: 0.0590797
+>feat: 18  name: Pdef_19,12,16  numrisky: 1
+ riskyterm: 0  z: z_19,12,16  card: 2  vars: ['theta_12', 'theta_16']
+ j 0 h 0 var = theta_12 xval = -0.07581087115322774 coeff = -5.0
+ j 0 h 1 var = theta_16 xval = -0.08455390756474775 coeff = 5.0
+ -> displacement -4.372e-02
+ feat: Pdef_19,12,16 (=)  L0norm: 0.0437152  L1norm: 0.0437152  L2norm: 0.0437152
+>feat: 19  name: Pdef_20,14,15  numrisky: 1
+ riskyterm: 0  z: z_20,14,15  card: 2  vars: ['theta_14', 'theta_15']
+ j 0 h 0 var = theta_14 xval = -0.08716063898546209 coeff = -5.0
+ j 0 h 1 var = theta_15 xval = -0.08349122962564236 coeff = 5.0
+ -> displacement 1.835e-02
+ feat: Pdef_20,14,15 (=)  L0norm: 0.018347  L1norm: 0.018347  L2norm: 0.018347
+>feat: 20  name: Pdef_21,16,17  numrisky: 1
+ riskyterm: 0  z: z_21,16,17  card: 2  vars: ['theta_16', 'theta_17']
+ j 0 h 0 var = theta_16 xval = -0.08455390756474775 coeff = -5.263157894736842
+ j 0 h 1 var = theta_17 xval = -0.08620979215591974 coeff = 5.263157894736842
+ -> displacement -8.715e-03
+ feat: Pdef_21,16,17 (=)  L0norm: 0.00871518  L1norm: 0.00871518  L2norm: 0.00871518
+>feat: 21  name: Pdef_22,15,18  numrisky: 1
+ riskyterm: 0  z: z_22,15,18  card: 2  vars: ['theta_15', 'theta_18']
+ j 0 h 0 var = theta_15 xval = -0.08349122962564236 coeff = -4.545454545454546
+ j 0 h 1 var = theta_18 xval = -0.09765356447140028 coeff = 4.545454545454546
+ -> displacement -6.437e-02
+ feat: Pdef_22,15,18 (=)  L0norm: 0.0643742  L1norm: 0.0643742  L2norm: 0.0643742
+>feat: 22  name: Pdef_23,18,19  numrisky: 1
+ riskyterm: 0  z: z_23,18,19  card: 2  vars: ['theta_18', 'theta_19']
+ j 0 h 0 var = theta_18 xval = -0.09765356447140028 coeff = -7.692307692307692
+ j 0 h 1 var = theta_19 xval = -0.10186221689042085 coeff = 7.692307692307692
+ -> displacement -3.237e-02
+ feat: Pdef_23,18,19 (=)  L0norm: 0.0323742  L1norm: 0.0323742  L2norm: 0.0323742
+>feat: 23  name: Pdef_24,19,20  numrisky: 1
+ riskyterm: 0  z: z_24,19,20  card: 2  vars: ['theta_19', 'theta_20']
+ j 0 h 0 var = theta_19 xval = -0.10186221689042085 coeff = -14.28571428571428
+ j 0 h 1 var = theta_20 xval = -0.09747841434894777 coeff = 14.28571428571428
+ -> displacement 6.263e-02
+ feat: Pdef_24,19,20 (=)  L0norm: 0.0626258  L1norm: 0.0626258  L2norm: 0.0626258
+>feat: 24  name: Pdef_25,10,20  numrisky: 1
+ riskyterm: 0  z: z_25,10,20  card: 2  vars: ['theta_10', 'theta_20']
+ j 0 h 0 var = theta_10 xval = -0.07970700672062375 coeff = -4.761904761904762
+ j 0 h 1 var = theta_20 xval = -0.09747841434894777 coeff = 4.761904761904762
+ -> displacement -8.463e-02
+ feat: Pdef_25,10,20 (=)  L0norm: 0.0846258  L1norm: 0.0846258  L2norm: 0.0846258
+>feat: 25  name: Pdef_26,10,17  numrisky: 1
+ riskyterm: 0  z: z_26,10,17  card: 2  vars: ['theta_10', 'theta_17']
+ j 0 h 0 var = theta_10 xval = -0.07970700672062375 coeff = -12.5
+ j 0 h 1 var = theta_17 xval = -0.08620979215591974 coeff = 12.5
+ -> displacement -8.128e-02
+ feat: Pdef_26,10,17 (=)  L0norm: 0.0812848  L1norm: 0.0812848  L2norm: 0.0812848
+>feat: 26  name: Pdef_27,10,21  numrisky: 1
+ riskyterm: 0  z: z_27,10,21  card: 2  vars: ['theta_10', 'theta_21']
+ j 0 h 0 var = theta_10 xval = -0.07970700672062375 coeff = -14.28571428571428
+ j 0 h 1 var = theta_21 xval = -0.07695009412109531 coeff = 14.28571428571428
+ -> displacement 3.938e-02
+ feat: Pdef_27,10,21 (=)  L0norm: 0.0393845  L1norm: 0.0393845  L2norm: 0.0393845
+>feat: 27  name: Pdef_28,10,22  numrisky: 1
+ riskyterm: 0  z: z_28,10,22  card: 2  vars: ['theta_10', 'theta_22']
+ j 0 h 0 var = theta_10 xval = -0.07970700672062375 coeff = -6.666666666666667
+ j 0 h 1 var = theta_22 xval = -0.07266240480690667 coeff = 6.666666666666667
+ -> displacement 4.696e-02
+ feat: Pdef_28,10,22 (=)  L0norm: 0.046964  L1norm: 0.046964  L2norm: 0.046964
+>feat: 28  name: Pdef_29,21,22  numrisky: 1
+ riskyterm: 0  z: z_29,21,22  card: 2  vars: ['theta_21', 'theta_22']
+ j 0 h 0 var = theta_21 xval = -0.07695009412109531 coeff = -50.0
+ j 0 h 1 var = theta_22 xval = -0.07266240480690667 coeff = 50.0
+ -> displacement 2.144e-01
+ feat: Pdef_29,21,22 (=)  L0norm: 0.214384  L1norm: 0.214384  L2norm: 0.214384
+>feat: 29  name: Pdef_30,15,23  numrisky: 1
+ riskyterm: 0  z: z_30,15,23  card: 2  vars: ['theta_15', 'theta_23']
+ j 0 h 0 var = theta_15 xval = -0.08349122962564236 coeff = -5.0
+ j 0 h 1 var = theta_23 xval = -0.062362906501160185 coeff = 5.0
+ -> displacement 1.056e-01
+ feat: Pdef_30,15,23 (=)  L0norm: 0.105642  L1norm: 0.105642  L2norm: 0.105642
+>feat: 30  name: Pdef_31,22,24  numrisky: 1
+ riskyterm: 0  z: z_31,22,24  card: 2  vars: ['theta_22', 'theta_24']
+ j 0 h 0 var = theta_22 xval = -0.07266240480690667 coeff = -5.555555555555555
+ j 0 h 1 var = theta_24 xval = -0.06480050553834263 coeff = 5.555555555555555
+ -> displacement 4.368e-02
+ feat: Pdef_31,22,24 (=)  L0norm: 0.0436772  L1norm: 0.0436772  L2norm: 0.0436772
+>feat: 31  name: Pdef_32,23,24  numrisky: 1
+ riskyterm: 0  z: z_32,23,24  card: 2  vars: ['theta_23', 'theta_24']
+ j 0 h 0 var = theta_23 xval = -0.062362906501160185 coeff = -3.703703703703703
+ j 0 h 1 var = theta_24 xval = -0.06480050553834263 coeff = 3.703703703703703
+ -> displacement -9.028e-03
+ feat: Pdef_32,23,24 (=)  L0norm: 0.00902814  L1norm: 0.00902814  L2norm: 0.00902814
+>feat: 32  name: Pdef_33,24,25  numrisky: 1
+ riskyterm: 0  z: z_33,24,25  card: 2  vars: ['theta_24', 'theta_25']
+ j 0 h 0 var = theta_24 xval = -0.06480050553834263 coeff = -3.03030303030303
+ j 0 h 1 var = theta_25 xval = -0.02465631125822451 coeff = 3.03030303030303
+ -> displacement 1.216e-01
+ feat: Pdef_33,24,25 (=)  L0norm: 0.121649  L1norm: 0.121649  L2norm: 0.121649
+>feat: 33  name: Pdef_34,25,26  numrisky: 1
+ riskyterm: 0  z: z_34,25,26  card: 2  vars: ['theta_25', 'theta_26']
+ j 0 h 0 var = theta_25 xval = -0.02465631125822451 coeff = -2.631578947368421
+ j 0 h 1 var = theta_26 xval = -0.03795631125822452 coeff = 2.631578947368421
+ -> displacement -3.500e-02
+ feat: Pdef_34,25,26 (=)  L0norm: 0.035  L1norm: 0.035  L2norm: 0.035
+>feat: 34  name: Pdef_35,25,27  numrisky: 1
+ riskyterm: 0  z: z_35,25,27  card: 2  vars: ['theta_25', 'theta_27']
+ j 0 h 0 var = theta_25 xval = -0.02465631125822451 coeff = -4.761904761904762
+ j 0 h 1 var = theta_27 xval = 0.008239994192750327 coeff = 4.761904761904762
+ -> displacement 1.566e-01
+ feat: Pdef_35,25,27 (=)  L0norm: 0.156649  L1norm: 0.156649  L2norm: 0.156649
+>feat: 35  name: Pdef_36,28,27  numrisky: 1
+ riskyterm: 0  z: z_36,28,27  card: 2  vars: ['theta_27', 'theta_28']
+ j 0 h 0 var = theta_27 xval = 0.008239994192750327 coeff = 2.5
+ j 0 h 1 var = theta_28 xval = -0.047415681786666095 coeff = -2.5
+ -> displacement 1.391e-01
+ feat: Pdef_36,28,27 (=)  L0norm: 0.139139  L1norm: 0.139139  L2norm: 0.139139
+>feat: 36  name: Pdef_37,27,29  numrisky: 1
+ riskyterm: 0  z: z_37,27,29  card: 2  vars: ['theta_27', 'theta_29']
+ j 0 h 0 var = theta_27 xval = 0.008239994192750327 coeff = -2.380952380952381
+ j 0 h 1 var = theta_29 xval = -0.01713143437867824 coeff = 2.380952380952381
+ -> displacement -6.041e-02
+ feat: Pdef_37,27,29 (=)  L0norm: 0.0604082  L1norm: 0.0604082  L2norm: 0.0604082
+>feat: 37  name: Pdef_38,27,30  numrisky: 1
+ riskyterm: 0  z: z_38,27,30  card: 2  vars: ['theta_27', 'theta_30']
+ j 0 h 0 var = theta_27 xval = 0.008239994192750327 coeff = -1.666666666666667
+ j 0 h 1 var = theta_30 xval = -0.03351510784806599 coeff = 1.666666666666667
+ -> displacement -6.959e-02
+ feat: Pdef_38,27,30 (=)  L0norm: 0.0695918  L1norm: 0.0695918  L2norm: 0.0695918
+>feat: 38  name: Pdef_39,29,30  numrisky: 1
+ riskyterm: 0  z: z39,29,30  card: 2  vars: ['theta_29', 'theta_30']
+ j 0 h 0 var = theta_29 xval = -0.01713143437867824 coeff = -2.222222222222222
+ j 0 h 1 var = theta_30 xval = -0.03351510784806599 coeff = 2.222222222222222
+ -> displacement -3.641e-02
+ feat: Pdef_39,29,30 (=)  L0norm: 0.0364082  L1norm: 0.0364082  L2norm: 0.0364082
+>feat: 39  name: Pdef_40,8,28  numrisky: 1
+ riskyterm: 0  z: z_40,8,28  card: 2  vars: ['theta_8', 'theta_28']
+ j 0 h 0 var = theta_8 xval = -0.06098124940516079 coeff = -5.0
+ j 0 h 1 var = theta_28 xval = -0.047415681786666095 coeff = 5.0
+ -> displacement 6.783e-02
+ feat: Pdef_40,8,28 (=)  L0norm: 0.0678278  L1norm: 0.0678278  L2norm: 0.0678278
+>feat: 40  name: Pdef_41,6,28  numrisky: 1
+ riskyterm: 0  z: z_41,6,28  card: 2  vars: ['theta_6', 'theta_28']
+ j 0 h 0 var = theta_6 xval = -0.051694362925774076 coeff = -16.66666666666667
+ j 0 h 1 var = theta_28 xval = -0.047415681786666095 coeff = 16.66666666666667
+ -> displacement 7.131e-02
+ feat: Pdef_41,6,28 (=)  L0norm: 0.0713114  L1norm: 0.0713114  L2norm: 0.0713114
+Max feature value: 0.232172 at 9  L1-norm: 0.232172  L2-norm: 0.232172.
+Counter: 0  feature: 9  delta: 2.322e-01  ind: 0
+Counter: 1  feature: 0  delta: 2.162e-01  ind: 0
+Counter: 2  feature: 5  delta: 2.151e-01  ind: 0
+Counter: 3  feature: 28  delta: 2.144e-01  ind: 0
+Counter: 4  feature: 1  delta: 1.996e-01  ind: 0
+Counter: 5  feature: 2  delta: 1.881e-01  ind: 0
+Counter: 6  feature: 3  delta: 1.756e-01  ind: 0
+Counter: 7  feature: 6  delta: 1.689e-01  ind: 0
+Counter: 8  feature: 34  delta: 1.566e-01  ind: 0
+Counter: 9  feature: 4  delta: 1.424e-01  ind: 0
+Counter: 10  feature: 7  delta: 1.424e-01  ind: 0
+Counter: 11  feature: 15  delta: 1.397e-01  ind: 0
+Counter: 12  feature: 35  delta: 1.391e-01  ind: 0
+Counter: 13  feature: 32  delta: 1.216e-01  ind: 0
+Counter: 14  feature: 14  delta: 1.187e-01  ind: 0
+Counter: 15  feature: 29  delta: 1.056e-01  ind: 0
+Counter: 16  feature: 13  delta: 8.754e-02  ind: 0
+Counter: 17  feature: 10  delta: 8.754e-02  ind: 0
+Counter: 18  feature: 8  delta: 8.559e-02  ind: 0
+Counter: 19  feature: 24  delta: 8.463e-02  ind: 0
+Counter: 20  feature: 25  delta: 8.128e-02  ind: 0
+Counter: 21  feature: 40  delta: 7.131e-02  ind: 0
+Counter: 22  feature: 37  delta: 6.959e-02  ind: 0
+Counter: 23  feature: 39  delta: 6.783e-02  ind: 0
+Counter: 24  feature: 21  delta: 6.437e-02  ind: 0
+Counter: 25  feature: 23  delta: 6.263e-02  ind: 0
+Counter: 26  feature: 36  delta: 6.041e-02  ind: 0
+Counter: 27  feature: 17  delta: 5.908e-02  ind: 0
+Counter: 28  feature: 11  delta: 5.002e-02  ind: 0
+Counter: 29  feature: 27  delta: 4.696e-02  ind: 0
+Counter: 30  feature: 18  delta: 4.372e-02  ind: 0
+Counter: 31  feature: 30  delta: 4.368e-02  ind: 0
+Counter: 32  feature: 16  delta: 4.365e-02  ind: 0
+Counter: 33  feature: 26  delta: 3.938e-02  ind: 0
+Counter: 34  feature: 38  delta: 3.641e-02  ind: 0
+Counter: 35  feature: 33  delta: 3.500e-02  ind: 0
+Counter: 36  feature: 22  delta: 3.237e-02  ind: 0
+Counter: 37  feature: 19  delta: 1.835e-02  ind: 0
+Counter: 38  feature: 31  delta: 9.028e-03  ind: 0
+Counter: 39  feature: 20  delta: 8.715e-03  ind: 0
+Counter: 40  feature: 12  delta: 0.000e+00  ind: -1
+Iteration 5.  Obj 566.64  Impact 0.23217.
+Objective value and Impact per iteration:
+  Iteration 0   Objval 565.2059664   Impact 0.2446134636
+  Iteration 1   Objval 566.6433152   Impact 0.232172162
+  Iteration 2   Objval 566.6433152   Impact 0.232172162
+  Iteration 3   Objval 566.6433152   Impact 0.232172162
+  Iteration 4   Objval 566.6433152   Impact 0.232172162
+  Iteration 5   Objval 566.6433152   Impact 0.232172162
+Skipping solution check
+
+Closing log: Fri Apr 17 11:47:05 2026.
