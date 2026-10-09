@@ -10,6 +10,7 @@ import math
 def addCut_greedy(alldata):
     log = alldata['log']
     loud = alldata['loud']
+    verbose = alldata['verbose']
     all_constr_data = alldata['prob_data']['all_constr_data']
     variables = alldata['prob_data']['variables']
     structure = alldata['struct_data']
@@ -55,13 +56,16 @@ def addCut_greedy(alldata):
     phi_scale = 1.0
     if alldata['algo_data']['phi_scale'] == 'percent_violation':
         phi_scale = max(constraint_data['RHS'], 1)
-    else:  #alldata['algo_data']['phi_scale'] == 'scaled_abs_violation'
+    elif alldata['algo_data']['phi_scale'] == 'scaled_abs_violation':
         phi_scale = constraint_data['coeff_inf-norm']
+    else:
+        log.joint('ERROR: invalid phi_scale: %s\n'%(phi_scale))
 
     # Set constant (LHS constant - RHS)
     nonzero_phiConstWeights.add((cutnum, argmax_feat))
     phiConstWeights[(cutnum, argmax_feat)] = (constraint_data['constant'] - constraint_data['RHS']) / phi_scale
     if loud: log.joint(" - Defining constant (%d, %s)\n"%(cutnum, argmax_feat))
+    if verbose: log.joint("DEBUG: + constant - rhs = %g - %g\n"%(constraint_data['constant'], constraint_data['RHS']))
 
     # Set linear coefficients
     for var, coeff in constraint_data['lin_terms'].items():
@@ -69,6 +73,7 @@ def addCut_greedy(alldata):
         nonzero_phiLinWeights.add((cutnum, argmax_feat, var_idx))
         phiLinWeights[(cutnum, argmax_feat, var_idx)] = coeff / phi_scale
         if loud: log.joint(" - Defining weight (%d, %s, %d)\n"%(cutnum, argmax_feat, var_idx))
+        if verbose: log.joint("DEBUG: + %g * %s\n"%(coeff, var))
 
     # Set quadratic coefficients
     for var_tuple, coeff in constraint_data['quad_terms'].items():
@@ -77,15 +82,18 @@ def addCut_greedy(alldata):
         nonzero_phiQuadWeights.add((cutnum, argmax_feat, v1_idx, v2_idx))
         phiQuadWeights[(cutnum, argmax_feat, v1_idx, v2_idx)] = coeff / phi_scale
         if loud: log.joint(" - Defining weight (%d, %s, %d, %d)\n"%(cutnum, argmax_feat, v1_idx, v2_idx))
+        if verbose: log.joint("DEBUG: + %g * %s * %s\n"%(coeff, v1, v2))
 
     # Check if phi minus constraint is necessary and swap all signs for >= features
     if sense == '=':
         # phi is absolute value so DO need a minus constraint
         phiMinusToggle[(cutnum, argmax_feat)] = 1
+        if verbose: log.joint("DEBUG: feature is equality, add phi Minus constraint\n")
     else:  # feature is inequality
         # phi is plus operator so DO NOT need a minus constraint
         phiMinusToggle[(cutnum, argmax_feat)] = 0
-        if sense == '>':
+        if verbose: log.joint("DEBUG: feature is inequality, no phi Minus constraint\n")
+        if sense == '>=':
             # Violations are reversed so swap sign
             phiConstWeights[(cutnum, argmax_feat)] *= -1
             for var in constraint_data['lin_terms']:
@@ -95,6 +103,7 @@ def addCut_greedy(alldata):
                 v1, v2 = var_tuple[0], var_tuple[1]
                 v1_idx, v2_idx = variables[v1], variables[v2]
                 phiQuadWeights[(cutnum, argmax_feat, v1_idx, v2_idx)] *= -1
+            if verbose: log.joint("DEBUG: feature is >= ineq, negate all data\n")
 
     # Scale argmax_zvar terms by error
     terms_list = structure['risky_coeffs'][argmax_coeff]['instances'][argmax_feat]
@@ -105,11 +114,13 @@ def addCut_greedy(alldata):
             var = var_data
             var_idx = variables[var]
             phiLinWeights[(cutnum, argmax_feat, var_idx)] *= 1 + argmax_zsign * budget
+            if verbose: log.joint("DEBUG: %g * %s term gets (1 + %g)\n"%(argmax_coeff, var, argmax_zsign * budget))
 
         else:  #degree = 'quad'
             v1, v2 = var_data[0], var_data[1]
             v1_idx, v2_idx = variables[v1], variables[v2]
             phiQuadWeights[(cutnum, argmax_feat, v1_idx, v2_idx)] *= 1 + argmax_zsign * budget
+            if verbose: log.joint("DEBUG: %g * %s * %s term gets (1 + %g)\n"%(argmax_coeff, v1, v2, argmax_zsign * budget))
 
     log.joint("Added cut using Greedy\n")
 
@@ -198,7 +209,7 @@ def addCut_quasiGreedy(alldata):
         else:  # feature is inequality
             # phi is plus operator so DO NOT need a minus constraint
             phiMinusToggle[(cutnum, feat_name)] = 0
-            if sense == '>':
+            if sense == '>=':
                 # Violations are reversed so swap sign
                 phiConstWeights[(cutnum, feat_name)] *= -1
                 for var in constraint_data['lin_terms']:

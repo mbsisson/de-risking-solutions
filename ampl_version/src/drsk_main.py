@@ -20,12 +20,14 @@ def drsk_logIteration(log, x, cost, Phi_L, Phi_max):
     log.joint("===============================================================\n\n")
 
 
-start_time = t0 = time.time()    
 def drsk_algoLoop(alldata):
     log = alldata['log']
 
-    for iteration in range(11):
+    start_algo_time = time.time()
+    for iteration in range(21):
         alldata['algo_data']['iteration'] = iteration
+        alldata['algo_data'][iteration] = {}
+        start_iter_time = time.time()
 
         # Solve the master problem for optimal (x, Phi_L)
         solve(alldata)
@@ -38,6 +40,13 @@ def drsk_algoLoop(alldata):
         Phi_max = evalPhi_greedy(alldata, alldata['algo_data']["soln_vector_dict"])
         if alldata['breakpoints']: breakexit('Completed boosting step: evaluated Phi and stored z')
 
+        # Store iteration
+        end_iter_time = time.time()
+        alldata['algo_data'][iteration]['cost'] = cost
+        alldata['algo_data'][iteration]['Phi_L'] = Phi_L
+        alldata['algo_data'][iteration]['Phi_max'] = Phi_max
+        alldata['algo_data'][iteration]['time'] = end_iter_time - start_iter_time
+
         # Convergence check
         if (Phi_max - Phi_L) / Phi_max <= relative_tol:
             log.joint("CONVERGED: achieved relative tolerance\n")
@@ -48,17 +57,24 @@ def drsk_algoLoop(alldata):
         addCut_greedy(alldata)
         if alldata['breakpoints']: breakexit('Computed cut')
 
+
         # Log progress
         log.joint("Completed iteration %d\n"%iteration)
         drsk_logIteration(log, x, cost, Phi_L, Phi_max)
         if alldata['breakpoints']: breakexit('Run next iteration?')
 
     # Log results
-    end_time = time.time()
-    elapsed_time = end_time - start_time
+    end_algo_time = time.time()
+    elapsed_time = end_algo_time - start_algo_time
     log.joint("Algorithm FINISHED after %d iterations in %g seconds\n"%(iteration, elapsed_time))
 
-
+    log.joint("Iter  cost  Phi_L  Phi_max  time\n")
+    for i in range(iteration):
+        cost = alldata['algo_data'][i]['cost']
+        Phi_L = alldata['algo_data'][i]['Phi_L']
+        Phi_max = alldata['algo_data'][i]['Phi_max']
+        t = alldata['algo_data'][i]['time']
+        log.joint("  %d  %g  %g  %g  %g\n"%(i, cost, Phi_L, Phi_max, t))
 
 
 def drsk_start(log_file, mod_file, cut_file):
