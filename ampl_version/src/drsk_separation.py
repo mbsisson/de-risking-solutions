@@ -153,7 +153,7 @@ def addCut_quasiGreedy(alldata):
     log.joint("Cut #%d (feature weight):\n"%cutnum)
     for feat_name, phi in argmax_phis.items():
         nonzero_cutweights.add((cutnum, feat_name))
-        weight = math.exp(alpha * phi) / sum_exp  
+        weight = math.exp(alpha * phi) / sum_exp
         cutweights[(cutnum, feat_name)] = weight
         log.joint("  %s  %g\n"%(feat_name, weight))
 

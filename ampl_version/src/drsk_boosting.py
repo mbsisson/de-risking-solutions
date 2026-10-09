@@ -5,11 +5,11 @@
 # Blake Sisson mbs2246@columbia.edu
 # 10/7/2026
 ###############################################################################
-import math
 
 def evalPhi_greedy(alldata, soln_vector_dict):
     log = alldata['log']
     loud = alldata['loud']
+    verbose = alldata['verbose']
     all_constr_data = alldata['prob_data']['all_constr_data']
     structure = alldata['struct_data']
     budget = structure['budget']
@@ -43,7 +43,7 @@ def evalPhi_greedy(alldata, soln_vector_dict):
         # Running sum of phi's, i.e., sum of violations
         sumphis = 0.0
 
-        # Also record list of z signs to track changes
+        # Record list of z signs to track changes
         zsign_list = []
 
         if loud: log.joint("  Coeff %g\n"%(coeff))
@@ -52,69 +52,83 @@ def evalPhi_greedy(alldata, soln_vector_dict):
         for constr_name, constr_instance_list in coeff_dict['instances'].items():
             constr_dict = all_constr_data[constr_name]
             rhs = constr_dict['RHS']
+            if verbose: log.joint("DEBUG: rhs = %g\n"%(rhs))
 
             # Compute LHS
             lhs = lhs_dict.get(constr_name)
             if not lhs:
+                if verbose: log.joint("DEBUG: Computing LHS of %s\n"%constr_name)
                 # Constant
                 lhs = constr_dict['constant']
+                if verbose: log.joint("DEBUG:  + const = %g\n"%constr_dict['constant'])
                 # Linear terms
                 for v, c in constr_dict['lin_terms'].items():
                     v_val = soln_vector_dict[v]
                     lhs += c * v_val
+                    if verbose: log.joint("DEBUG:  + coeff * %s = %g * %g\n"%(v, c, v_val))
                 # Quadratic terms
                 for v_tuple, c in constr_dict['quad_terms'].items():
                     v1, v2 = v_tuple[0], v_tuple[1]
                     v1_val, v2_val = soln_vector_dict[v1], soln_vector_dict[v2]
                     lhs += c * v1_val * v2_val
+                    if verbose: log.joint("DEBUG:  + coeff * %s * %s = %g * %g\n"%(v1, v2, c, v_val))
                 lhs_dict[constr_name] = lhs
+            if verbose: log.joint("DEBUG: lhs = %g\n"%(lhs))
 
             # Compute error term (from setting z = budget, for z corresponding to coeff)
             error_term = 0.0
+            if verbose: log.joint("DEBUG: Computing error term of constraint %s and coeff %g\n"%(constr_name, coeff))
             for degree, var in constr_instance_list:
                 if degree == 'quad':
                     v1, v2 = var[0], var[1]
                     v1_val, v2_val = soln_vector_dict[v1], soln_vector_dict[v2]
                     error_term += v1_val * v2_val
+                    if verbose: log.joint("DEBUG:  + coeff * budget * %s * %s = %g * %g * %g * %g\n"%(v1, v2, coeff, budget, v1_val, v2_val))
                 else:  #linear
                     var_val = soln_vector_dict[var]
                     error_term += var_val
+                    if verbose: log.joint("DEBUG:  + coeff * budget * %s = %g * %g * %g\n"%(var, coeff, budget, var_val))
             error_term *= coeff * budget  #save repetitive multiplcation for last
+            if verbose: log.joint("DEBUG: error term = %g\n"%(error_term))
 
             # Get constraint sense
             sense = constr_dict['sense']
 
-            # Compute slack
-            if sense == '>':
-                slack = lhs - rhs
-            elif sense == '<':
-                slack = rhs - lhs
-            else:
-                slack = 0
-
-            # Compute constraint violation (depends on constraint sense)
-            if sense == '=':
-                violation = error_term
-                zsign = 1 if violation < 0 else -1
-            else:  #constr is inequality
-                violation = max(0, math.fabs(error_term) - slack)  #zero if infeasibility not possible
-                if sense == '>': 
-                    zsign = 1 if error_term < 0 else -1  
-                else:  #sense == '<':
-                    zsign = -1 if error_term < 0 else 1
+            # Determine max violation and corresponding zvar value (-1, 1, or 0 if no violation possible)
+            if sense == '>=':
+                potential_violations = {0:0.0,
+                                        -1:rhs - (lhs - error_term),
+                                        1:rhs - (lhs + error_term)}
+                zsign, violation = max(potential_violations.items(), key=lambda x: x[1])
+                if verbose: log.joint("DEBUG: Determine max violation of %s constraint\n"%sense)
+                if verbose: log.joint("DEBUG:  0, %g, or %g\n"%(potential_violations[-1], potential_violations[1]))
+            elif sense == '<=':
+                potential_violations = {0:0.0,
+                                        -1:lhs - error_term - rhs,
+                                        1:lhs + error_term - rhs}
+                zsign, violation = max(potential_violations.items(), key=lambda x: x[1])
+                if verbose: log.joint("DEBUG: Determine max violation of %s constraint\n"%sense)
+                if verbose: log.joint("DEBUG:  0, %g, or %g\n"%(potential_violations[-1], potential_violations[1]))
+            else:  # sense == '='
+                potential_violations = {0:0.0,
+                                        -1:abs(lhs - error_term - rhs),
+                                        1:abs(lhs + error_term - rhs)}
+                zsign, violation = max(potential_violations.items(), key=lambda x: x[1])
+                if verbose: log.joint("DEBUG: Determine max violation of %s constraint\n"%sense)
+                if verbose: log.joint("DEBUG:  0, %g, or %g\n"%(potential_violations[-1], potential_violations[1]))
+            if verbose: log.joint("DEBUG: violation of %g possible by setting z sign = %d\n"%(violation, zsign))
 
             zsign_list.append(zsign)
 
             # Compute Phi (scaled violation)
-            percent_violation = violation / max(1, rhs)
-            scaled_abs_violation = violation / constr_dict['coeff_inf-norm']
             phi_scale = alldata['algo_data']['phi_scale']
             if phi_scale == 'percent_violation':
-                phi_z = percent_violation
+                phi_z = violation / max(1, rhs)
             elif phi_scale == 'scaled_abs_violation':
-                phi_z = scaled_abs_violation
+                phi_z = violation / constr_dict['coeff_inf-norm']
             else:
                 log.joint('ERROR: invalid phi_scale: %s\n'%(phi_scale))
+            if verbose: log.joint("DEBUG: phi (scaled violation) = %g\n"%(phi_z))
 
             # Update the running max Phi of this z
             if phi_z > maxPhi_z:
@@ -164,7 +178,7 @@ def evalPhi_greedy(alldata, soln_vector_dict):
     log.joint("Greedy max sum phis = %g\n"%(maxsumphi))
     log.joint("  coeff: %g\n"%argmaxsum_coeff)
     if len(set(argmaxsum_zsign_list)) != 1:
-        log.joint("  INVALID: zvar changed sign across constraints!\n"%argmaxsum_coeff)
+        log.joint("  INVALID: zvar changed sign across constraints!\n")
     else:
         log.joint("  %s = %g\n"%(argmaxsum_zvar, argmaxsum_zsign_list[0]*budget))
 

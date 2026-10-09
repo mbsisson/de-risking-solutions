@@ -40,6 +40,9 @@ def solve(alldata):
 
     # Set solver
     ampl.setOption('solver', solver)
+    file_command = "writeprob=model_" + str(alldata['algo_data']['iteration']) + ".lp"
+    ampl.set_option("gurobi_auxfiles", "rc")
+    ampl.set_option("gurobi_options", file_command)
     log.joint("Using solver: %s\n"%solver)
 
     # Solve                                                                                                                              
