@@ -1,17 +1,10 @@
 import sys
-################################################
-# Necessary for scripts in src/sandbox/
-from pathlib import Path
-src_dir = Path(__file__).resolve().parent.parent
-if str(src_dir) not in sys.path:
-    sys.path.append(str(src_dir))
-################################################
 from myutils import breakexit
 
 
-def read_cutfile(all_data, filename):
-    log = all_data['log']
-    maxcuts = all_data['maxcuts']
+def read_cutfile(alldata, filename):
+    log = alldata['log']
+    maxcuts = alldata['maxcuts']
 
     log.joint("Reading cut file: " + filename + "\n")
 
@@ -23,9 +16,9 @@ def read_cutfile(all_data, filename):
         log.stateandquit("cannot open file %s\n" %(filename))
         sys.exit(1)
 
-    all_data['numimpcuts'] = 0
-    cutnonzeros = all_data['cutnonzeros'] = []
-    matrixvalue = all_data['matrixvalue'] = {}
+    alldata['numimpcuts'] = 0
+    cutnonzeros = alldata['cutnonzeros'] = []
+    matrixvalue = alldata['matrixvalue'] = {}
 
     linenum = 0
     thisline = lines[linenum].split()
@@ -35,11 +28,11 @@ def read_cutfile(all_data, filename):
     else:
         numcuts = min(maxcuts, readnumcuts)
 
-    all_data['numcuts'] = numcuts
+    alldata['numcuts'] = numcuts
     log.joint('Using %d cuts.\n' %numcuts)
     breakexit('num cuts')
 
-    Theta = all_data['Theta'] = float(thisline[3])
+    Theta = alldata['Theta'] = float(thisline[3])
     log.joint('numcuts: %d; Theta: %g\n' %(numcuts, Theta))
     for cutnum in range(1, numcuts+1):
         linenum += 1

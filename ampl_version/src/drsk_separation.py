@@ -20,7 +20,7 @@ def addCut_greedy(alldata):
     # Increment cut number
     alldata['cut_data']['numcuts'] += 1
 
-    # Retrieve cut data to new cut to
+    # Retrieve cut data to add new cut to
     cutnum = alldata['cut_data']['numcuts']
     nonzero_cutweights = alldata['cut_data']['nonzero_cutweights']
     cutweights = alldata['cut_data']['cutweights']

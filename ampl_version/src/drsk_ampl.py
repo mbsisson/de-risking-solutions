@@ -13,8 +13,6 @@ import math
 import sympy as sp
 from decimal import Decimal
 
-RISKY_DECIMAL_THRESH = 3
-
 
 def solve(alldata):
     log = alldata['log']
@@ -205,9 +203,9 @@ def parse_ampl_constraint(alldata, expression, constr_name):
         degree = sum(powers)
         coeff = float(coeff)
 
-        # Check if coefficient is risky, i.e., has more than RISKY_DECIMAL_THRESH decimal points
+        # Check if coefficient is risky, i.e., has more than decimal_risk_thresh decimal points
         riskyterm_flag = 0  # records if term has risky coefficient
-        if abs(Decimal(str(coeff)).as_tuple().exponent) >= RISKY_DECIMAL_THRESH:
+        if abs(Decimal(str(coeff)).as_tuple().exponent) >= alldata['struct_data']['decimal_risk_thresh']:
             riskyconstr_flag = 1
             riskyterm_flag = 1
 
