@@ -31,7 +31,6 @@ def solve(alldata):
     ampl.get_parameter("phiQuadWeights").set_values(alldata['cut_data']['phiQuadWeights'])
     ampl.get_set("nonzero_phiLinWeights").set_values(alldata['cut_data']['nonzero_phiLinWeights'])
     ampl.get_parameter("phiLinWeights").set_values(alldata['cut_data']['phiLinWeights'])
-    ampl.get_set("nonzero_phiConstWeights").set_values(alldata['cut_data']['nonzero_phiConstWeights'])
     ampl.get_parameter("phiConstWeights").set_values(alldata['cut_data']['phiConstWeights'])
     ampl.get_parameter("phiMinusToggle").set_values(alldata['cut_data']['phiMinusToggle'])
     
@@ -374,8 +373,7 @@ def read_and_store(alldata):
         param phiQuadWeights {nonzero_phiQuadWeights};   # phi quadratic weight matrix for each cut and feature 
         set nonzero_phiLinWeights dimen 3;               # (cut num, feature name, var name)
         param phiLinWeights {nonzero_phiLinWeights};     # phi linear coefficients for each cut and feature
-        set nonzero_phiConstWeights dimen 2;             # (cut num, feature name)
-        param phiConstWeights {nonzero_phiConstWeights}; # Constant terms for each feature (cut independent)
+        param phiConstWeights {nonzero_cutweights}; # Constant terms for each feature (cut independent)
         param phiMinusToggle {nonzero_cutweights};       # Toggle for whether the minus constraint is needed in phi definition for this cut and feature
 
         # VARIABLES for exposure cuts and phi definitions
@@ -397,7 +395,6 @@ def read_and_store(alldata):
     ampl.get_parameter("phiQuadWeights").set_values(alldata['cut_data']['phiQuadWeights'])
     ampl.get_set("nonzero_phiLinWeights").set_values(alldata['cut_data']['nonzero_phiLinWeights'])
     ampl.get_parameter("phiLinWeights").set_values(alldata['cut_data']['phiLinWeights'])
-    ampl.get_set("nonzero_phiConstWeights").set_values(alldata['cut_data']['nonzero_phiConstWeights'])
     ampl.get_parameter("phiConstWeights").set_values(alldata['cut_data']['phiConstWeights'])
     ampl.get_parameter("phiMinusToggle").set_values(alldata['cut_data']['phiMinusToggle'])
 

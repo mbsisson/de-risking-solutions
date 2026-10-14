@@ -28,7 +28,6 @@ def addCut_greedy(alldata):
     phiQuadWeights = alldata['cut_data']['phiQuadWeights']
     nonzero_phiLinWeights = alldata['cut_data']['nonzero_phiLinWeights']
     phiLinWeights = alldata['cut_data']['phiLinWeights']
-    nonzero_phiConstWeights = alldata['cut_data']['nonzero_phiConstWeights']
     phiConstWeights = alldata['cut_data']['phiConstWeights']
     phiMinusToggle = alldata['cut_data']['phiMinusToggle']
 
@@ -62,7 +61,6 @@ def addCut_greedy(alldata):
         log.joint('ERROR: invalid phi_scale: %s\n'%(phi_scale))
 
     # Set constant (LHS constant - RHS)
-    nonzero_phiConstWeights.add((cutnum, argmax_feat))
     phiConstWeights[(cutnum, argmax_feat)] = (constraint_data['constant'] - constraint_data['RHS']) / phi_scale
     if loud: log.joint(" - Defining constant (%d, %s)\n"%(cutnum, argmax_feat))
     if verbose: log.joint("DEBUG: + constant - rhs = %g - %g\n"%(constraint_data['constant'], constraint_data['RHS']))
@@ -145,7 +143,6 @@ def addCut_quasiGreedy(alldata):
     phiQuadWeights = alldata['cut_data']['phiQuadWeights']
     nonzero_phiLinWeights = alldata['cut_data']['nonzero_phiLinWeights']
     phiLinWeights = alldata['cut_data']['phiLinWeights']
-    nonzero_phiConstWeights = alldata['cut_data']['nonzero_phiConstWeights']
     phiConstWeights = alldata['cut_data']['phiConstWeights']
     phiMinusToggle = alldata['cut_data']['phiMinusToggle']
 
@@ -183,7 +180,6 @@ def addCut_quasiGreedy(alldata):
             phi_scale = constraint_data['coeff_inf-norm']
 
         # Set constant (LHS constant - RHS)
-        nonzero_phiConstWeights.add((cutnum, feat_name))
         phiConstWeights[(cutnum, feat_name)] = (constraint_data['constant'] - constraint_data['RHS']) / phi_scale
         if loud: log.joint(" - Defining constant (%d, %s)\n"%(cutnum, feat_name))
 

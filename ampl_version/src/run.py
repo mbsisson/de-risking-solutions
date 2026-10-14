@@ -16,7 +16,8 @@ def read_config(log, filename):
     config_data = {}
     paramfile = 'NONE'
     modfile = 'NONE'
-    cutfile = 'NONE'
+    cutfile_in = 'NONE'
+    cutfile_out = 'NONE'
     linenum = 0
 
     while linenum < len(lines):
@@ -29,7 +30,11 @@ def read_config(log, filename):
             elif word == 'MODFILE':
                 modfile = thisline[1]
             elif word == 'CUTFILE':
-                cutfile = thisline[1]
+                type = thisline[1]
+                if type == 'in':
+                    cutfile_in = thisline[2]
+                elif type == 'out':
+                    cutfile_out = thisline[2]
             elif word == 'END':
                 break
             else:
@@ -39,7 +44,8 @@ def read_config(log, filename):
 
     for x in [('PARAMFILE', paramfile),
               ('MODFILE',modfile),
-              ('CUTFILE', cutfile)]:
+              ('CUTFILE_in', cutfile_in),
+              ('CUTFILE_out', cutfile_out)]:
         config_data[x[0]] = x[1]
 
     return config_data
@@ -66,9 +72,11 @@ if __name__ == "__main__":
     # Get files from arguments
     param_file = data['PARAMFILE']
     mod_file = data['MODFILE']
-    cut_file = data.get('CUTEFILE', 'cutsrun.dat')
+    cut_file_in = data['CUTFILE_in']
+    cut_file_out = data['CUTFILE_out']
 
-    drsk_start(log, param_file, mod_file, cut_file)
+    # Call drsk
+    drsk_start(log, param_file, mod_file, cut_file_in, cut_file_out)
 
     
 

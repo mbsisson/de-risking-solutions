@@ -13,6 +13,7 @@ from myutils import breakexit
 from drsk_ampl import read_and_store, solve
 from drsk_boosting import evalPhi_greedy
 from drsk_separation import addCut_greedy, addCut_quasiGreedy
+from cutfilereader import write_cutfile, read_cutfile
 
 
 def logIteration(log, x, cost, Phi_L, Phi_max):
@@ -26,32 +27,54 @@ def logIteration(log, x, cost, Phi_L, Phi_max):
     log.joint("===============================================================\n\n")
 
 
-def logResults(alldata, iteration, elapsed_time):
+def logResults(alldata, iteration, elapsed_time, convergence_flag):
     log = alldata['log']
     log.joint("Algorithm FINISHED after %d iterations in %g seconds\n"%(iteration, elapsed_time))
 
-    col_width = 20
-    headers = ['Iter', 'Cost', 'Phi_L', 'Phi_max', 'time']
+    # Report convergence reason
+    if convergence_flag == 0:
+        log.joint(" *** Maximum iterations reached ***\n")
+    elif convergence_flag == 1:
+        log.joint(" *** Achieved relative tolerance ***\n")
+    elif convergence_flag == 2:
+        log.joint(" *** Reduced Phi_max by sufficient amount ***\n")
 
+    # Report cost and phi differentials
+    cost_initial = alldata['algo_data'][0]['cost']
+    cost_final = alldata['algo_data'][iteration]['cost']
+    cost_delta = (cost_final - cost_initial) / cost_initial
+    Phi_max_initial = alldata['algo_data'][0]['Phi_max']
+    Phi_max_final = alldata['algo_data'][iteration]['Phi_max']
+    Phi_max_delta = abs(Phi_max_final - Phi_max_initial) / Phi_max_initial
+    log.joint(" > Percent cost increase: %g\n"%cost_delta)
+    log.joint(" > Percent Phi_max decrease: %g\n"%Phi_max_delta)
+    
     # Log header
-    header_row = "".join(f"{col:<{col_width}}" for col in headers)
+    headers = ['Iter', 'Cost', 'Phi_L', 'Phi_max', 'time']
+    col_widths = [6, 20, 20, 20, 8]
+    header_row = "".join(f"{headers[col]:<{col_widths[col]}}" for col in range(len(headers)))
     log.joint("%s\n"%header_row)
     log.joint("-" * len(header_row) + "\n")
 
     # Log results per iteration
-    for i in range(iteration):
+    for i in range(iteration + 1):
         cost = alldata['algo_data'][i]['cost']
         Phi_L = alldata['algo_data'][i]['Phi_L']
         Phi_max = alldata['algo_data'][i]['Phi_max']
         t = alldata['algo_data'][i]['time']
-        row = [i, cost, Phi_L, Phi_max, t]
-        log.joint("".join(f"{str(col):<{col_width}}" for col in row) + "\n")
+        row = [str(i), f"{cost:.12f}", f"{Phi_L:.12f}", f"{Phi_max:.12f}", f"{t:.4f}"]
+        row_str = "".join(f"{row[col]:<{col_widths[col]}}" for col in range(len(headers)))
+        log.joint("%s\n"%row_str)
 
 
 def drsk_algoLoop(alldata):
     log = alldata['log']
     relative_tol = alldata['algo_data']['tol']
     maxits = alldata['algo_data']['maxits']
+    Phi_reduction_goal = alldata['algo_data']['PhiReduc']
+
+    # Record how algorithm terminates: 0 = reached maxit, 1 = converged, 2 = early convergence (reduced phi_max)
+    converge_flag = 0
 
     start_algo_time = time.time()
     for iteration in range(maxits + 1):
@@ -85,6 +108,14 @@ def drsk_algoLoop(alldata):
         if (Phi_max - Phi_L) / Phi_max <= relative_tol:
             log.joint("CONVERGED: achieved relative tolerance\n")
             logIteration(log, x, cost, Phi_L, Phi_max)
+            converge_flag = 1
+            break
+
+        # Early convergence check
+        if Phi_max <= Phi_reduction_goal * alldata['algo_data'][0]['Phi_max']:
+            log.joint("CONVERGED: reduced Phi_max by sufficient amount\n")
+            logIteration(log, x, cost, Phi_L, Phi_max)
+            converge_flag = 2
             break
 
         # Add cut
@@ -95,7 +126,7 @@ def drsk_algoLoop(alldata):
     # Log results
     end_algo_time = time.time()
     elapsed_time = end_algo_time - start_algo_time
-    logResults(alldata, iteration, elapsed_time)
+    logResults(alldata, iteration, elapsed_time, converge_flag)
 
 
 def drsk_readparameters(log, filename):
@@ -116,8 +147,10 @@ def drsk_readparameters(log, filename):
     phi_scale = 'None'
     alpha = 'None'
     decimal_risk_thresh = 'None'
+    maxcuts = 10
     tol = 'None'
     maxits = 'None'
+    PhiReduc = 'None'
     loud = 0
     verbose = 0
     breakpoints = 0
@@ -140,12 +173,14 @@ def drsk_readparameters(log, filename):
                 alpha = float(thisline[1])
             elif word == 'decimal_risk_thresh':
                 decimal_risk_thresh = int(thisline[1])
+            elif word == 'maxcuts':
+                maxcuts = float(thisline[1])
             elif word == 'tol':
                 tol = float(thisline[1])
             elif word == 'maxits':
                 maxits = int(thisline[1])
-            elif word == 'maxits':
-                maxits = int(thisline[1])
+            elif word == 'PhiReduc':
+                PhiReduc = float(thisline[1])
             elif word == 'loud':
                 loud = int(thisline[1])
             elif word == 'verbose':
@@ -166,8 +201,10 @@ def drsk_readparameters(log, filename):
               ('phi_scale', phi_scale),
               ('alpha', alpha),
               ('decimal_risk_thresh', decimal_risk_thresh),
+              ('maxcuts', maxcuts),
               ('tol', tol),
               ('maxits', maxits),
+              ('PhiReduc', PhiReduc),
               ('loud', loud),
               ('verbose', verbose),
               ('breakpoints', breakpoints)]:
@@ -179,14 +216,16 @@ def drsk_readparameters(log, filename):
     return params
 
 
-def drsk_start(logger, param_file, mod_file, cut_file):
+def drsk_start(logger, param_file, mod_file, cut_file_in, cut_file_out):
     alldata = {}
     log = alldata['log'] = logger
 
     alldata['MODFILE'] = mod_file
     log.joint("MODFILE %s\n"%alldata['MODFILE'])
-    alldata['CUTFILE'] = cut_file
-    log.joint("CUTFILE %s\n"%alldata['CUTFILE'])
+    alldata['CUTFILE_in'] = cut_file_in
+    log.joint("CUTFILE_in %s\n"%alldata['CUTFILE_in'])
+    alldata['CUTFILE_out'] = cut_file_out
+    log.joint("CUTFILE_out %s\n"%alldata['CUTFILE_out'])
     alldata['PARAMFILE'] = param_file
     log.joint("PARAMFILE %s\n"%alldata['PARAMFILE'])
 
@@ -214,20 +253,18 @@ def drsk_start(logger, param_file, mod_file, cut_file):
     alldata['struct_data']['budget'] = params['budget']                             # Constraint error budget
     alldata['struct_data']['decimal_risk_thresh'] = params['decimal_risk_thresh']   # Number of decimal places coefficients need to be considered risky
 
-    # Initialize cut data TODO: should be read in from cutfile
+    # Initialize cut data  #TODO populate dicts from cut file
     alldata['cut_data'] = {}                                # All cut related data stored here
-    alldata['cut_data']['maxcuts'] = 100                    # Maximum number of cuts TODO: read in
+    alldata['cut_data']['maxcuts'] = params['maxcuts']      # Maximum number of cuts
     alldata['cut_data']['numcuts'] = 0                      # Number of cuts to use in solve
     alldata['cut_data']['nonzero_cutweights'] = set()       # Set: (cut number, feat name) pairs with nonzero weight
     alldata['cut_data']['cutweights'] = {}                  # Dict: (cut number, feat name) --> weight
-    alldata['cut_data']['nonzero_phiQuadWeights'] = set()   # Set: (cut number, feat name, var name, var name) tuples with nonzero weight
-    alldata['cut_data']['phiQuadWeights'] = {}              # Quadratic weights defining phi_i(.|z) for each cut. Dict: (cut number, feat name, va name, var name) --> coefficient * (1 + z)
-    alldata['cut_data']['nonzero_phiLinWeights'] = set()    # Set: (cut number, feat name, var name) tuples with nonzero weight
-    alldata['cut_data']['phiLinWeights'] = {}               # Linear weights defining phi_i(.|z) for each cut. Dict: (cut number, feat name, var vame) --> coefficient * (1 + z)
-    alldata['cut_data']['nonzero_phiConstWeights'] = set()  # Set: (cut number, feat name) tuples with nonzero weight
+    alldata['cut_data']['nonzero_phiQuadWeights'] = set()   # Set: (cut number, feat name, var idx, var idx) tuples with nonzero weight
+    alldata['cut_data']['phiQuadWeights'] = {}              # Quadratic weights defining phi_i(.|z) for each cut. Dict: (cut number, feat name, var idx, var idx) --> coefficient * (1 + z)
+    alldata['cut_data']['nonzero_phiLinWeights'] = set()    # Set: (cut number, feat name, var idx) tuples with nonzero weight
+    alldata['cut_data']['phiLinWeights'] = {}               # Linear weights defining phi_i(.|z) for each cut. Dict: (cut number, feat name, var idx) --> coefficient * (1 + z)
     alldata['cut_data']['phiConstWeights'] = {}             # Constants defining phi_i(.|z). Dict: (cut number, feature name) --> constant
     alldata['cut_data']['phiMinusToggle'] = {}              # Toggle for whether the minus constraint is needed in phi definition for this cut and feature. Dict: (cut number, feat name, var) --> 0/1
-    log.joint("maxcuts %g\n"%alldata['cut_data']['maxcuts'])
 
     # Initialize algorithm data (Note: extra greedy specific algo data defined in greedy Phi method)
     alldata['algo_data'] = {}                               # All algorithm related data stored here
@@ -241,6 +278,7 @@ def drsk_start(logger, param_file, mod_file, cut_file):
     alldata['algo_data']['iteration'] = 0                   # Iteration number
     alldata['algo_data']['tol'] = params['tol']             # Relative convergence tolerance
     alldata['algo_data']['maxits'] = params['maxits']       # Maximum number of iterations
+    alldata['algo_data']['PhiReduc'] = params['PhiReduc']   # Percent Phi reduction for early convergence
 
     if alldata['breakpoints']: breakexit('Done initializing all data')
 
@@ -248,6 +286,11 @@ def drsk_start(logger, param_file, mod_file, cut_file):
     read_and_store(alldata)
     if alldata['breakpoints']: breakexit('Done parsing problem')
 
+    # Run algorithm
     drsk_algoLoop(alldata)
+
+    # Write cut file
+    write_cutfile(alldata, cut_file_out)
+
 
     

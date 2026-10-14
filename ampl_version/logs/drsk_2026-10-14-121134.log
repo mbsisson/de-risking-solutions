@@ -1,0 +1,185 @@
+Starting log: Wed Oct 14 12:11:34 2026.
+Running on: jasper.local.
+
+MODFILE ../data/QPLIB_2894.mod
+CUTFILE cutsrun.dat
+PARAMFILE drskparams.conf
+Reading parameter file drskparams.conf.
+solver gurobi
+theta 100.0
+budget 0.01
+phi_scale percent_violation
+alpha 1.0
+decimal_risk_thresh 3
+maxcuts 10
+tol 1e-06
+maxits 2
+PhiReduc 0.5
+loud 0
+verbose 0
+breakpoints 0
+Read file ../data/QPLIB_2894.mod with AMPL
+Num of variables = 17
+Num of constraints = 209
+Num of features = 196
+Retrieved problem data and structure
+Wrote new model to modfile: ../data/QPLIB_2894_cuts.mod
+Added parameters, sets, variables, and constraints to model for cut compatibility
+
+Using solver: gurobi
+Solving model ...
+= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+Solved with gurobi in 3.192718 seconds
+
+Optimal objective: obj = 4.9999
+Optimal objective: weighted_obj = 4.9999
+Optimal variable values:
+  x2 = 4.9999
+  x3 = -0.635154
+  x4 = 0.772385
+  x5 = 1.60537
+  x6 = 6.01524e-05
+  x7 = 1
+  x8 = 3.57046
+  x9 = -0.999978
+  x10 = -0.00659598
+  x11 = 1.53792
+  x12 = 0.431543
+  x13 = 0.902092
+  x14 = 1.68122
+  x15 = 1.61805
+  x16 = 3.94687
+  x17 = 8.44875
+  x18 = 5.64813
+17 nonzero variables in solution
+
+Checking for violations...
+0 constraints violated
+
+Computing Phi using greedy method...
+Greedy Phi = 0.576807
+  coeff: -9.13177
+  z_75 = 0.01
+  max feature: e198
+Greedy max sum phis = 0.749722
+  coeff: -9.13177
+  INVALID: zvar changed sign across constraints!
+Computed Phi using Greedy
+
+Completed iteration 0
+  > Cost:    4.9999
+  > Phi_L:   0
+  > Phi_max: 0.576807
+  Solution:
+    x2 = 4.9999
+    x3 = -0.635154
+    x4 = 0.772385
+    x5 = 1.60537
+    x6 = 6.01524e-05
+    x7 = 1
+    x8 = 3.57046
+    x9 = -0.999978
+    x10 = -0.00659598
+    x11 = 1.53792
+    x12 = 0.431543
+    x13 = 0.902092
+    x14 = 1.68122
+    x15 = 1.61805
+    x16 = 3.94687
+    x17 = 8.44875
+    x18 = 5.64813
+===============================================================
+
+Did NOT converge: add cut
+Cut #1 (feature weight):
+  e198  1
+Added cut using Greedy
+Using solver: gurobi
+Solving model ...
+= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+Solved with gurobi in 2.371424 seconds
+
+Optimal objective: obj = 5.33383
+Optimal objective: weighted_obj = 5.33383
+Optimal variable values:
+  x2 = 5.33383
+  x3 = -0.632019
+  x4 = 0.774953
+  x5 = 1.61177
+  x7 = 1
+  x8 = 3.90489
+  x9 = -1
+  x11 = 1.52786
+  x12 = 0.391002
+  x13 = 0.92039
+  x14 = 1.95822
+  x15 = 1.89925
+  x16 = 3.94679
+  x17 = 8.47213
+  x18 = 5.65045
+15 nonzero variables in solution
+
+Checking for violations...
+0 constraints violated
+
+Computing Phi using greedy method...
+Greedy Phi = 0.208047
+  coeff: -6.67721
+  z_244 = 0.01
+  max feature: e165
+Greedy max sum phis = 0.208047
+  coeff: -6.67721
+  INVALID: zvar changed sign across constraints!
+Computed Phi using Greedy
+
+Completed iteration 1
+  > Cost:    5.33383
+  > Phi_L:   0
+  > Phi_max: 0.208047
+  Solution:
+    x2 = 5.33383
+    x3 = -0.632019
+    x4 = 0.774953
+    x5 = 1.61177
+    x7 = 1
+    x8 = 3.90489
+    x9 = -1
+    x11 = 1.52786
+    x12 = 0.391002
+    x13 = 0.92039
+    x14 = 1.95822
+    x15 = 1.89925
+    x16 = 3.94679
+    x17 = 8.47213
+    x18 = 5.65045
+===============================================================
+
+CONVERGED: reduced Phi_max by sufficient amount
+  > Cost:    5.33383
+  > Phi_L:   0
+  > Phi_max: 0.208047
+  Solution:
+    x2 = 5.33383
+    x3 = -0.632019
+    x4 = 0.774953
+    x5 = 1.61177
+    x7 = 1
+    x8 = 3.90489
+    x9 = -1
+    x11 = 1.52786
+    x12 = 0.391002
+    x13 = 0.92039
+    x14 = 1.95822
+    x15 = 1.89925
+    x16 = 3.94679
+    x17 = 8.47213
+    x18 = 5.65045
+===============================================================
+
+Algorithm FINISHED after 1 iterations in 5.57803 seconds
+Iter                Cost                Phi_L               Phi_max             time                
+----------------------------------------------------------------------------------------------------
+0                   4.999902091475367   0.0                 0.5768074836472394  3.1994080543518066  
+Writing cut file: cutsout.dat
+Writing 1 cuts.
+numcuts: 1; Theta: 100
