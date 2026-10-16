@@ -1,132 +1,67 @@
 ###############################################################################
-# Functions for initializing all data necessary for SOFTMAX_-ADVERSARIAL
-# algorithm and running the main loop.
+# Functions for initializing all data necessary for SOFTMAX_-ADVERSARIAL.
 #
 # Blake Sisson mbs2246@columbia.edu
 # 10/13/2026
 ###############################################################################
-
-import math
-import time
+import json
 from amplpy import AMPL
 from myutils import breakexit
-from drsk_ampl import read_and_store, solve
-from drsk_boosting import evalPhi_greedy
-from drsk_separation import addCut_greedy, addCut_quasiGreedy
 from cutfilereader import write_cutfile, read_cutfile
+from drsk_ampl import drsk_read, drsk_read_and_store, drsk_init_cuts
+from drsk_lp import drsk_storelp
+from drsk_algo import drsk_algoLoop
 
 
-def logIteration(log, x, cost, Phi_L, Phi_max):
-    log.joint("  > Cost:    %g\n"%cost)
-    log.joint("  > Phi_L:   %g\n"%Phi_L)
-    log.joint("  > Phi_max: %g\n"%Phi_max)
-    log.joint("  Solution:\n")
-    for var_name, var_val in x.items():
-        if math.fabs(var_val) > 1e-8:
-            log.joint("    %s = %g\n"%(var_name, var_val))
-    log.joint("===============================================================\n\n")
+def read_config(log, filename):
+    '''Read settings from configuration file'''
+    try:
+        f = open(filename, "r")
+        lines = f.readlines()
+        f.close()
+    except:
+        log.stateandquit("cannot open file " + filename + "\n")
 
+    config_data = {}
+    paramfile = 'NONE'
+    modfile = 'NONE'
+    lpfile = 'NONE'
+    cutfile_in = 'NONE'
+    cutfile_out = 'NONE'
+    linenum = 0
 
-def logResults(alldata, iteration, elapsed_time, convergence_flag):
-    log = alldata['log']
-    log.joint("Algorithm FINISHED after %d iterations in %g seconds\n"%(iteration, elapsed_time))
+    while linenum < len(lines):
+        thisline = lines[linenum].split()
+        if len(thisline) > 0 and thisline[0][0] != '#':
+            word = thisline[0]
 
-    # Report convergence reason
-    if convergence_flag == 0:
-        log.joint(" *** Maximum iterations reached ***\n")
-    elif convergence_flag == 1:
-        log.joint(" *** Achieved relative tolerance ***\n")
-    elif convergence_flag == 2:
-        log.joint(" *** Reduced Phi_max by sufficient amount ***\n")
+            if word == 'PARAMFILE':
+                paramfile = thisline[1]
+            elif word == 'MODFILE':
+                modfile = thisline[1]
+            elif word == 'LPFILE':
+                lpfile = thisline[1]
+            elif word == 'CUTFILE':
+                type = thisline[1]
+                if type == 'in':
+                    cutfile_in = thisline[2]
+                elif type == 'out':
+                    cutfile_out = thisline[2]
+            elif word == 'END':
+                break
+            else:
+                log.stateandquit("illegal input " + word + "\n")
 
-    # Report cost and phi differentials
-    cost_initial = alldata['algo_data'][0]['cost']
-    cost_final = alldata['algo_data'][iteration]['cost']
-    cost_delta = (cost_final - cost_initial) / cost_initial
-    Phi_max_initial = alldata['algo_data'][0]['Phi_max']
-    Phi_max_final = alldata['algo_data'][iteration]['Phi_max']
-    Phi_max_delta = abs(Phi_max_final - Phi_max_initial) / Phi_max_initial
-    log.joint(" > Percent cost increase: %g\n"%cost_delta)
-    log.joint(" > Percent Phi_max decrease: %g\n"%Phi_max_delta)
-    
-    # Log header
-    headers = ['Iter', 'Cost', 'Phi_L', 'Phi_max', 'time']
-    col_widths = [6, 20, 20, 20, 8]
-    header_row = "".join(f"{headers[col]:<{col_widths[col]}}" for col in range(len(headers)))
-    log.joint("%s\n"%header_row)
-    log.joint("-" * len(header_row) + "\n")
+        linenum += 1
 
-    # Log results per iteration
-    for i in range(iteration + 1):
-        cost = alldata['algo_data'][i]['cost']
-        Phi_L = alldata['algo_data'][i]['Phi_L']
-        Phi_max = alldata['algo_data'][i]['Phi_max']
-        t = alldata['algo_data'][i]['time']
-        row = [str(i), f"{cost:.12f}", f"{Phi_L:.12f}", f"{Phi_max:.12f}", f"{t:.4f}"]
-        row_str = "".join(f"{row[col]:<{col_widths[col]}}" for col in range(len(headers)))
-        log.joint("%s\n"%row_str)
+    for x in [('PARAMFILE', paramfile),
+              ('MODFILE', modfile),
+              ('LPFILE', lpfile),
+              ('CUTFILE_in', cutfile_in),
+              ('CUTFILE_out', cutfile_out)]:
+        config_data[x[0]] = x[1]
 
-
-def drsk_algoLoop(alldata):
-    log = alldata['log']
-    relative_tol = alldata['algo_data']['tol']
-    maxits = alldata['algo_data']['maxits']
-    Phi_reduction_goal = alldata['algo_data']['PhiReduc']
-
-    # Record how algorithm terminates: 0 = reached maxit, 1 = converged, 2 = early convergence (reduced phi_max)
-    converge_flag = 0
-
-    start_algo_time = time.time()
-    for iteration in range(maxits + 1):
-        alldata['algo_data']['iteration'] = iteration
-        alldata['algo_data'][iteration] = {}
-        start_iter_time = time.time()
-
-        # Solve the master problem for optimal (x, Phi_L)
-        solve(alldata)
-        x = alldata['algo_data']['soln_vector_dict']
-        Phi_L = alldata['algo_data']['Phi_L']
-        cost = alldata['algo_data']['cost']
-        if alldata['breakpoints']: breakexit('Solved master problem')
-
-        # Boosting step: Evaluate Phi(x*) and get z
-        Phi_max = evalPhi_greedy(alldata, alldata['algo_data']["soln_vector_dict"])
-        if alldata['breakpoints']: breakexit('Completed boosting step: evaluated Phi and stored z')
-
-        # Store iteration
-        end_iter_time = time.time()
-        alldata['algo_data'][iteration]['cost'] = cost
-        alldata['algo_data'][iteration]['Phi_L'] = Phi_L
-        alldata['algo_data'][iteration]['Phi_max'] = Phi_max
-        alldata['algo_data'][iteration]['time'] = end_iter_time - start_iter_time
-
-        # Log progress
-        log.joint("Completed iteration %d\n"%iteration)
-        logIteration(log, x, cost, Phi_L, Phi_max)
-
-        # Convergence check
-        if (Phi_max - Phi_L) / Phi_max <= relative_tol:
-            log.joint("CONVERGED: achieved relative tolerance\n")
-            logIteration(log, x, cost, Phi_L, Phi_max)
-            converge_flag = 1
-            break
-
-        # Early convergence check
-        if Phi_max <= Phi_reduction_goal * alldata['algo_data'][0]['Phi_max']:
-            log.joint("CONVERGED: reduced Phi_max by sufficient amount\n")
-            logIteration(log, x, cost, Phi_L, Phi_max)
-            converge_flag = 2
-            break
-
-        # Add cut
-        log.joint("Did NOT converge: add cut\n")
-        addCut_greedy(alldata)
-        if alldata['breakpoints']: breakexit('Computed cut. Run next iteration?')
-
-    # Log results
-    end_algo_time = time.time()
-    elapsed_time = end_algo_time - start_algo_time
-    logResults(alldata, iteration, elapsed_time, converge_flag)
+    return config_data
 
 
 def drsk_readparameters(log, filename):
@@ -216,12 +151,14 @@ def drsk_readparameters(log, filename):
     return params
 
 
-def drsk_start(logger, param_file, mod_file, cut_file_in, cut_file_out):
+def drsk_initialize(logger, param_file, mod_file, lp_file, cut_file_in, cut_file_out):
     alldata = {}
     log = alldata['log'] = logger
 
     alldata['MODFILE'] = mod_file
     log.joint("MODFILE %s\n"%alldata['MODFILE'])
+    alldata['LPFILE'] = lp_file
+    log.joint("LPFILE %s\n"%alldata['LPFILE'])
     alldata['CUTFILE_in'] = cut_file_in
     log.joint("CUTFILE_in %s\n"%alldata['CUTFILE_in'])
     alldata['CUTFILE_out'] = cut_file_out
@@ -241,13 +178,14 @@ def drsk_start(logger, param_file, mod_file, cut_file_in, cut_file_out):
     alldata['prob_data'] = {}                        # All problem related data stored here
     alldata['prob_data']['Theta'] = params['theta']  # Theta value for weighted objective parameter
     alldata['prob_data']['constraints'] = []         # List of all constraints
-    alldata['prob_data']['features'] = []            # List of features, i.e., constraint with risky coefficients
     alldata['prob_data']['variables'] = {}           # Dictionary: variable name --> variable index (exluding artifical and dummy
-    alldata["prob_data"]['all_constr_data'] = {}     # Dictionary: constraint name --> constraint data
+    alldata['prob_data']['all_constr_data'] = {}     # Dictionary: constraint name --> constraint data
+    alldata['prob_data']['gurobimodel'] = None
 
     # Initialize coefficient risk structure
     alldata['struct_data'] = {}                                                     # All risky coefficient structure data stored here
     alldata['struct_data']["numfeats"] = 0                                          # Number of features (constraints with risky coefficients)
+    alldata['struct_data']['features'] = []                                           # List of features, i.e., constraint with risky coefficients
     alldata['struct_data']["risky_coeffs"] = {}                                     # Dictionary: coefficient --> coefficient data (index, zvar, instances)
     alldata['struct_data']['num_unique'] = 0                                        # Number of unique risky coefficients
     alldata['struct_data']['budget'] = params['budget']                             # Constraint error budget
@@ -280,17 +218,57 @@ def drsk_start(logger, param_file, mod_file, cut_file_in, cut_file_out):
     alldata['algo_data']['maxits'] = params['maxits']       # Maximum number of iterations
     alldata['algo_data']['PhiReduc'] = params['PhiReduc']   # Percent Phi reduction for early convergence
 
+    return alldata
+
+
+def drsk_start(logger, param_file, mod_file, lp_file, cut_file_in, cut_file_out):
+    # Initialize problem data 
+    alldata = drsk_initialize(logger, param_file, mod_file, lp_file, cut_file_in, cut_file_out)
     if alldata['breakpoints']: breakexit('Done initializing all data')
 
-    # Retrieve problem data and risk structure
-    read_and_store(alldata)
-    if alldata['breakpoints']: breakexit('Done parsing problem')
+    if lp_file == 'NONE':  # If no lp file, use AMPL to parse
+        # Read problem into AMPL and store problem data and risk structure
+        drsk_read_and_store(alldata)
+
+    else:  # If lp file provided, use Gurobi to parse
+        # Read problem into AMPL
+        drsk_read(alldata)
+        if alldata['breakpoints']: breakexit('Done reading problem')
+
+        # Store problem data and risk structure
+        drsk_storelp(alldata)
+        if alldata['breakpoints']: breakexit('Done parsing problem')
+
+    # Add cut placeholders to AMPL model
+    drsk_init_cuts(alldata)
+    if alldata['breakpoints']: breakexit('Done adding cuts placeholders to model')
+
+    # Writing alldata to file, for debugging
+    def is_serializable(value):
+        try:
+            json.dumps(value)
+            return True
+        except TypeError:
+            return False
+    clean_data = {k: v for k, v in alldata.items() if is_serializable(v)}
+    with open("alldata.json", "w", encoding="utf-8") as f:
+        json.dump(
+            clean_data, 
+            f, 
+            indent=4,          # Adds 4 spaces of indentation
+            sort_keys=True,     # Sorts the dictionary keys alphabetically
+            ensure_ascii=False  # Keeps non-English/Unicode text intact
+        )
+    if alldata['breakpoints']: breakexit('Saved all data to file')
 
     # Run algorithm
-    drsk_algoLoop(alldata)
+    result_str = drsk_algoLoop(alldata)
 
     # Write cut file
     write_cutfile(alldata, cut_file_out)
+
+    # Result result string
+    return result_str
 
 
     

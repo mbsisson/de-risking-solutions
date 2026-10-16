@@ -1,54 +1,7 @@
 import sys
 from datetime import datetime
 from log import danoLogger
-from drsk_main import drsk_start
-
-
-def read_config(log, filename):
-    '''Read settings from configuration file'''
-    try:
-        f = open(filename, "r")
-        lines = f.readlines()
-        f.close()
-    except:
-        log.stateandquit("cannot open file " + filename + "\n")
-
-    config_data = {}
-    paramfile = 'NONE'
-    modfile = 'NONE'
-    cutfile_in = 'NONE'
-    cutfile_out = 'NONE'
-    linenum = 0
-
-    while linenum < len(lines):
-        thisline = lines[linenum].split()
-        if len(thisline) > 0 and thisline[0][0] != '#':
-            word = thisline[0]
-
-            if word == 'PARAMFILE':
-                paramfile = thisline[1]
-            elif word == 'MODFILE':
-                modfile = thisline[1]
-            elif word == 'CUTFILE':
-                type = thisline[1]
-                if type == 'in':
-                    cutfile_in = thisline[2]
-                elif type == 'out':
-                    cutfile_out = thisline[2]
-            elif word == 'END':
-                break
-            else:
-                log.stateandquit("illegal input " + word + "\n")
-
-        linenum += 1
-
-    for x in [('PARAMFILE', paramfile),
-              ('MODFILE',modfile),
-              ('CUTFILE_in', cutfile_in),
-              ('CUTFILE_out', cutfile_out)]:
-        config_data[x[0]] = x[1]
-
-    return config_data
+from drsk_main import drsk_start, read_config
 
 
 if __name__ == "__main__":
@@ -72,11 +25,12 @@ if __name__ == "__main__":
     # Get files from arguments
     param_file = data['PARAMFILE']
     mod_file = data['MODFILE']
+    lp_file = data['LPFILE']
     cut_file_in = data['CUTFILE_in']
     cut_file_out = data['CUTFILE_out']
 
     # Call drsk
-    drsk_start(log, param_file, mod_file, cut_file_in, cut_file_out)
+    drsk_start(log, param_file, mod_file, lp_file, cut_file_in, cut_file_out)
 
     
 

@@ -12,6 +12,7 @@ import time
 import math
 import sympy as sp
 from decimal import Decimal
+from myutils import breakexit
 
 
 def solve(alldata):
@@ -197,10 +198,10 @@ def parse_ampl_constraint(alldata, expression, constr_name):
 
     lin_terms = {}
     quad_terms = {}
-    for powers, coeff in polynomial.terms():
+    for powers, coeff_str in polynomial.terms():
 
         degree = sum(powers)
-        coeff = float(coeff)
+        coeff = float(coeff_str)
 
         # Check if coefficient is risky, i.e., has more than decimal_risk_thresh decimal points
         riskyterm_flag = 0  # records if term has risky coefficient
@@ -274,9 +275,9 @@ def parse_ampl_constraint(alldata, expression, constr_name):
 
             if loud: 
                 if degree == 1:
-                    log.joint('    + coeff %g of var %s in constr %s is deemed risky\n'%(coeff, var, constr_name))
+                    log.joint('    + coeff %g (str %s) of var %s in constr %s is deemed risky\n'%(coeff, coeff_str, var, constr_name))
                 else:  #degree == 2
-                    log.joint('    + coeff %g of binomial %s in constr %s is deemed risky\n'%(coeff, (v1, v2), constr_name))
+                    log.joint('    + coeff %g (str %s) of binomial %s in constr %s is deemed risky\n'%(coeff, coeff_str, (v1, v2), constr_name))
         
     # Update features number of risky constraints
     structure['numfeats'] += riskyconstr_flag
@@ -304,6 +305,8 @@ def parse_ampl_constraint(alldata, expression, constr_name):
     # ------------------------------------------------------------
     # 5. Return data dictionary
     # ------------------------------------------------------------
+    if loud: log.joint('  - Read constraint %s. Feature=%d. Sense=%s. RHS=%g. inf-norm=%g. 1-norm=%g.\n'%(constr_name, riskyconstr_flag, sense, rhs, coeff_inf_norm, coeff_1_norm))
+
     return {
         "isfeature": riskyconstr_flag,
         "sense": sense,
@@ -317,11 +320,15 @@ def parse_ampl_constraint(alldata, expression, constr_name):
     }
 
 
-def read_and_store(alldata):
+def drsk_read_and_store(alldata):
     '''read and store for modfile without cut modifications'''
     log = alldata['log'] 
     loud = alldata['loud']
     ampl = alldata['algo_data']["ampl"]
+
+    # Set display precision to most precise
+    ampl.set_option("gurobi_auxfiles", "rc")
+    ampl.set_option("expand_precision", 0)
 
     # Read modfile with AMPL
     ampl.read(alldata['MODFILE'])
@@ -345,9 +352,15 @@ def read_and_store(alldata):
     constraints = []
     features = []
     all_constr_data = alldata["prob_data"]['all_constr_data']
+    counter = 0
     for constr_name, constr in ampl.get_constraints():
+        counter += 1
         if loud: log.joint(' - attempting to read: %s\n'%constr_name)
+        if loud: log.joint('   %s\n'%constr.expand())
         all_constr_data[constr_name] = parse_ampl_constraint(alldata, constr.expand(), constr_name)
+
+        if counter % 50 == 0:
+            print("Count: %d. Reading constraint: %s"%(counter, constr_name))
 
         constraints.append(constr_name)
         if all_constr_data[constr_name]['isfeature']:
@@ -355,10 +368,53 @@ def read_and_store(alldata):
 
     # Save and display constraints and features
     alldata['prob_data']['constraints'] = constraints
-    alldata['prob_data']['features'] = features
+    alldata['struct_data']['features'] = features
     log.joint("Num of constraints = " + str(len(constraints)) + "\n")
     log.joint("Num of features = " + str(len(features)) + "\n")
     log.joint("Retrieved problem data and structure\n")
+
+
+def drsk_read(alldata):
+    '''read problem into AMPL'''
+    log = alldata['log'] 
+    loud = alldata['loud']
+    ampl = alldata['algo_data']["ampl"]
+
+    # Read modfile with AMPL
+    ampl.read(alldata['MODFILE'])
+    log.joint(f"Read file {alldata['MODFILE']} with AMPL\n")
+
+    # Get list of all variables
+    variables = {}
+    for var_data in ampl.get_variables():
+        var_name = var_data[0]
+
+        # Retrieve variable index
+        match = re.search(r'\d+$', var_name)
+        var_idx = int(match.group())
+        variables[var_name] = var_idx
+
+    # Save and display variables
+    alldata['prob_data']['variables'] = variables
+    log.joint("Num of variables = " + str(len(variables)) + "\n")
+
+    # Retrieve constraints
+    constraints = [constr_name for constr_name, _ in ampl.get_constraints()]
+
+    # Save and display constraints and features
+    alldata['prob_data']['constraints'] = constraints
+    log.joint("Num of constraints = " + str(len(constraints)) + "\n")
+
+
+def drsk_init_cuts(alldata):
+    '''
+    Add cut parameters, sets, variables, constraints, and objective term to AMPL model,
+    and write resulting model to new file with '_cuts' appended to name.
+    '''
+    log = alldata['log'] 
+    loud = alldata['loud']
+    ampl = alldata['algo_data']["ampl"]
+    variables = alldata['prob_data']['variables']
 
     # Add parameters, sets, and variables for cuts
     cut_params_and_sets = '''\
@@ -373,7 +429,7 @@ def read_and_store(alldata):
         param phiQuadWeights {nonzero_phiQuadWeights};   # phi quadratic weight matrix for each cut and feature 
         set nonzero_phiLinWeights dimen 3;               # (cut num, feature name, var name)
         param phiLinWeights {nonzero_phiLinWeights};     # phi linear coefficients for each cut and feature
-        param phiConstWeights {nonzero_cutweights}; # Constant terms for each feature (cut independent)
+        param phiConstWeights {nonzero_cutweights};      # Constant terms for each feature (cut independent)
         param phiMinusToggle {nonzero_cutweights};       # Toggle for whether the minus constraint is needed in phi definition for this cut and feature
 
         # VARIABLES for exposure cuts and phi definitions
@@ -386,7 +442,7 @@ def read_and_store(alldata):
 
     # Initialize params and Sets
     ampl.get_set("var_inds").set_values(list(variables.values()))
-    ampl.get_set("features").set_values(alldata['prob_data']['features'])
+    ampl.get_set("features").set_values(alldata['struct_data']['features'])
     ampl.get_parameter("Theta").set(0.0)
     ampl.get_parameter("numcuts").set(0)
     ampl.get_set("nonzero_cutweights").set_values(alldata['cut_data']['nonzero_cutweights'])

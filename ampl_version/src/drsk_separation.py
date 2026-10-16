@@ -91,7 +91,7 @@ def addCut_greedy(alldata):
         # phi is plus operator so DO NOT need a minus constraint
         phiMinusToggle[(cutnum, argmax_feat)] = 0
         if verbose: log.joint("DEBUG: feature is inequality, no phi Minus constraint\n")
-        if sense == '>=':
+        if sense == '>=' or sense == '>':
             # Violations are reversed so swap sign
             phiConstWeights[(cutnum, argmax_feat)] *= -1
             for var in constraint_data['lin_terms']:
@@ -205,7 +205,7 @@ def addCut_quasiGreedy(alldata):
         else:  # feature is inequality
             # phi is plus operator so DO NOT need a minus constraint
             phiMinusToggle[(cutnum, feat_name)] = 0
-            if sense == '>=':
+            if sense == '>=' or sense == '>':
                 # Violations are reversed so swap sign
                 phiConstWeights[(cutnum, feat_name)] *= -1
                 for var in constraint_data['lin_terms']:

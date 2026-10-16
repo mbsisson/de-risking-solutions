@@ -95,14 +95,14 @@ def evalPhi_greedy(alldata, soln_vector_dict):
             sense = constr_dict['sense']
 
             # Determine max violation and corresponding zvar value (-1, 1, or 0 if no violation possible)
-            if sense == '>=':
+            if sense == '>=' or sense == '>':
                 potential_violations = {0:0.0,
                                         -1:rhs - (lhs - error_term),
                                         1:rhs - (lhs + error_term)}
                 zsign, violation = max(potential_violations.items(), key=lambda x: x[1])
                 if verbose: log.joint("DEBUG: Determine max violation of %s constraint\n"%sense)
                 if verbose: log.joint("DEBUG:  0, %g, or %g\n"%(potential_violations[-1], potential_violations[1]))
-            elif sense == '<=':
+            elif sense == '<=' or sense == '<':
                 potential_violations = {0:0.0,
                                         -1:lhs - error_term - rhs,
                                         1:lhs + error_term - rhs}

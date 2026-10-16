@@ -1,0 +1,37 @@
+Starting log: Thu Oct 15 19:38:41 2026.
+Running on: jasper.local.
+
+MODFILE ../data/mod/QPLIB_5543.mod
+LPFILE ../data/lp/QPLIB_5543.lp
+CUTFILE_in ../cutdata/zerocuts.dat
+CUTFILE_out ../cutdata/cutsrun.dat
+PARAMFILE drskparams.conf
+Reading parameter file drskparams.conf.
+solver gurobi
+theta 100.0
+budget 0.01
+phi_scale percent_violation
+alpha 1.0
+decimal_risk_thresh 3
+maxcuts 10
+tol 0.0001
+maxits 20
+PhiReduc 0.1
+loud 1
+verbose 0
+breakpoints 1
+Read file ../data/mod/QPLIB_5543.mod with AMPL
+Num of variables = 25700
+Num of constraints = 64096
+Now storing LP data.
+Reading LP into Gurobi ../data/lp/QPLIB_5543.lp.
+Done reading LP into Gurobi.
+Storing linear constraints; 64096 in total.
+Stored linear constraints with code 0.
+Storing quadratic constraints; 0 in total.
+Quad constraints read with code 0.
+Wrote new model to modfile: ../data/mod/QPLIB_5543_cuts.mod
+Added parameters, sets, variables, and constraints to model for cut compatibility
+
+Using solver: gurobi
+Solving model ...

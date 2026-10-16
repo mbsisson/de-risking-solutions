@@ -1,8 +1,235 @@
 import sys
-import pyqplib
-
 import numpy as np
 import pyqplib
+
+
+def extract_qplib_data(prob, zero_tol=0.0):
+    """
+    Extract objective and constraint data from a PyQPLIB Problem object.
+
+    Each constraint contains:
+        sense       : '=', '<=', '>=', or 'range'
+        rhs         : scalar RHS when representable by one bound;
+                      otherwise None
+        lb, ub      : original lower and upper bounds
+        linear      : {variable_name: coefficient}
+        quadratic   : {(variable_name_1, variable_name_2): coefficient}
+        degree      : 0, 1, or 2
+        constant    : constant term
+        inf_norm    : infinity norm of all nonconstant coefficients
+
+    Quadratic terms are stored as coefficients of monomials:
+        coefficient * x_i * x_j
+
+    Returns:
+        {
+            "name": ...,
+            "num_vars": ...,
+            "variables": ...,
+            "objective": ...,
+            "constraints": [...]
+        }
+
+    Notes:
+      - `zero_tol=0.0` preserves every coefficient except exact zeros.
+      - Quadratic coefficient convention is determined by the conversion
+        of PyQPLIB's stored lower-triangle Hessian matrices below.
+    """
+
+    n = int(prob.num_vars)
+    m = int(prob.num_cons)
+
+    variable_names = [f"x{i + 1}" for i in range(n)]
+
+    # --------------------------------------------------------
+    # Helper functions
+    # --------------------------------------------------------
+
+    # Convert an object exposing .row/.col/.data, a SciPy sparse matrix,
+    # or a dense array to a dense numeric matrix.
+    # def to_dense_matrix(M):
+    #     print("M", type(M))
+
+    #     if hasattr(M, "toarray"):
+    #         return np.asarray(M.toarray(), dtype=float)
+
+    #     if all(hasattr(M, attr) for attr in ("row", "col", "data", "shape")):
+    #         result = np.zeros(M.shape, dtype=float)
+    #         np.add.at(result, (M.row, M.col), M.data)
+    #         return result
+
+    #     return np.asarray(M, dtype=float)
+
+    def clean_number(value):
+        value = float(value)
+        return 0.0 if abs(value) <= zero_tol else value
+
+    def extract_linear(coefficients):
+        coefficients = np.asarray(coefficients, dtype=float).reshape(-1)
+        return {
+            variable_names[i]: clean_number(value)
+            for i, value in enumerate(coefficients)
+            if abs(value) > zero_tol
+        }
+
+    def extract_quadratic(H):
+        """
+        Interpret a stored lower-triangle Hessian H as the Hessian
+        of a quadratic function:
+            f(x) = constant + c^T x + 0.5*x^T H*x.
+
+        The monomial coefficients are:
+            diagonal:     0.5 * H[i,i]
+            off-diagonal: H[i,j], i != j
+
+        This convention must be checked against the installed PyQPLIB
+        implementation/version before relying on numerical coefficients.
+        """
+        quadratic = {}
+
+        # Diagonal entries: coefficient of x_i^2 is H[i,i] / 2
+        for i, value in zip(H.diag_rows, H.diag_vals):
+            coefficient = clean_number(0.5 * value)
+            if coefficient != 0.0:
+                quadratic[(variable_names[int(i)], variable_names[int(i)])] = coefficient
+
+        # Off-diagonal entries: coefficient of x_i*x_j is H[i,j]
+        for i, j, value in zip(
+            H.subdiag_rows, H.subdiag_cols, H.subdiag_vals
+        ):
+            coefficient = clean_number(value)
+            if coefficient != 0.0:
+                quadratic[(variable_names[int(j)], variable_names[int(i)])] = coefficient
+
+        return quadratic
+
+    def degree_of(linear, quadratic, constant):
+        if quadratic:
+            return 2
+        if linear:
+            return 1
+        return 0
+
+    def coefficient_inf_norm(linear, quadratic):
+        values = (
+            list(linear.values()) + list(quadratic.values())
+        )
+        return max((abs(v) for v in values), default=0.0)
+
+    def bound_sense(lb, ub):
+        lb_finite = np.isfinite(lb)
+        ub_finite = np.isfinite(ub)
+
+        if lb_finite and ub_finite and lb == ub:
+            return "=", float(lb)
+        if lb_finite and not ub_finite:
+            return ">=", float(lb)
+        if not lb_finite and ub_finite:
+            return "<=", float(ub)
+        if lb_finite and ub_finite:
+            return "range", None
+
+        return "free", None
+
+    # --------------------------------------------------------
+    # Objective
+    # --------------------------------------------------------
+
+    obj = prob.obj
+
+    objective_linear = extract_linear(obj.lin)
+    objective_quadratic = extract_quadratic(obj.hess(prob.x0))
+    objective_constant = float(obj.offset)
+
+    objective = {
+        "sense": str(obj.sense),
+        "linear": objective_linear,
+        "quadratic": objective_quadratic,
+        "degree": degree_of(
+            objective_linear, objective_quadratic, objective_constant
+        ),
+        "constant": objective_constant,
+        "inf_norm": coefficient_inf_norm(
+            objective_linear, objective_quadratic
+        ),
+    }
+
+    # --------------------------------------------------------
+    # Constraints
+    # --------------------------------------------------------
+
+    cons = prob.constraints
+
+    # Sparse matrix with shape (number of constraints, number of variables)
+    A = cons.mat.tocsr() if hasattr(cons.mat, "tocsr") else cons.mat
+
+    constraints = []
+
+    for k in range(m):
+        # Linear terms in constraint k
+        row = A.getrow(k) if hasattr(A, "getrow") else np.asarray(A)[k]
+        if hasattr(row, "indices") and hasattr(row, "data"):
+            linear = {
+                variable_names[int(i)]: clean_number(value)
+                for i, value in zip(row.indices, row.data)
+                if abs(value) > zero_tol
+            }
+        else:
+            linear = extract_linear(row)
+
+        # Quadratic terms
+        H = cons.hess_mats[k]
+        quadratic = extract_quadratic(H)
+
+        lb = float(prob.cons_lb[k])
+        ub = float(prob.cons_ub[k])
+        sense, rhs = bound_sense(lb, ub)
+
+        # PyQPLIB's constraints are represented by:
+        #     lb <= quadratic + linear + constant <= ub
+        #
+        # In this representation, the stored constraint constant is
+        # inferred from evaluation at zero, when supported by the API.
+        zero = np.zeros(n, dtype=float)
+        values_at_zero = np.asarray(prob.cons_val(zero), dtype=float)
+        constant = float(values_at_zero[k])
+
+        constraints.append({
+            "name": f"c{k + 1}",
+            "sense": sense,
+            "rhs": rhs,
+            "lb": lb,
+            "ub": ub,
+            "linear": linear,
+            "quadratic": quadratic,
+            "degree": degree_of(linear, quadratic, constant),
+            "constant": constant,
+            "inf_norm": coefficient_inf_norm(linear, quadratic),
+        })
+
+    # --------------------------------------------------------
+    # Variables and output
+    # --------------------------------------------------------
+
+    variables = {
+        variable_names[i]: {
+            "lb": float(prob.var_lb[i]),
+            "ub": float(prob.var_ub[i]),
+            "initial": float(prob.x0[i]),
+            "type": str(prob.var_types[i]),
+        }
+        for i in range(n)
+    }
+
+    return {
+        "name": prob.name,
+        "num_vars": n,
+        "num_cons": m,
+        "variables": variables,
+        "objective": objective,
+        "constraints": constraints,
+    }
+
 
 def hessian_inspection(prob):
     print("=" * 70)
@@ -459,11 +686,28 @@ def process(file_path):
     obj = problem.obj_val(x0)
     cons = problem.cons_val(x0)
 
+
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        sys.exit('usage: converter.py qplib_file_path')
-
+        sys.exit('usage: test_pyqplib.py qplib_file_path')
     qplib_file = sys.argv[1]
 
-    examine(qplib_file)
+    prob = pyqplib.read_problem(qplib_file)
+    data = extract_qplib_data(prob)
+
+    # examine(qplib_file)
     # process(qplib_file)
+
+    print("Problem:", data["name"])
+    print("Variables:", data["num_vars"])
+    print("Constraints:", data["num_cons"])
+
+    print("\nFirst constraint:")
+    print(data["constraints"][0])
+
+    print("\nFirst five constraints:")
+    for constraint in data["constraints"][:5]:
+        print(constraint)
+
+    print("\nObjective:")
+    print(data["objective"])
