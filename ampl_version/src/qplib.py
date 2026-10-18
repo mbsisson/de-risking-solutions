@@ -1,12 +1,9 @@
 import sys
-import re
-import time
-from pathlib import Path
 from datetime import datetime
-#from concurrent.futures import ThreadPoolExecutor, TimeoutError
-import pyqplib
 from log import danoLogger
-from drsk_main import read_config, drsk_initialize
+from drsk_main import read_config, drsk_initialize, drsk_start, parse_instance_file
+from drsk_ampl import drsk_read
+from drsk_lp import drsk_storelp
 
 
 if __name__ == "__main__":
@@ -19,59 +16,91 @@ if __name__ == "__main__":
     if len(sys.argv) == 2:
         configfile = sys.argv[1]
 
-    # Create logger
+    # Create loggers
     datetime_string = datetime.now().strftime("%Y-%m-%d-%H%M%S")
-    log_file = "drsk_" + datetime_string + ".log"
-    log = danoLogger(log_file)
+    log = danoLogger("drsk_" + datetime_string + ".log")
+    reslog = danoLogger("qplib_" + datetime_string + ".log")
 
     # Read config file
-    data = read_config(log, configfile)
+    data = read_config(reslog, configfile)
 
     # Get files from arguments
     param_file = data['PARAMFILE']
     cut_file_in = data['CUTFILE_in']
     cut_file_out = data['CUTFILE_out']
+    instance_file = data['INSTANCE_FILE']
+
+    # Get list of all files
+    instance_ids = parse_instance_file(reslog, instance_file)
 
     # Set the directory path
-    modfile_path = Path('../data')
+    modfile_dir = '../data/mod/'
+    lpfile_dir = '../data/lp/'
 
-    mod_file = "../data/mod/QPLIB_5543.mod"
-    qplib_file = "../data/qplib/QPLIB_5543.qplib"
+    for id in instance_ids:
+        reslog.joint("Running on instance %s...\n"%id)
+
+        mod_file = modfile_dir + 'QPLIB_' + id + '.mod'
+        lp_file = lpfile_dir + 'QPLIB_' + id + '.lp'
+
+        result_str = ''
+        try:
+            result_str = drsk_start(log, param_file, mod_file, lp_file, cut_file_in, cut_file_out)
+        except Exception as e:
+            result_str = f'An error occured: {e}'
+
+        reslog.joint(result_str)
+        reslog.joint("==========================================================================\n\n")
+
+    reslog.joint("ALL DONE\n")
+
     
-    problem = pyqplib.read_problem(qplib_file)
-    print(problem)
+
     
-    ################# Testing just one #########################
-    #drsk_initialize(log, param_file, mod_file, cut_file_in, cut_file_out)
 
 
 
-
-    ############### The loop over all qplib files #######################
-    # # Get list of all mod files
+    ############### For determining which instances are risky #######################
+    # # Get list of all files
     # modfiles = list(modfile_path.glob('QPLIB_*.mod'))
 
-    # # Set maximum wait time
-    # TIMEOUT_SECONDS = 10
+    # risky_instance_count = 0
+    # risky_instance_strlist = ""
+    # unrisky_instance_count = 0
+    # unrisky_instance_strlist = ""
     # for mod_file_path in modfiles:
     #     mod_file = str(mod_file_path)
-        
+
     #     # Get instance id
     #     match = re.search(r"QPLIB_\s*(\d+)", mod_file)
-    #     id = int(match.group(1))
-    #     print("Looking at instance:", id)
+    #     id = match.group(1)
 
-    #     with ThreadPoolExecutor(max_workers=1) as executor:
-    #         # Submit the function to the pool
-    #         future = executor.submit(drsk_initialize, log, param_file, mod_file, cut_file_in, cut_file_out)
-            
-    #         try:
-    #             # Wait for the result with a timeout
-    #             alldata = future.result(timeout=TIMEOUT_SECONDS)
-    #         except TimeoutError:
-    #             print(f"Reading instance {id} timed out after {TIMEOUT_SECONDS} seconds. Breaking away.")
-    #             continue
+    #     lp_file = "../data/lp/QPLIB_" + id + ".lp"
 
-    #     print(" > Instance %d has %d features"%(id, alldata['struct_data']["numfeats"]))
+    #     alldata = drsk_initialize(log, param_file, mod_file, lp_file, cut_file_in, cut_file_out)
+
+    #     # Read problem into AMPL
+    #     drsk_read(alldata)
+
+    #     # Store problem data and risk structure
+    #     drsk_storelp(alldata)
+
+    #     numfeats = alldata['struct_data']["numfeats"]
+    #     if numfeats == 0:
+    #         unrisky_instance_count += 1
+    #         unrisky_instance_strlist += "%s\n"%id
+    #     else:
+    #         risky_instance_count += 1
+    #         risky_instance_strlist += "%s %d\n"%(id, numfeats)
+
+    # # Write risky instances to file
+    # with open("risky_instances.txt", "w", encoding="utf-8") as file:
+    #     output = str(risky_instance_count) + "\n" + risky_instance_strlist + "END\n"
+    #     file.write(output)
+
+    # # Write unrisky instances to file
+    # with open("unrisky_instances.txt", "w", encoding="utf-8") as file:
+    #     output = str(unrisky_instance_count) + "\n" + unrisky_instance_strlist + "END\n"
+    #     file.write(output)
 
             

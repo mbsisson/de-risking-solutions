@@ -69,6 +69,8 @@ def logResults(alldata, iteration, elapsed_time, convergence_flag):
 
 
 def drsk_algoLoop(alldata):
+    retcode = 0
+
     log = alldata['log']
     relative_tol = alldata['algo_data']['tol']
     maxits = alldata['algo_data']['maxits']
@@ -84,7 +86,7 @@ def drsk_algoLoop(alldata):
         start_iter_time = time.time()
 
         # Solve the master problem for optimal (x, Phi_L)
-        solve(alldata)
+        solvecode =  solve(alldata)
         x = alldata['algo_data']['soln_vector_dict']
         Phi_L = alldata['algo_data']['Phi_L']
         cost = alldata['algo_data']['cost']
@@ -119,10 +121,18 @@ def drsk_algoLoop(alldata):
             converge_flag = 2
             break
 
+        if solvecode:
+            log.joint("STOP: solver taking too long\n")
+            retcode = 1
+            break
+
         # Add cut
         log.joint("Did NOT converge: add cut\n")
         addCut_greedy(alldata)
         if alldata['breakpoints']: breakexit('Computed cut. Run next iteration?')
+
+    if retcode:
+        return 'Solver takes too long\n'
 
     # Log results
     end_algo_time = time.time()

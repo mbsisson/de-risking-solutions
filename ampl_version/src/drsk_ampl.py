@@ -15,7 +15,13 @@ from decimal import Decimal
 from myutils import breakexit
 
 
+# Solver time limit
+SOLVE_TIME_LIMIT = 30
+
+
 def solve(alldata):
+    retcode = 0
+
     log = alldata['log']
     ampl = alldata['algo_data']['ampl']
     solver = alldata['algo_data']['solver']
@@ -34,13 +40,13 @@ def solve(alldata):
     ampl.get_parameter("phiLinWeights").set_values(alldata['cut_data']['phiLinWeights'])
     ampl.get_parameter("phiConstWeights").set_values(alldata['cut_data']['phiConstWeights'])
     ampl.get_parameter("phiMinusToggle").set_values(alldata['cut_data']['phiMinusToggle'])
-    
 
     # Set solver
     ampl.setOption('solver', solver)
-    file_command = "writeprob=model_" + str(alldata['algo_data']['iteration']) + ".lp"
-    ampl.set_option("gurobi_auxfiles", "rc")
-    ampl.set_option("gurobi_options", file_command)
+    file_command = 'writeprob=model_' + str(alldata['algo_data']['iteration']) + ".lp"
+    ampl.set_option('gurobi_auxfiles', "rc")
+    ampl.set_option('gurobi_options', file_command)
+    ampl.set_option('gurobi_options', 'timelimit=35')
     log.joint("Using solver: %s\n"%solver)
 
     # Solve                                                                                                                              
@@ -48,8 +54,13 @@ def solve(alldata):
     t0 = time.time()                                                                                                                     
     ampl.solve()                                                                                                                         
     t1 = time.time()
+    tdiff = t1 - t0
     log.joint("= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =\n")                                                    
-    log.joint("Solved with %s in %f seconds\n\n"%(solver, t1-t0))
+    log.joint("Solved with %s in %f seconds\n\n"%(solver, tdiff))
+
+    # Check if solver time limit reached
+    if tdiff > SOLVE_TIME_LIMIT:
+        retcode = 1
 
     # Store solution
     for name, objective in ampl.get_objectives():
@@ -84,6 +95,8 @@ def solve(alldata):
             log.joint(f"    Slack: {constraint.slack()}\n")
             log.joint(f"    Lower Bound: {constraint.lb()}, Upper Bound: {constraint.ub()}\n")
     log.joint(str(count) + " constraints violated\n\n")
+
+    return retcode
 
 
 def parse_ampl_constraint(alldata, expression, constr_name):

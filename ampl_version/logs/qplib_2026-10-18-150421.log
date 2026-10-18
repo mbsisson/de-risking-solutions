@@ -1,0 +1,49 @@
+Starting log: Sun Oct 18 15:04:21 2026.
+Running on: jasper.local.
+
+Running on instance 3683...
+Algorithm FINISHED after 1 iterations in 1.10623 seconds
+ *** Achieved relative tolerance ***
+ > Percent cost increase: -8.2997e-09
+ > Percent Phi_max decrease: 3.45474e-12
+Iter  Cost                Phi_L               Phi_max             time    
+--------------------------------------------------------------------------
+0     397992.295063629048 0.000000000000      0.035504453270      0.5871  
+1     397992.291760413325 0.035504453270      0.035504453270      0.5187  
+==========================================================================
+
+Running on instance 3697...
+Algorithm FINISHED after 1 iterations in 20.6902 seconds
+ *** Achieved relative tolerance ***
+ > Percent cost increase: -2.96351e-09
+ > Percent Phi_max decrease: 0
+Iter  Cost                Phi_L               Phi_max             time    
+--------------------------------------------------------------------------
+0     832795.585058654542 0.000000000000      0.029547633270      10.9587 
+1     832795.582590653561 0.029547633270      0.029547633270      9.7309  
+==========================================================================
+
+Running on instance 3318...
+Solver takes too long
+==========================================================================
+
+Running on instance 3734...
+Solver takes too long
+==========================================================================
+
+Running on instance 3708...
+Algorithm FINISHED after 1 iterations in 1.22348 seconds
+ *** Achieved relative tolerance ***
+ > Percent cost increase: -8.581e-06
+ > Percent Phi_max decrease: 0.0146581
+Iter  Cost                Phi_L               Phi_max             time    
+--------------------------------------------------------------------------
+0     -9411.998908219901  0.000000000000      0.110180376511      0.5813  
+1     -9411.918143864426  0.108565337230      0.108565337230      0.5994  
+==========================================================================
+
+Running on instance 2416...
+Solver takes too long
+==========================================================================
+
+Running on instance 4270...

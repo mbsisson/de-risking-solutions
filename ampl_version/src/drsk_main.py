@@ -5,6 +5,8 @@
 # 10/13/2026
 ###############################################################################
 import json
+from pathlib import Path
+import shutil
 from amplpy import AMPL
 from myutils import breakexit
 from cutfilereader import write_cutfile, read_cutfile
@@ -28,8 +30,9 @@ def read_config(log, filename):
     lpfile = 'NONE'
     cutfile_in = 'NONE'
     cutfile_out = 'NONE'
-    linenum = 0
+    instance_file = 'NONE'
 
+    linenum = 0
     while linenum < len(lines):
         thisline = lines[linenum].split()
         if len(thisline) > 0 and thisline[0][0] != '#':
@@ -47,6 +50,8 @@ def read_config(log, filename):
                     cutfile_in = thisline[2]
                 elif type == 'out':
                     cutfile_out = thisline[2]
+            elif word == 'INSTANCE_FILE':
+                instance_file = thisline[1]
             elif word == 'END':
                 break
             else:
@@ -58,10 +63,35 @@ def read_config(log, filename):
               ('MODFILE', modfile),
               ('LPFILE', lpfile),
               ('CUTFILE_in', cutfile_in),
-              ('CUTFILE_out', cutfile_out)]:
+              ('CUTFILE_out', cutfile_out),
+              ('INSTANCE_FILE', instance_file)]:
         config_data[x[0]] = x[1]
 
     return config_data
+
+
+def parse_instance_file(log, instance_file):
+    '''Read instances from file and return list of ids'''
+    try:
+        f = open(instance_file, "r")
+        lines = f.readlines()
+        f.close()
+    except:
+        log.stateandquit("cannot open file " + instance_file + "\n")
+
+    instance_ids = []
+
+    linenum = 0
+    while linenum < len(lines):
+        thisline = lines[linenum].split()
+        if len(thisline) > 0 and thisline[0][0] != '#':
+            word = thisline[0]
+            if word == 'END':
+                break
+            instance_ids.append(word)
+        linenum += 1
+
+    return instance_ids
 
 
 def drsk_readparameters(log, filename):
@@ -244,22 +274,22 @@ def drsk_start(logger, param_file, mod_file, lp_file, cut_file_in, cut_file_out)
     if alldata['breakpoints']: breakexit('Done adding cuts placeholders to model')
 
     # Writing alldata to file, for debugging
-    def is_serializable(value):
-        try:
-            json.dumps(value)
-            return True
-        except TypeError:
-            return False
-    clean_data = {k: v for k, v in alldata.items() if is_serializable(v)}
-    with open("alldata.json", "w", encoding="utf-8") as f:
-        json.dump(
-            clean_data, 
-            f, 
-            indent=4,          # Adds 4 spaces of indentation
-            sort_keys=True,     # Sorts the dictionary keys alphabetically
-            ensure_ascii=False  # Keeps non-English/Unicode text intact
-        )
-    if alldata['breakpoints']: breakexit('Saved all data to file')
+    # def is_serializable(value):
+    #     try:
+    #         json.dumps(value)
+    #         return True
+    #     except TypeError:
+    #         return False
+    # clean_data = {k: v for k, v in alldata.items() if is_serializable(v)}
+    # with open("alldata.json", "w", encoding="utf-8") as f:
+    #     json.dump(
+    #         clean_data, 
+    #         f, 
+    #         indent=4,          # Adds 4 spaces of indentation
+    #         sort_keys=True,     # Sorts the dictionary keys alphabetically
+    #         ensure_ascii=False  # Keeps non-English/Unicode text intact
+    #     )
+    # if alldata['breakpoints']: breakexit('Saved all data to file')
 
     # Run algorithm
     result_str = drsk_algoLoop(alldata)
