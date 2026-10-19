@@ -1,25 +1,24 @@
 ###############################################################################
 # Functions for interacting with AmplPy:
-#   1. parsing modfile and storing problem and structure data
-#   2. solving model with chosen solver
+#   - parsing modfile and storing problem and structure data
+#   - solving model with chosen solver
 #
 # Blake Sisson mbs2246@columbia.edu
 # 10/6/2026
 ###############################################################################
 import re
-import os
 import time
 import math
 import sympy as sp
 from decimal import Decimal
-from myutils import breakexit
+from drsk_filemanager import drsk_write_cutmodfile
 
 
 # Solver time limit
-SOLVE_TIME_LIMIT = 30
+SOLVE_TIME_LIMIT = 45
 
 
-def solve(alldata):
+def drsk_run_solver(alldata):
     retcode = 0
 
     log = alldata['log']
@@ -44,10 +43,14 @@ def solve(alldata):
     # Set solver
     ampl.setOption('solver', solver)
     file_command = 'writeprob=model_' + str(alldata['algo_data']['iteration']) + ".lp"
+    log.joint("Using solver: %s\n"%solver)
+
+    # Gurobi specific options
     ampl.set_option('gurobi_auxfiles', "rc")
     ampl.set_option('gurobi_options', file_command)
-    ampl.set_option('gurobi_options', 'timelimit=35')
-    log.joint("Using solver: %s\n"%solver)
+    ampl.set_option('gurobi_options', 'timelimit=45')
+    ampl.set_option('gurobi_options', 'solutionlimit=2')
+    ampl.set_option("gurobi_options", "outlev=1")
 
     # Solve                                                                                                                              
     log.joint("Solving model ...\n")                                                                                                    
@@ -333,7 +336,7 @@ def parse_ampl_constraint(alldata, expression, constr_name):
     }
 
 
-def drsk_read_and_store(alldata):
+def drsk_readandstore_model(alldata):
     '''read and store for modfile without cut modifications'''
     log = alldata['log'] 
     loud = alldata['loud']
@@ -387,10 +390,9 @@ def drsk_read_and_store(alldata):
     log.joint("Retrieved problem data and structure\n")
 
 
-def drsk_read(alldata):
+def drsk_read_model(alldata):
     '''read problem into AMPL'''
-    log = alldata['log'] 
-    loud = alldata['loud']
+    log = alldata['log']
     ampl = alldata['algo_data']["ampl"]
 
     # Read modfile with AMPL
@@ -505,11 +507,7 @@ def drsk_init_cuts(alldata):
     ampl.eval('objective weighted_obj;')
 
     # Write the cut compatible model to a new .mod file
-    file_path = alldata['MODFILE']
-    base_path, extension = os.path.splitext(file_path)
-    new_file_path = base_path + "_cuts" + extension
-    ampl.export_model(new_file_path)
+    drsk_write_cutmodfile(log, alldata['MODFILE'], ampl)
 
-    log.joint('Wrote new model to modfile: %s\n'%new_file_path)
     log.joint('Added parameters, sets, variables, and constraints to model for cut compatibility\n\n')
 

@@ -1,7 +1,8 @@
 import sys
 from datetime import datetime
 from log import danoLogger
-from drsk_main import drsk_start, read_config
+from drsk_filemanager import drsk_read_config
+from drsk_main import drsk_start
 
 
 if __name__ == "__main__":
@@ -20,7 +21,7 @@ if __name__ == "__main__":
     log = danoLogger(log_file)
 
     # Read config file
-    data = read_config(log, configfile)
+    data = drsk_read_config(log, configfile)
 
     # Get files from arguments
     param_file = data['PARAMFILE']

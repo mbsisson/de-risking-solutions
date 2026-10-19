@@ -14,7 +14,7 @@ from decimal import Decimal
 # STORE LP
 # =============================================================================
 
-def drsk_storelp(alldata):
+def drsk_store_model(alldata):
     '''Store all constraints data (both linear and quadratic) for LP'''
     retcode = 0
     log = alldata['log']    
@@ -229,7 +229,7 @@ if __name__ == "__main__":
     log = alldata['log'] = danoLogger('riskycoefficients.log')
     alldata['loud'] = True
 
-    drsk_storelp(alldata)
+    drsk_store_model(alldata)
 
     # log.joint("\nRisky coefficient statistics:\n")
     # log.joint(" num risky constraints = %d\n"%alldata['structure']['I'])

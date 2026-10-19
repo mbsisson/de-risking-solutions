@@ -1,0 +1,119 @@
+Starting log: Mon Oct 19 12:28:30 2026.
+Running on: jasper.local.
+
+MODFILE ../data/mod/QPLIB_3683.mod
+LPFILE ../data/lp/QPLIB_3683.lp
+CUTFILE_in ../cutdata/zerocuts.dat
+CUTFILE_out ../cutdata/cutsrun.dat
+PARAMFILE drskparams.conf
+Reading parameter file drskparams.conf.
+solver /Applications/knitro-16.0.0-ARM-MacOS/bin/knitroampl
+theta 100.0
+budget 0.01
+phi_scale percent_violation
+alpha 1.0
+decimal_risk_thresh 3
+maxcuts 10
+tol 0.0001
+maxits 10
+PhiReduc 0.1
+loud 0
+verbose 0
+breakpoints 0
+Read file ../data/mod/QPLIB_3683.mod with AMPL
+Num of variables = 150
+Num of constraints = 66
+Now storing LP data.
+Reading LP into Gurobi ../data/lp/QPLIB_3683.lp.
+Done reading LP into Gurobi.
+Storing linear constraints; 48 in total.
+Stored linear constraints with code 0.
+Storing quadratic constraints; 18 in total.
+Quad constraints read with code 0.
+Wrote new model to modfile: ../data/mod/QPLIB_3683_cuts.mod
+Added parameters, sets, variables, and constraints to model for cut compatibility
+
+Using solver: /Applications/knitro-16.0.0-ARM-MacOS/bin/knitroampl
+Solving model ...
+= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+Solved with /Applications/knitro-16.0.0-ARM-MacOS/bin/knitroampl in 0.011637 seconds
+
+Optimal objective: obj = 0
+Optimal objective: weighted_obj = 0
+Optimal variable values:
+0 nonzero variables in solution
+
+Checking for violations...
+  Violation in weighted_obj:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in weighted_obj:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in weighted_obj:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in weighted_obj:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in weighted_obj:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in weighted_obj:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in weighted_obj:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in weighted_obj:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in weighted_obj:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in weighted_obj:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in weighted_obj:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in weighted_obj:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in weighted_obj:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in weighted_obj:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in weighted_obj:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in weighted_obj:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in weighted_obj:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in weighted_obj:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+18 constraints violated
+
+Computing Phi using greedy method...
+Greedy Phi = 0
+  coeff: 0
+   = 0
+  max feature: 
+Greedy max sum phis = 0
+  coeff: 0
+  INVALID: zvar changed sign across constraints!
+Computed Phi using Greedy
+
+Completed iteration 0
+  > Cost:    0
+  > Phi_L:   0
+  > Phi_max: 0
+  Solution:
+===============================================================
+

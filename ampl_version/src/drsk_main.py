@@ -4,181 +4,12 @@
 # Blake Sisson mbs2246@columbia.edu
 # 10/13/2026
 ###############################################################################
-import json
-from pathlib import Path
-import shutil
 from amplpy import AMPL
 from myutils import breakexit
-from cutfilereader import write_cutfile, read_cutfile
-from drsk_ampl import drsk_read, drsk_read_and_store, drsk_init_cuts
-from drsk_lp import drsk_storelp
+from drsk_filemanager import drsk_read_paramfile, drsk_write_cutfile, drsk_read_cutfile, drsk_write_alldata
+from drsk_ampl import drsk_read_model, drsk_readandstore_model, drsk_init_cuts
+from drsk_gurobi import drsk_store_model
 from drsk_algo import drsk_algoLoop
-
-
-def read_config(log, filename):
-    '''Read settings from configuration file'''
-    try:
-        f = open(filename, "r")
-        lines = f.readlines()
-        f.close()
-    except:
-        log.stateandquit("cannot open file " + filename + "\n")
-
-    config_data = {}
-    paramfile = 'NONE'
-    modfile = 'NONE'
-    lpfile = 'NONE'
-    cutfile_in = 'NONE'
-    cutfile_out = 'NONE'
-    instance_file = 'NONE'
-
-    linenum = 0
-    while linenum < len(lines):
-        thisline = lines[linenum].split()
-        if len(thisline) > 0 and thisline[0][0] != '#':
-            word = thisline[0]
-
-            if word == 'PARAMFILE':
-                paramfile = thisline[1]
-            elif word == 'MODFILE':
-                modfile = thisline[1]
-            elif word == 'LPFILE':
-                lpfile = thisline[1]
-            elif word == 'CUTFILE':
-                type = thisline[1]
-                if type == 'in':
-                    cutfile_in = thisline[2]
-                elif type == 'out':
-                    cutfile_out = thisline[2]
-            elif word == 'INSTANCE_FILE':
-                instance_file = thisline[1]
-            elif word == 'END':
-                break
-            else:
-                log.stateandquit("illegal input " + word + "\n")
-
-        linenum += 1
-
-    for x in [('PARAMFILE', paramfile),
-              ('MODFILE', modfile),
-              ('LPFILE', lpfile),
-              ('CUTFILE_in', cutfile_in),
-              ('CUTFILE_out', cutfile_out),
-              ('INSTANCE_FILE', instance_file)]:
-        config_data[x[0]] = x[1]
-
-    return config_data
-
-
-def parse_instance_file(log, instance_file):
-    '''Read instances from file and return list of ids'''
-    try:
-        f = open(instance_file, "r")
-        lines = f.readlines()
-        f.close()
-    except:
-        log.stateandquit("cannot open file " + instance_file + "\n")
-
-    instance_ids = []
-
-    linenum = 0
-    while linenum < len(lines):
-        thisline = lines[linenum].split()
-        if len(thisline) > 0 and thisline[0][0] != '#':
-            word = thisline[0]
-            if word == 'END':
-                break
-            instance_ids.append(word)
-        linenum += 1
-
-    return instance_ids
-
-
-def drsk_readparameters(log, filename):
-    '''Read parameters from file into local dictionary and return it'''
-    log.joint("Reading parameter file " + filename + ".\n")
-    params = {}
-
-    try:
-        f = open(filename, "r")
-        lines = f.readlines()
-        f.close()
-    except:
-        log.stateandquit("cannot open file " + filename + "\n")
-
-    solver = 'None'
-    theta = 'None'
-    budget = 'None'
-    phi_scale = 'None'
-    alpha = 'None'
-    decimal_risk_thresh = 'None'
-    maxcuts = 10
-    tol = 'None'
-    maxits = 'None'
-    PhiReduc = 'None'
-    loud = 0
-    verbose = 0
-    breakpoints = 0
-
-    linenum = 0
-    while linenum < len(lines):
-        thisline = lines[linenum].split()
-        if len(thisline) > 0 and thisline[0][0] != '#':
-            word = thisline[0]
-
-            if word == 'solver':
-                solver = thisline[1]
-            elif word == 'theta':
-                theta = float(thisline[1])
-            elif word == 'budget':
-                budget = float(thisline[1])
-            elif word == 'phi_scale':
-                phi_scale = thisline[1]
-            elif word == 'alpha':
-                alpha = float(thisline[1])
-            elif word == 'decimal_risk_thresh':
-                decimal_risk_thresh = int(thisline[1])
-            elif word == 'maxcuts':
-                maxcuts = float(thisline[1])
-            elif word == 'tol':
-                tol = float(thisline[1])
-            elif word == 'maxits':
-                maxits = int(thisline[1])
-            elif word == 'PhiReduc':
-                PhiReduc = float(thisline[1])
-            elif word == 'loud':
-                loud = int(thisline[1])
-            elif word == 'verbose':
-                verbose = int(thisline[1])
-            elif word == 'breakpoints':
-                breakpoints = int(thisline[1])
-            elif word == 'END':
-                break
-            else:
-                log.stateandquit("illegal input " + word + "\n")
-                continue
-
-        linenum += 1
-
-    for x in [('solver', solver),
-              ('theta', theta),
-              ('budget', budget),
-              ('phi_scale', phi_scale),
-              ('alpha', alpha),
-              ('decimal_risk_thresh', decimal_risk_thresh),
-              ('maxcuts', maxcuts),
-              ('tol', tol),
-              ('maxits', maxits),
-              ('PhiReduc', PhiReduc),
-              ('loud', loud),
-              ('verbose', verbose),
-              ('breakpoints', breakpoints)]:
-        if x[1] == 'NONE':
-            log.stateandquit(' no ' + x[0] + ' input'+'\n')
-        params[x[0]] = x[1]
-        log.joint(x[0] + ' ' + str(x[1])+ '\n')
-
-    return params
 
 
 def drsk_initialize(logger, param_file, mod_file, lp_file, cut_file_in, cut_file_out):
@@ -197,7 +28,7 @@ def drsk_initialize(logger, param_file, mod_file, lp_file, cut_file_in, cut_file
     log.joint("PARAMFILE %s\n"%alldata['PARAMFILE'])
 
     # Read parameters
-    params = drsk_readparameters(log, alldata['PARAMFILE'])
+    params = drsk_read_paramfile(log, alldata['PARAMFILE'])
 
     # Set log output levels
     alldata['loud'] = params['loud']
@@ -258,15 +89,15 @@ def drsk_start(logger, param_file, mod_file, lp_file, cut_file_in, cut_file_out)
 
     if lp_file == 'NONE':  # If no lp file, use AMPL to parse
         # Read problem into AMPL and store problem data and risk structure
-        drsk_read_and_store(alldata)
+        drsk_readandstore_model(alldata)
 
     else:  # If lp file provided, use Gurobi to parse
         # Read problem into AMPL
-        drsk_read(alldata)
+        drsk_read_model(alldata)
         if alldata['breakpoints']: breakexit('Done reading problem')
 
         # Store problem data and risk structure
-        drsk_storelp(alldata)
+        drsk_store_model(alldata)
         if alldata['breakpoints']: breakexit('Done parsing problem')
 
     # Add cut placeholders to AMPL model
@@ -274,28 +105,13 @@ def drsk_start(logger, param_file, mod_file, lp_file, cut_file_in, cut_file_out)
     if alldata['breakpoints']: breakexit('Done adding cuts placeholders to model')
 
     # Writing alldata to file, for debugging
-    # def is_serializable(value):
-    #     try:
-    #         json.dumps(value)
-    #         return True
-    #     except TypeError:
-    #         return False
-    # clean_data = {k: v for k, v in alldata.items() if is_serializable(v)}
-    # with open("alldata.json", "w", encoding="utf-8") as f:
-    #     json.dump(
-    #         clean_data, 
-    #         f, 
-    #         indent=4,          # Adds 4 spaces of indentation
-    #         sort_keys=True,     # Sorts the dictionary keys alphabetically
-    #         ensure_ascii=False  # Keeps non-English/Unicode text intact
-    #     )
-    # if alldata['breakpoints']: breakexit('Saved all data to file')
+    drsk_write_alldata(alldata, "alldata.json")
 
     # Run algorithm
     result_str = drsk_algoLoop(alldata)
 
     # Write cut file
-    write_cutfile(alldata, cut_file_out)
+    drsk_write_cutfile(alldata, cut_file_out)
 
     # Result result string
     return result_str

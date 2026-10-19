@@ -6,7 +6,7 @@
 # 10/7/2026
 ###############################################################################
 
-def evalPhi_greedy(alldata, soln_vector_dict):
+def drsk_evalPhi_greedy(alldata, soln_vector_dict):
     log = alldata['log']
     loud = alldata['loud']
     verbose = alldata['verbose']
@@ -28,7 +28,7 @@ def evalPhi_greedy(alldata, soln_vector_dict):
 
     # Also record running max sum phi(x)'s with corresponding: z sign, z varible, and coefficient
     maxsumphi = 0.0
-    argmaxsum_zsign_list = 0
+    argmaxsum_zsign_list = []
     argmaxsum_zvar = ''
     argmaxsum_coeff = 0
 

@@ -1,14 +1,226 @@
 ###############################################################################
-# Functions for reading cut files and writing cut data to file
+# Functions for handling file reading and writing:
+#   - reading configuration file
+#   - reading parameter file
+#   - reading instance file
+#   - reading cut file
+#   - writing cut file
 #
 # Blake Sisson mbs2246@columbia.edu
-# 10/7/2026
+# 10/19/2026
 ###############################################################################
 import sys
+import json
+from pathlib import Path
 from myutils import breakexit
 
 
-def read_cutfile(alldata, filename):
+def drsk_read_config(log, filename):
+    '''Read settings from configuration file'''
+    try:
+        f = open(filename, "r")
+        lines = f.readlines()
+        f.close()
+    except:
+        log.stateandquit("cannot open file " + filename + "\n")
+
+    config_data = {}
+    paramfile = 'NONE'
+    modfile = 'NONE'
+    lpfile = 'NONE'
+    cutfile_in = 'NONE'
+    cutfile_out = 'NONE'
+    instance_file = 'NONE'
+
+    linenum = 0
+    while linenum < len(lines):
+        thisline = lines[linenum].split()
+        if len(thisline) > 0 and thisline[0][0] != '#':
+            word = thisline[0]
+
+            if word == 'PARAMFILE':
+                paramfile = thisline[1]
+            elif word == 'MODFILE':
+                modfile = thisline[1]
+            elif word == 'LPFILE':
+                lpfile = thisline[1]
+            elif word == 'CUTFILE':
+                type = thisline[1]
+                if type == 'in':
+                    cutfile_in = thisline[2]
+                elif type == 'out':
+                    cutfile_out = thisline[2]
+            elif word == 'INSTANCE_FILE':
+                instance_file = thisline[1]
+            elif word == 'END':
+                break
+            else:
+                log.stateandquit("illegal input " + word + " in config file " + filename + "\n")
+
+        linenum += 1
+
+    for x in [('PARAMFILE', paramfile),
+              ('MODFILE', modfile),
+              ('LPFILE', lpfile),
+              ('CUTFILE_in', cutfile_in),
+              ('CUTFILE_out', cutfile_out),
+              ('INSTANCE_FILE', instance_file)]:
+        config_data[x[0]] = x[1]
+
+    return config_data
+
+
+def drsk_read_paramfile(log, filename):
+    '''Read parameters from file into local dictionary and return it'''
+    log.joint("Reading parameter file " + filename + ".\n")
+    params = {}
+
+    try:
+        f = open(filename, "r")
+        lines = f.readlines()
+        f.close()
+    except:
+        log.stateandquit("cannot open file " + filename + "\n")
+
+    solver = 'None'
+    theta = 'None'
+    budget = 'None'
+    phi_scale = 'None'
+    alpha = 'None'
+    decimal_risk_thresh = 'None'
+    maxcuts = 10
+    tol = 'None'
+    maxits = 'None'
+    PhiReduc = 'None'
+    loud = 0
+    verbose = 0
+    breakpoints = 0
+
+    linenum = 0
+    while linenum < len(lines):
+        thisline = lines[linenum].split()
+        if len(thisline) > 0 and thisline[0][0] != '#':
+            word = thisline[0]
+
+            if word == 'solver':
+                solver = thisline[1]
+            elif word == 'theta':
+                theta = float(thisline[1])
+            elif word == 'budget':
+                budget = float(thisline[1])
+            elif word == 'phi_scale':
+                phi_scale = thisline[1]
+            elif word == 'alpha':
+                alpha = float(thisline[1])
+            elif word == 'decimal_risk_thresh':
+                decimal_risk_thresh = int(thisline[1])
+            elif word == 'maxcuts':
+                maxcuts = float(thisline[1])
+            elif word == 'tol':
+                tol = float(thisline[1])
+            elif word == 'maxits':
+                maxits = int(thisline[1])
+            elif word == 'PhiReduc':
+                PhiReduc = float(thisline[1])
+            elif word == 'loud':
+                loud = int(thisline[1])
+            elif word == 'verbose':
+                verbose = int(thisline[1])
+            elif word == 'breakpoints':
+                breakpoints = int(thisline[1])
+            elif word == 'END':
+                break
+            else:
+                log.stateandquit("illegal input: " + word + " in parameter file" + filename + "\n")
+                continue
+
+        linenum += 1
+
+    for x in [('solver', solver),
+              ('theta', theta),
+              ('budget', budget),
+              ('phi_scale', phi_scale),
+              ('alpha', alpha),
+              ('decimal_risk_thresh', decimal_risk_thresh),
+              ('maxcuts', maxcuts),
+              ('tol', tol),
+              ('maxits', maxits),
+              ('PhiReduc', PhiReduc),
+              ('loud', loud),
+              ('verbose', verbose),
+              ('breakpoints', breakpoints)]:
+        if x[1] == 'NONE':
+            log.stateandquit(' no ' + x[0] + ' input'+'\n')
+        params[x[0]] = x[1]
+        log.joint(x[0] + ' ' + str(x[1])+ '\n')
+
+    return params
+
+
+def drsk_read_instancefile(log, instance_file):
+    '''Read instances from file and return list of ids'''
+    try:
+        f = open(instance_file, "r")
+        lines = f.readlines()
+        f.close()
+    except:
+        log.stateandquit("cannot open file " + instance_file + "\n")
+
+    instance_ids = []
+
+    linenum = 0
+    thisline = lines[linenum].split()
+    name = thisline[1]
+    linenum += 1
+
+    while linenum < len(lines):
+        thisline = lines[linenum].split()
+        if len(thisline) > 0 and thisline[0][0] != '#':
+            word = thisline[0]
+            if word == 'END':
+                break
+            instance_ids.append(word)
+        linenum += 1
+
+    return name, instance_ids
+
+
+def drsk_write_alldata(alldata, filename):
+    '''Writing alldata to given file'''
+    def is_serializable(value):
+        try:
+            json.dumps(value)
+            return True
+        except TypeError:
+            return False
+    clean_data = {k: v for k, v in alldata.items() if is_serializable(v)}
+    with open(filename, "w", encoding="utf-8") as f:
+        json.dump(
+            clean_data, 
+            f, 
+            indent=4,          # Adds 4 spaces of indentation
+            sort_keys=True,     # Sorts the dictionary keys alphabetically
+            ensure_ascii=False  # Keeps non-English/Unicode text intact
+        )
+    if alldata['breakpoints']: breakexit('Saved all data to file')
+
+
+def drsk_write_cutmodfile(log, org_modfile, ampl):
+    # Get path of new file
+    directory_path = Path(org_modfile).parent
+    base_name = Path(org_modfile).name
+    new_path = str(directory_path) + "/cuts/cuts_" + str(base_name)
+
+    # Ensure cuts directory exists
+    Path(new_path).parent.mkdir(parents=True, exist_ok=True)
+
+    # Write ampl model to file
+    ampl.export_model(new_path)
+
+    log.joint('Wrote new model to modfile: %s\n'%new_path)
+
+
+def drsk_read_cutfile(alldata, filename):
     log = alldata['log']
     log.joint("Reading cut file: " + filename + "\n")
 
@@ -111,7 +323,7 @@ def read_cutfile(alldata, filename):
         linenum += 1 #empty row
 
 
-def write_cutfile(alldata, filename):
+def drsk_write_cutfile(alldata, filename):
     log = alldata['log']
     log.joint("Writing cut file: " + filename + "\n")
 

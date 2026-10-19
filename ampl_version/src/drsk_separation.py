@@ -7,7 +7,8 @@
 ###############################################################################
 import math
 
-def addCut_greedy(alldata):
+
+def drsk_addCut_greedy(alldata):
     log = alldata['log']
     loud = alldata['loud']
     verbose = alldata['verbose']
@@ -123,7 +124,7 @@ def addCut_greedy(alldata):
     log.joint("Added cut using Greedy\n")
 
 
-def addCut_quasiGreedy(alldata):
+def drsk_addCut_quasiGreedy(alldata):
     log = alldata['log']
     loud = alldata['loud']
     all_constr_data = alldata['prob_data']['all_constr_data']

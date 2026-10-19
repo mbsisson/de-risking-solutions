@@ -7,10 +7,12 @@
 import math
 import time
 from myutils import breakexit
-from drsk_ampl import solve
-from drsk_boosting import evalPhi_greedy
-from drsk_separation import addCut_greedy, addCut_quasiGreedy
+from drsk_ampl import drsk_run_solver
+from drsk_boosting import drsk_evalPhi_greedy
+from drsk_separation import drsk_addCut_greedy, drsk_addCut_quasiGreedy
 
+
+SMALL = 1e-8  #TODO parameter
 
 def logIteration(log, x, cost, Phi_L, Phi_max):
     log.joint("  > Cost:    %g\n"%cost)
@@ -86,14 +88,14 @@ def drsk_algoLoop(alldata):
         start_iter_time = time.time()
 
         # Solve the master problem for optimal (x, Phi_L)
-        solvecode =  solve(alldata)
+        solvecode =  drsk_run_solver(alldata)
         x = alldata['algo_data']['soln_vector_dict']
         Phi_L = alldata['algo_data']['Phi_L']
         cost = alldata['algo_data']['cost']
         if alldata['breakpoints']: breakexit('Solved master problem')
 
         # Boosting step: Evaluate Phi(x*) and get z
-        Phi_max = evalPhi_greedy(alldata, alldata['algo_data']["soln_vector_dict"])
+        Phi_max = drsk_evalPhi_greedy(alldata, alldata['algo_data']["soln_vector_dict"])
         if alldata['breakpoints']: breakexit('Completed boosting step: evaluated Phi and stored z')
 
         # Store iteration
@@ -108,7 +110,7 @@ def drsk_algoLoop(alldata):
         logIteration(log, x, cost, Phi_L, Phi_max)
 
         # Convergence check
-        if (Phi_max - Phi_L) / Phi_max <= relative_tol:
+        if Phi_max <= SMALL or (Phi_max - Phi_L) / Phi_max <= relative_tol:
             log.joint("CONVERGED: achieved relative tolerance\n")
             logIteration(log, x, cost, Phi_L, Phi_max)
             converge_flag = 1
@@ -128,7 +130,7 @@ def drsk_algoLoop(alldata):
 
         # Add cut
         log.joint("Did NOT converge: add cut\n")
-        addCut_greedy(alldata)
+        drsk_addCut_greedy(alldata)
         if alldata['breakpoints']: breakexit('Computed cut. Run next iteration?')
 
     if retcode:

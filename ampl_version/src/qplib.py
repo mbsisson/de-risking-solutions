@@ -1,9 +1,8 @@
 import sys
 from datetime import datetime
 from log import danoLogger
-from drsk_main import read_config, drsk_initialize, drsk_start, parse_instance_file
-from drsk_ampl import drsk_read
-from drsk_lp import drsk_storelp
+from drsk_filemanager import drsk_read_config, drsk_read_instancefile
+from drsk_main import drsk_start
 
 
 if __name__ == "__main__":
@@ -22,7 +21,7 @@ if __name__ == "__main__":
     reslog = danoLogger("qplib_" + datetime_string + ".log")
 
     # Read config file
-    data = read_config(reslog, configfile)
+    data = drsk_read_config(reslog, configfile)
 
     # Get files from arguments
     param_file = data['PARAMFILE']
@@ -31,7 +30,7 @@ if __name__ == "__main__":
     instance_file = data['INSTANCE_FILE']
 
     # Get list of all files
-    instance_ids = parse_instance_file(reslog, instance_file)
+    name, instance_ids = drsk_read_instancefile(reslog, instance_file)
 
     # Set the directory path
     modfile_dir = '../data/mod/'
@@ -40,14 +39,14 @@ if __name__ == "__main__":
     for id in instance_ids:
         reslog.joint("Running on instance %s...\n"%id)
 
-        mod_file = modfile_dir + 'QPLIB_' + id + '.mod'
-        lp_file = lpfile_dir + 'QPLIB_' + id + '.lp'
+        mod_file = modfile_dir + name + '_' + id + '.mod'
+        lp_file = lpfile_dir + name + '_' + id + '.lp'
 
         result_str = ''
         try:
             result_str = drsk_start(log, param_file, mod_file, lp_file, cut_file_in, cut_file_out)
         except Exception as e:
-            result_str = f'An error occured: {e}'
+            result_str = f"An error occured: {e}\n"
 
         reslog.joint(result_str)
         reslog.joint("==========================================================================\n\n")
