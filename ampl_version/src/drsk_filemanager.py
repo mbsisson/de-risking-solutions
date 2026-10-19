@@ -84,14 +84,18 @@ def drsk_read_paramfile(log, filename):
 
     solver = 'None'
     theta = 'None'
+    lam_hi = 'None'
+    lam_lo = 'None'
+    xi = 'None'
     budget = 'None'
     phi_scale = 'None'
     alpha = 'None'
     decimal_risk_thresh = 'None'
-    maxcuts = 10
+    maxcuts = 'None'
     tol = 'None'
     maxits = 'None'
     PhiReduc = 'None'
+    zerothresh = 'None'
     loud = 0
     verbose = 0
     breakpoints = 0
@@ -105,7 +109,13 @@ def drsk_read_paramfile(log, filename):
             if word == 'solver':
                 solver = thisline[1]
             elif word == 'theta':
-                theta = float(thisline[1])
+                theta = thisline[1]
+            elif word == 'lam_hi':
+                lam_hi = float(thisline[1])
+            elif word == 'lam_lo':
+                lam_lo = float(thisline[1])
+            elif word == 'xi':
+                xi = float(thisline[1])
             elif word == 'budget':
                 budget = float(thisline[1])
             elif word == 'phi_scale':
@@ -122,6 +132,8 @@ def drsk_read_paramfile(log, filename):
                 maxits = int(thisline[1])
             elif word == 'PhiReduc':
                 PhiReduc = float(thisline[1])
+            elif word == 'zerothresh':
+                zerothresh = float(thisline[1])
             elif word == 'loud':
                 loud = int(thisline[1])
             elif word == 'verbose':
@@ -138,6 +150,9 @@ def drsk_read_paramfile(log, filename):
 
     for x in [('solver', solver),
               ('theta', theta),
+              ('lam_hi', lam_hi),
+              ('lam_lo', lam_lo),
+              ('xi', xi),
               ('budget', budget),
               ('phi_scale', phi_scale),
               ('alpha', alpha),
@@ -146,6 +161,7 @@ def drsk_read_paramfile(log, filename):
               ('tol', tol),
               ('maxits', maxits),
               ('PhiReduc', PhiReduc),
+              ('zerothresh', zerothresh),
               ('loud', loud),
               ('verbose', verbose),
               ('breakpoints', breakpoints)]:

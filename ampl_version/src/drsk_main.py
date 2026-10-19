@@ -36,12 +36,20 @@ def drsk_initialize(logger, param_file, mod_file, lp_file, cut_file_in, cut_file
     alldata['breakpoints'] = params['breakpoints']
 
     # Initialize prob data
-    alldata['prob_data'] = {}                        # All problem related data stored here
-    alldata['prob_data']['Theta'] = params['theta']  # Theta value for weighted objective parameter
-    alldata['prob_data']['constraints'] = []         # List of all constraints
-    alldata['prob_data']['variables'] = {}           # Dictionary: variable name --> variable index (exluding artifical and dummy
-    alldata['prob_data']['all_constr_data'] = {}     # Dictionary: constraint name --> constraint data
-    alldata['prob_data']['gurobimodel'] = None
+    alldata['prob_data'] = {}                          # All problem related data stored here
+    alldata['prob_data']['lam_hi'] = params['lam_hi']  # Lambda hi parameter for choosing Theta automatically
+    alldata['prob_data']['lam_lo'] = params['lam_lo']  # Lambda hi parameter for choosing Theta automatically
+    alldata['prob_data']['xi'] = params['xi']          # Xi parameter for choosing Theta automatically
+    alldata['prob_data']['constraints'] = []           # List of all constraints
+    alldata['prob_data']['variables'] = {}             # Dictionary: variable name --> variable index (exluding artifical and dummy
+    alldata['prob_data']['all_constr_data'] = {}       # Dictionary: constraint name --> constraint data
+    alldata['prob_data']['gurobimodel'] = None         # Gurobi object
+    if params['theta'] == 'auto':                      # Theta is to be set automatically
+        alldata['prob_data']['autoTheta'] = 1          
+        alldata['prob_data']['Theta'] = 0.0
+    else:                                              # Theta is to set to value provided
+        alldata['prob_data']['autoTheta'] = 0
+        alldata['prob_data']['Theta'] = float(params['theta'])
 
     # Initialize coefficient risk structure
     alldata['struct_data'] = {}                                                     # All risky coefficient structure data stored here
@@ -66,18 +74,19 @@ def drsk_initialize(logger, param_file, mod_file, lp_file, cut_file_in, cut_file
     alldata['cut_data']['phiMinusToggle'] = {}              # Toggle for whether the minus constraint is needed in phi definition for this cut and feature. Dict: (cut number, feat name, var) --> 0/1
 
     # Initialize algorithm data (Note: extra greedy specific algo data defined in greedy Phi method)
-    alldata['algo_data'] = {}                               # All algorithm related data stored here
-    alldata['algo_data']['ampl'] = AMPL()                   # AMPL object  
-    alldata['algo_data']['alpha'] = params['alpha']         # alpha value (for softmax)
-    alldata['algo_data']['phi_scale'] = params['phi_scale'] # phi scale value, for scaling phi
-    alldata['algo_data']['solver'] = params['solver']       # Solver to use
-    alldata['algo_data']['soln_vector_dict'] = {}           # Solution dctionary: variable name --> value
-    alldata['algo_data']['Phi_L'] = 0.0                     # Phi_L variable value
-    alldata['algo_data']['cost'] = 0.0                      # Cost value in objective
-    alldata['algo_data']['iteration'] = 0                   # Iteration number
-    alldata['algo_data']['tol'] = params['tol']             # Relative convergence tolerance
-    alldata['algo_data']['maxits'] = params['maxits']       # Maximum number of iterations
-    alldata['algo_data']['PhiReduc'] = params['PhiReduc']   # Percent Phi reduction for early convergence
+    alldata['algo_data'] = {}                                 # All algorithm related data stored here
+    alldata['algo_data']['ampl'] = AMPL()                     # AMPL object  
+    alldata['algo_data']['alpha'] = params['alpha']           # alpha value (for softmax)
+    alldata['algo_data']['phi_scale'] = params['phi_scale']   # phi scale value, for scaling phi
+    alldata['algo_data']['solver'] = params['solver']         # Solver to use
+    alldata['algo_data']['soln_vector_dict'] = {}             # Solution dctionary: variable name --> value
+    alldata['algo_data']['Phi_L'] = 0.0                       # Phi_L variable value
+    alldata['algo_data']['cost'] = 0.0                        # Cost value in objective
+    alldata['algo_data']['iteration'] = 0                     # Iteration number
+    alldata['algo_data']['tol'] = params['tol']               # Relative convergence tolerance
+    alldata['algo_data']['maxits'] = params['maxits']         # Maximum number of iterations
+    alldata['algo_data']['PhiReduc'] = params['PhiReduc']     # Percent Phi reduction for early convergence
+    alldata['algo_data']['zerothresh'] = params['zerothresh'] # Tolerance for float to be considered zero
 
     return alldata
 

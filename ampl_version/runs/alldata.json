@@ -5,7 +5,7 @@
     "MODFILE": "../data/mod/QPLIB_2894.mod",
     "PARAMFILE": "drskparams.conf",
     "breakpoints": 0,
-    "loud": 0,
+    "loud": 1,
     "struct_data": {
         "budget": 0.01,
         "decimal_risk_thresh": 3,
@@ -25688,5 +25688,5 @@
             }
         }
     },
-    "verbose": 0
+    "verbose": 1
 }

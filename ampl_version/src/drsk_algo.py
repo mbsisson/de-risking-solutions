@@ -12,8 +12,6 @@ from drsk_boosting import drsk_evalPhi_greedy
 from drsk_separation import drsk_addCut_greedy, drsk_addCut_quasiGreedy
 
 
-SMALL = 1e-8  #TODO parameter
-
 def logIteration(log, x, cost, Phi_L, Phi_max):
     log.joint("  > Cost:    %g\n"%cost)
     log.joint("  > Phi_L:   %g\n"%Phi_L)
@@ -70,6 +68,15 @@ def logResults(alldata, iteration, elapsed_time, convergence_flag):
     return result_str
 
 
+def setTheta(alldata, cost_0, Phi_max_0):
+    log = alldata['log']
+    lam_hi = alldata['prob_data']['lam_hi']
+    lam_lo = alldata['prob_data']['lam_lo']
+    xi = alldata['prob_data']['xi']
+    alldata['prob_data']['Theta'] = (cost_0 * xi) / (Phi_max_0 * (lam_hi - lam_lo))
+    log.joint('Set Theta to %g\n'%alldata['prob_data']['Theta'])
+
+
 def drsk_algoLoop(alldata):
     retcode = 0
 
@@ -77,6 +84,7 @@ def drsk_algoLoop(alldata):
     relative_tol = alldata['algo_data']['tol']
     maxits = alldata['algo_data']['maxits']
     Phi_reduction_goal = alldata['algo_data']['PhiReduc']
+    zerothresh = alldata['algo_data']['zerothresh']
 
     # Record how algorithm terminates: 0 = reached maxit, 1 = converged, 2 = early convergence (reduced phi_max)
     converge_flag = 0
@@ -98,6 +106,10 @@ def drsk_algoLoop(alldata):
         Phi_max = drsk_evalPhi_greedy(alldata, alldata['algo_data']["soln_vector_dict"])
         if alldata['breakpoints']: breakexit('Completed boosting step: evaluated Phi and stored z')
 
+        # Set using nominal solution after first iteration IF Theta set to auto
+        if iteration == 0 and alldata['prob_data']['autoTheta']:
+            setTheta(alldata, cost, Phi_max)
+
         # Store iteration
         end_iter_time = time.time()
         alldata['algo_data'][iteration]['cost'] = cost
@@ -110,7 +122,7 @@ def drsk_algoLoop(alldata):
         logIteration(log, x, cost, Phi_L, Phi_max)
 
         # Convergence check
-        if Phi_max <= SMALL or (Phi_max - Phi_L) / Phi_max <= relative_tol:
+        if Phi_max <= zerothresh or (Phi_max - Phi_L) / Phi_max <= relative_tol:
             log.joint("CONVERGED: achieved relative tolerance\n")
             logIteration(log, x, cost, Phi_L, Phi_max)
             converge_flag = 1
