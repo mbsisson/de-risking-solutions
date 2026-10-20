@@ -4,7 +4,7 @@
 #   - solving model with chosen solver
 #
 # Blake Sisson mbs2246@columbia.edu
-# 10/6/2026
+# 10/20/2026
 ###############################################################################
 import re
 import time
@@ -12,10 +12,6 @@ import math
 import sympy as sp
 from decimal import Decimal
 from drsk_filemanager import drsk_write_cutmodfile
-
-
-# Solver time limit
-SOLVE_TIME_LIMIT = 45
 
 
 def drsk_run_solver(alldata):
@@ -27,6 +23,7 @@ def drsk_run_solver(alldata):
     variables = alldata['prob_data']['variables']
     constraints = alldata['prob_data']['constraints']
     soln_vector_dict = alldata['algo_data']['soln_vector_dict']
+    timelimit = alldata['algo_data']['solve_time_limit']
 
     # Read in all parameters and sets
     ampl.get_parameter("Theta").set(alldata['prob_data']['Theta'])
@@ -48,7 +45,7 @@ def drsk_run_solver(alldata):
     # Gurobi specific options
     ampl.set_option('gurobi_auxfiles', "rc")
     ampl.set_option('gurobi_options', file_command)
-    ampl.set_option('gurobi_options', 'timelimit=45')
+    ampl.set_option('gurobi_options', 'timelimit=' + str(timelimit))
     ampl.set_option('gurobi_options', 'solutionlimit=2')
     ampl.set_option("gurobi_options", "outlev=1")
 
@@ -62,7 +59,7 @@ def drsk_run_solver(alldata):
     log.joint("Solved with %s in %f seconds\n\n"%(solver, tdiff))
 
     # Check if solver time limit reached
-    if tdiff > SOLVE_TIME_LIMIT:
+    if tdiff > timelimit:
         retcode = 1
 
     # Store solution

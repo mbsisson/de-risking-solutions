@@ -2,10 +2,11 @@
 # Functions for initializing all data necessary for SOFTMAX_-ADVERSARIAL.
 #
 # Blake Sisson mbs2246@columbia.edu
-# 10/13/2026
+# 10/20/2026
 ###############################################################################
 from amplpy import AMPL
 from myutils import breakexit
+from versioner import stateversion
 from drsk_filemanager import drsk_read_paramfile, drsk_write_cutfile, drsk_read_cutfile, drsk_write_alldata
 from drsk_ampl import drsk_read_model, drsk_readandstore_model, drsk_init_cuts
 from drsk_gurobi import drsk_store_model
@@ -87,11 +88,14 @@ def drsk_initialize(logger, param_file, mod_file, lp_file, cut_file_in, cut_file
     alldata['algo_data']['maxits'] = params['maxits']         # Maximum number of iterations
     alldata['algo_data']['PhiReduc'] = params['PhiReduc']     # Percent Phi reduction for early convergence
     alldata['algo_data']['zerothresh'] = params['zerothresh'] # Tolerance for float to be considered zero
+    alldata['algo_data']['solve_time_limit'] = params['solve_time_limit']  # Maximum solver time limit, if reached the algorithm exits
 
     return alldata
 
 
 def drsk_start(logger, param_file, mod_file, lp_file, cut_file_in, cut_file_out):
+    stateversion(logger)
+
     # Initialize problem data 
     alldata = drsk_initialize(logger, param_file, mod_file, lp_file, cut_file_in, cut_file_out)
     if alldata['breakpoints']: breakexit('Done initializing all data')

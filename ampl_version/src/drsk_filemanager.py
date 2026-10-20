@@ -96,6 +96,7 @@ def drsk_read_paramfile(log, filename):
     maxits = 'None'
     PhiReduc = 'None'
     zerothresh = 'None'
+    solve_time_limit = 'None'
     loud = 0
     verbose = 0
     breakpoints = 0
@@ -134,6 +135,8 @@ def drsk_read_paramfile(log, filename):
                 PhiReduc = float(thisline[1])
             elif word == 'zerothresh':
                 zerothresh = float(thisline[1])
+            elif word == 'solve_time_limit':
+                solve_time_limit = float(thisline[1])
             elif word == 'loud':
                 loud = int(thisline[1])
             elif word == 'verbose':
@@ -162,6 +165,7 @@ def drsk_read_paramfile(log, filename):
               ('maxits', maxits),
               ('PhiReduc', PhiReduc),
               ('zerothresh', zerothresh),
+              ('solve_time_limit', solve_time_limit),
               ('loud', loud),
               ('verbose', verbose),
               ('breakpoints', breakpoints)]:

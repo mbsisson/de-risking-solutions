@@ -1,5 +1,6 @@
 import sys
 from datetime import datetime
+import gurobipy as gp
 from log import danoLogger
 from drsk_filemanager import drsk_read_config, drsk_read_instancefile
 from drsk_main import drsk_start
@@ -43,10 +44,15 @@ if __name__ == "__main__":
         lp_file = lpfile_dir + name + '_' + id + '.lp'
 
         result_str = ''
-        try:
-            result_str = drsk_start(log, param_file, mod_file, lp_file, cut_file_in, cut_file_out)
-        except Exception as e:
-            result_str = f"An error occured: {e}\n"
+
+        if gp.read(lp_file).IsMIP:  # Check if model is a MIP
+            result_str = "This instance is a MIP... skip it!\n"
+
+        else:
+            try:
+                result_str = drsk_start(log, param_file, mod_file, lp_file, cut_file_in, cut_file_out)
+            except Exception as e:
+                result_str = f"An error occured: {e}\n"
 
         reslog.joint(result_str)
         reslog.joint("==========================================================================\n\n")

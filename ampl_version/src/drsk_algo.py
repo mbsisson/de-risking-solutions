@@ -2,7 +2,7 @@
 # Functions for running the main loop of SOFTMAX_-ADVERSARIAL algorithm.
 #
 # Blake Sisson mbs2246@columbia.edu
-# 10/14/2026
+# 10/20/2026
 ###############################################################################
 import math
 import time
@@ -17,9 +17,15 @@ def logIteration(log, x, cost, Phi_L, Phi_max):
     log.joint("  > Phi_L:   %g\n"%Phi_L)
     log.joint("  > Phi_max: %g\n"%Phi_max)
     log.joint("  Solution:\n")
+    count = 0
     for var_name, var_val in x.items():
         if math.fabs(var_val) > 1e-8:
+            count += 0
             log.joint("    %s = %g\n"%(var_name, var_val))
+            if count >= 20:
+                log.joint("    ...\n")
+                break
+
     log.joint("===============================================================\n\n")
 
 
@@ -73,7 +79,7 @@ def setTheta(alldata, cost_0, Phi_max_0):
     lam_hi = alldata['prob_data']['lam_hi']
     lam_lo = alldata['prob_data']['lam_lo']
     xi = alldata['prob_data']['xi']
-    alldata['prob_data']['Theta'] = (cost_0 * xi) / (Phi_max_0 * (lam_hi - lam_lo))
+    alldata['prob_data']['Theta'] = ((1 + abs(cost_0)) / (1 + Phi_max_0)) * (xi / (lam_hi - lam_lo))
     log.joint('Set Theta to %g\n'%alldata['prob_data']['Theta'])
 
 
