@@ -3,6 +3,9 @@
 #   - reading configuration file
 #   - reading parameter file
 #   - reading instance file
+#   - reading solution file
+#   - writing all data
+#   - writing cut modfile
 #   - reading cut file
 #   - writing cut file
 #
@@ -28,6 +31,7 @@ def drsk_read_config(log, filename):
     paramfile = 'NONE'
     modfile = 'NONE'
     lpfile = 'NONE'
+    solfile = 'NONE'
     cutfile_in = 'NONE'
     cutfile_out = 'NONE'
     instance_file = 'NONE'
@@ -44,6 +48,8 @@ def drsk_read_config(log, filename):
                 modfile = thisline[1]
             elif word == 'LPFILE':
                 lpfile = thisline[1]
+            elif word == 'SOLFILE':
+                solfile = thisline[1]
             elif word == 'CUTFILE':
                 type = thisline[1]
                 if type == 'in':
@@ -62,6 +68,7 @@ def drsk_read_config(log, filename):
     for x in [('PARAMFILE', paramfile),
               ('MODFILE', modfile),
               ('LPFILE', lpfile),
+              ('SOLFILE', solfile),
               ('CUTFILE_in', cutfile_in),
               ('CUTFILE_out', cutfile_out),
               ('INSTANCE_FILE', instance_file)]:
@@ -203,6 +210,38 @@ def drsk_read_instancefile(log, instance_file):
         linenum += 1
 
     return name, instance_ids
+
+
+def drsk_read_solfile(log, filename):
+    '''Read solutions from file and return dictionary mapping var names to value'''
+    try:
+        f = open(filename, "r")
+        lines = f.readlines()
+        f.close()
+    except:
+        log.stateandquit("cannot open file " + filename + "\n")
+
+    soln_dict = {}
+
+    linenum = 0
+    thisline = lines[linenum].split()
+    if len(thisline) > 0 and thisline[0] == 'objvar':
+        objval = float(thisline[1])
+    linenum = 1  # skip first line which containing objective info
+
+    while linenum < len(lines):
+        thisline = lines[linenum].split()
+        if len(thisline) > 0 and thisline[0][0] != '#':
+            if thisline[0] == 'END':
+                break
+
+            varname = thisline[0]
+            varval = float(thisline[1])
+            soln_dict[varname] = varval
+
+        linenum += 1
+
+    return objval, soln_dict
 
 
 def drsk_write_alldata(alldata, filename):

@@ -7,13 +7,13 @@
 from amplpy import AMPL
 from myutils import breakexit
 from versioner import stateversion
-from drsk_filemanager import drsk_read_paramfile, drsk_write_cutfile, drsk_read_cutfile, drsk_write_alldata
+from drsk_filemanager import drsk_read_paramfile, drsk_read_solfile, drsk_write_cutfile, drsk_read_cutfile, drsk_write_alldata
 from drsk_ampl import drsk_read_model, drsk_readandstore_model, drsk_init_cuts
 from drsk_gurobi import drsk_store_model
 from drsk_algo import drsk_algoLoop
 
 
-def drsk_initialize(logger, param_file, mod_file, lp_file, cut_file_in, cut_file_out):
+def drsk_initialize(logger, param_file, mod_file, lp_file, sol_file, cut_file_in, cut_file_out):
     alldata = {}
     log = alldata['log'] = logger
 
@@ -21,6 +21,8 @@ def drsk_initialize(logger, param_file, mod_file, lp_file, cut_file_in, cut_file
     log.joint("MODFILE %s\n"%alldata['MODFILE'])
     alldata['LPFILE'] = lp_file
     log.joint("LPFILE %s\n"%alldata['LPFILE'])
+    alldata['SOLFILE'] = sol_file
+    log.joint("SOLFILE %s\n"%alldata['SOLFILE'])
     alldata['CUTFILE_in'] = cut_file_in
     log.joint("CUTFILE_in %s\n"%alldata['CUTFILE_in'])
     alldata['CUTFILE_out'] = cut_file_out
@@ -42,7 +44,7 @@ def drsk_initialize(logger, param_file, mod_file, lp_file, cut_file_in, cut_file
     alldata['prob_data']['lam_lo'] = params['lam_lo']  # Lambda hi parameter for choosing Theta automatically
     alldata['prob_data']['xi'] = params['xi']          # Xi parameter for choosing Theta automatically
     alldata['prob_data']['constraints'] = []           # List of all constraints
-    alldata['prob_data']['variables'] = {}             # Dictionary: variable name --> variable index (exluding artifical and dummy
+    alldata['prob_data']['variables'] = {}             # Dictionary: variable name --> variable index (exluding artifical and dummy)
     alldata['prob_data']['all_constr_data'] = {}       # Dictionary: constraint name --> constraint data
     alldata['prob_data']['gurobimodel'] = None         # Gurobi object
     if params['theta'] == 'auto':                      # Theta is to be set automatically
@@ -89,22 +91,39 @@ def drsk_initialize(logger, param_file, mod_file, lp_file, cut_file_in, cut_file
     alldata['algo_data']['PhiReduc'] = params['PhiReduc']     # Percent Phi reduction for early convergence
     alldata['algo_data']['zerothresh'] = params['zerothresh'] # Tolerance for float to be considered zero
     alldata['algo_data']['solve_time_limit'] = params['solve_time_limit']  # Maximum solver time limit, if reached the algorithm exits
+    alldata['algo_data']['soln_provided'] = 0                 # Whether an initial solution is provided
+
+    # Initialize solver
+    ampl = alldata['algo_data']['ampl']
+    solver = alldata['algo_data']['solver']
+    timelimit = alldata['algo_data']['solve_time_limit']
+    ampl.setOption('solver', solver)
+    file_command = 'writeprob=model_' + str(alldata['algo_data']['iteration']) + ".lp"
+    log.joint("Using solver: %s\n"%solver)
+    # Gurobi specific options
+    ampl.set_option('gurobi_auxfiles', "rc")
+    ampl.set_option('gurobi_options', file_command)
+    ampl.set_option('gurobi_options', 'timelimit=' + str(timelimit))
+    ampl.set_option('gurobi_options', 'solutionlimit=2')
+    ampl.set_option("gurobi_options", "outlev=1")
 
     return alldata
 
 
-def drsk_start(logger, param_file, mod_file, lp_file, cut_file_in, cut_file_out):
+def drsk_start(logger, param_file, mod_file, lp_file, sol_file, cut_file_in, cut_file_out):
     stateversion(logger)
 
     # Initialize problem data 
-    alldata = drsk_initialize(logger, param_file, mod_file, lp_file, cut_file_in, cut_file_out)
+    alldata = drsk_initialize(logger, param_file, mod_file, lp_file, sol_file, cut_file_in, cut_file_out)
     if alldata['breakpoints']: breakexit('Done initializing all data')
 
-    if lp_file == 'NONE':  # If no lp file, use AMPL to parse
+    # If no lp file, use AMPL to parse
+    if lp_file == 'NONE':
         # Read problem into AMPL and store problem data and risk structure
         drsk_readandstore_model(alldata)
 
-    else:  # If lp file provided, use Gurobi to parse
+    # If lp file provided, use Gurobi to parse
+    else:
         # Read problem into AMPL
         drsk_read_model(alldata)
         if alldata['breakpoints']: breakexit('Done reading problem')
@@ -119,6 +138,18 @@ def drsk_start(logger, param_file, mod_file, lp_file, cut_file_in, cut_file_out)
 
     # Writing alldata to file, for debugging
     drsk_write_alldata(alldata, "alldata.json")
+
+    # Initialize solution if a sol file is provided
+    if sol_file != 'NONE':
+        objval, input_dict = drsk_read_solfile(logger, alldata['SOLFILE'])
+        alldata['algo_data']['soln_provided'] = 1
+
+        # Initialize all variables to zero then overwrite those from the solution file
+        alldata['algo_data']['soln_vector_dict'] = {varname: 0.0 for varname in alldata['prob_data']['variables']}
+        alldata['algo_data']['soln_vector_dict'].update(input_dict)
+
+        alldata['algo_data']['cost'] = objval
+        alldata['algo_data']['Phi_L'] = 0
 
     # Run algorithm
     result_str = drsk_algoLoop(alldata)

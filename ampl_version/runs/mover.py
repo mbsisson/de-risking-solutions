@@ -1,9 +1,9 @@
 from pathlib import Path
 import shutil
 
-id_file = Path("unrisky_instances.txt")
-source_dir = Path("../data/lp")  # Directory containing QPLIB_<id>.mod files
-target_dir = source_dir / "unrisky"
+id_file = Path("instances.txt")
+source_dir = Path("../../qplib/html/sol")
+target_dir = Path("../data/sol")
 
 target_dir.mkdir(exist_ok=True)
 
@@ -17,8 +17,10 @@ with id_file.open() as f:
             continue
 
         id = line.split()[0]
+        if id == 'name':
+            continue
 
-        file_path = source_dir / f"QPLIB_{id}.lp"
+        file_path = source_dir / f"QPLIB_{id}.sol"
 
         if file_path.is_file():
             shutil.move(str(file_path), str(target_dir / file_path.name))

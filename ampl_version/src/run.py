@@ -27,11 +27,12 @@ if __name__ == "__main__":
     param_file = data['PARAMFILE']
     mod_file = data['MODFILE']
     lp_file = data['LPFILE']
+    sol_file = data['SOLFILE']
     cut_file_in = data['CUTFILE_in']
     cut_file_out = data['CUTFILE_out']
 
     # Call drsk
-    drsk_start(log, param_file, mod_file, lp_file, cut_file_in, cut_file_out)
+    drsk_start(log, param_file, mod_file, lp_file, sol_file, cut_file_in, cut_file_out)
 
     
 

@@ -11,7 +11,19 @@ import time
 import math
 import sympy as sp
 from decimal import Decimal
+from myutils import breakexit
 from drsk_filemanager import drsk_write_cutmodfile
+
+
+def drsk_set_solution(alldata):
+    ampl = alldata['algo_data']['ampl']
+    variables = alldata['prob_data']['variables']
+    soln_vector_dict = alldata['algo_data']['soln_vector_dict']
+
+    X = ampl.get_variable("X")
+    for varname, val in soln_vector_dict.items():
+        idx = variables[varname]
+        X[idx].set_value(val)
 
 
 def drsk_run_solver(alldata):
@@ -36,18 +48,6 @@ def drsk_run_solver(alldata):
     ampl.get_parameter("phiLinWeights").set_values(alldata['cut_data']['phiLinWeights'])
     ampl.get_parameter("phiConstWeights").set_values(alldata['cut_data']['phiConstWeights'])
     ampl.get_parameter("phiMinusToggle").set_values(alldata['cut_data']['phiMinusToggle'])
-
-    # Set solver
-    ampl.setOption('solver', solver)
-    file_command = 'writeprob=model_' + str(alldata['algo_data']['iteration']) + ".lp"
-    log.joint("Using solver: %s\n"%solver)
-
-    # Gurobi specific options
-    ampl.set_option('gurobi_auxfiles', "rc")
-    ampl.set_option('gurobi_options', file_command)
-    ampl.set_option('gurobi_options', 'timelimit=' + str(timelimit))
-    ampl.set_option('gurobi_options', 'solutionlimit=2')
-    ampl.set_option("gurobi_options", "outlev=1")
 
     # Solve                                                                                                                              
     log.joint("Solving model ...\n")                                                                                                    

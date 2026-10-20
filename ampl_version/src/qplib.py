@@ -36,12 +36,14 @@ if __name__ == "__main__":
     # Set the directory path
     modfile_dir = '../data/mod/'
     lpfile_dir = '../data/lp/'
+    solfile_dir = '../data/sol/'
 
     for id in instance_ids:
         reslog.joint("Running on instance %s...\n"%id)
 
         mod_file = modfile_dir + name + '_' + id + '.mod'
         lp_file = lpfile_dir + name + '_' + id + '.lp'
+        sol_file = solfile_dir + name + '_' + id + '.sol'
 
         result_str = ''
 
@@ -50,7 +52,7 @@ if __name__ == "__main__":
 
         else:
             try:
-                result_str = drsk_start(log, param_file, mod_file, lp_file, cut_file_in, cut_file_out)
+                result_str = drsk_start(log, param_file, mod_file, lp_file, sol_file, cut_file_in, cut_file_out)
             except Exception as e:
                 result_str = f"An error occured: {e}\n"
 

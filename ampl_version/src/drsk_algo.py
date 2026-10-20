@@ -7,7 +7,7 @@
 import math
 import time
 from myutils import breakexit
-from drsk_ampl import drsk_run_solver
+from drsk_ampl import drsk_run_solver, drsk_set_solution
 from drsk_boosting import drsk_evalPhi_greedy
 from drsk_separation import drsk_addCut_greedy, drsk_addCut_quasiGreedy
 
@@ -85,36 +85,104 @@ def setTheta(alldata, cost_0, Phi_max_0):
 
 def drsk_algoLoop(alldata):
     retcode = 0
-
     log = alldata['log']
     relative_tol = alldata['algo_data']['tol']
     maxits = alldata['algo_data']['maxits']
     Phi_reduction_goal = alldata['algo_data']['PhiReduc']
     zerothresh = alldata['algo_data']['zerothresh']
+    start_algo_time = time.time()
 
     # Record how algorithm terminates: 0 = reached maxit, 1 = converged, 2 = early convergence (reduced phi_max)
     converge_flag = 0
 
-    start_algo_time = time.time()
-    for iteration in range(maxits + 1):
+
+    ###### Handle 0th iteration separately #######
+    iteration = 0
+    alldata['algo_data']['iteration'] = iteration
+    alldata['algo_data'][iteration] = {}
+    start_iter_time = time.time()
+
+    # Solve
+    if alldata['algo_data']['soln_provided']:
+        # Solution already stored in memory, tell ampl what it is
+        drsk_set_solution(alldata)
+        solvecode = 0
+        if alldata['breakpoints']: breakexit('Set solution to the one provided')
+
+    else:
+        # Solve the master problem for optimal (x, Phi_L)
+        solvecode =  drsk_run_solver(alldata)
+        if alldata['breakpoints']: breakexit('Solved master problem')
+
+    x = alldata['algo_data']['soln_vector_dict']
+    Phi_L = alldata['algo_data']['Phi_L']
+    cost = alldata['algo_data']['cost']
+    
+
+    # Boosting step: Evaluate Phi(x*) and get z
+    Phi_max = drsk_evalPhi_greedy(alldata, x)
+    if alldata['breakpoints']: breakexit('Completed boosting step: evaluated Phi and stored z')
+
+    # Set Theta using nominal solution if Theta set to auto
+    if alldata['prob_data']['autoTheta']:
+        setTheta(alldata, cost, Phi_max)
+
+    # Store iteration
+    end_iter_time = time.time()
+    alldata['algo_data'][iteration]['cost'] = cost
+    alldata['algo_data'][iteration]['Phi_L'] = Phi_L
+    alldata['algo_data'][iteration]['Phi_max'] = Phi_max
+    alldata['algo_data'][iteration]['time'] = end_iter_time - start_iter_time
+
+    # Log progress
+    log.joint("Completed iteration %d\n"%iteration)
+    logIteration(log, x, cost, Phi_L, Phi_max)
+
+    # Convergence check
+    if Phi_max <= zerothresh or (Phi_max - Phi_L) / Phi_max <= relative_tol:
+        log.joint("CONVERGED: achieved relative tolerance\n")
+        logIteration(log, x, cost, Phi_L, Phi_max)
+        converge_flag = 1
+
+    # Early convergence check
+    if Phi_max <= Phi_reduction_goal * alldata['algo_data'][0]['Phi_max']:
+        log.joint("CONVERGED: reduced Phi_max by sufficient amount\n")
+        logIteration(log, x, cost, Phi_L, Phi_max)
+        converge_flag = 2
+
+    if solvecode:
+        log.joint("STOP: solver taking too long\n")
+        return 'Solver takes too long\n'
+
+    # If converged already, log and return
+    if converge_flag > 0:
+        # Log results
+        end_algo_time = time.time()
+        elapsed_time = end_algo_time - start_algo_time
+        return logResults(alldata, iteration, elapsed_time, converge_flag)
+
+    # Add cut
+    log.joint("Did NOT converge: add cut\n")
+    drsk_addCut_greedy(alldata)
+    if alldata['breakpoints']: breakexit('Computed cut. Run next iteration?')
+
+
+    ###### Algorithm loop ######
+    for iteration in range(1, maxits + 1):
         alldata['algo_data']['iteration'] = iteration
         alldata['algo_data'][iteration] = {}
         start_iter_time = time.time()
 
-        # Solve the master problem for optimal (x, Phi_L)
+        # 4. Solve the master problem for optimal (x, Phi_L)
         solvecode =  drsk_run_solver(alldata)
         x = alldata['algo_data']['soln_vector_dict']
         Phi_L = alldata['algo_data']['Phi_L']
         cost = alldata['algo_data']['cost']
         if alldata['breakpoints']: breakexit('Solved master problem')
 
-        # Boosting step: Evaluate Phi(x*) and get z
-        Phi_max = drsk_evalPhi_greedy(alldata, alldata['algo_data']["soln_vector_dict"])
+        # 5. Boosting step: Evaluate Phi(x*) and get z
+        Phi_max = drsk_evalPhi_greedy(alldata, x)
         if alldata['breakpoints']: breakexit('Completed boosting step: evaluated Phi and stored z')
-
-        # Set using nominal solution after first iteration IF Theta set to auto
-        if iteration == 0 and alldata['prob_data']['autoTheta']:
-            setTheta(alldata, cost, Phi_max)
 
         # Store iteration
         end_iter_time = time.time()
@@ -127,7 +195,7 @@ def drsk_algoLoop(alldata):
         log.joint("Completed iteration %d\n"%iteration)
         logIteration(log, x, cost, Phi_L, Phi_max)
 
-        # Convergence check
+        # 6. Convergence check
         if Phi_max <= zerothresh or (Phi_max - Phi_L) / Phi_max <= relative_tol:
             log.joint("CONVERGED: achieved relative tolerance\n")
             logIteration(log, x, cost, Phi_L, Phi_max)
@@ -146,7 +214,7 @@ def drsk_algoLoop(alldata):
             retcode = 1
             break
 
-        # Add cut
+        # 9. Add cut
         log.joint("Did NOT converge: add cut\n")
         drsk_addCut_greedy(alldata)
         if alldata['breakpoints']: breakexit('Computed cut. Run next iteration?')
