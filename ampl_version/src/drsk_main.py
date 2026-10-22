@@ -11,6 +11,7 @@ from drsk_filemanager import drsk_read_paramfile, drsk_read_solfile, drsk_write_
 from drsk_ampl import drsk_read_model, drsk_readandstore_model, drsk_init_cuts
 from drsk_gurobi import drsk_store_model
 from drsk_algo import drsk_algoLoop
+from drsk_separation import drsk_addMultiCuts_Greedy, drsk_addMultiCuts_quasiGreedy
 
 
 def drsk_initialize(logger, param_file, mod_file, lp_file, sol_file, cut_file_in, cut_file_out):
@@ -78,6 +79,12 @@ def drsk_initialize(logger, param_file, mod_file, lp_file, sol_file, cut_file_in
     alldata['cut_data']['phiLinWeights'] = {}               # Linear weights defining phi_i(.|z) for each cut. Dict: (cut number, feat name, var idx) --> coefficient * (1 + z)
     alldata['cut_data']['phiConstWeights'] = {}             # Constants defining phi_i(.|z). Dict: (cut number, feature name) --> constant
     alldata['cut_data']['phiMinusToggle'] = {}              # Toggle for whether the minus constraint is needed in phi definition for this cut and feature. Dict: (cut number, feat name, var) --> 0/1
+    if params['cut_method'] == 'greedy':                    # Define cut method to use
+        alldata['cut_data']['cut_method'] = drsk_addMultiCuts_Greedy
+    elif params['cut_method'] == 'quasi-greedy':
+        alldata['cut_data']['cut_method'] = drsk_addMultiCuts_quasiGreedy
+    else:
+        log.joint("Invalid cut type %s\n"%params['cut_type'])
 
     # Initialize algorithm data (Note: extra greedy specific algo data defined in greedy Phi method)
     alldata['algo_data'] = {}                                 # All algorithm related data stored here

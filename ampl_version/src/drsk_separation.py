@@ -198,6 +198,47 @@ def drsk_addMultiCuts_Greedy(alldata):
     log.joint("Done adding %d Greedy cuts.\n"%count)
 
 
+def drsk_addMultiCuts_quasiGreedy(alldata):
+    log = alldata['log']
+    loud = alldata['loud']
+    log.joint("Adding multiple Quasi-Greedy cuts...\n")
+
+    # Get phi data
+    all_phi_data = alldata['algo_data']['all_phi_data']
+
+    # Sort zvars by phi max value in descending order
+    sorted_zvars = sorted(all_phi_data, key=lambda z: all_phi_data[z]['maxPhi'], reverse=True)
+
+    # Store maxPhi, to ignore insignificant cuts
+    maxPhi = all_phi_data[sorted_zvars[0]]['maxPhi']
+
+    # Cuts whose corresponding phi max is below this percent of maxPhi are deemed insignificant and not added
+    phiThresh_percent = alldata['cut_data']['cut_phiThresh']
+
+    count = 0
+    max_ncuts = min(alldata['cut_data']['ncuts_add'], len(sorted_zvars))
+    for i in range(max_ncuts):
+        zvar = sorted_zvars[i]
+        phi_data = all_phi_data[zvar]
+
+        # Break if max phi of this zvar is too small
+        maxPhi_z = phi_data['maxPhi']
+        if maxPhi_z < phiThresh_percent * maxPhi:
+            if loud: log.joint("  Stop adding cuts: maxPhi_z = %g < %g = %g * %g = phiThresh_percent * maxPhi\n"%(maxPhi_z, phiThresh_percent * maxPhi, phiThresh_percent, maxPhi))
+            break
+        
+        # Get phi data
+        phis = phi_data['phis']
+        coeff = phi_data['coeff']
+        argmax_zsign_z = phi_data['argmax_zsign']
+
+        count += 1
+        log.joint("Adding greedy cut for zvar=%s coeff=%g with phi=%g\n"%(zvar, coeff, maxPhi_z))
+        drsk_addCut_quasiGreedy(alldata, phis, coeff, argmax_zsign_z)
+
+    log.joint("Done adding %d Quasi-Greedy cuts.\n"%count)
+
+
 
 #######################################################################
 # def drsk_addCut_greedy(alldata):

@@ -103,6 +103,7 @@ def drsk_read_paramfile(log, filename):
     decimal_risk_thresh = 'None'
     ncuts_add = 'None'
     cut_phiThresh = 'None'
+    cut_method = 'None'
     maxcuts = 'None'
     tol = 'None'
     maxits = 'None'
@@ -141,6 +142,8 @@ def drsk_read_paramfile(log, filename):
                 ncuts_add = int(thisline[1])
             elif word == 'cut_phiThresh':
                 cut_phiThresh = float(thisline[1])
+            elif word == 'cut_method':
+                cut_method = thisline[1]
             elif word == 'maxcuts':
                 maxcuts = int(thisline[1])
             elif word == 'tol':
@@ -178,6 +181,7 @@ def drsk_read_paramfile(log, filename):
               ('decimal_risk_thresh', decimal_risk_thresh),
               ('ncuts_add', ncuts_add),
               ('cut_phiThresh', cut_phiThresh),
+              ('cut_method', cut_method),
               ('maxcuts', maxcuts),
               ('tol', tol),
               ('maxits', maxits),
