@@ -9,7 +9,7 @@ import time
 from myutils import breakexit
 from drsk_ampl import drsk_run_solver, drsk_set_solution
 from drsk_boosting import drsk_evalPhi_greedy
-from drsk_separation import drsk_addCut_greedy, drsk_addCut_quasiGreedy
+from drsk_separation import drsk_addMultiCuts_Greedy
 
 
 def logIteration(log, x, cost, Phi_L, Phi_max):
@@ -137,6 +137,7 @@ def drsk_algoLoop(alldata):
     # Log progress
     log.joint("Completed iteration %d\n"%iteration)
     logIteration(log, x, cost, Phi_L, Phi_max)
+    if alldata['breakpoints']: breakexit('Iteration results')
 
     # Convergence check
     if Phi_max <= zerothresh or (Phi_max - Phi_L) / Phi_max <= relative_tol:
@@ -161,9 +162,9 @@ def drsk_algoLoop(alldata):
         elapsed_time = end_algo_time - start_algo_time
         return logResults(alldata, iteration, elapsed_time, converge_flag)
 
-    # Add cut
+    # Add cuts
     log.joint("Did NOT converge: add cut\n")
-    drsk_addCut_greedy(alldata)
+    drsk_addMultiCuts_Greedy(alldata)
     if alldata['breakpoints']: breakexit('Computed cut. Run next iteration?')
 
 
@@ -194,6 +195,7 @@ def drsk_algoLoop(alldata):
         # Log progress
         log.joint("Completed iteration %d\n"%iteration)
         logIteration(log, x, cost, Phi_L, Phi_max)
+        if alldata['breakpoints']: breakexit('Iteration results')
 
         # 6. Convergence check
         if Phi_max <= zerothresh or (Phi_max - Phi_L) / Phi_max <= relative_tol:
@@ -216,7 +218,7 @@ def drsk_algoLoop(alldata):
 
         # 9. Add cut
         log.joint("Did NOT converge: add cut\n")
-        drsk_addCut_greedy(alldata)
+        drsk_addMultiCuts_Greedy(alldata)
         if alldata['breakpoints']: breakexit('Computed cut. Run next iteration?')
 
     if retcode:

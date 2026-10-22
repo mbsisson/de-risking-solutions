@@ -16,6 +16,7 @@ from drsk_algo import drsk_algoLoop
 def drsk_initialize(logger, param_file, mod_file, lp_file, sol_file, cut_file_in, cut_file_out):
     alldata = {}
     log = alldata['log'] = logger
+    log.joint("Initializing all data...\n")
 
     alldata['MODFILE'] = mod_file
     log.joint("MODFILE %s\n"%alldata['MODFILE'])
@@ -57,7 +58,7 @@ def drsk_initialize(logger, param_file, mod_file, lp_file, sol_file, cut_file_in
     # Initialize coefficient risk structure
     alldata['struct_data'] = {}                                                     # All risky coefficient structure data stored here
     alldata['struct_data']["numfeats"] = 0                                          # Number of features (constraints with risky coefficients)
-    alldata['struct_data']['features'] = []                                           # List of features, i.e., constraint with risky coefficients
+    alldata['struct_data']['features'] = []                                         # List of features, i.e., constraint with risky coefficients
     alldata['struct_data']["risky_coeffs"] = {}                                     # Dictionary: coefficient --> coefficient data (index, zvar, instances)
     alldata['struct_data']['num_unique'] = 0                                        # Number of unique risky coefficients
     alldata['struct_data']['budget'] = params['budget']                             # Constraint error budget
@@ -66,6 +67,8 @@ def drsk_initialize(logger, param_file, mod_file, lp_file, sol_file, cut_file_in
     # Initialize cut data  #TODO populate dicts from cut file
     alldata['cut_data'] = {}                                # All cut related data stored here
     alldata['cut_data']['maxcuts'] = params['maxcuts']      # Maximum number of cuts
+    alldata['cut_data']['ncuts_add'] = params['ncuts_add']  # Number of cuts to add to Master per iteration of algorithm
+    alldata['cut_data']['cut_phiThresh'] = params['cut_phiThresh']  # Cuts whose corresponding phi max is below this percent of maxPhi are deemed insignificant
     alldata['cut_data']['numcuts'] = 0                      # Number of cuts to use in solve
     alldata['cut_data']['nonzero_cutweights'] = set()       # Set: (cut number, feat name) pairs with nonzero weight
     alldata['cut_data']['cutweights'] = {}                  # Dict: (cut number, feat name) --> weight
@@ -92,25 +95,35 @@ def drsk_initialize(logger, param_file, mod_file, lp_file, sol_file, cut_file_in
     alldata['algo_data']['zerothresh'] = params['zerothresh'] # Tolerance for float to be considered zero
     alldata['algo_data']['solve_time_limit'] = params['solve_time_limit']  # Maximum solver time limit, if reached the algorithm exits
     alldata['algo_data']['soln_provided'] = 0                 # Whether an initial solution is provided
+    # Greedy specific algorithm data
+    alldata['algo_data']['maxPhi'] = 0.0                      # Max Phi value
+    alldata['algo_data']['argmax_feat'] = ''                  # Feature where max Phi is attained
+    alldata['algo_data']['argmax_zsign'] = 0                  # Sign of z variable that attains max Phi
+    alldata['algo_data']['argmax_zvar'] = ''                  # Name of z variable that attains max Phi
+    alldata['algo_data']['argmax_coeff'] = 0.0                # Risky coefficient corresponding to this z variable
+    alldata['algo_data']['argmax_phis'] = {}                  # Value of phis for all features containing this z variable, the maximum is Phi max
+    alldata['algo_data']['all_phi_data'] = {}                 # Save phi data for each z variable. Dict: zvar name --> (dictionary: maxPhi, argmax_feat, argmax_zsign, argmax_coeff, argmax_phis)
 
     # Initialize solver
     ampl = alldata['algo_data']['ampl']
     solver = alldata['algo_data']['solver']
     timelimit = alldata['algo_data']['solve_time_limit']
     ampl.setOption('solver', solver)
-    file_command = 'writeprob=model_' + str(alldata['algo_data']['iteration']) + ".lp"
     log.joint("Using solver: %s\n"%solver)
     # Gurobi specific options
     ampl.set_option('gurobi_auxfiles', "rc")
+    file_command = 'writeprob=models/model_' + str(alldata['algo_data']['iteration']) + '.lp'
     ampl.set_option('gurobi_options', file_command)
     ampl.set_option('gurobi_options', 'timelimit=' + str(timelimit))
     ampl.set_option('gurobi_options', 'solutionlimit=2')
     ampl.set_option("gurobi_options", "outlev=1")
 
+    log.joint("Done initializing all data.\n")
     return alldata
 
 
 def drsk_start(logger, param_file, mod_file, lp_file, sol_file, cut_file_in, cut_file_out):
+    logger.joint("Start drsk program.\n")
     stateversion(logger)
 
     # Initialize problem data 
@@ -158,6 +171,7 @@ def drsk_start(logger, param_file, mod_file, lp_file, sol_file, cut_file_in, cut
     drsk_write_cutfile(alldata, cut_file_out)
 
     # Result result string
+    logger.joint("Finished drsk program.\n")
     return result_str
 
 

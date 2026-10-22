@@ -20,6 +20,8 @@ from myutils import breakexit
 
 def drsk_read_config(log, filename):
     '''Read settings from configuration file'''
+    log.joint("Reading configuration file " + filename + "...\n")
+
     try:
         f = open(filename, "r")
         lines = f.readlines()
@@ -74,12 +76,13 @@ def drsk_read_config(log, filename):
               ('INSTANCE_FILE', instance_file)]:
         config_data[x[0]] = x[1]
 
+    log.joint("Done reading configuration file " + filename + ".\n")
     return config_data
 
 
 def drsk_read_paramfile(log, filename):
     '''Read parameters from file into local dictionary and return it'''
-    log.joint("Reading parameter file " + filename + ".\n")
+    log.joint("Reading parameter file " + filename + "...\n")
     params = {}
 
     try:
@@ -98,6 +101,8 @@ def drsk_read_paramfile(log, filename):
     phi_scale = 'None'
     alpha = 'None'
     decimal_risk_thresh = 'None'
+    ncuts_add = 'None'
+    cut_phiThresh = 'None'
     maxcuts = 'None'
     tol = 'None'
     maxits = 'None'
@@ -132,8 +137,12 @@ def drsk_read_paramfile(log, filename):
                 alpha = float(thisline[1])
             elif word == 'decimal_risk_thresh':
                 decimal_risk_thresh = int(thisline[1])
+            elif word == 'ncuts_add':
+                ncuts_add = int(thisline[1])
+            elif word == 'cut_phiThresh':
+                cut_phiThresh = float(thisline[1])
             elif word == 'maxcuts':
-                maxcuts = float(thisline[1])
+                maxcuts = int(thisline[1])
             elif word == 'tol':
                 tol = float(thisline[1])
             elif word == 'maxits':
@@ -143,7 +152,7 @@ def drsk_read_paramfile(log, filename):
             elif word == 'zerothresh':
                 zerothresh = float(thisline[1])
             elif word == 'solve_time_limit':
-                solve_time_limit = float(thisline[1])
+                solve_time_limit = int(thisline[1])
             elif word == 'loud':
                 loud = int(thisline[1])
             elif word == 'verbose':
@@ -167,6 +176,8 @@ def drsk_read_paramfile(log, filename):
               ('phi_scale', phi_scale),
               ('alpha', alpha),
               ('decimal_risk_thresh', decimal_risk_thresh),
+              ('ncuts_add', ncuts_add),
+              ('cut_phiThresh', cut_phiThresh),
               ('maxcuts', maxcuts),
               ('tol', tol),
               ('maxits', maxits),
@@ -181,11 +192,13 @@ def drsk_read_paramfile(log, filename):
         params[x[0]] = x[1]
         log.joint(x[0] + ' ' + str(x[1])+ '\n')
 
+    log.joint("Done reading parameter file " + filename + ".\n")
     return params
 
 
 def drsk_read_instancefile(log, instance_file):
     '''Read instances from file and return list of ids'''
+    log.joint("Reading instance file " + instance_file + "...\n")
     try:
         f = open(instance_file, "r")
         lines = f.readlines()
@@ -209,11 +222,14 @@ def drsk_read_instancefile(log, instance_file):
             instance_ids.append(word)
         linenum += 1
 
+    log.joint("Done reading instance file " + instance_file + ".\n")
     return name, instance_ids
 
 
 def drsk_read_solfile(log, filename):
     '''Read solutions from file and return dictionary mapping var names to value'''
+    log.joint("Reading solution from file " + filename + "...\n")
+
     try:
         f = open(filename, "r")
         lines = f.readlines()
@@ -241,11 +257,15 @@ def drsk_read_solfile(log, filename):
 
         linenum += 1
 
+    log.joint("Done reading solution from file " + filename + ".\n")
     return objval, soln_dict
 
 
 def drsk_write_alldata(alldata, filename):
     '''Writing alldata to given file'''
+    log = alldata['log']
+    log.joint("Writing alldata to file " + filename + "...\n")
+
     def is_serializable(value):
         try:
             json.dumps(value)
@@ -261,6 +281,8 @@ def drsk_write_alldata(alldata, filename):
             sort_keys=True,     # Sorts the dictionary keys alphabetically
             ensure_ascii=False  # Keeps non-English/Unicode text intact
         )
+
+    log.joint("Done writing alldata to file " + filename + ".\n")
     if alldata['breakpoints']: breakexit('Saved all data to file')
 
 
@@ -273,15 +295,17 @@ def drsk_write_cutmodfile(log, org_modfile, ampl):
     # Ensure cuts directory exists
     Path(new_path).parent.mkdir(parents=True, exist_ok=True)
 
+    log.joint("Writing cut model to modfile: " + new_path + "...\n")
+
     # Write ampl model to file
     ampl.export_model(new_path)
 
-    log.joint('Wrote new model to modfile: %s\n'%new_path)
+    log.joint('Done writing new model to modfile: %s.\n'%new_path)
 
 
 def drsk_read_cutfile(alldata, filename):
     log = alldata['log']
-    log.joint("Reading cut file: " + filename + "\n")
+    log.joint("Reading cut file: " + filename + "...\n")
 
     try:
         f = open(filename, "r")
@@ -381,10 +405,12 @@ def drsk_read_cutfile(alldata, filename):
 
         linenum += 1 #empty row
 
+    log.joint("Done reading cut file: " + filename + ".\n")
+
 
 def drsk_write_cutfile(alldata, filename):
     log = alldata['log']
-    log.joint("Writing cut file: " + filename + "\n")
+    log.joint("Writing cut file: " + filename + "...\n")
 
     try:
         f = open(filename, "w")
@@ -463,3 +489,4 @@ def drsk_write_cutfile(alldata, filename):
 
     # Close writier
     f.close()
+    log.joint("Done writing cut file: " + filename + ".\n")

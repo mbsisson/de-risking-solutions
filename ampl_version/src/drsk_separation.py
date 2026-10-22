@@ -7,7 +7,6 @@
 ###############################################################################
 import math
 
-
 def get_phi_scale(alldata, log, constraint_data):
     phi_scale = 1.0
 
@@ -21,7 +20,8 @@ def get_phi_scale(alldata, log, constraint_data):
     return phi_scale
 
 
-def define_phi_constraints(alldata, cutnum, feat_name):
+def define_phi_constraints(alldata, cutnum, feat_name, argmax_coeff, argmax_zsign):
+    '''Add constraints defining phi for the given feature (feat_name) and z variable (determined by coeff and zsign)'''
     log = alldata['log']
     loud = alldata['loud']
     verbose = alldata['verbose']
@@ -38,10 +38,6 @@ def define_phi_constraints(alldata, cutnum, feat_name):
     phiConstWeights = alldata['cut_data']['phiConstWeights']
     phiMinusToggle = alldata['cut_data']['phiMinusToggle']
 
-    # Retrieve Phi data
-    argmax_zsign = alldata['algo_data']['argmax_zsign']
-    argmax_coeff = alldata['algo_data']['argmax_coeff']
-
     constraint_data = all_constr_data[feat_name]
     sense = constraint_data['sense']
 
@@ -54,21 +50,21 @@ def define_phi_constraints(alldata, cutnum, feat_name):
     if verbose: log.joint("DEBUG: + constant - rhs = %g - %g\n"%(constraint_data['constant'], constraint_data['RHS']))
 
     # Set linear coefficients
-    for var, coeff in constraint_data['lin_terms'].items():
+    for var, _coeff in constraint_data['lin_terms'].items():
         var_idx = variables[var]
         nonzero_phiLinWeights.add((cutnum, feat_name, var_idx))
-        phiLinWeights[(cutnum, feat_name, var_idx)] = coeff / phi_scale
+        phiLinWeights[(cutnum, feat_name, var_idx)] = _coeff / phi_scale
         if loud: log.joint(" - Defining weight (%d, %s, %d)\n"%(cutnum, feat_name, var_idx))
-        if verbose: log.joint("DEBUG: + %g * %s\n"%(coeff, var))
+        if verbose: log.joint("DEBUG: + %g * %s\n"%(_coeff, var))
 
     # Set quadratic coefficients
-    for var_tuple, coeff in constraint_data['quad_terms'].items():
+    for var_tuple, _coeff in constraint_data['quad_terms'].items():
         v1, v2 = var_tuple[0], var_tuple[1]
         v1_idx, v2_idx = variables[v1], variables[v2]
         nonzero_phiQuadWeights.add((cutnum, feat_name, v1_idx, v2_idx))
-        phiQuadWeights[(cutnum, feat_name, v1_idx, v2_idx)] = coeff / phi_scale
+        phiQuadWeights[(cutnum, feat_name, v1_idx, v2_idx)] = _coeff / phi_scale
         if loud: log.joint(" - Defining weight (%d, %s, %d, %d)\n"%(cutnum, feat_name, v1_idx, v2_idx))
-        if verbose: log.joint("DEBUG: + %g * %s * %s\n"%(coeff, v1, v2))
+        if verbose: log.joint("DEBUG: + %g * %s * %s\n"%(_coeff, v1, v2))
 
     # Check if phi minus constraint is necessary and swap all signs for >= features
     if sense == '=':
@@ -91,7 +87,7 @@ def define_phi_constraints(alldata, cutnum, feat_name):
                 phiQuadWeights[(cutnum, feat_name, v1_idx, v2_idx)] *= -1
             if verbose: log.joint("DEBUG: feature is >= ineq, negate all data\n")
 
-    # Scale argmax_zvar terms by error
+    # Scale zvar terms by error
     terms_list = structure['risky_coeffs'][argmax_coeff]['instances'][feat_name]
     for term_data in terms_list:
         degree, var_data = term_data[0], term_data[1]
@@ -108,8 +104,7 @@ def define_phi_constraints(alldata, cutnum, feat_name):
             phiQuadWeights[(cutnum, feat_name, v1_idx, v2_idx)] *= 1 + argmax_zsign * budget
             if verbose: log.joint("DEBUG: %g * %s * %s term gets (1 + %g)\n"%(argmax_coeff, v1, v2, argmax_zsign * budget))
 
-
-def drsk_addCut_greedy(alldata):
+def drsk_addCut_greedy(alldata, argmax_feat, argmax_coeff, argmax_zsign):
     log = alldata['log']
 
     # Increment cut number
@@ -121,19 +116,18 @@ def drsk_addCut_greedy(alldata):
     cutweights = alldata['cut_data']['cutweights']
 
     # 1. Set cut weights
-    argmax_feat = alldata['algo_data']['argmax_feat']
     nonzero_cutweights.add((cutnum, argmax_feat))
     cutweights[(cutnum, argmax_feat)] = 1
     log.joint("Cut #%d (feature weight):\n"%cutnum)
     log.joint("  %s  %g\n"%(argmax_feat, 1))
 
     # 2. Define phi constraints
-    define_phi_constraints(alldata, cutnum, argmax_feat)
+    define_phi_constraints(alldata, cutnum, argmax_feat, argmax_coeff, argmax_zsign)
 
     log.joint("Added cut using Greedy\n")
 
 
-def drsk_addCut_quasiGreedy(alldata):
+def drsk_addCut_quasiGreedy(alldata, phis, argmax_coeff, argmax_zsign):
     log = alldata['log']
 
     # Increment cut number
@@ -145,25 +139,64 @@ def drsk_addCut_quasiGreedy(alldata):
     cutweights = alldata['cut_data']['cutweights']
 
     # 1. Compute and set cut weights
-    argmax_phis = alldata['algo_data']['argmax_phis']
     alpha = alldata['algo_data']['alpha']
     sum_exp = 0.0
-    for phi in argmax_phis.values():
+    for phi in phis.values():
         sum_exp += math.exp(alpha * phi)
     log.joint("Cut #%d (feature weight):\n"%cutnum)
-    for feat_name, phi in argmax_phis.items():
+    for feat_name, phi in phis.items():
         nonzero_cutweights.add((cutnum, feat_name))
         weight = math.exp(alpha * phi) / sum_exp
         cutweights[(cutnum, feat_name)] = weight
         log.joint("  %s  %g\n"%(feat_name, weight))
 
-    # 2. Define phi constraints
-
-    # Retrieve coefficient data for each nonzero feature
-    for feat_name in argmax_phis:
-        define_phi_constraints(alldata, cutnum, feat_name)
+    # 2. Define phi constraints, for each nonzero feature
+    for feat_name in phis:
+        define_phi_constraints(alldata, cutnum, feat_name, argmax_coeff, argmax_zsign)
 
     log.joint("Added cut using Quasi-Greedy\n\n")
+
+
+def drsk_addMultiCuts_Greedy(alldata):
+    log = alldata['log']
+    loud = alldata['loud']
+    log.joint("Adding multiple Greedy cuts...\n")
+
+    # Get phi data
+    all_phi_data = alldata['algo_data']['all_phi_data']
+
+    # Sort zvars by phi max value in descending order
+    sorted_zvars = sorted(all_phi_data, key=lambda z: all_phi_data[z]['maxPhi'], reverse=True)
+
+    # Store maxPhi, to ignore insignificant cuts
+    maxPhi = all_phi_data[sorted_zvars[0]]['maxPhi']
+
+    # Cuts whose corresponding phi max is below this percent of maxPhi are deemed insignificant and not added
+    phiThresh_percent = alldata['cut_data']['cut_phiThresh']
+
+    count = 0
+    max_ncuts = min(alldata['cut_data']['ncuts_add'], len(sorted_zvars))
+    for i in range(max_ncuts):
+        zvar = sorted_zvars[i]
+        phi_data = all_phi_data[zvar]
+
+        # Break if max phi of this zvar is too small
+        maxPhi_z = phi_data['maxPhi']
+        if maxPhi_z < phiThresh_percent * maxPhi:
+            if loud: log.joint("  Stop adding cuts: maxPhi_z = %g < %g = %g * %g = phiThresh_percent * maxPhi\n"%(maxPhi_z, phiThresh_percent * maxPhi, phiThresh_percent, maxPhi))
+            break
+        
+        # Get phi data
+        argmax_feat_z = phi_data['argmax_feat']
+        coeff = phi_data['coeff']
+        argmax_zsign_z = phi_data['argmax_zsign']
+
+        count += 1
+        log.joint("Adding greedy cut for zvar=%s coeff=%g with phi=%g\n"%(zvar, coeff, maxPhi_z))
+        drsk_addCut_greedy(alldata, argmax_feat_z, coeff, argmax_zsign_z)
+
+    log.joint("Done adding %d Greedy cuts.\n"%count)
+
 
 
 #######################################################################
