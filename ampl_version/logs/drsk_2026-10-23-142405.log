@@ -1,0 +1,137 @@
+Starting log: Fri Oct 23 14:24:05 2026.
+Running on: jasper.local.
+
+Reading configuration file drsk.conf...
+Done reading configuration file drsk.conf.
+Start drsk program.
+<Version 2026.Oct.23.132700@jasper>
+Initializing all data...
+MODFILE ../data/mod/QPLIB_3318.mod
+LPFILE ../data/lp/QPLIB_3318.lp
+SOLFILE ../data/sol/QPLIB_3318.sol
+CUTFILE_in ../cutdata/zerocuts.dat
+CUTFILE_out ../cutdata/cutsrun.dat
+PARAMFILE drskparams.conf
+Reading parameter file drskparams.conf...
+solver gurobi
+theta auto
+lam_hi 10.0
+lam_lo 9.0
+xi 1.0
+budget 0.01
+phi_scale percent_violation
+alpha 10.0
+decimal_risk_thresh 3
+ncuts_add 1
+cut_phiThresh 0.25
+cut_method greedy
+maxcuts 100
+tol 0.0001
+maxits 5
+PhiReduc 0.1
+zerothresh 1e-08
+solve_time_limit 45
+loud 0
+verbose 0
+breakpoints 1
+Done reading parameter file drskparams.conf.
+Using solver: gurobi
+Done initializing all data.
+Read file ../data/mod/QPLIB_3318.mod with AMPL
+Num of variables = 25
+Num of constraints = 474
+Now storing LP data.
+Reading LP into Gurobi ../data/lp/QPLIB_3318.lp.
+Done reading LP into Gurobi.
+Storing linear constraints; 93 in total.
+Stored linear constraints with code 0.
+Storing quadratic constraints; 381 in total.
+Quad constraints read with code 0.
+Writing cut model to modfile: ../data/mod/cuts/cuts_QPLIB_3318.mod...
+Done writing new model to modfile: ../data/mod/cuts/cuts_QPLIB_3318.mod.
+Added parameters, sets, variables, and constraints to model for cut compatibility
+
+Writing alldata to file alldata.json...
+Done writing alldata to file alldata.json.
+Reading solution from file ../data/sol/QPLIB_3318.sol...
+Done reading solution from file ../data/sol/QPLIB_3318.sol.
+Computing Phi using greedy method...
+Greedy Phi = 0.705694
+  coeff: -4.14205
+  z_20 = 0.01
+  max feature: e128
+Greedy max sum phis = 3.04639
+  coeff: -4.14205
+  INVALID: zvar changed sign across constraints!
+Computed Phi using Greedy.
+
+Set Theta to 6.41691
+Completed iteration 0
+  > Cost:    9.94529
+  > Phi_L:   0
+  > Phi_max: 0.705694
+  Solution:
+    x2 = 9.94529
+    x3 = -0.999975
+    x4 = 0.00705488
+    x5 = 4.99747
+    x7 = 1
+    x8 = 8.44529
+    x9 = 0.00767636
+    x10 = 0.999971
+    x11 = 1.02049
+    x12 = 0.611734
+    x13 = 0.791064
+    x14 = 3.51114
+    x16 = 1
+    x17 = 1.5
+    x18 = 1
+    x20 = 7.94529
+    x21 = 7.98594
+    x22 = 7
+    x23 = 1.02987
+    x24 = 3.51599
+    x25 = 7.66667
+    x26 = 2.00008
+===============================================================
+
+Did NOT converge: add cut
+Adding multiple Greedy cuts...
+Adding greedy cut for zvar=z_20 coeff=-4.14205 with phi=0.705694
+Cut #1 (feature weight):
+  e128  1
+Added cut using Greedy
+Done adding 1 Greedy cuts.
+Solving model ...
+= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+Solved with gurobi in 37.515228 seconds
+
+Optimal objective: obj = 11.7795
+Optimal objective: weighted_obj = 11.7795
+Optimal variable values:
+  x2 = 11.7795
+  x3 = -0.99988
+  x4 = 0.0155129
+  x5 = 2.01519
+  x7 = 1
+  x8 = 10.2795
+  x10 = 1
+  x11 = 1.00008
+  x12 = 1
+  x14 = 6.44897
+  x15 = 0.963025
+  x16 = 0.269411
+  x17 = 8.53335
+  x18 = -1
+  x20 = 2.55221
+  x21 = 4.0363
+  x22 = 3.68011
+  x23 = 1
+  x24 = 2.52823
+  x25 = 7.92684
+  x26 = 7.99992
+21 nonzero variables in solution
+
+Checking for violations...
+0 constraints violated
+

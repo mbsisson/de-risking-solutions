@@ -1,0 +1,192 @@
+Starting log: Mon Oct 26 11:46:49 2026.
+Running on: jasper.local.
+
+Reading configuration file drsk.conf...
+Done reading configuration file drsk.conf.
+Start drsk program.
+<Version 2026.Oct.23.132700@jasper>
+Initializing all data...
+MODFILE ../data/mod/QPLIB_2894.mod
+LPFILE ../data/lp/QPLIB_2894.lp
+SOLFILE ../data/sol/QPLIB_2894.sol
+CUTFILE_in ../cutdata/zerocuts.dat
+CUTFILE_out ../cutdata/cutsrun.dat
+PARAMFILE drskparams.conf
+Reading parameter file drskparams.conf...
+solver gurobi
+theta auto
+lam_hi 10.0
+lam_lo 9.0
+xi 10.0
+budget 0.01
+phi_scale percent_violation
+alpha 10.0
+decimal_risk_thresh 3
+ncuts_add 1
+cut_phiThresh 0.25
+cut_method greedy
+maxcuts 100
+tol 0.0001
+maxits 5
+PhiReduc 0.1
+zerothresh 1e-08
+solve_time_limit 45
+loud 0
+verbose 0
+breakpoints 0
+Done reading parameter file drskparams.conf.
+Using solver: gurobi
+Done initializing all data.
+Read file ../data/mod/QPLIB_2894.mod with AMPL
+Num of variables = 17
+Num of constraints = 209
+Now storing LP data.
+Reading LP into Gurobi ../data/lp/QPLIB_2894.lp.
+Done reading LP into Gurobi.
+Storing linear constraints; 55 in total.
+Stored linear constraints with code 0.
+Storing quadratic constraints; 154 in total.
+Quad constraints read with code 0.
+Writing cut model to modfile: ../data/mod/cuts/cuts_QPLIB_2894.mod...
+Done writing new model to modfile: ../data/mod/cuts/cuts_QPLIB_2894.mod.
+Added parameters, sets, variables, and constraints to model for cut compatibility
+
+Writing alldata to file alldata.json...
+Done writing alldata to file alldata.json.
+Reading solution from file ../data/sol/QPLIB_2894.sol...
+Done reading solution from file ../data/sol/QPLIB_2894.sol.
+Computing Phi using greedy method...
+Greedy Phi = 0.576947
+  coeff: -9.13177
+  z_75 = 0.01
+  max feature: e198
+Greedy max sum phis = 0.750351
+  coeff: -9.13177
+  INVALID: zvar changed sign across constraints!
+Computed Phi using Greedy.
+
+Set Theta to 38.0474
+Completed iteration 0
+  > Cost:    4.99988
+  > Phi_L:   0
+  > Phi_max: 0.576947
+  Solution:
+    x2 = 4.99988
+    x3 = -0.634742
+    x4 = 0.772724
+    x5 = 1.60621
+    x7 = 1
+    x8 = 3.57094
+    x9 = -0.999975
+    x10 = -0.00706352
+    x11 = 1.53862
+    x12 = 0.428704
+    x13 = 0.903445
+    x14 = 1.68571
+    x15 = 1.61885
+    x16 = 3.94679
+    x17 = 8.44764
+    x18 = 5.64452
+===============================================================
+
+Did NOT converge: add cut
+Adding multiple Greedy cuts...
+Adding greedy cut for zvar=z_75 coeff=-9.13177 with phi=0.576947
+Cut #1 (feature weight):
+  e198  1
+Added cut using Greedy
+Done adding 1 Greedy cuts.
+Solving model ...
+= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+Solved with gurobi in 4.219759 seconds
+
+Optimal objective: obj = 5.05067
+Optimal objective: weighted_obj = 23.5784
+Optimal variable values:
+  x2 = 5.05067
+  x3 = -0.628866
+  x4 = 0.777514
+  x5 = 1.61817
+  x7 = 1
+  x8 = 3.62174
+  x9 = -1
+  x11 = 1.52786
+  x12 = 0.430899
+  x13 = 0.9024
+  x14 = 1.7498
+  x15 = 1.64453
+  x16 = 3.94679
+  x17 = 8.47213
+  x18 = 5.68241
+15 nonzero variables in solution
+
+Checking for violations...
+0 constraints violated
+
+Computing Phi using greedy method...
+Greedy Phi = 0.486966
+  coeff: -9.13177
+  z_75 = 0.01
+  max feature: e198
+Greedy max sum phis = 0.574279
+  coeff: -9.13177
+  INVALID: zvar changed sign across constraints!
+Computed Phi using Greedy.
+
+Completed iteration 1
+  > Cost:    5.05067
+  > Phi_L:   0.486965
+  > Phi_max: 0.486966
+  Solution:
+    x2 = 5.05067
+    x3 = -0.628866
+    x4 = 0.777514
+    x5 = 1.61817
+    x7 = 1
+    x8 = 3.62174
+    x9 = -1
+    x11 = 1.52786
+    x12 = 0.430899
+    x13 = 0.9024
+    x14 = 1.7498
+    x15 = 1.64453
+    x16 = 3.94679
+    x17 = 8.47213
+    x18 = 5.68241
+===============================================================
+
+CONVERGED: achieved relative tolerance
+  > Cost:    5.05067
+  > Phi_L:   0.486965
+  > Phi_max: 0.486966
+  Solution:
+    x2 = 5.05067
+    x3 = -0.628866
+    x4 = 0.777514
+    x5 = 1.61817
+    x7 = 1
+    x8 = 3.62174
+    x9 = -1
+    x11 = 1.52786
+    x12 = 0.430899
+    x13 = 0.9024
+    x14 = 1.7498
+    x15 = 1.64453
+    x16 = 3.94679
+    x17 = 8.47213
+    x18 = 5.68241
+===============================================================
+
+Algorithm FINISHED after 1 iterations in 4.229 seconds
+ *** Achieved relative tolerance ***
+ > Percent cost increase: 0.0101599
+ > Percent Phi_max decrease: 0.155961
+Iter  Cost                Phi_L               Phi_max             time    
+--------------------------------------------------------------------------
+0     4.999875265217      0.000000000000      0.576947456676      0.0022  
+1     5.050673697780      0.486965225451      0.486966163341      4.2264  
+Writing cut file: ../cutdata/cutsrun.dat...
+Writing 1 cuts.
+numcuts: 1; Theta: 38.0474
+Done writing cut file: ../cutdata/cutsrun.dat.
+Finished drsk program.

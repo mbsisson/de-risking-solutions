@@ -119,11 +119,14 @@ def drsk_initialize(logger, param_file, mod_file, lp_file, sol_file, cut_file_in
     log.joint("Using solver: %s\n"%solver)
     # Gurobi specific options
     ampl.set_option('gurobi_auxfiles', "rc")
-    file_command = 'writeprob=models/model_' + str(alldata['algo_data']['iteration']) + '.lp'
-    ampl.set_option('gurobi_options', file_command)
-    ampl.set_option('gurobi_options', 'timelimit=' + str(timelimit))
-    ampl.set_option('gurobi_options', 'solutionlimit=2')
-    ampl.set_option("gurobi_options", "outlev=1")
+    sol_cmd = 'solutionlimit=2'
+    out_cmd = 'outlev=1'
+    time_cmd = 'timelimit=' + str(timelimit)
+    file_cmd = 'writeprob=models/model_' + str(alldata['algo_data']['iteration']) + '.lp'
+    ampl.set_option('gurobi_options', sol_cmd + ' ' + out_cmd + ' ' + time_cmd + ' ' + file_cmd)
+    # Tell Knitro to write model to file
+    # file_cmd = 'writeformat=lp writefile=models/model_' + str(alldata['algo_data']['iteration']) + '.lp'
+    # ampl.set_option("knitro_options", file_cmd)
 
     log.joint("Done initializing all data.\n")
     return alldata

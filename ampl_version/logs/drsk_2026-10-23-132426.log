@@ -1,0 +1,3634 @@
+Starting log: Fri Oct 23 13:24:26 2026.
+Running on: jasper.local.
+
+Reading configuration file drsk.conf...
+Done reading configuration file drsk.conf.
+Start drsk program.
+<Version 2026.Oct.20.172600@jasper>
+Initializing all data...
+MODFILE ../data/mod/QPLIB_3318.mod
+LPFILE ../data/lp/QPLIB_3318.lp
+SOLFILE ../data/sol/QPLIB_3318.sol
+CUTFILE_in ../cutdata/zerocuts.dat
+CUTFILE_out ../cutdata/cutsrun.dat
+PARAMFILE drskparams.conf
+Reading parameter file drskparams.conf...
+solver /Applications/knitro-16.0.0-ARM-MacOS/bin/knitroampl
+theta auto
+lam_hi 10.0
+lam_lo 9.0
+xi 10.0
+budget 0.01
+phi_scale percent_violation
+alpha 10.0
+decimal_risk_thresh 3
+ncuts_add 3
+cut_phiThresh 0.25
+cut_method greedy
+maxcuts 100
+tol 0.0001
+maxits 10
+PhiReduc 0.1
+zerothresh 1e-08
+solve_time_limit 45
+loud 0
+verbose 0
+breakpoints 0
+Done reading parameter file drskparams.conf.
+Using solver: /Applications/knitro-16.0.0-ARM-MacOS/bin/knitroampl
+Done initializing all data.
+Read file ../data/mod/QPLIB_3318.mod with AMPL
+Num of variables = 25
+Num of constraints = 474
+Now storing LP data.
+Reading LP into Gurobi ../data/lp/QPLIB_3318.lp.
+Done reading LP into Gurobi.
+Storing linear constraints; 93 in total.
+Stored linear constraints with code 0.
+Storing quadratic constraints; 381 in total.
+Quad constraints read with code 0.
+Writing cut model to modfile: ../data/mod/cuts/cuts_QPLIB_3318.mod...
+Done writing new model to modfile: ../data/mod/cuts/cuts_QPLIB_3318.mod.
+Added parameters, sets, variables, and constraints to model for cut compatibility
+
+Writing alldata to file alldata.json...
+Done writing alldata to file alldata.json.
+Reading solution from file ../data/sol/QPLIB_3318.sol...
+Done reading solution from file ../data/sol/QPLIB_3318.sol.
+Computing Phi using greedy method...
+Greedy Phi = 0.705694
+  coeff: -4.14205
+  z_20 = 0.01
+  max feature: e128
+Greedy max sum phis = 3.04639
+  coeff: -4.14205
+  INVALID: zvar changed sign across constraints!
+Computed Phi using Greedy.
+
+Set Theta to 64.1691
+Completed iteration 0
+  > Cost:    9.94529
+  > Phi_L:   0
+  > Phi_max: 0.705694
+  Solution:
+    x2 = 9.94529
+    x3 = -0.999975
+    x4 = 0.00705488
+    x5 = 4.99747
+    x7 = 1
+    x8 = 8.44529
+    x9 = 0.00767636
+    x10 = 0.999971
+    x11 = 1.02049
+    x12 = 0.611734
+    x13 = 0.791064
+    x14 = 3.51114
+    x16 = 1
+    x17 = 1.5
+    x18 = 1
+    x20 = 7.94529
+    x21 = 7.98594
+    x22 = 7
+    x23 = 1.02987
+    x24 = 3.51599
+    x25 = 7.66667
+    x26 = 2.00008
+===============================================================
+
+Did NOT converge: add cut
+Adding multiple Greedy cuts...
+Adding greedy cut for zvar=z_20 coeff=-4.14205 with phi=0.705694
+Cut #1 (feature weight):
+  e128  1
+Added cut using Greedy
+Adding greedy cut for zvar=z_69 coeff=6.83276 with phi=0.543954
+Cut #2 (feature weight):
+  e423  1
+Added cut using Greedy
+Adding greedy cut for zvar=z_71 coeff=-6.83276 with phi=0.542883
+Cut #3 (feature weight):
+  e471  1
+Added cut using Greedy
+Done adding 3 Greedy cuts.
+Solving model ...
+= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+Solved with /Applications/knitro-16.0.0-ARM-MacOS/bin/knitroampl in 0.030196 seconds
+
+Optimal objective: obj = 0
+Optimal objective: weighted_obj = 0
+Optimal variable values:
+  x5 = 1.99992
+  x8 = 1.5
+  x11 = 0.999951
+  x14 = 2.5
+  x17 = 1.5
+  x20 = 1.99992
+  x21 = 1.99992
+  x22 = 1.5
+  x23 = 0.999951
+  x24 = 2.5
+  x25 = 1.5
+  x26 = 1.99992
+12 nonzero variables in solution
+
+Checking for violations...
+  Violation in e25:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e26:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e27:
+    Slack: -0.99995117
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e28:
+    Slack: -2.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e29:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e30:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e31:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e32:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e33:
+    Slack: -0.99995117
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e34:
+    Slack: -2.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e35:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e36:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e37:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e38:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e39:
+    Slack: -0.99995117
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e40:
+    Slack: -2.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e41:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e42:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e43:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e44:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e45:
+    Slack: -0.99995117
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e46:
+    Slack: -2.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e47:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e48:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e95:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in e96:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in e97:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in e98:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in e99:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in e100:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in e101:
+    Slack: -11.749593096754591
+    Lower Bound: 12.24943035, Upper Bound: inf
+  Violation in e102:
+    Slack: -6.999348954880993
+    Lower Bound: 8.999218757, Upper Bound: inf
+  Violation in e103:
+    Slack: -19.74910481675459
+    Lower Bound: 20.24926759, Upper Bound: inf
+  Violation in e104:
+    Slack: -11.749593096754591
+    Lower Bound: 12.24943035, Upper Bound: inf
+  Violation in e105:
+    Slack: -15.99869795
+    Lower Bound: 15.99869795, Upper Bound: inf
+  Violation in e106:
+    Slack: -5.749658187231262
+    Lower Bound: 6.249755852, Upper Bound: inf
+  Violation in e107:
+    Slack: -14.0
+    Lower Bound: 16.0, Upper Bound: inf
+  Violation in e108:
+    Slack: -9.0
+    Lower Bound: 9.0, Upper Bound: inf
+  Violation in e109:
+    Slack: -11.749593096754591
+    Lower Bound: 12.24943035, Upper Bound: inf
+  Violation in e110:
+    Slack: -7.749365205231261
+    Lower Bound: 12.24965819, Upper Bound: inf
+  Violation in e111:
+    Slack: -5.749658187231262
+    Lower Bound: 6.249755852, Upper Bound: inf
+  Violation in e112:
+    Slack: -6.999348954880993
+    Lower Bound: 8.999218757, Upper Bound: inf
+  Violation in e113:
+    Slack: -14.0
+    Lower Bound: 16.0, Upper Bound: inf
+  Violation in e114:
+    Slack: -19.74910481675459
+    Lower Bound: 20.24926759, Upper Bound: inf
+  Violation in e115:
+    Slack: -11.749593096754591
+    Lower Bound: 12.24943035, Upper Bound: inf
+  Violation in e116:
+    Slack: -2.0534729937545912
+    Lower Bound: 2.553310247, Upper Bound: inf
+  Violation in e117:
+    Slack: -2.0388629688809945
+    Lower Bound: 4.038732771, Upper Bound: inf
+  Violation in e119:
+    Slack: -2.066975115754591
+    Lower Bound: 2.566812369, Upper Bound: inf
+  Violation in e120:
+    Slack: -0.0001372431421
+    Lower Bound: 0.0001372431421, Upper Bound: inf
+  Violation in e121:
+    Slack: -2.0534424487545913
+    Lower Bound: 2.553279702, Upper Bound: inf
+  Violation in e122:
+    Slack: -1.7643212918809943
+    Lower Bound: 3.764191094, Upper Bound: inf
+  Violation in e124:
+    Slack: -1.7872084727545912
+    Lower Bound: 2.287045726, Upper Bound: inf
+  Violation in e125:
+    Slack: -9.951582641e-06
+    Lower Bound: 9.951582641e-06, Upper Bound: inf
+  Violation in e126:
+    Slack: -3.703415076754591
+    Lower Bound: 4.20325233, Upper Bound: inf
+  Violation in e129:
+    Slack: -1.787370496754591
+    Lower Bound: 2.28720775, Upper Bound: inf
+  Violation in e131:
+    Slack: -3.708156819754591
+    Lower Bound: 4.207994073, Upper Bound: inf
+  Violation in e132:
+    Slack: -4.622430501880995
+    Lower Bound: 6.622300304, Upper Bound: inf
+  Violation in e136:
+    Slack: -1.2695627502312619
+    Lower Bound: 1.769660415, Upper Bound: inf
+  Violation in e140:
+    Slack: -1.132446823231262
+    Lower Bound: 1.632544488, Upper Bound: inf
+  Violation in e146:
+    Slack: -0.0001095584048
+    Lower Bound: 0.0001095584048, Upper Bound: inf
+  Violation in e148:
+    Slack: -3.6519016402312623
+    Lower Bound: 4.151999305, Upper Bound: inf
+  Violation in e164:
+    Slack: -3.634629316
+    Lower Bound: 5.634629316, Upper Bound: inf
+  Violation in e165:
+    Slack: -2.51438916575459
+    Lower Bound: 3.014551939, Upper Bound: inf
+  Violation in e166:
+    Slack: -3.0749495610000004
+    Lower Bound: 5.074949561, Upper Bound: inf
+  Violation in e167:
+    Slack: -2.09340888775459
+    Lower Bound: 2.593571661, Upper Bound: inf
+  Violation in e168:
+    Slack: -3.075131938
+    Lower Bound: 5.075131938, Upper Bound: inf
+  Violation in e169:
+    Slack: -2.09331234875459
+    Lower Bound: 2.593475122, Upper Bound: inf
+  Violation in e178:
+    Slack: -2.5143891657545896
+    Lower Bound: 3.014551939, Upper Bound: inf
+  Violation in e180:
+    Slack: -0.0001372431421
+    Lower Bound: 0.0001372431421, Upper Bound: inf
+  Violation in e182:
+    Slack: -3.6075996019999996
+    Lower Bound: 5.607599602, Upper Bound: inf
+  Violation in e184:
+    Slack: -2.0534729937545912
+    Lower Bound: 2.553310247, Upper Bound: inf
+  Violation in e185:
+    Slack: -2.3083322702312614
+    Lower Bound: 6.808625255, Upper Bound: inf
+  Violation in e186:
+    Slack: -1.2695627502312619
+    Lower Bound: 1.769660415, Upper Bound: inf
+  Violation in e187:
+    Slack: -2.038862968880994
+    Lower Bound: 4.038732771, Upper Bound: inf
+  Violation in e190:
+    Slack: -2.066975115754591
+    Lower Bound: 2.566812369, Upper Bound: inf
+  Violation in e193:
+    Slack: -2.0934088877545896
+    Lower Bound: 2.593571661, Upper Bound: inf
+  Violation in e195:
+    Slack: -9.951582641e-06
+    Lower Bound: 9.951582641e-06, Upper Bound: inf
+  Violation in e197:
+    Slack: -3.6075385320000004
+    Lower Bound: 5.607538532, Upper Bound: inf
+  Violation in e199:
+    Slack: -2.0534424487545913
+    Lower Bound: 2.553279702, Upper Bound: inf
+  Violation in e200:
+    Slack: -1.896320103231261
+    Lower Bound: 6.396613088, Upper Bound: inf
+  Violation in e201:
+    Slack: -1.132446823231262
+    Lower Bound: 1.632544488, Upper Bound: inf
+  Violation in e202:
+    Slack: -1.7643212918809938
+    Lower Bound: 3.764191094, Upper Bound: inf
+  Violation in e205:
+    Slack: -1.7872084727545912
+    Lower Bound: 2.287045726, Upper Bound: inf
+  Violation in e208:
+    Slack: -2.0933123487545897
+    Lower Bound: 2.593475122, Upper Bound: inf
+  Violation in e212:
+    Slack: -5.404294077
+    Lower Bound: 7.404294077, Upper Bound: inf
+  Violation in e213:
+    Slack: -1.503171037
+    Lower Bound: 1.503171037, Upper Bound: inf
+  Violation in e214:
+    Slack: -3.703415076754591
+    Lower Bound: 4.20325233, Upper Bound: inf
+  Violation in e220:
+    Slack: -1.787370496754591
+    Lower Bound: 2.28720775, Upper Bound: inf
+  Violation in e227:
+    Slack: -5.409463139
+    Lower Bound: 7.409463139, Upper Bound: inf
+  Violation in e228:
+    Slack: -1.507485599
+    Lower Bound: 1.507485599, Upper Bound: inf
+  Violation in e229:
+    Slack: -3.708156819754591
+    Lower Bound: 4.207994073, Upper Bound: inf
+  Violation in e230:
+    Slack: -5.093193960231262
+    Lower Bound: 9.593486945, Upper Bound: inf
+  Violation in e231:
+    Slack: -3.6519016402312623
+    Lower Bound: 4.151999305, Upper Bound: inf
+  Violation in e232:
+    Slack: -4.622430501880994
+    Lower Bound: 6.622300304, Upper Bound: inf
+94 constraints violated
+
+Computing Phi using greedy method...
+Greedy Phi = 1.99992
+  coeff: 2.00008
+  z_0 = -0.01
+  max feature: e25
+Greedy max sum phis = 4.33776
+  coeff: -3.59164
+  INVALID: zvar changed sign across constraints!
+Computed Phi using Greedy.
+
+Completed iteration 1
+  > Cost:    0
+  > Phi_L:   0
+  > Phi_max: 1.99992
+  Solution:
+    x5 = 1.99992
+    x8 = 1.5
+    x11 = 0.999951
+    x14 = 2.5
+    x17 = 1.5
+    x20 = 1.99992
+    x21 = 1.99992
+    x22 = 1.5
+    x23 = 0.999951
+    x24 = 2.5
+    x25 = 1.5
+    x26 = 1.99992
+===============================================================
+
+Did NOT converge: add cut
+Adding multiple Greedy cuts...
+Adding greedy cut for zvar=z_0 coeff=2.00008 with phi=1.99992
+Cut #4 (feature weight):
+  e25  1
+Added cut using Greedy
+Adding greedy cut for zvar=z_3 coeff=-2.00008 with phi=1.99992
+Cut #5 (feature weight):
+  e30  1
+Added cut using Greedy
+Adding greedy cut for zvar=z_4 coeff=-1.99992 with phi=1.99992
+Cut #6 (feature weight):
+  e31  1
+Added cut using Greedy
+Done adding 3 Greedy cuts.
+Solving model ...
+= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+Solved with /Applications/knitro-16.0.0-ARM-MacOS/bin/knitroampl in 0.008692 seconds
+
+Optimal objective: obj = 0
+Optimal objective: weighted_obj = 0
+Optimal variable values:
+  x5 = 1.99992
+  x8 = 1.5
+  x11 = 0.999951
+  x14 = 2.5
+  x17 = 1.5
+  x20 = 1.99992
+  x21 = 1.99992
+  x22 = 1.5
+  x23 = 0.999951
+  x24 = 2.5
+  x25 = 1.5
+  x26 = 1.99992
+12 nonzero variables in solution
+
+Checking for violations...
+  Violation in e25:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e26:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e27:
+    Slack: -0.99995117
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e28:
+    Slack: -2.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e29:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e30:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e31:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e32:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e33:
+    Slack: -0.99995117
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e34:
+    Slack: -2.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e35:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e36:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e37:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e38:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e39:
+    Slack: -0.99995117
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e40:
+    Slack: -2.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e41:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e42:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e43:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e44:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e45:
+    Slack: -0.99995117
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e46:
+    Slack: -2.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e47:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e48:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e95:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in e96:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in e97:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in e98:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in e99:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in e100:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in e101:
+    Slack: -11.749593096754591
+    Lower Bound: 12.24943035, Upper Bound: inf
+  Violation in e102:
+    Slack: -6.999348954880993
+    Lower Bound: 8.999218757, Upper Bound: inf
+  Violation in e103:
+    Slack: -19.74910481675459
+    Lower Bound: 20.24926759, Upper Bound: inf
+  Violation in e104:
+    Slack: -11.749593096754591
+    Lower Bound: 12.24943035, Upper Bound: inf
+  Violation in e105:
+    Slack: -15.99869795
+    Lower Bound: 15.99869795, Upper Bound: inf
+  Violation in e106:
+    Slack: -5.749658187231262
+    Lower Bound: 6.249755852, Upper Bound: inf
+  Violation in e107:
+    Slack: -14.0
+    Lower Bound: 16.0, Upper Bound: inf
+  Violation in e108:
+    Slack: -9.0
+    Lower Bound: 9.0, Upper Bound: inf
+  Violation in e109:
+    Slack: -11.749593096754591
+    Lower Bound: 12.24943035, Upper Bound: inf
+  Violation in e110:
+    Slack: -7.749365205231261
+    Lower Bound: 12.24965819, Upper Bound: inf
+  Violation in e111:
+    Slack: -5.749658187231262
+    Lower Bound: 6.249755852, Upper Bound: inf
+  Violation in e112:
+    Slack: -6.999348954880993
+    Lower Bound: 8.999218757, Upper Bound: inf
+  Violation in e113:
+    Slack: -14.0
+    Lower Bound: 16.0, Upper Bound: inf
+  Violation in e114:
+    Slack: -19.74910481675459
+    Lower Bound: 20.24926759, Upper Bound: inf
+  Violation in e115:
+    Slack: -11.749593096754591
+    Lower Bound: 12.24943035, Upper Bound: inf
+  Violation in e116:
+    Slack: -2.0534729937545912
+    Lower Bound: 2.553310247, Upper Bound: inf
+  Violation in e117:
+    Slack: -2.0388629688809945
+    Lower Bound: 4.038732771, Upper Bound: inf
+  Violation in e119:
+    Slack: -2.066975115754591
+    Lower Bound: 2.566812369, Upper Bound: inf
+  Violation in e120:
+    Slack: -0.0001372431421
+    Lower Bound: 0.0001372431421, Upper Bound: inf
+  Violation in e121:
+    Slack: -2.0534424487545913
+    Lower Bound: 2.553279702, Upper Bound: inf
+  Violation in e122:
+    Slack: -1.7643212918809943
+    Lower Bound: 3.764191094, Upper Bound: inf
+  Violation in e124:
+    Slack: -1.7872084727545912
+    Lower Bound: 2.287045726, Upper Bound: inf
+  Violation in e125:
+    Slack: -9.951582641e-06
+    Lower Bound: 9.951582641e-06, Upper Bound: inf
+  Violation in e126:
+    Slack: -3.703415076754591
+    Lower Bound: 4.20325233, Upper Bound: inf
+  Violation in e129:
+    Slack: -1.787370496754591
+    Lower Bound: 2.28720775, Upper Bound: inf
+  Violation in e131:
+    Slack: -3.708156819754591
+    Lower Bound: 4.207994073, Upper Bound: inf
+  Violation in e132:
+    Slack: -4.622430501880995
+    Lower Bound: 6.622300304, Upper Bound: inf
+  Violation in e136:
+    Slack: -1.2695627502312619
+    Lower Bound: 1.769660415, Upper Bound: inf
+  Violation in e140:
+    Slack: -1.132446823231262
+    Lower Bound: 1.632544488, Upper Bound: inf
+  Violation in e146:
+    Slack: -0.0001095584048
+    Lower Bound: 0.0001095584048, Upper Bound: inf
+  Violation in e148:
+    Slack: -3.6519016402312623
+    Lower Bound: 4.151999305, Upper Bound: inf
+  Violation in e164:
+    Slack: -3.634629316
+    Lower Bound: 5.634629316, Upper Bound: inf
+  Violation in e165:
+    Slack: -2.51438916575459
+    Lower Bound: 3.014551939, Upper Bound: inf
+  Violation in e166:
+    Slack: -3.0749495610000004
+    Lower Bound: 5.074949561, Upper Bound: inf
+  Violation in e167:
+    Slack: -2.09340888775459
+    Lower Bound: 2.593571661, Upper Bound: inf
+  Violation in e168:
+    Slack: -3.075131938
+    Lower Bound: 5.075131938, Upper Bound: inf
+  Violation in e169:
+    Slack: -2.09331234875459
+    Lower Bound: 2.593475122, Upper Bound: inf
+  Violation in e178:
+    Slack: -2.5143891657545896
+    Lower Bound: 3.014551939, Upper Bound: inf
+  Violation in e180:
+    Slack: -0.0001372431421
+    Lower Bound: 0.0001372431421, Upper Bound: inf
+  Violation in e182:
+    Slack: -3.6075996019999996
+    Lower Bound: 5.607599602, Upper Bound: inf
+  Violation in e184:
+    Slack: -2.0534729937545912
+    Lower Bound: 2.553310247, Upper Bound: inf
+  Violation in e185:
+    Slack: -2.3083322702312614
+    Lower Bound: 6.808625255, Upper Bound: inf
+  Violation in e186:
+    Slack: -1.2695627502312619
+    Lower Bound: 1.769660415, Upper Bound: inf
+  Violation in e187:
+    Slack: -2.038862968880994
+    Lower Bound: 4.038732771, Upper Bound: inf
+  Violation in e190:
+    Slack: -2.066975115754591
+    Lower Bound: 2.566812369, Upper Bound: inf
+  Violation in e193:
+    Slack: -2.0934088877545896
+    Lower Bound: 2.593571661, Upper Bound: inf
+  Violation in e195:
+    Slack: -9.951582641e-06
+    Lower Bound: 9.951582641e-06, Upper Bound: inf
+  Violation in e197:
+    Slack: -3.6075385320000004
+    Lower Bound: 5.607538532, Upper Bound: inf
+  Violation in e199:
+    Slack: -2.0534424487545913
+    Lower Bound: 2.553279702, Upper Bound: inf
+  Violation in e200:
+    Slack: -1.896320103231261
+    Lower Bound: 6.396613088, Upper Bound: inf
+  Violation in e201:
+    Slack: -1.132446823231262
+    Lower Bound: 1.632544488, Upper Bound: inf
+  Violation in e202:
+    Slack: -1.7643212918809938
+    Lower Bound: 3.764191094, Upper Bound: inf
+  Violation in e205:
+    Slack: -1.7872084727545912
+    Lower Bound: 2.287045726, Upper Bound: inf
+  Violation in e208:
+    Slack: -2.0933123487545897
+    Lower Bound: 2.593475122, Upper Bound: inf
+  Violation in e212:
+    Slack: -5.404294077
+    Lower Bound: 7.404294077, Upper Bound: inf
+  Violation in e213:
+    Slack: -1.503171037
+    Lower Bound: 1.503171037, Upper Bound: inf
+  Violation in e214:
+    Slack: -3.703415076754591
+    Lower Bound: 4.20325233, Upper Bound: inf
+  Violation in e220:
+    Slack: -1.787370496754591
+    Lower Bound: 2.28720775, Upper Bound: inf
+  Violation in e227:
+    Slack: -5.409463139
+    Lower Bound: 7.409463139, Upper Bound: inf
+  Violation in e228:
+    Slack: -1.507485599
+    Lower Bound: 1.507485599, Upper Bound: inf
+  Violation in e229:
+    Slack: -3.708156819754591
+    Lower Bound: 4.207994073, Upper Bound: inf
+  Violation in e230:
+    Slack: -5.093193960231262
+    Lower Bound: 9.593486945, Upper Bound: inf
+  Violation in e231:
+    Slack: -3.6519016402312623
+    Lower Bound: 4.151999305, Upper Bound: inf
+  Violation in e232:
+    Slack: -4.622430501880994
+    Lower Bound: 6.622300304, Upper Bound: inf
+94 constraints violated
+
+Computing Phi using greedy method...
+Greedy Phi = 1.99992
+  coeff: 2.00008
+  z_0 = -0.01
+  max feature: e25
+Greedy max sum phis = 4.33776
+  coeff: -3.59164
+  INVALID: zvar changed sign across constraints!
+Computed Phi using Greedy.
+
+Completed iteration 2
+  > Cost:    0
+  > Phi_L:   0
+  > Phi_max: 1.99992
+  Solution:
+    x5 = 1.99992
+    x8 = 1.5
+    x11 = 0.999951
+    x14 = 2.5
+    x17 = 1.5
+    x20 = 1.99992
+    x21 = 1.99992
+    x22 = 1.5
+    x23 = 0.999951
+    x24 = 2.5
+    x25 = 1.5
+    x26 = 1.99992
+===============================================================
+
+Did NOT converge: add cut
+Adding multiple Greedy cuts...
+Adding greedy cut for zvar=z_0 coeff=2.00008 with phi=1.99992
+Cut #7 (feature weight):
+  e25  1
+Added cut using Greedy
+Adding greedy cut for zvar=z_3 coeff=-2.00008 with phi=1.99992
+Cut #8 (feature weight):
+  e30  1
+Added cut using Greedy
+Adding greedy cut for zvar=z_4 coeff=-1.99992 with phi=1.99992
+Cut #9 (feature weight):
+  e31  1
+Added cut using Greedy
+Done adding 3 Greedy cuts.
+Solving model ...
+= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+Solved with /Applications/knitro-16.0.0-ARM-MacOS/bin/knitroampl in 0.009023 seconds
+
+Optimal objective: obj = 0
+Optimal objective: weighted_obj = 0
+Optimal variable values:
+  x5 = 1.99992
+  x8 = 1.5
+  x11 = 0.999951
+  x14 = 2.5
+  x17 = 1.5
+  x20 = 1.99992
+  x21 = 1.99992
+  x22 = 1.5
+  x23 = 0.999951
+  x24 = 2.5
+  x25 = 1.5
+  x26 = 1.99992
+12 nonzero variables in solution
+
+Checking for violations...
+  Violation in e25:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e26:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e27:
+    Slack: -0.99995117
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e28:
+    Slack: -2.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e29:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e30:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e31:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e32:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e33:
+    Slack: -0.99995117
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e34:
+    Slack: -2.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e35:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e36:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e37:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e38:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e39:
+    Slack: -0.99995117
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e40:
+    Slack: -2.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e41:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e42:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e43:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e44:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e45:
+    Slack: -0.99995117
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e46:
+    Slack: -2.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e47:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e48:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e95:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in e96:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in e97:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in e98:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in e99:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in e100:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in e101:
+    Slack: -11.749593096754591
+    Lower Bound: 12.24943035, Upper Bound: inf
+  Violation in e102:
+    Slack: -6.999348954880993
+    Lower Bound: 8.999218757, Upper Bound: inf
+  Violation in e103:
+    Slack: -19.74910481675459
+    Lower Bound: 20.24926759, Upper Bound: inf
+  Violation in e104:
+    Slack: -11.749593096754591
+    Lower Bound: 12.24943035, Upper Bound: inf
+  Violation in e105:
+    Slack: -15.99869795
+    Lower Bound: 15.99869795, Upper Bound: inf
+  Violation in e106:
+    Slack: -5.749658187231262
+    Lower Bound: 6.249755852, Upper Bound: inf
+  Violation in e107:
+    Slack: -14.0
+    Lower Bound: 16.0, Upper Bound: inf
+  Violation in e108:
+    Slack: -9.0
+    Lower Bound: 9.0, Upper Bound: inf
+  Violation in e109:
+    Slack: -11.749593096754591
+    Lower Bound: 12.24943035, Upper Bound: inf
+  Violation in e110:
+    Slack: -7.749365205231261
+    Lower Bound: 12.24965819, Upper Bound: inf
+  Violation in e111:
+    Slack: -5.749658187231262
+    Lower Bound: 6.249755852, Upper Bound: inf
+  Violation in e112:
+    Slack: -6.999348954880993
+    Lower Bound: 8.999218757, Upper Bound: inf
+  Violation in e113:
+    Slack: -14.0
+    Lower Bound: 16.0, Upper Bound: inf
+  Violation in e114:
+    Slack: -19.74910481675459
+    Lower Bound: 20.24926759, Upper Bound: inf
+  Violation in e115:
+    Slack: -11.749593096754591
+    Lower Bound: 12.24943035, Upper Bound: inf
+  Violation in e116:
+    Slack: -2.0534729937545912
+    Lower Bound: 2.553310247, Upper Bound: inf
+  Violation in e117:
+    Slack: -2.0388629688809945
+    Lower Bound: 4.038732771, Upper Bound: inf
+  Violation in e119:
+    Slack: -2.066975115754591
+    Lower Bound: 2.566812369, Upper Bound: inf
+  Violation in e120:
+    Slack: -0.0001372431421
+    Lower Bound: 0.0001372431421, Upper Bound: inf
+  Violation in e121:
+    Slack: -2.0534424487545913
+    Lower Bound: 2.553279702, Upper Bound: inf
+  Violation in e122:
+    Slack: -1.7643212918809943
+    Lower Bound: 3.764191094, Upper Bound: inf
+  Violation in e124:
+    Slack: -1.7872084727545912
+    Lower Bound: 2.287045726, Upper Bound: inf
+  Violation in e125:
+    Slack: -9.951582641e-06
+    Lower Bound: 9.951582641e-06, Upper Bound: inf
+  Violation in e126:
+    Slack: -3.703415076754591
+    Lower Bound: 4.20325233, Upper Bound: inf
+  Violation in e129:
+    Slack: -1.787370496754591
+    Lower Bound: 2.28720775, Upper Bound: inf
+  Violation in e131:
+    Slack: -3.708156819754591
+    Lower Bound: 4.207994073, Upper Bound: inf
+  Violation in e132:
+    Slack: -4.622430501880995
+    Lower Bound: 6.622300304, Upper Bound: inf
+  Violation in e136:
+    Slack: -1.2695627502312619
+    Lower Bound: 1.769660415, Upper Bound: inf
+  Violation in e140:
+    Slack: -1.132446823231262
+    Lower Bound: 1.632544488, Upper Bound: inf
+  Violation in e146:
+    Slack: -0.0001095584048
+    Lower Bound: 0.0001095584048, Upper Bound: inf
+  Violation in e148:
+    Slack: -3.6519016402312623
+    Lower Bound: 4.151999305, Upper Bound: inf
+  Violation in e164:
+    Slack: -3.634629316
+    Lower Bound: 5.634629316, Upper Bound: inf
+  Violation in e165:
+    Slack: -2.51438916575459
+    Lower Bound: 3.014551939, Upper Bound: inf
+  Violation in e166:
+    Slack: -3.0749495610000004
+    Lower Bound: 5.074949561, Upper Bound: inf
+  Violation in e167:
+    Slack: -2.09340888775459
+    Lower Bound: 2.593571661, Upper Bound: inf
+  Violation in e168:
+    Slack: -3.075131938
+    Lower Bound: 5.075131938, Upper Bound: inf
+  Violation in e169:
+    Slack: -2.09331234875459
+    Lower Bound: 2.593475122, Upper Bound: inf
+  Violation in e178:
+    Slack: -2.5143891657545896
+    Lower Bound: 3.014551939, Upper Bound: inf
+  Violation in e180:
+    Slack: -0.0001372431421
+    Lower Bound: 0.0001372431421, Upper Bound: inf
+  Violation in e182:
+    Slack: -3.6075996019999996
+    Lower Bound: 5.607599602, Upper Bound: inf
+  Violation in e184:
+    Slack: -2.0534729937545912
+    Lower Bound: 2.553310247, Upper Bound: inf
+  Violation in e185:
+    Slack: -2.3083322702312614
+    Lower Bound: 6.808625255, Upper Bound: inf
+  Violation in e186:
+    Slack: -1.2695627502312619
+    Lower Bound: 1.769660415, Upper Bound: inf
+  Violation in e187:
+    Slack: -2.038862968880994
+    Lower Bound: 4.038732771, Upper Bound: inf
+  Violation in e190:
+    Slack: -2.066975115754591
+    Lower Bound: 2.566812369, Upper Bound: inf
+  Violation in e193:
+    Slack: -2.0934088877545896
+    Lower Bound: 2.593571661, Upper Bound: inf
+  Violation in e195:
+    Slack: -9.951582641e-06
+    Lower Bound: 9.951582641e-06, Upper Bound: inf
+  Violation in e197:
+    Slack: -3.6075385320000004
+    Lower Bound: 5.607538532, Upper Bound: inf
+  Violation in e199:
+    Slack: -2.0534424487545913
+    Lower Bound: 2.553279702, Upper Bound: inf
+  Violation in e200:
+    Slack: -1.896320103231261
+    Lower Bound: 6.396613088, Upper Bound: inf
+  Violation in e201:
+    Slack: -1.132446823231262
+    Lower Bound: 1.632544488, Upper Bound: inf
+  Violation in e202:
+    Slack: -1.7643212918809938
+    Lower Bound: 3.764191094, Upper Bound: inf
+  Violation in e205:
+    Slack: -1.7872084727545912
+    Lower Bound: 2.287045726, Upper Bound: inf
+  Violation in e208:
+    Slack: -2.0933123487545897
+    Lower Bound: 2.593475122, Upper Bound: inf
+  Violation in e212:
+    Slack: -5.404294077
+    Lower Bound: 7.404294077, Upper Bound: inf
+  Violation in e213:
+    Slack: -1.503171037
+    Lower Bound: 1.503171037, Upper Bound: inf
+  Violation in e214:
+    Slack: -3.703415076754591
+    Lower Bound: 4.20325233, Upper Bound: inf
+  Violation in e220:
+    Slack: -1.787370496754591
+    Lower Bound: 2.28720775, Upper Bound: inf
+  Violation in e227:
+    Slack: -5.409463139
+    Lower Bound: 7.409463139, Upper Bound: inf
+  Violation in e228:
+    Slack: -1.507485599
+    Lower Bound: 1.507485599, Upper Bound: inf
+  Violation in e229:
+    Slack: -3.708156819754591
+    Lower Bound: 4.207994073, Upper Bound: inf
+  Violation in e230:
+    Slack: -5.093193960231262
+    Lower Bound: 9.593486945, Upper Bound: inf
+  Violation in e231:
+    Slack: -3.6519016402312623
+    Lower Bound: 4.151999305, Upper Bound: inf
+  Violation in e232:
+    Slack: -4.622430501880994
+    Lower Bound: 6.622300304, Upper Bound: inf
+94 constraints violated
+
+Computing Phi using greedy method...
+Greedy Phi = 1.99992
+  coeff: 2.00008
+  z_0 = -0.01
+  max feature: e25
+Greedy max sum phis = 4.33776
+  coeff: -3.59164
+  INVALID: zvar changed sign across constraints!
+Computed Phi using Greedy.
+
+Completed iteration 3
+  > Cost:    0
+  > Phi_L:   0
+  > Phi_max: 1.99992
+  Solution:
+    x5 = 1.99992
+    x8 = 1.5
+    x11 = 0.999951
+    x14 = 2.5
+    x17 = 1.5
+    x20 = 1.99992
+    x21 = 1.99992
+    x22 = 1.5
+    x23 = 0.999951
+    x24 = 2.5
+    x25 = 1.5
+    x26 = 1.99992
+===============================================================
+
+Did NOT converge: add cut
+Adding multiple Greedy cuts...
+Adding greedy cut for zvar=z_0 coeff=2.00008 with phi=1.99992
+Cut #10 (feature weight):
+  e25  1
+Added cut using Greedy
+Adding greedy cut for zvar=z_3 coeff=-2.00008 with phi=1.99992
+Cut #11 (feature weight):
+  e30  1
+Added cut using Greedy
+Adding greedy cut for zvar=z_4 coeff=-1.99992 with phi=1.99992
+Cut #12 (feature weight):
+  e31  1
+Added cut using Greedy
+Done adding 3 Greedy cuts.
+Solving model ...
+= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+Solved with /Applications/knitro-16.0.0-ARM-MacOS/bin/knitroampl in 0.015879 seconds
+
+Optimal objective: obj = 0
+Optimal objective: weighted_obj = 0
+Optimal variable values:
+  x5 = 1.99992
+  x8 = 1.5
+  x11 = 0.999951
+  x14 = 2.5
+  x17 = 1.5
+  x20 = 1.99992
+  x21 = 1.99992
+  x22 = 1.5
+  x23 = 0.999951
+  x24 = 2.5
+  x25 = 1.5
+  x26 = 1.99992
+12 nonzero variables in solution
+
+Checking for violations...
+  Violation in e25:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e26:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e27:
+    Slack: -0.99995117
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e28:
+    Slack: -2.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e29:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e30:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e31:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e32:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e33:
+    Slack: -0.99995117
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e34:
+    Slack: -2.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e35:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e36:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e37:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e38:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e39:
+    Slack: -0.99995117
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e40:
+    Slack: -2.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e41:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e42:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e43:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e44:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e45:
+    Slack: -0.99995117
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e46:
+    Slack: -2.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e47:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e48:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e95:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in e96:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in e97:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in e98:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in e99:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in e100:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in e101:
+    Slack: -11.749593096754591
+    Lower Bound: 12.24943035, Upper Bound: inf
+  Violation in e102:
+    Slack: -6.999348954880993
+    Lower Bound: 8.999218757, Upper Bound: inf
+  Violation in e103:
+    Slack: -19.74910481675459
+    Lower Bound: 20.24926759, Upper Bound: inf
+  Violation in e104:
+    Slack: -11.749593096754591
+    Lower Bound: 12.24943035, Upper Bound: inf
+  Violation in e105:
+    Slack: -15.99869795
+    Lower Bound: 15.99869795, Upper Bound: inf
+  Violation in e106:
+    Slack: -5.749658187231262
+    Lower Bound: 6.249755852, Upper Bound: inf
+  Violation in e107:
+    Slack: -14.0
+    Lower Bound: 16.0, Upper Bound: inf
+  Violation in e108:
+    Slack: -9.0
+    Lower Bound: 9.0, Upper Bound: inf
+  Violation in e109:
+    Slack: -11.749593096754591
+    Lower Bound: 12.24943035, Upper Bound: inf
+  Violation in e110:
+    Slack: -7.749365205231261
+    Lower Bound: 12.24965819, Upper Bound: inf
+  Violation in e111:
+    Slack: -5.749658187231262
+    Lower Bound: 6.249755852, Upper Bound: inf
+  Violation in e112:
+    Slack: -6.999348954880993
+    Lower Bound: 8.999218757, Upper Bound: inf
+  Violation in e113:
+    Slack: -14.0
+    Lower Bound: 16.0, Upper Bound: inf
+  Violation in e114:
+    Slack: -19.74910481675459
+    Lower Bound: 20.24926759, Upper Bound: inf
+  Violation in e115:
+    Slack: -11.749593096754591
+    Lower Bound: 12.24943035, Upper Bound: inf
+  Violation in e116:
+    Slack: -2.0534729937545912
+    Lower Bound: 2.553310247, Upper Bound: inf
+  Violation in e117:
+    Slack: -2.0388629688809945
+    Lower Bound: 4.038732771, Upper Bound: inf
+  Violation in e119:
+    Slack: -2.066975115754591
+    Lower Bound: 2.566812369, Upper Bound: inf
+  Violation in e120:
+    Slack: -0.0001372431421
+    Lower Bound: 0.0001372431421, Upper Bound: inf
+  Violation in e121:
+    Slack: -2.0534424487545913
+    Lower Bound: 2.553279702, Upper Bound: inf
+  Violation in e122:
+    Slack: -1.7643212918809943
+    Lower Bound: 3.764191094, Upper Bound: inf
+  Violation in e124:
+    Slack: -1.7872084727545912
+    Lower Bound: 2.287045726, Upper Bound: inf
+  Violation in e125:
+    Slack: -9.951582641e-06
+    Lower Bound: 9.951582641e-06, Upper Bound: inf
+  Violation in e126:
+    Slack: -3.703415076754591
+    Lower Bound: 4.20325233, Upper Bound: inf
+  Violation in e129:
+    Slack: -1.787370496754591
+    Lower Bound: 2.28720775, Upper Bound: inf
+  Violation in e131:
+    Slack: -3.708156819754591
+    Lower Bound: 4.207994073, Upper Bound: inf
+  Violation in e132:
+    Slack: -4.622430501880995
+    Lower Bound: 6.622300304, Upper Bound: inf
+  Violation in e136:
+    Slack: -1.2695627502312619
+    Lower Bound: 1.769660415, Upper Bound: inf
+  Violation in e140:
+    Slack: -1.132446823231262
+    Lower Bound: 1.632544488, Upper Bound: inf
+  Violation in e146:
+    Slack: -0.0001095584048
+    Lower Bound: 0.0001095584048, Upper Bound: inf
+  Violation in e148:
+    Slack: -3.6519016402312623
+    Lower Bound: 4.151999305, Upper Bound: inf
+  Violation in e164:
+    Slack: -3.634629316
+    Lower Bound: 5.634629316, Upper Bound: inf
+  Violation in e165:
+    Slack: -2.51438916575459
+    Lower Bound: 3.014551939, Upper Bound: inf
+  Violation in e166:
+    Slack: -3.0749495610000004
+    Lower Bound: 5.074949561, Upper Bound: inf
+  Violation in e167:
+    Slack: -2.09340888775459
+    Lower Bound: 2.593571661, Upper Bound: inf
+  Violation in e168:
+    Slack: -3.075131938
+    Lower Bound: 5.075131938, Upper Bound: inf
+  Violation in e169:
+    Slack: -2.09331234875459
+    Lower Bound: 2.593475122, Upper Bound: inf
+  Violation in e178:
+    Slack: -2.5143891657545896
+    Lower Bound: 3.014551939, Upper Bound: inf
+  Violation in e180:
+    Slack: -0.0001372431421
+    Lower Bound: 0.0001372431421, Upper Bound: inf
+  Violation in e182:
+    Slack: -3.6075996019999996
+    Lower Bound: 5.607599602, Upper Bound: inf
+  Violation in e184:
+    Slack: -2.0534729937545912
+    Lower Bound: 2.553310247, Upper Bound: inf
+  Violation in e185:
+    Slack: -2.3083322702312614
+    Lower Bound: 6.808625255, Upper Bound: inf
+  Violation in e186:
+    Slack: -1.2695627502312619
+    Lower Bound: 1.769660415, Upper Bound: inf
+  Violation in e187:
+    Slack: -2.038862968880994
+    Lower Bound: 4.038732771, Upper Bound: inf
+  Violation in e190:
+    Slack: -2.066975115754591
+    Lower Bound: 2.566812369, Upper Bound: inf
+  Violation in e193:
+    Slack: -2.0934088877545896
+    Lower Bound: 2.593571661, Upper Bound: inf
+  Violation in e195:
+    Slack: -9.951582641e-06
+    Lower Bound: 9.951582641e-06, Upper Bound: inf
+  Violation in e197:
+    Slack: -3.6075385320000004
+    Lower Bound: 5.607538532, Upper Bound: inf
+  Violation in e199:
+    Slack: -2.0534424487545913
+    Lower Bound: 2.553279702, Upper Bound: inf
+  Violation in e200:
+    Slack: -1.896320103231261
+    Lower Bound: 6.396613088, Upper Bound: inf
+  Violation in e201:
+    Slack: -1.132446823231262
+    Lower Bound: 1.632544488, Upper Bound: inf
+  Violation in e202:
+    Slack: -1.7643212918809938
+    Lower Bound: 3.764191094, Upper Bound: inf
+  Violation in e205:
+    Slack: -1.7872084727545912
+    Lower Bound: 2.287045726, Upper Bound: inf
+  Violation in e208:
+    Slack: -2.0933123487545897
+    Lower Bound: 2.593475122, Upper Bound: inf
+  Violation in e212:
+    Slack: -5.404294077
+    Lower Bound: 7.404294077, Upper Bound: inf
+  Violation in e213:
+    Slack: -1.503171037
+    Lower Bound: 1.503171037, Upper Bound: inf
+  Violation in e214:
+    Slack: -3.703415076754591
+    Lower Bound: 4.20325233, Upper Bound: inf
+  Violation in e220:
+    Slack: -1.787370496754591
+    Lower Bound: 2.28720775, Upper Bound: inf
+  Violation in e227:
+    Slack: -5.409463139
+    Lower Bound: 7.409463139, Upper Bound: inf
+  Violation in e228:
+    Slack: -1.507485599
+    Lower Bound: 1.507485599, Upper Bound: inf
+  Violation in e229:
+    Slack: -3.708156819754591
+    Lower Bound: 4.207994073, Upper Bound: inf
+  Violation in e230:
+    Slack: -5.093193960231262
+    Lower Bound: 9.593486945, Upper Bound: inf
+  Violation in e231:
+    Slack: -3.6519016402312623
+    Lower Bound: 4.151999305, Upper Bound: inf
+  Violation in e232:
+    Slack: -4.622430501880994
+    Lower Bound: 6.622300304, Upper Bound: inf
+94 constraints violated
+
+Computing Phi using greedy method...
+Greedy Phi = 1.99992
+  coeff: 2.00008
+  z_0 = -0.01
+  max feature: e25
+Greedy max sum phis = 4.33776
+  coeff: -3.59164
+  INVALID: zvar changed sign across constraints!
+Computed Phi using Greedy.
+
+Completed iteration 4
+  > Cost:    0
+  > Phi_L:   0
+  > Phi_max: 1.99992
+  Solution:
+    x5 = 1.99992
+    x8 = 1.5
+    x11 = 0.999951
+    x14 = 2.5
+    x17 = 1.5
+    x20 = 1.99992
+    x21 = 1.99992
+    x22 = 1.5
+    x23 = 0.999951
+    x24 = 2.5
+    x25 = 1.5
+    x26 = 1.99992
+===============================================================
+
+Did NOT converge: add cut
+Adding multiple Greedy cuts...
+Adding greedy cut for zvar=z_0 coeff=2.00008 with phi=1.99992
+Cut #13 (feature weight):
+  e25  1
+Added cut using Greedy
+Adding greedy cut for zvar=z_3 coeff=-2.00008 with phi=1.99992
+Cut #14 (feature weight):
+  e30  1
+Added cut using Greedy
+Adding greedy cut for zvar=z_4 coeff=-1.99992 with phi=1.99992
+Cut #15 (feature weight):
+  e31  1
+Added cut using Greedy
+Done adding 3 Greedy cuts.
+Solving model ...
+= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+Solved with /Applications/knitro-16.0.0-ARM-MacOS/bin/knitroampl in 0.011506 seconds
+
+Optimal objective: obj = 0
+Optimal objective: weighted_obj = 0
+Optimal variable values:
+  x5 = 1.99992
+  x8 = 1.5
+  x11 = 0.999951
+  x14 = 2.5
+  x17 = 1.5
+  x20 = 1.99992
+  x21 = 1.99992
+  x22 = 1.5
+  x23 = 0.999951
+  x24 = 2.5
+  x25 = 1.5
+  x26 = 1.99992
+12 nonzero variables in solution
+
+Checking for violations...
+  Violation in e25:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e26:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e27:
+    Slack: -0.99995117
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e28:
+    Slack: -2.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e29:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e30:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e31:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e32:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e33:
+    Slack: -0.99995117
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e34:
+    Slack: -2.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e35:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e36:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e37:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e38:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e39:
+    Slack: -0.99995117
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e40:
+    Slack: -2.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e41:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e42:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e43:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e44:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e45:
+    Slack: -0.99995117
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e46:
+    Slack: -2.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e47:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e48:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e95:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in e96:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in e97:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in e98:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in e99:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in e100:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in e101:
+    Slack: -11.749593096754591
+    Lower Bound: 12.24943035, Upper Bound: inf
+  Violation in e102:
+    Slack: -6.999348954880993
+    Lower Bound: 8.999218757, Upper Bound: inf
+  Violation in e103:
+    Slack: -19.74910481675459
+    Lower Bound: 20.24926759, Upper Bound: inf
+  Violation in e104:
+    Slack: -11.749593096754591
+    Lower Bound: 12.24943035, Upper Bound: inf
+  Violation in e105:
+    Slack: -15.99869795
+    Lower Bound: 15.99869795, Upper Bound: inf
+  Violation in e106:
+    Slack: -5.749658187231262
+    Lower Bound: 6.249755852, Upper Bound: inf
+  Violation in e107:
+    Slack: -14.0
+    Lower Bound: 16.0, Upper Bound: inf
+  Violation in e108:
+    Slack: -9.0
+    Lower Bound: 9.0, Upper Bound: inf
+  Violation in e109:
+    Slack: -11.749593096754591
+    Lower Bound: 12.24943035, Upper Bound: inf
+  Violation in e110:
+    Slack: -7.749365205231261
+    Lower Bound: 12.24965819, Upper Bound: inf
+  Violation in e111:
+    Slack: -5.749658187231262
+    Lower Bound: 6.249755852, Upper Bound: inf
+  Violation in e112:
+    Slack: -6.999348954880993
+    Lower Bound: 8.999218757, Upper Bound: inf
+  Violation in e113:
+    Slack: -14.0
+    Lower Bound: 16.0, Upper Bound: inf
+  Violation in e114:
+    Slack: -19.74910481675459
+    Lower Bound: 20.24926759, Upper Bound: inf
+  Violation in e115:
+    Slack: -11.749593096754591
+    Lower Bound: 12.24943035, Upper Bound: inf
+  Violation in e116:
+    Slack: -2.0534729937545912
+    Lower Bound: 2.553310247, Upper Bound: inf
+  Violation in e117:
+    Slack: -2.0388629688809945
+    Lower Bound: 4.038732771, Upper Bound: inf
+  Violation in e119:
+    Slack: -2.066975115754591
+    Lower Bound: 2.566812369, Upper Bound: inf
+  Violation in e120:
+    Slack: -0.0001372431421
+    Lower Bound: 0.0001372431421, Upper Bound: inf
+  Violation in e121:
+    Slack: -2.0534424487545913
+    Lower Bound: 2.553279702, Upper Bound: inf
+  Violation in e122:
+    Slack: -1.7643212918809943
+    Lower Bound: 3.764191094, Upper Bound: inf
+  Violation in e124:
+    Slack: -1.7872084727545912
+    Lower Bound: 2.287045726, Upper Bound: inf
+  Violation in e125:
+    Slack: -9.951582641e-06
+    Lower Bound: 9.951582641e-06, Upper Bound: inf
+  Violation in e126:
+    Slack: -3.703415076754591
+    Lower Bound: 4.20325233, Upper Bound: inf
+  Violation in e129:
+    Slack: -1.787370496754591
+    Lower Bound: 2.28720775, Upper Bound: inf
+  Violation in e131:
+    Slack: -3.708156819754591
+    Lower Bound: 4.207994073, Upper Bound: inf
+  Violation in e132:
+    Slack: -4.622430501880995
+    Lower Bound: 6.622300304, Upper Bound: inf
+  Violation in e136:
+    Slack: -1.2695627502312619
+    Lower Bound: 1.769660415, Upper Bound: inf
+  Violation in e140:
+    Slack: -1.132446823231262
+    Lower Bound: 1.632544488, Upper Bound: inf
+  Violation in e146:
+    Slack: -0.0001095584048
+    Lower Bound: 0.0001095584048, Upper Bound: inf
+  Violation in e148:
+    Slack: -3.6519016402312623
+    Lower Bound: 4.151999305, Upper Bound: inf
+  Violation in e164:
+    Slack: -3.634629316
+    Lower Bound: 5.634629316, Upper Bound: inf
+  Violation in e165:
+    Slack: -2.51438916575459
+    Lower Bound: 3.014551939, Upper Bound: inf
+  Violation in e166:
+    Slack: -3.0749495610000004
+    Lower Bound: 5.074949561, Upper Bound: inf
+  Violation in e167:
+    Slack: -2.09340888775459
+    Lower Bound: 2.593571661, Upper Bound: inf
+  Violation in e168:
+    Slack: -3.075131938
+    Lower Bound: 5.075131938, Upper Bound: inf
+  Violation in e169:
+    Slack: -2.09331234875459
+    Lower Bound: 2.593475122, Upper Bound: inf
+  Violation in e178:
+    Slack: -2.5143891657545896
+    Lower Bound: 3.014551939, Upper Bound: inf
+  Violation in e180:
+    Slack: -0.0001372431421
+    Lower Bound: 0.0001372431421, Upper Bound: inf
+  Violation in e182:
+    Slack: -3.6075996019999996
+    Lower Bound: 5.607599602, Upper Bound: inf
+  Violation in e184:
+    Slack: -2.0534729937545912
+    Lower Bound: 2.553310247, Upper Bound: inf
+  Violation in e185:
+    Slack: -2.3083322702312614
+    Lower Bound: 6.808625255, Upper Bound: inf
+  Violation in e186:
+    Slack: -1.2695627502312619
+    Lower Bound: 1.769660415, Upper Bound: inf
+  Violation in e187:
+    Slack: -2.038862968880994
+    Lower Bound: 4.038732771, Upper Bound: inf
+  Violation in e190:
+    Slack: -2.066975115754591
+    Lower Bound: 2.566812369, Upper Bound: inf
+  Violation in e193:
+    Slack: -2.0934088877545896
+    Lower Bound: 2.593571661, Upper Bound: inf
+  Violation in e195:
+    Slack: -9.951582641e-06
+    Lower Bound: 9.951582641e-06, Upper Bound: inf
+  Violation in e197:
+    Slack: -3.6075385320000004
+    Lower Bound: 5.607538532, Upper Bound: inf
+  Violation in e199:
+    Slack: -2.0534424487545913
+    Lower Bound: 2.553279702, Upper Bound: inf
+  Violation in e200:
+    Slack: -1.896320103231261
+    Lower Bound: 6.396613088, Upper Bound: inf
+  Violation in e201:
+    Slack: -1.132446823231262
+    Lower Bound: 1.632544488, Upper Bound: inf
+  Violation in e202:
+    Slack: -1.7643212918809938
+    Lower Bound: 3.764191094, Upper Bound: inf
+  Violation in e205:
+    Slack: -1.7872084727545912
+    Lower Bound: 2.287045726, Upper Bound: inf
+  Violation in e208:
+    Slack: -2.0933123487545897
+    Lower Bound: 2.593475122, Upper Bound: inf
+  Violation in e212:
+    Slack: -5.404294077
+    Lower Bound: 7.404294077, Upper Bound: inf
+  Violation in e213:
+    Slack: -1.503171037
+    Lower Bound: 1.503171037, Upper Bound: inf
+  Violation in e214:
+    Slack: -3.703415076754591
+    Lower Bound: 4.20325233, Upper Bound: inf
+  Violation in e220:
+    Slack: -1.787370496754591
+    Lower Bound: 2.28720775, Upper Bound: inf
+  Violation in e227:
+    Slack: -5.409463139
+    Lower Bound: 7.409463139, Upper Bound: inf
+  Violation in e228:
+    Slack: -1.507485599
+    Lower Bound: 1.507485599, Upper Bound: inf
+  Violation in e229:
+    Slack: -3.708156819754591
+    Lower Bound: 4.207994073, Upper Bound: inf
+  Violation in e230:
+    Slack: -5.093193960231262
+    Lower Bound: 9.593486945, Upper Bound: inf
+  Violation in e231:
+    Slack: -3.6519016402312623
+    Lower Bound: 4.151999305, Upper Bound: inf
+  Violation in e232:
+    Slack: -4.622430501880994
+    Lower Bound: 6.622300304, Upper Bound: inf
+94 constraints violated
+
+Computing Phi using greedy method...
+Greedy Phi = 1.99992
+  coeff: 2.00008
+  z_0 = -0.01
+  max feature: e25
+Greedy max sum phis = 4.33776
+  coeff: -3.59164
+  INVALID: zvar changed sign across constraints!
+Computed Phi using Greedy.
+
+Completed iteration 5
+  > Cost:    0
+  > Phi_L:   0
+  > Phi_max: 1.99992
+  Solution:
+    x5 = 1.99992
+    x8 = 1.5
+    x11 = 0.999951
+    x14 = 2.5
+    x17 = 1.5
+    x20 = 1.99992
+    x21 = 1.99992
+    x22 = 1.5
+    x23 = 0.999951
+    x24 = 2.5
+    x25 = 1.5
+    x26 = 1.99992
+===============================================================
+
+Did NOT converge: add cut
+Adding multiple Greedy cuts...
+Adding greedy cut for zvar=z_0 coeff=2.00008 with phi=1.99992
+Cut #16 (feature weight):
+  e25  1
+Added cut using Greedy
+Adding greedy cut for zvar=z_3 coeff=-2.00008 with phi=1.99992
+Cut #17 (feature weight):
+  e30  1
+Added cut using Greedy
+Adding greedy cut for zvar=z_4 coeff=-1.99992 with phi=1.99992
+Cut #18 (feature weight):
+  e31  1
+Added cut using Greedy
+Done adding 3 Greedy cuts.
+Solving model ...
+= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+Solved with /Applications/knitro-16.0.0-ARM-MacOS/bin/knitroampl in 0.009531 seconds
+
+Optimal objective: obj = 0
+Optimal objective: weighted_obj = 0
+Optimal variable values:
+  x5 = 1.99992
+  x8 = 1.5
+  x11 = 0.999951
+  x14 = 2.5
+  x17 = 1.5
+  x20 = 1.99992
+  x21 = 1.99992
+  x22 = 1.5
+  x23 = 0.999951
+  x24 = 2.5
+  x25 = 1.5
+  x26 = 1.99992
+12 nonzero variables in solution
+
+Checking for violations...
+  Violation in e25:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e26:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e27:
+    Slack: -0.99995117
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e28:
+    Slack: -2.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e29:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e30:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e31:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e32:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e33:
+    Slack: -0.99995117
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e34:
+    Slack: -2.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e35:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e36:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e37:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e38:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e39:
+    Slack: -0.99995117
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e40:
+    Slack: -2.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e41:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e42:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e43:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e44:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e45:
+    Slack: -0.99995117
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e46:
+    Slack: -2.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e47:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e48:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e95:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in e96:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in e97:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in e98:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in e99:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in e100:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in e101:
+    Slack: -11.749593096754591
+    Lower Bound: 12.24943035, Upper Bound: inf
+  Violation in e102:
+    Slack: -6.999348954880993
+    Lower Bound: 8.999218757, Upper Bound: inf
+  Violation in e103:
+    Slack: -19.74910481675459
+    Lower Bound: 20.24926759, Upper Bound: inf
+  Violation in e104:
+    Slack: -11.749593096754591
+    Lower Bound: 12.24943035, Upper Bound: inf
+  Violation in e105:
+    Slack: -15.99869795
+    Lower Bound: 15.99869795, Upper Bound: inf
+  Violation in e106:
+    Slack: -5.749658187231262
+    Lower Bound: 6.249755852, Upper Bound: inf
+  Violation in e107:
+    Slack: -14.0
+    Lower Bound: 16.0, Upper Bound: inf
+  Violation in e108:
+    Slack: -9.0
+    Lower Bound: 9.0, Upper Bound: inf
+  Violation in e109:
+    Slack: -11.749593096754591
+    Lower Bound: 12.24943035, Upper Bound: inf
+  Violation in e110:
+    Slack: -7.749365205231261
+    Lower Bound: 12.24965819, Upper Bound: inf
+  Violation in e111:
+    Slack: -5.749658187231262
+    Lower Bound: 6.249755852, Upper Bound: inf
+  Violation in e112:
+    Slack: -6.999348954880993
+    Lower Bound: 8.999218757, Upper Bound: inf
+  Violation in e113:
+    Slack: -14.0
+    Lower Bound: 16.0, Upper Bound: inf
+  Violation in e114:
+    Slack: -19.74910481675459
+    Lower Bound: 20.24926759, Upper Bound: inf
+  Violation in e115:
+    Slack: -11.749593096754591
+    Lower Bound: 12.24943035, Upper Bound: inf
+  Violation in e116:
+    Slack: -2.0534729937545912
+    Lower Bound: 2.553310247, Upper Bound: inf
+  Violation in e117:
+    Slack: -2.0388629688809945
+    Lower Bound: 4.038732771, Upper Bound: inf
+  Violation in e119:
+    Slack: -2.066975115754591
+    Lower Bound: 2.566812369, Upper Bound: inf
+  Violation in e120:
+    Slack: -0.0001372431421
+    Lower Bound: 0.0001372431421, Upper Bound: inf
+  Violation in e121:
+    Slack: -2.0534424487545913
+    Lower Bound: 2.553279702, Upper Bound: inf
+  Violation in e122:
+    Slack: -1.7643212918809943
+    Lower Bound: 3.764191094, Upper Bound: inf
+  Violation in e124:
+    Slack: -1.7872084727545912
+    Lower Bound: 2.287045726, Upper Bound: inf
+  Violation in e125:
+    Slack: -9.951582641e-06
+    Lower Bound: 9.951582641e-06, Upper Bound: inf
+  Violation in e126:
+    Slack: -3.703415076754591
+    Lower Bound: 4.20325233, Upper Bound: inf
+  Violation in e129:
+    Slack: -1.787370496754591
+    Lower Bound: 2.28720775, Upper Bound: inf
+  Violation in e131:
+    Slack: -3.708156819754591
+    Lower Bound: 4.207994073, Upper Bound: inf
+  Violation in e132:
+    Slack: -4.622430501880995
+    Lower Bound: 6.622300304, Upper Bound: inf
+  Violation in e136:
+    Slack: -1.2695627502312619
+    Lower Bound: 1.769660415, Upper Bound: inf
+  Violation in e140:
+    Slack: -1.132446823231262
+    Lower Bound: 1.632544488, Upper Bound: inf
+  Violation in e146:
+    Slack: -0.0001095584048
+    Lower Bound: 0.0001095584048, Upper Bound: inf
+  Violation in e148:
+    Slack: -3.6519016402312623
+    Lower Bound: 4.151999305, Upper Bound: inf
+  Violation in e164:
+    Slack: -3.634629316
+    Lower Bound: 5.634629316, Upper Bound: inf
+  Violation in e165:
+    Slack: -2.51438916575459
+    Lower Bound: 3.014551939, Upper Bound: inf
+  Violation in e166:
+    Slack: -3.0749495610000004
+    Lower Bound: 5.074949561, Upper Bound: inf
+  Violation in e167:
+    Slack: -2.09340888775459
+    Lower Bound: 2.593571661, Upper Bound: inf
+  Violation in e168:
+    Slack: -3.075131938
+    Lower Bound: 5.075131938, Upper Bound: inf
+  Violation in e169:
+    Slack: -2.09331234875459
+    Lower Bound: 2.593475122, Upper Bound: inf
+  Violation in e178:
+    Slack: -2.5143891657545896
+    Lower Bound: 3.014551939, Upper Bound: inf
+  Violation in e180:
+    Slack: -0.0001372431421
+    Lower Bound: 0.0001372431421, Upper Bound: inf
+  Violation in e182:
+    Slack: -3.6075996019999996
+    Lower Bound: 5.607599602, Upper Bound: inf
+  Violation in e184:
+    Slack: -2.0534729937545912
+    Lower Bound: 2.553310247, Upper Bound: inf
+  Violation in e185:
+    Slack: -2.3083322702312614
+    Lower Bound: 6.808625255, Upper Bound: inf
+  Violation in e186:
+    Slack: -1.2695627502312619
+    Lower Bound: 1.769660415, Upper Bound: inf
+  Violation in e187:
+    Slack: -2.038862968880994
+    Lower Bound: 4.038732771, Upper Bound: inf
+  Violation in e190:
+    Slack: -2.066975115754591
+    Lower Bound: 2.566812369, Upper Bound: inf
+  Violation in e193:
+    Slack: -2.0934088877545896
+    Lower Bound: 2.593571661, Upper Bound: inf
+  Violation in e195:
+    Slack: -9.951582641e-06
+    Lower Bound: 9.951582641e-06, Upper Bound: inf
+  Violation in e197:
+    Slack: -3.6075385320000004
+    Lower Bound: 5.607538532, Upper Bound: inf
+  Violation in e199:
+    Slack: -2.0534424487545913
+    Lower Bound: 2.553279702, Upper Bound: inf
+  Violation in e200:
+    Slack: -1.896320103231261
+    Lower Bound: 6.396613088, Upper Bound: inf
+  Violation in e201:
+    Slack: -1.132446823231262
+    Lower Bound: 1.632544488, Upper Bound: inf
+  Violation in e202:
+    Slack: -1.7643212918809938
+    Lower Bound: 3.764191094, Upper Bound: inf
+  Violation in e205:
+    Slack: -1.7872084727545912
+    Lower Bound: 2.287045726, Upper Bound: inf
+  Violation in e208:
+    Slack: -2.0933123487545897
+    Lower Bound: 2.593475122, Upper Bound: inf
+  Violation in e212:
+    Slack: -5.404294077
+    Lower Bound: 7.404294077, Upper Bound: inf
+  Violation in e213:
+    Slack: -1.503171037
+    Lower Bound: 1.503171037, Upper Bound: inf
+  Violation in e214:
+    Slack: -3.703415076754591
+    Lower Bound: 4.20325233, Upper Bound: inf
+  Violation in e220:
+    Slack: -1.787370496754591
+    Lower Bound: 2.28720775, Upper Bound: inf
+  Violation in e227:
+    Slack: -5.409463139
+    Lower Bound: 7.409463139, Upper Bound: inf
+  Violation in e228:
+    Slack: -1.507485599
+    Lower Bound: 1.507485599, Upper Bound: inf
+  Violation in e229:
+    Slack: -3.708156819754591
+    Lower Bound: 4.207994073, Upper Bound: inf
+  Violation in e230:
+    Slack: -5.093193960231262
+    Lower Bound: 9.593486945, Upper Bound: inf
+  Violation in e231:
+    Slack: -3.6519016402312623
+    Lower Bound: 4.151999305, Upper Bound: inf
+  Violation in e232:
+    Slack: -4.622430501880994
+    Lower Bound: 6.622300304, Upper Bound: inf
+94 constraints violated
+
+Computing Phi using greedy method...
+Greedy Phi = 1.99992
+  coeff: 2.00008
+  z_0 = -0.01
+  max feature: e25
+Greedy max sum phis = 4.33776
+  coeff: -3.59164
+  INVALID: zvar changed sign across constraints!
+Computed Phi using Greedy.
+
+Completed iteration 6
+  > Cost:    0
+  > Phi_L:   0
+  > Phi_max: 1.99992
+  Solution:
+    x5 = 1.99992
+    x8 = 1.5
+    x11 = 0.999951
+    x14 = 2.5
+    x17 = 1.5
+    x20 = 1.99992
+    x21 = 1.99992
+    x22 = 1.5
+    x23 = 0.999951
+    x24 = 2.5
+    x25 = 1.5
+    x26 = 1.99992
+===============================================================
+
+Did NOT converge: add cut
+Adding multiple Greedy cuts...
+Adding greedy cut for zvar=z_0 coeff=2.00008 with phi=1.99992
+Cut #19 (feature weight):
+  e25  1
+Added cut using Greedy
+Adding greedy cut for zvar=z_3 coeff=-2.00008 with phi=1.99992
+Cut #20 (feature weight):
+  e30  1
+Added cut using Greedy
+Adding greedy cut for zvar=z_4 coeff=-1.99992 with phi=1.99992
+Cut #21 (feature weight):
+  e31  1
+Added cut using Greedy
+Done adding 3 Greedy cuts.
+Solving model ...
+= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+Solved with /Applications/knitro-16.0.0-ARM-MacOS/bin/knitroampl in 0.009355 seconds
+
+Optimal objective: obj = 0
+Optimal objective: weighted_obj = 0
+Optimal variable values:
+  x5 = 1.99992
+  x8 = 1.5
+  x11 = 0.999951
+  x14 = 2.5
+  x17 = 1.5
+  x20 = 1.99992
+  x21 = 1.99992
+  x22 = 1.5
+  x23 = 0.999951
+  x24 = 2.5
+  x25 = 1.5
+  x26 = 1.99992
+12 nonzero variables in solution
+
+Checking for violations...
+  Violation in e25:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e26:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e27:
+    Slack: -0.99995117
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e28:
+    Slack: -2.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e29:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e30:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e31:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e32:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e33:
+    Slack: -0.99995117
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e34:
+    Slack: -2.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e35:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e36:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e37:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e38:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e39:
+    Slack: -0.99995117
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e40:
+    Slack: -2.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e41:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e42:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e43:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e44:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e45:
+    Slack: -0.99995117
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e46:
+    Slack: -2.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e47:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e48:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e95:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in e96:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in e97:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in e98:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in e99:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in e100:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in e101:
+    Slack: -11.749593096754591
+    Lower Bound: 12.24943035, Upper Bound: inf
+  Violation in e102:
+    Slack: -6.999348954880993
+    Lower Bound: 8.999218757, Upper Bound: inf
+  Violation in e103:
+    Slack: -19.74910481675459
+    Lower Bound: 20.24926759, Upper Bound: inf
+  Violation in e104:
+    Slack: -11.749593096754591
+    Lower Bound: 12.24943035, Upper Bound: inf
+  Violation in e105:
+    Slack: -15.99869795
+    Lower Bound: 15.99869795, Upper Bound: inf
+  Violation in e106:
+    Slack: -5.749658187231262
+    Lower Bound: 6.249755852, Upper Bound: inf
+  Violation in e107:
+    Slack: -14.0
+    Lower Bound: 16.0, Upper Bound: inf
+  Violation in e108:
+    Slack: -9.0
+    Lower Bound: 9.0, Upper Bound: inf
+  Violation in e109:
+    Slack: -11.749593096754591
+    Lower Bound: 12.24943035, Upper Bound: inf
+  Violation in e110:
+    Slack: -7.749365205231261
+    Lower Bound: 12.24965819, Upper Bound: inf
+  Violation in e111:
+    Slack: -5.749658187231262
+    Lower Bound: 6.249755852, Upper Bound: inf
+  Violation in e112:
+    Slack: -6.999348954880993
+    Lower Bound: 8.999218757, Upper Bound: inf
+  Violation in e113:
+    Slack: -14.0
+    Lower Bound: 16.0, Upper Bound: inf
+  Violation in e114:
+    Slack: -19.74910481675459
+    Lower Bound: 20.24926759, Upper Bound: inf
+  Violation in e115:
+    Slack: -11.749593096754591
+    Lower Bound: 12.24943035, Upper Bound: inf
+  Violation in e116:
+    Slack: -2.0534729937545912
+    Lower Bound: 2.553310247, Upper Bound: inf
+  Violation in e117:
+    Slack: -2.0388629688809945
+    Lower Bound: 4.038732771, Upper Bound: inf
+  Violation in e119:
+    Slack: -2.066975115754591
+    Lower Bound: 2.566812369, Upper Bound: inf
+  Violation in e120:
+    Slack: -0.0001372431421
+    Lower Bound: 0.0001372431421, Upper Bound: inf
+  Violation in e121:
+    Slack: -2.0534424487545913
+    Lower Bound: 2.553279702, Upper Bound: inf
+  Violation in e122:
+    Slack: -1.7643212918809943
+    Lower Bound: 3.764191094, Upper Bound: inf
+  Violation in e124:
+    Slack: -1.7872084727545912
+    Lower Bound: 2.287045726, Upper Bound: inf
+  Violation in e125:
+    Slack: -9.951582641e-06
+    Lower Bound: 9.951582641e-06, Upper Bound: inf
+  Violation in e126:
+    Slack: -3.703415076754591
+    Lower Bound: 4.20325233, Upper Bound: inf
+  Violation in e129:
+    Slack: -1.787370496754591
+    Lower Bound: 2.28720775, Upper Bound: inf
+  Violation in e131:
+    Slack: -3.708156819754591
+    Lower Bound: 4.207994073, Upper Bound: inf
+  Violation in e132:
+    Slack: -4.622430501880995
+    Lower Bound: 6.622300304, Upper Bound: inf
+  Violation in e136:
+    Slack: -1.2695627502312619
+    Lower Bound: 1.769660415, Upper Bound: inf
+  Violation in e140:
+    Slack: -1.132446823231262
+    Lower Bound: 1.632544488, Upper Bound: inf
+  Violation in e146:
+    Slack: -0.0001095584048
+    Lower Bound: 0.0001095584048, Upper Bound: inf
+  Violation in e148:
+    Slack: -3.6519016402312623
+    Lower Bound: 4.151999305, Upper Bound: inf
+  Violation in e164:
+    Slack: -3.634629316
+    Lower Bound: 5.634629316, Upper Bound: inf
+  Violation in e165:
+    Slack: -2.51438916575459
+    Lower Bound: 3.014551939, Upper Bound: inf
+  Violation in e166:
+    Slack: -3.0749495610000004
+    Lower Bound: 5.074949561, Upper Bound: inf
+  Violation in e167:
+    Slack: -2.09340888775459
+    Lower Bound: 2.593571661, Upper Bound: inf
+  Violation in e168:
+    Slack: -3.075131938
+    Lower Bound: 5.075131938, Upper Bound: inf
+  Violation in e169:
+    Slack: -2.09331234875459
+    Lower Bound: 2.593475122, Upper Bound: inf
+  Violation in e178:
+    Slack: -2.5143891657545896
+    Lower Bound: 3.014551939, Upper Bound: inf
+  Violation in e180:
+    Slack: -0.0001372431421
+    Lower Bound: 0.0001372431421, Upper Bound: inf
+  Violation in e182:
+    Slack: -3.6075996019999996
+    Lower Bound: 5.607599602, Upper Bound: inf
+  Violation in e184:
+    Slack: -2.0534729937545912
+    Lower Bound: 2.553310247, Upper Bound: inf
+  Violation in e185:
+    Slack: -2.3083322702312614
+    Lower Bound: 6.808625255, Upper Bound: inf
+  Violation in e186:
+    Slack: -1.2695627502312619
+    Lower Bound: 1.769660415, Upper Bound: inf
+  Violation in e187:
+    Slack: -2.038862968880994
+    Lower Bound: 4.038732771, Upper Bound: inf
+  Violation in e190:
+    Slack: -2.066975115754591
+    Lower Bound: 2.566812369, Upper Bound: inf
+  Violation in e193:
+    Slack: -2.0934088877545896
+    Lower Bound: 2.593571661, Upper Bound: inf
+  Violation in e195:
+    Slack: -9.951582641e-06
+    Lower Bound: 9.951582641e-06, Upper Bound: inf
+  Violation in e197:
+    Slack: -3.6075385320000004
+    Lower Bound: 5.607538532, Upper Bound: inf
+  Violation in e199:
+    Slack: -2.0534424487545913
+    Lower Bound: 2.553279702, Upper Bound: inf
+  Violation in e200:
+    Slack: -1.896320103231261
+    Lower Bound: 6.396613088, Upper Bound: inf
+  Violation in e201:
+    Slack: -1.132446823231262
+    Lower Bound: 1.632544488, Upper Bound: inf
+  Violation in e202:
+    Slack: -1.7643212918809938
+    Lower Bound: 3.764191094, Upper Bound: inf
+  Violation in e205:
+    Slack: -1.7872084727545912
+    Lower Bound: 2.287045726, Upper Bound: inf
+  Violation in e208:
+    Slack: -2.0933123487545897
+    Lower Bound: 2.593475122, Upper Bound: inf
+  Violation in e212:
+    Slack: -5.404294077
+    Lower Bound: 7.404294077, Upper Bound: inf
+  Violation in e213:
+    Slack: -1.503171037
+    Lower Bound: 1.503171037, Upper Bound: inf
+  Violation in e214:
+    Slack: -3.703415076754591
+    Lower Bound: 4.20325233, Upper Bound: inf
+  Violation in e220:
+    Slack: -1.787370496754591
+    Lower Bound: 2.28720775, Upper Bound: inf
+  Violation in e227:
+    Slack: -5.409463139
+    Lower Bound: 7.409463139, Upper Bound: inf
+  Violation in e228:
+    Slack: -1.507485599
+    Lower Bound: 1.507485599, Upper Bound: inf
+  Violation in e229:
+    Slack: -3.708156819754591
+    Lower Bound: 4.207994073, Upper Bound: inf
+  Violation in e230:
+    Slack: -5.093193960231262
+    Lower Bound: 9.593486945, Upper Bound: inf
+  Violation in e231:
+    Slack: -3.6519016402312623
+    Lower Bound: 4.151999305, Upper Bound: inf
+  Violation in e232:
+    Slack: -4.622430501880994
+    Lower Bound: 6.622300304, Upper Bound: inf
+94 constraints violated
+
+Computing Phi using greedy method...
+Greedy Phi = 1.99992
+  coeff: 2.00008
+  z_0 = -0.01
+  max feature: e25
+Greedy max sum phis = 4.33776
+  coeff: -3.59164
+  INVALID: zvar changed sign across constraints!
+Computed Phi using Greedy.
+
+Completed iteration 7
+  > Cost:    0
+  > Phi_L:   0
+  > Phi_max: 1.99992
+  Solution:
+    x5 = 1.99992
+    x8 = 1.5
+    x11 = 0.999951
+    x14 = 2.5
+    x17 = 1.5
+    x20 = 1.99992
+    x21 = 1.99992
+    x22 = 1.5
+    x23 = 0.999951
+    x24 = 2.5
+    x25 = 1.5
+    x26 = 1.99992
+===============================================================
+
+Did NOT converge: add cut
+Adding multiple Greedy cuts...
+Adding greedy cut for zvar=z_0 coeff=2.00008 with phi=1.99992
+Cut #22 (feature weight):
+  e25  1
+Added cut using Greedy
+Adding greedy cut for zvar=z_3 coeff=-2.00008 with phi=1.99992
+Cut #23 (feature weight):
+  e30  1
+Added cut using Greedy
+Adding greedy cut for zvar=z_4 coeff=-1.99992 with phi=1.99992
+Cut #24 (feature weight):
+  e31  1
+Added cut using Greedy
+Done adding 3 Greedy cuts.
+Solving model ...
+= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+Solved with /Applications/knitro-16.0.0-ARM-MacOS/bin/knitroampl in 0.008222 seconds
+
+Optimal objective: obj = 0
+Optimal objective: weighted_obj = 0
+Optimal variable values:
+  x5 = 1.99992
+  x8 = 1.5
+  x11 = 0.999951
+  x14 = 2.5
+  x17 = 1.5
+  x20 = 1.99992
+  x21 = 1.99992
+  x22 = 1.5
+  x23 = 0.999951
+  x24 = 2.5
+  x25 = 1.5
+  x26 = 1.99992
+12 nonzero variables in solution
+
+Checking for violations...
+  Violation in e25:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e26:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e27:
+    Slack: -0.99995117
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e28:
+    Slack: -2.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e29:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e30:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e31:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e32:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e33:
+    Slack: -0.99995117
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e34:
+    Slack: -2.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e35:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e36:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e37:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e38:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e39:
+    Slack: -0.99995117
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e40:
+    Slack: -2.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e41:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e42:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e43:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e44:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e45:
+    Slack: -0.99995117
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e46:
+    Slack: -2.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e47:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e48:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e95:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in e96:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in e97:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in e98:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in e99:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in e100:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in e101:
+    Slack: -11.749593096754591
+    Lower Bound: 12.24943035, Upper Bound: inf
+  Violation in e102:
+    Slack: -6.999348954880993
+    Lower Bound: 8.999218757, Upper Bound: inf
+  Violation in e103:
+    Slack: -19.74910481675459
+    Lower Bound: 20.24926759, Upper Bound: inf
+  Violation in e104:
+    Slack: -11.749593096754591
+    Lower Bound: 12.24943035, Upper Bound: inf
+  Violation in e105:
+    Slack: -15.99869795
+    Lower Bound: 15.99869795, Upper Bound: inf
+  Violation in e106:
+    Slack: -5.749658187231262
+    Lower Bound: 6.249755852, Upper Bound: inf
+  Violation in e107:
+    Slack: -14.0
+    Lower Bound: 16.0, Upper Bound: inf
+  Violation in e108:
+    Slack: -9.0
+    Lower Bound: 9.0, Upper Bound: inf
+  Violation in e109:
+    Slack: -11.749593096754591
+    Lower Bound: 12.24943035, Upper Bound: inf
+  Violation in e110:
+    Slack: -7.749365205231261
+    Lower Bound: 12.24965819, Upper Bound: inf
+  Violation in e111:
+    Slack: -5.749658187231262
+    Lower Bound: 6.249755852, Upper Bound: inf
+  Violation in e112:
+    Slack: -6.999348954880993
+    Lower Bound: 8.999218757, Upper Bound: inf
+  Violation in e113:
+    Slack: -14.0
+    Lower Bound: 16.0, Upper Bound: inf
+  Violation in e114:
+    Slack: -19.74910481675459
+    Lower Bound: 20.24926759, Upper Bound: inf
+  Violation in e115:
+    Slack: -11.749593096754591
+    Lower Bound: 12.24943035, Upper Bound: inf
+  Violation in e116:
+    Slack: -2.0534729937545912
+    Lower Bound: 2.553310247, Upper Bound: inf
+  Violation in e117:
+    Slack: -2.0388629688809945
+    Lower Bound: 4.038732771, Upper Bound: inf
+  Violation in e119:
+    Slack: -2.066975115754591
+    Lower Bound: 2.566812369, Upper Bound: inf
+  Violation in e120:
+    Slack: -0.0001372431421
+    Lower Bound: 0.0001372431421, Upper Bound: inf
+  Violation in e121:
+    Slack: -2.0534424487545913
+    Lower Bound: 2.553279702, Upper Bound: inf
+  Violation in e122:
+    Slack: -1.7643212918809943
+    Lower Bound: 3.764191094, Upper Bound: inf
+  Violation in e124:
+    Slack: -1.7872084727545912
+    Lower Bound: 2.287045726, Upper Bound: inf
+  Violation in e125:
+    Slack: -9.951582641e-06
+    Lower Bound: 9.951582641e-06, Upper Bound: inf
+  Violation in e126:
+    Slack: -3.703415076754591
+    Lower Bound: 4.20325233, Upper Bound: inf
+  Violation in e129:
+    Slack: -1.787370496754591
+    Lower Bound: 2.28720775, Upper Bound: inf
+  Violation in e131:
+    Slack: -3.708156819754591
+    Lower Bound: 4.207994073, Upper Bound: inf
+  Violation in e132:
+    Slack: -4.622430501880995
+    Lower Bound: 6.622300304, Upper Bound: inf
+  Violation in e136:
+    Slack: -1.2695627502312619
+    Lower Bound: 1.769660415, Upper Bound: inf
+  Violation in e140:
+    Slack: -1.132446823231262
+    Lower Bound: 1.632544488, Upper Bound: inf
+  Violation in e146:
+    Slack: -0.0001095584048
+    Lower Bound: 0.0001095584048, Upper Bound: inf
+  Violation in e148:
+    Slack: -3.6519016402312623
+    Lower Bound: 4.151999305, Upper Bound: inf
+  Violation in e164:
+    Slack: -3.634629316
+    Lower Bound: 5.634629316, Upper Bound: inf
+  Violation in e165:
+    Slack: -2.51438916575459
+    Lower Bound: 3.014551939, Upper Bound: inf
+  Violation in e166:
+    Slack: -3.0749495610000004
+    Lower Bound: 5.074949561, Upper Bound: inf
+  Violation in e167:
+    Slack: -2.09340888775459
+    Lower Bound: 2.593571661, Upper Bound: inf
+  Violation in e168:
+    Slack: -3.075131938
+    Lower Bound: 5.075131938, Upper Bound: inf
+  Violation in e169:
+    Slack: -2.09331234875459
+    Lower Bound: 2.593475122, Upper Bound: inf
+  Violation in e178:
+    Slack: -2.5143891657545896
+    Lower Bound: 3.014551939, Upper Bound: inf
+  Violation in e180:
+    Slack: -0.0001372431421
+    Lower Bound: 0.0001372431421, Upper Bound: inf
+  Violation in e182:
+    Slack: -3.6075996019999996
+    Lower Bound: 5.607599602, Upper Bound: inf
+  Violation in e184:
+    Slack: -2.0534729937545912
+    Lower Bound: 2.553310247, Upper Bound: inf
+  Violation in e185:
+    Slack: -2.3083322702312614
+    Lower Bound: 6.808625255, Upper Bound: inf
+  Violation in e186:
+    Slack: -1.2695627502312619
+    Lower Bound: 1.769660415, Upper Bound: inf
+  Violation in e187:
+    Slack: -2.038862968880994
+    Lower Bound: 4.038732771, Upper Bound: inf
+  Violation in e190:
+    Slack: -2.066975115754591
+    Lower Bound: 2.566812369, Upper Bound: inf
+  Violation in e193:
+    Slack: -2.0934088877545896
+    Lower Bound: 2.593571661, Upper Bound: inf
+  Violation in e195:
+    Slack: -9.951582641e-06
+    Lower Bound: 9.951582641e-06, Upper Bound: inf
+  Violation in e197:
+    Slack: -3.6075385320000004
+    Lower Bound: 5.607538532, Upper Bound: inf
+  Violation in e199:
+    Slack: -2.0534424487545913
+    Lower Bound: 2.553279702, Upper Bound: inf
+  Violation in e200:
+    Slack: -1.896320103231261
+    Lower Bound: 6.396613088, Upper Bound: inf
+  Violation in e201:
+    Slack: -1.132446823231262
+    Lower Bound: 1.632544488, Upper Bound: inf
+  Violation in e202:
+    Slack: -1.7643212918809938
+    Lower Bound: 3.764191094, Upper Bound: inf
+  Violation in e205:
+    Slack: -1.7872084727545912
+    Lower Bound: 2.287045726, Upper Bound: inf
+  Violation in e208:
+    Slack: -2.0933123487545897
+    Lower Bound: 2.593475122, Upper Bound: inf
+  Violation in e212:
+    Slack: -5.404294077
+    Lower Bound: 7.404294077, Upper Bound: inf
+  Violation in e213:
+    Slack: -1.503171037
+    Lower Bound: 1.503171037, Upper Bound: inf
+  Violation in e214:
+    Slack: -3.703415076754591
+    Lower Bound: 4.20325233, Upper Bound: inf
+  Violation in e220:
+    Slack: -1.787370496754591
+    Lower Bound: 2.28720775, Upper Bound: inf
+  Violation in e227:
+    Slack: -5.409463139
+    Lower Bound: 7.409463139, Upper Bound: inf
+  Violation in e228:
+    Slack: -1.507485599
+    Lower Bound: 1.507485599, Upper Bound: inf
+  Violation in e229:
+    Slack: -3.708156819754591
+    Lower Bound: 4.207994073, Upper Bound: inf
+  Violation in e230:
+    Slack: -5.093193960231262
+    Lower Bound: 9.593486945, Upper Bound: inf
+  Violation in e231:
+    Slack: -3.6519016402312623
+    Lower Bound: 4.151999305, Upper Bound: inf
+  Violation in e232:
+    Slack: -4.622430501880994
+    Lower Bound: 6.622300304, Upper Bound: inf
+94 constraints violated
+
+Computing Phi using greedy method...
+Greedy Phi = 1.99992
+  coeff: 2.00008
+  z_0 = -0.01
+  max feature: e25
+Greedy max sum phis = 4.33776
+  coeff: -3.59164
+  INVALID: zvar changed sign across constraints!
+Computed Phi using Greedy.
+
+Completed iteration 8
+  > Cost:    0
+  > Phi_L:   0
+  > Phi_max: 1.99992
+  Solution:
+    x5 = 1.99992
+    x8 = 1.5
+    x11 = 0.999951
+    x14 = 2.5
+    x17 = 1.5
+    x20 = 1.99992
+    x21 = 1.99992
+    x22 = 1.5
+    x23 = 0.999951
+    x24 = 2.5
+    x25 = 1.5
+    x26 = 1.99992
+===============================================================
+
+Did NOT converge: add cut
+Adding multiple Greedy cuts...
+Adding greedy cut for zvar=z_0 coeff=2.00008 with phi=1.99992
+Cut #25 (feature weight):
+  e25  1
+Added cut using Greedy
+Adding greedy cut for zvar=z_3 coeff=-2.00008 with phi=1.99992
+Cut #26 (feature weight):
+  e30  1
+Added cut using Greedy
+Adding greedy cut for zvar=z_4 coeff=-1.99992 with phi=1.99992
+Cut #27 (feature weight):
+  e31  1
+Added cut using Greedy
+Done adding 3 Greedy cuts.
+Solving model ...
+= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+Solved with /Applications/knitro-16.0.0-ARM-MacOS/bin/knitroampl in 0.008576 seconds
+
+Optimal objective: obj = 0
+Optimal objective: weighted_obj = 0
+Optimal variable values:
+  x5 = 1.99992
+  x8 = 1.5
+  x11 = 0.999951
+  x14 = 2.5
+  x17 = 1.5
+  x20 = 1.99992
+  x21 = 1.99992
+  x22 = 1.5
+  x23 = 0.999951
+  x24 = 2.5
+  x25 = 1.5
+  x26 = 1.99992
+12 nonzero variables in solution
+
+Checking for violations...
+  Violation in e25:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e26:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e27:
+    Slack: -0.99995117
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e28:
+    Slack: -2.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e29:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e30:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e31:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e32:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e33:
+    Slack: -0.99995117
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e34:
+    Slack: -2.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e35:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e36:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e37:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e38:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e39:
+    Slack: -0.99995117
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e40:
+    Slack: -2.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e41:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e42:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e43:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e44:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e45:
+    Slack: -0.99995117
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e46:
+    Slack: -2.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e47:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e48:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e95:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in e96:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in e97:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in e98:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in e99:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in e100:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in e101:
+    Slack: -11.749593096754591
+    Lower Bound: 12.24943035, Upper Bound: inf
+  Violation in e102:
+    Slack: -6.999348954880993
+    Lower Bound: 8.999218757, Upper Bound: inf
+  Violation in e103:
+    Slack: -19.74910481675459
+    Lower Bound: 20.24926759, Upper Bound: inf
+  Violation in e104:
+    Slack: -11.749593096754591
+    Lower Bound: 12.24943035, Upper Bound: inf
+  Violation in e105:
+    Slack: -15.99869795
+    Lower Bound: 15.99869795, Upper Bound: inf
+  Violation in e106:
+    Slack: -5.749658187231262
+    Lower Bound: 6.249755852, Upper Bound: inf
+  Violation in e107:
+    Slack: -14.0
+    Lower Bound: 16.0, Upper Bound: inf
+  Violation in e108:
+    Slack: -9.0
+    Lower Bound: 9.0, Upper Bound: inf
+  Violation in e109:
+    Slack: -11.749593096754591
+    Lower Bound: 12.24943035, Upper Bound: inf
+  Violation in e110:
+    Slack: -7.749365205231261
+    Lower Bound: 12.24965819, Upper Bound: inf
+  Violation in e111:
+    Slack: -5.749658187231262
+    Lower Bound: 6.249755852, Upper Bound: inf
+  Violation in e112:
+    Slack: -6.999348954880993
+    Lower Bound: 8.999218757, Upper Bound: inf
+  Violation in e113:
+    Slack: -14.0
+    Lower Bound: 16.0, Upper Bound: inf
+  Violation in e114:
+    Slack: -19.74910481675459
+    Lower Bound: 20.24926759, Upper Bound: inf
+  Violation in e115:
+    Slack: -11.749593096754591
+    Lower Bound: 12.24943035, Upper Bound: inf
+  Violation in e116:
+    Slack: -2.0534729937545912
+    Lower Bound: 2.553310247, Upper Bound: inf
+  Violation in e117:
+    Slack: -2.0388629688809945
+    Lower Bound: 4.038732771, Upper Bound: inf
+  Violation in e119:
+    Slack: -2.066975115754591
+    Lower Bound: 2.566812369, Upper Bound: inf
+  Violation in e120:
+    Slack: -0.0001372431421
+    Lower Bound: 0.0001372431421, Upper Bound: inf
+  Violation in e121:
+    Slack: -2.0534424487545913
+    Lower Bound: 2.553279702, Upper Bound: inf
+  Violation in e122:
+    Slack: -1.7643212918809943
+    Lower Bound: 3.764191094, Upper Bound: inf
+  Violation in e124:
+    Slack: -1.7872084727545912
+    Lower Bound: 2.287045726, Upper Bound: inf
+  Violation in e125:
+    Slack: -9.951582641e-06
+    Lower Bound: 9.951582641e-06, Upper Bound: inf
+  Violation in e126:
+    Slack: -3.703415076754591
+    Lower Bound: 4.20325233, Upper Bound: inf
+  Violation in e129:
+    Slack: -1.787370496754591
+    Lower Bound: 2.28720775, Upper Bound: inf
+  Violation in e131:
+    Slack: -3.708156819754591
+    Lower Bound: 4.207994073, Upper Bound: inf
+  Violation in e132:
+    Slack: -4.622430501880995
+    Lower Bound: 6.622300304, Upper Bound: inf
+  Violation in e136:
+    Slack: -1.2695627502312619
+    Lower Bound: 1.769660415, Upper Bound: inf
+  Violation in e140:
+    Slack: -1.132446823231262
+    Lower Bound: 1.632544488, Upper Bound: inf
+  Violation in e146:
+    Slack: -0.0001095584048
+    Lower Bound: 0.0001095584048, Upper Bound: inf
+  Violation in e148:
+    Slack: -3.6519016402312623
+    Lower Bound: 4.151999305, Upper Bound: inf
+  Violation in e164:
+    Slack: -3.634629316
+    Lower Bound: 5.634629316, Upper Bound: inf
+  Violation in e165:
+    Slack: -2.51438916575459
+    Lower Bound: 3.014551939, Upper Bound: inf
+  Violation in e166:
+    Slack: -3.0749495610000004
+    Lower Bound: 5.074949561, Upper Bound: inf
+  Violation in e167:
+    Slack: -2.09340888775459
+    Lower Bound: 2.593571661, Upper Bound: inf
+  Violation in e168:
+    Slack: -3.075131938
+    Lower Bound: 5.075131938, Upper Bound: inf
+  Violation in e169:
+    Slack: -2.09331234875459
+    Lower Bound: 2.593475122, Upper Bound: inf
+  Violation in e178:
+    Slack: -2.5143891657545896
+    Lower Bound: 3.014551939, Upper Bound: inf
+  Violation in e180:
+    Slack: -0.0001372431421
+    Lower Bound: 0.0001372431421, Upper Bound: inf
+  Violation in e182:
+    Slack: -3.6075996019999996
+    Lower Bound: 5.607599602, Upper Bound: inf
+  Violation in e184:
+    Slack: -2.0534729937545912
+    Lower Bound: 2.553310247, Upper Bound: inf
+  Violation in e185:
+    Slack: -2.3083322702312614
+    Lower Bound: 6.808625255, Upper Bound: inf
+  Violation in e186:
+    Slack: -1.2695627502312619
+    Lower Bound: 1.769660415, Upper Bound: inf
+  Violation in e187:
+    Slack: -2.038862968880994
+    Lower Bound: 4.038732771, Upper Bound: inf
+  Violation in e190:
+    Slack: -2.066975115754591
+    Lower Bound: 2.566812369, Upper Bound: inf
+  Violation in e193:
+    Slack: -2.0934088877545896
+    Lower Bound: 2.593571661, Upper Bound: inf
+  Violation in e195:
+    Slack: -9.951582641e-06
+    Lower Bound: 9.951582641e-06, Upper Bound: inf
+  Violation in e197:
+    Slack: -3.6075385320000004
+    Lower Bound: 5.607538532, Upper Bound: inf
+  Violation in e199:
+    Slack: -2.0534424487545913
+    Lower Bound: 2.553279702, Upper Bound: inf
+  Violation in e200:
+    Slack: -1.896320103231261
+    Lower Bound: 6.396613088, Upper Bound: inf
+  Violation in e201:
+    Slack: -1.132446823231262
+    Lower Bound: 1.632544488, Upper Bound: inf
+  Violation in e202:
+    Slack: -1.7643212918809938
+    Lower Bound: 3.764191094, Upper Bound: inf
+  Violation in e205:
+    Slack: -1.7872084727545912
+    Lower Bound: 2.287045726, Upper Bound: inf
+  Violation in e208:
+    Slack: -2.0933123487545897
+    Lower Bound: 2.593475122, Upper Bound: inf
+  Violation in e212:
+    Slack: -5.404294077
+    Lower Bound: 7.404294077, Upper Bound: inf
+  Violation in e213:
+    Slack: -1.503171037
+    Lower Bound: 1.503171037, Upper Bound: inf
+  Violation in e214:
+    Slack: -3.703415076754591
+    Lower Bound: 4.20325233, Upper Bound: inf
+  Violation in e220:
+    Slack: -1.787370496754591
+    Lower Bound: 2.28720775, Upper Bound: inf
+  Violation in e227:
+    Slack: -5.409463139
+    Lower Bound: 7.409463139, Upper Bound: inf
+  Violation in e228:
+    Slack: -1.507485599
+    Lower Bound: 1.507485599, Upper Bound: inf
+  Violation in e229:
+    Slack: -3.708156819754591
+    Lower Bound: 4.207994073, Upper Bound: inf
+  Violation in e230:
+    Slack: -5.093193960231262
+    Lower Bound: 9.593486945, Upper Bound: inf
+  Violation in e231:
+    Slack: -3.6519016402312623
+    Lower Bound: 4.151999305, Upper Bound: inf
+  Violation in e232:
+    Slack: -4.622430501880994
+    Lower Bound: 6.622300304, Upper Bound: inf
+94 constraints violated
+
+Computing Phi using greedy method...
+Greedy Phi = 1.99992
+  coeff: 2.00008
+  z_0 = -0.01
+  max feature: e25
+Greedy max sum phis = 4.33776
+  coeff: -3.59164
+  INVALID: zvar changed sign across constraints!
+Computed Phi using Greedy.
+
+Completed iteration 9
+  > Cost:    0
+  > Phi_L:   0
+  > Phi_max: 1.99992
+  Solution:
+    x5 = 1.99992
+    x8 = 1.5
+    x11 = 0.999951
+    x14 = 2.5
+    x17 = 1.5
+    x20 = 1.99992
+    x21 = 1.99992
+    x22 = 1.5
+    x23 = 0.999951
+    x24 = 2.5
+    x25 = 1.5
+    x26 = 1.99992
+===============================================================
+
+Did NOT converge: add cut
+Adding multiple Greedy cuts...
+Adding greedy cut for zvar=z_0 coeff=2.00008 with phi=1.99992
+Cut #28 (feature weight):
+  e25  1
+Added cut using Greedy
+Adding greedy cut for zvar=z_3 coeff=-2.00008 with phi=1.99992
+Cut #29 (feature weight):
+  e30  1
+Added cut using Greedy
+Adding greedy cut for zvar=z_4 coeff=-1.99992 with phi=1.99992
+Cut #30 (feature weight):
+  e31  1
+Added cut using Greedy
+Done adding 3 Greedy cuts.
+Solving model ...
+= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+Solved with /Applications/knitro-16.0.0-ARM-MacOS/bin/knitroampl in 0.008911 seconds
+
+Optimal objective: obj = 0
+Optimal objective: weighted_obj = 0
+Optimal variable values:
+  x5 = 1.99992
+  x8 = 1.5
+  x11 = 0.999951
+  x14 = 2.5
+  x17 = 1.5
+  x20 = 1.99992
+  x21 = 1.99992
+  x22 = 1.5
+  x23 = 0.999951
+  x24 = 2.5
+  x25 = 1.5
+  x26 = 1.99992
+12 nonzero variables in solution
+
+Checking for violations...
+  Violation in e25:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e26:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e27:
+    Slack: -0.99995117
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e28:
+    Slack: -2.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e29:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e30:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e31:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e32:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e33:
+    Slack: -0.99995117
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e34:
+    Slack: -2.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e35:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e36:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e37:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e38:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e39:
+    Slack: -0.99995117
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e40:
+    Slack: -2.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e41:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e42:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e43:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e44:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e45:
+    Slack: -0.99995117
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e46:
+    Slack: -2.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e47:
+    Slack: -1.5
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e48:
+    Slack: -1.99991862
+    Lower Bound: 0.0, Upper Bound: inf
+  Violation in e95:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in e96:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in e97:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in e98:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in e99:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in e100:
+    Slack: -1.0
+    Lower Bound: 1.0, Upper Bound: 1.0
+  Violation in e101:
+    Slack: -11.749593096754591
+    Lower Bound: 12.24943035, Upper Bound: inf
+  Violation in e102:
+    Slack: -6.999348954880993
+    Lower Bound: 8.999218757, Upper Bound: inf
+  Violation in e103:
+    Slack: -19.74910481675459
+    Lower Bound: 20.24926759, Upper Bound: inf
+  Violation in e104:
+    Slack: -11.749593096754591
+    Lower Bound: 12.24943035, Upper Bound: inf
+  Violation in e105:
+    Slack: -15.99869795
+    Lower Bound: 15.99869795, Upper Bound: inf
+  Violation in e106:
+    Slack: -5.749658187231262
+    Lower Bound: 6.249755852, Upper Bound: inf
+  Violation in e107:
+    Slack: -14.0
+    Lower Bound: 16.0, Upper Bound: inf
+  Violation in e108:
+    Slack: -9.0
+    Lower Bound: 9.0, Upper Bound: inf
+  Violation in e109:
+    Slack: -11.749593096754591
+    Lower Bound: 12.24943035, Upper Bound: inf
+  Violation in e110:
+    Slack: -7.749365205231261
+    Lower Bound: 12.24965819, Upper Bound: inf
+  Violation in e111:
+    Slack: -5.749658187231262
+    Lower Bound: 6.249755852, Upper Bound: inf
+  Violation in e112:
+    Slack: -6.999348954880993
+    Lower Bound: 8.999218757, Upper Bound: inf
+  Violation in e113:
+    Slack: -14.0
+    Lower Bound: 16.0, Upper Bound: inf
+  Violation in e114:
+    Slack: -19.74910481675459
+    Lower Bound: 20.24926759, Upper Bound: inf
+  Violation in e115:
+    Slack: -11.749593096754591
+    Lower Bound: 12.24943035, Upper Bound: inf
+  Violation in e116:
+    Slack: -2.0534729937545912
+    Lower Bound: 2.553310247, Upper Bound: inf
+  Violation in e117:
+    Slack: -2.0388629688809945
+    Lower Bound: 4.038732771, Upper Bound: inf
+  Violation in e119:
+    Slack: -2.066975115754591
+    Lower Bound: 2.566812369, Upper Bound: inf
+  Violation in e120:
+    Slack: -0.0001372431421
+    Lower Bound: 0.0001372431421, Upper Bound: inf
+  Violation in e121:
+    Slack: -2.0534424487545913
+    Lower Bound: 2.553279702, Upper Bound: inf
+  Violation in e122:
+    Slack: -1.7643212918809943
+    Lower Bound: 3.764191094, Upper Bound: inf
+  Violation in e124:
+    Slack: -1.7872084727545912
+    Lower Bound: 2.287045726, Upper Bound: inf
+  Violation in e125:
+    Slack: -9.951582641e-06
+    Lower Bound: 9.951582641e-06, Upper Bound: inf
+  Violation in e126:
+    Slack: -3.703415076754591
+    Lower Bound: 4.20325233, Upper Bound: inf
+  Violation in e129:
+    Slack: -1.787370496754591
+    Lower Bound: 2.28720775, Upper Bound: inf
+  Violation in e131:
+    Slack: -3.708156819754591
+    Lower Bound: 4.207994073, Upper Bound: inf
+  Violation in e132:
+    Slack: -4.622430501880995
+    Lower Bound: 6.622300304, Upper Bound: inf
+  Violation in e136:
+    Slack: -1.2695627502312619
+    Lower Bound: 1.769660415, Upper Bound: inf
+  Violation in e140:
+    Slack: -1.132446823231262
+    Lower Bound: 1.632544488, Upper Bound: inf
+  Violation in e146:
+    Slack: -0.0001095584048
+    Lower Bound: 0.0001095584048, Upper Bound: inf
+  Violation in e148:
+    Slack: -3.6519016402312623
+    Lower Bound: 4.151999305, Upper Bound: inf
+  Violation in e164:
+    Slack: -3.634629316
+    Lower Bound: 5.634629316, Upper Bound: inf
+  Violation in e165:
+    Slack: -2.51438916575459
+    Lower Bound: 3.014551939, Upper Bound: inf
+  Violation in e166:
+    Slack: -3.0749495610000004
+    Lower Bound: 5.074949561, Upper Bound: inf
+  Violation in e167:
+    Slack: -2.09340888775459
+    Lower Bound: 2.593571661, Upper Bound: inf
+  Violation in e168:
+    Slack: -3.075131938
+    Lower Bound: 5.075131938, Upper Bound: inf
+  Violation in e169:
+    Slack: -2.09331234875459
+    Lower Bound: 2.593475122, Upper Bound: inf
+  Violation in e178:
+    Slack: -2.5143891657545896
+    Lower Bound: 3.014551939, Upper Bound: inf
+  Violation in e180:
+    Slack: -0.0001372431421
+    Lower Bound: 0.0001372431421, Upper Bound: inf
+  Violation in e182:
+    Slack: -3.6075996019999996
+    Lower Bound: 5.607599602, Upper Bound: inf
+  Violation in e184:
+    Slack: -2.0534729937545912
+    Lower Bound: 2.553310247, Upper Bound: inf
+  Violation in e185:
+    Slack: -2.3083322702312614
+    Lower Bound: 6.808625255, Upper Bound: inf
+  Violation in e186:
+    Slack: -1.2695627502312619
+    Lower Bound: 1.769660415, Upper Bound: inf
+  Violation in e187:
+    Slack: -2.038862968880994
+    Lower Bound: 4.038732771, Upper Bound: inf
+  Violation in e190:
+    Slack: -2.066975115754591
+    Lower Bound: 2.566812369, Upper Bound: inf
+  Violation in e193:
+    Slack: -2.0934088877545896
+    Lower Bound: 2.593571661, Upper Bound: inf
+  Violation in e195:
+    Slack: -9.951582641e-06
+    Lower Bound: 9.951582641e-06, Upper Bound: inf
+  Violation in e197:
+    Slack: -3.6075385320000004
+    Lower Bound: 5.607538532, Upper Bound: inf
+  Violation in e199:
+    Slack: -2.0534424487545913
+    Lower Bound: 2.553279702, Upper Bound: inf
+  Violation in e200:
+    Slack: -1.896320103231261
+    Lower Bound: 6.396613088, Upper Bound: inf
+  Violation in e201:
+    Slack: -1.132446823231262
+    Lower Bound: 1.632544488, Upper Bound: inf
+  Violation in e202:
+    Slack: -1.7643212918809938
+    Lower Bound: 3.764191094, Upper Bound: inf
+  Violation in e205:
+    Slack: -1.7872084727545912
+    Lower Bound: 2.287045726, Upper Bound: inf
+  Violation in e208:
+    Slack: -2.0933123487545897
+    Lower Bound: 2.593475122, Upper Bound: inf
+  Violation in e212:
+    Slack: -5.404294077
+    Lower Bound: 7.404294077, Upper Bound: inf
+  Violation in e213:
+    Slack: -1.503171037
+    Lower Bound: 1.503171037, Upper Bound: inf
+  Violation in e214:
+    Slack: -3.703415076754591
+    Lower Bound: 4.20325233, Upper Bound: inf
+  Violation in e220:
+    Slack: -1.787370496754591
+    Lower Bound: 2.28720775, Upper Bound: inf
+  Violation in e227:
+    Slack: -5.409463139
+    Lower Bound: 7.409463139, Upper Bound: inf
+  Violation in e228:
+    Slack: -1.507485599
+    Lower Bound: 1.507485599, Upper Bound: inf
+  Violation in e229:
+    Slack: -3.708156819754591
+    Lower Bound: 4.207994073, Upper Bound: inf
+  Violation in e230:
+    Slack: -5.093193960231262
+    Lower Bound: 9.593486945, Upper Bound: inf
+  Violation in e231:
+    Slack: -3.6519016402312623
+    Lower Bound: 4.151999305, Upper Bound: inf
+  Violation in e232:
+    Slack: -4.622430501880994
+    Lower Bound: 6.622300304, Upper Bound: inf
+94 constraints violated
+
+Computing Phi using greedy method...
+Greedy Phi = 1.99992
+  coeff: 2.00008
+  z_0 = -0.01
+  max feature: e25
+Greedy max sum phis = 4.33776
+  coeff: -3.59164
+  INVALID: zvar changed sign across constraints!
+Computed Phi using Greedy.
+
+Completed iteration 10
+  > Cost:    0
+  > Phi_L:   0
+  > Phi_max: 1.99992
+  Solution:
+    x5 = 1.99992
+    x8 = 1.5
+    x11 = 0.999951
+    x14 = 2.5
+    x17 = 1.5
+    x20 = 1.99992
+    x21 = 1.99992
+    x22 = 1.5
+    x23 = 0.999951
+    x24 = 2.5
+    x25 = 1.5
+    x26 = 1.99992
+===============================================================
+
+Did NOT converge: add cut
+Adding multiple Greedy cuts...
+Adding greedy cut for zvar=z_0 coeff=2.00008 with phi=1.99992
+Cut #31 (feature weight):
+  e25  1
+Added cut using Greedy
+Adding greedy cut for zvar=z_3 coeff=-2.00008 with phi=1.99992
+Cut #32 (feature weight):
+  e30  1
+Added cut using Greedy
+Adding greedy cut for zvar=z_4 coeff=-1.99992 with phi=1.99992
+Cut #33 (feature weight):
+  e31  1
+Added cut using Greedy
+Done adding 3 Greedy cuts.
+Algorithm FINISHED after 10 iterations in 0.322392 seconds
+ *** Maximum iterations reached ***
+ > Percent cost increase: -1
+ > Percent Phi_max decrease: 1.83397
+Iter  Cost                Phi_L               Phi_max             time    
+--------------------------------------------------------------------------
+0     9.945287281378      0.000000000000      0.705693924752      0.0040  
+1     0.000000000000      0.000000000000      1.999918620000      0.0487  
+2     0.000000000000      0.000000000000      1.999918620000      0.0300  
+3     0.000000000000      0.000000000000      1.999918620000      0.0308  
+4     0.000000000000      0.000000000000      1.999918620000      0.0388  
+5     0.000000000000      0.000000000000      1.999918620000      0.0302  
+6     0.000000000000      0.000000000000      1.999918620000      0.0300  
+7     0.000000000000      0.000000000000      1.999918620000      0.0289  
+8     0.000000000000      0.000000000000      1.999918620000      0.0262  
+9     0.000000000000      0.000000000000      1.999918620000      0.0251  
+10    0.000000000000      0.000000000000      1.999918620000      0.0273  
+Writing cut file: ../cutdata/cutsrun.dat...
+Writing 33 cuts.
+numcuts: 33; Theta: 64.1691
+Done writing cut file: ../cutdata/cutsrun.dat.
+Finished drsk program.

@@ -21,6 +21,7 @@ today = date.today()
 # Read and solve model
 
 model = read(sys.argv[1])
+model.params.TimeLimit = 60
 #model.params.Cuts = 0
 #model.params.presolve = 0
 #model.params.NonConvex = 2

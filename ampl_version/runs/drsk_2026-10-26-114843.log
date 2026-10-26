@@ -1,0 +1,473 @@
+Starting log: Mon Oct 26 11:48:43 2026.
+Running on: jasper.local.
+
+Reading configuration file drsk.conf...
+Done reading configuration file drsk.conf.
+Start drsk program.
+<Version 2026.Oct.23.132700@jasper>
+Initializing all data...
+MODFILE ../data/mod/QPLIB_2894.mod
+LPFILE ../data/lp/QPLIB_2894.lp
+SOLFILE ../data/sol/QPLIB_2894.sol
+CUTFILE_in ../cutdata/zerocuts.dat
+CUTFILE_out ../cutdata/cutsrun.dat
+PARAMFILE drskparams.conf
+Reading parameter file drskparams.conf...
+solver /Applications/knitro-16.0.0-ARM-MacOS/bin/knitroampl
+theta auto
+lam_hi 10.0
+lam_lo 9.0
+xi 10.0
+budget 0.01
+phi_scale percent_violation
+alpha 10.0
+decimal_risk_thresh 3
+ncuts_add 1
+cut_phiThresh 0.25
+cut_method greedy
+maxcuts 100
+tol 0.0001
+maxits 5
+PhiReduc 0.1
+zerothresh 1e-08
+solve_time_limit 45
+loud 0
+verbose 0
+breakpoints 0
+Done reading parameter file drskparams.conf.
+Using solver: /Applications/knitro-16.0.0-ARM-MacOS/bin/knitroampl
+Done initializing all data.
+Read file ../data/mod/QPLIB_2894.mod with AMPL
+Num of variables = 17
+Num of constraints = 209
+Now storing LP data.
+Reading LP into Gurobi ../data/lp/QPLIB_2894.lp.
+Done reading LP into Gurobi.
+Storing linear constraints; 55 in total.
+Stored linear constraints with code 0.
+Storing quadratic constraints; 154 in total.
+Quad constraints read with code 0.
+Writing cut model to modfile: ../data/mod/cuts/cuts_QPLIB_2894.mod...
+Done writing new model to modfile: ../data/mod/cuts/cuts_QPLIB_2894.mod.
+Added parameters, sets, variables, and constraints to model for cut compatibility
+
+Writing alldata to file alldata.json...
+Done writing alldata to file alldata.json.
+Reading solution from file ../data/sol/QPLIB_2894.sol...
+Done reading solution from file ../data/sol/QPLIB_2894.sol.
+Computing Phi using greedy method...
+Greedy Phi = 0.576947
+  coeff: -9.13177
+  z_75 = 0.01
+  max feature: e198
+Greedy max sum phis = 0.750351
+  coeff: -9.13177
+  INVALID: zvar changed sign across constraints!
+Computed Phi using Greedy.
+
+Set Theta to 38.0474
+Completed iteration 0
+  > Cost:    4.99988
+  > Phi_L:   0
+  > Phi_max: 0.576947
+  Solution:
+    x2 = 4.99988
+    x3 = -0.634742
+    x4 = 0.772724
+    x5 = 1.60621
+    x7 = 1
+    x8 = 3.57094
+    x9 = -0.999975
+    x10 = -0.00706352
+    x11 = 1.53862
+    x12 = 0.428704
+    x13 = 0.903445
+    x14 = 1.68571
+    x15 = 1.61885
+    x16 = 3.94679
+    x17 = 8.44764
+    x18 = 5.64452
+===============================================================
+
+Did NOT converge: add cut
+Adding multiple Greedy cuts...
+Adding greedy cut for zvar=z_75 coeff=-9.13177 with phi=0.576947
+Cut #1 (feature weight):
+  e198  1
+Added cut using Greedy
+Done adding 1 Greedy cuts.
+Solving model ...
+= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+Solved with /Applications/knitro-16.0.0-ARM-MacOS/bin/knitroampl in 0.049590 seconds
+
+Optimal objective: obj = 5.33391
+Optimal objective: weighted_obj = 5.33391
+Optimal variable values:
+  x2 = 5.33391
+  x3 = -0.646822
+  x4 = 0.762641
+  x5 = 1.6793
+  x6 = 6.03893e-05
+  x7 = 1
+  x8 = 3.90461
+  x9 = -1
+  x10 = 9.08642e-08
+  x11 = 1.52786
+  x12 = 0.445916
+  x13 = 0.895075
+  x14 = 1.87342
+  x15 = 1.65515
+  x16 = 3.94687
+  x17 = 8.47213
+  x18 = 5.60664
+17 nonzero variables in solution
+
+Checking for violations...
+0 constraints violated
+
+Computing Phi using greedy method...
+Greedy Phi = 0.0605321
+  coeff: -6.05321
+  z_10 = 0.01
+  max feature: e49
+Greedy max sum phis = 0.0605358
+  coeff: -6.05321
+  INVALID: zvar changed sign across constraints!
+Computed Phi using Greedy.
+
+Completed iteration 1
+  > Cost:    5.33391
+  > Phi_L:   3.95124e-10
+  > Phi_max: 0.0605321
+  Solution:
+    x2 = 5.33391
+    x3 = -0.646822
+    x4 = 0.762641
+    x5 = 1.6793
+    x6 = 6.03893e-05
+    x7 = 1
+    x8 = 3.90461
+    x9 = -1
+    x10 = 9.08642e-08
+    x11 = 1.52786
+    x12 = 0.445916
+    x13 = 0.895075
+    x14 = 1.87342
+    x15 = 1.65515
+    x16 = 3.94687
+    x17 = 8.47213
+    x18 = 5.60664
+===============================================================
+
+Did NOT converge: add cut
+Adding multiple Greedy cuts...
+Adding greedy cut for zvar=z_10 coeff=-6.05321 with phi=0.0605321
+Cut #2 (feature weight):
+  e49  1
+Added cut using Greedy
+Done adding 1 Greedy cuts.
+Solving model ...
+= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+Solved with /Applications/knitro-16.0.0-ARM-MacOS/bin/knitroampl in 0.033499 seconds
+
+Optimal objective: obj = 5.55729
+Optimal objective: weighted_obj = 5.55729
+Optimal variable values:
+  x2 = 5.55729
+  x3 = -0.642303
+  x4 = 0.766451
+  x5 = 1.61803
+  x6 = 0.109533
+  x7 = 0.993983
+  x8 = 3.47393
+  x9 = -1
+  x11 = 1.52786
+  x12 = 0.475499
+  x13 = 0.879716
+  x14 = 1.64216
+  x15 = 1.61421
+  x16 = 4.07956
+  x17 = 8.47213
+  x18 = 5.74851
+16 nonzero variables in solution
+
+Checking for violations...
+0 constraints violated
+
+Computing Phi using greedy method...
+Greedy Phi = 0.288678
+  coeff: 3.40739
+  z_51 = 0.01
+  max feature: e150
+Greedy max sum phis = 0.378494
+  coeff: 3.40739
+  INVALID: zvar changed sign across constraints!
+Computed Phi using Greedy.
+
+Completed iteration 2
+  > Cost:    5.55729
+  > Phi_L:   -5.6657e-11
+  > Phi_max: 0.288678
+  Solution:
+    x2 = 5.55729
+    x3 = -0.642303
+    x4 = 0.766451
+    x5 = 1.61803
+    x6 = 0.109533
+    x7 = 0.993983
+    x8 = 3.47393
+    x9 = -1
+    x11 = 1.52786
+    x12 = 0.475499
+    x13 = 0.879716
+    x14 = 1.64216
+    x15 = 1.61421
+    x16 = 4.07956
+    x17 = 8.47213
+    x18 = 5.74851
+===============================================================
+
+Did NOT converge: add cut
+Adding multiple Greedy cuts...
+Adding greedy cut for zvar=z_51 coeff=3.40739 with phi=0.288678
+Cut #3 (feature weight):
+  e150  1
+Added cut using Greedy
+Done adding 1 Greedy cuts.
+Solving model ...
+= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+Solved with /Applications/knitro-16.0.0-ARM-MacOS/bin/knitroampl in 0.033201 seconds
+
+Optimal objective: obj = 5.66877
+Optimal objective: weighted_obj = 5.66877
+Optimal variable values:
+  x2 = 5.66877
+  x3 = -0.644547
+  x4 = 0.764565
+  x5 = 1.62709
+  x6 = 0.109533
+  x7 = 0.993983
+  x8 = 3.5854
+  x9 = -1
+  x11 = 1.53745
+  x12 = 0.424066
+  x13 = 0.905631
+  x14 = 1.66239
+  x15 = 1.61653
+  x16 = 4.07956
+  x17 = 8.47213
+  x18 = 5.64249
+16 nonzero variables in solution
+
+Checking for violations...
+0 constraints violated
+
+Computing Phi using greedy method...
+Greedy Phi = 0.180203
+  coeff: -4.5962
+  z_70 = 0.01
+  max feature: e179
+Greedy max sum phis = 0.180203
+  coeff: -4.5962
+  INVALID: zvar changed sign across constraints!
+Computed Phi using Greedy.
+
+Completed iteration 3
+  > Cost:    5.66877
+  > Phi_L:   4.73248e-10
+  > Phi_max: 0.180203
+  Solution:
+    x2 = 5.66877
+    x3 = -0.644547
+    x4 = 0.764565
+    x5 = 1.62709
+    x6 = 0.109533
+    x7 = 0.993983
+    x8 = 3.5854
+    x9 = -1
+    x11 = 1.53745
+    x12 = 0.424066
+    x13 = 0.905631
+    x14 = 1.66239
+    x15 = 1.61653
+    x16 = 4.07956
+    x17 = 8.47213
+    x18 = 5.64249
+===============================================================
+
+Did NOT converge: add cut
+Adding multiple Greedy cuts...
+Adding greedy cut for zvar=z_70 coeff=-4.5962 with phi=0.180203
+Cut #4 (feature weight):
+  e179  1
+Added cut using Greedy
+Done adding 1 Greedy cuts.
+Solving model ...
+= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+Solved with /Applications/knitro-16.0.0-ARM-MacOS/bin/knitroampl in 0.029245 seconds
+
+Optimal objective: obj = 5.70542
+Optimal objective: weighted_obj = 5.70543
+Optimal variable values:
+  x2 = 5.70542
+  x3 = -0.640184
+  x4 = 0.768221
+  x5 = 1.59498
+  x6 = 0.109533
+  x7 = 0.993983
+  x8 = 3.62206
+  x9 = -1
+  x11 = 1.52786
+  x12 = 0.457311
+  x13 = 0.889307
+  x14 = 1.66049
+  x15 = 1.59484
+  x16 = 4.07956
+  x17 = 8.47213
+  x18 = 5.59382
+16 nonzero variables in solution
+
+Checking for violations...
+0 constraints violated
+
+Computing Phi using greedy method...
+Greedy Phi = 0.110967
+  coeff: -4.4751
+  z_92 = 0.01
+  max feature: e99
+Greedy max sum phis = 0.110967
+  coeff: -4.4751
+  INVALID: zvar changed sign across constraints!
+Computed Phi using Greedy.
+
+Completed iteration 4
+  > Cost:    5.70542
+  > Phi_L:   1.33296e-08
+  > Phi_max: 0.110967
+  Solution:
+    x2 = 5.70542
+    x3 = -0.640184
+    x4 = 0.768221
+    x5 = 1.59498
+    x6 = 0.109533
+    x7 = 0.993983
+    x8 = 3.62206
+    x9 = -1
+    x11 = 1.52786
+    x12 = 0.457311
+    x13 = 0.889307
+    x14 = 1.66049
+    x15 = 1.59484
+    x16 = 4.07956
+    x17 = 8.47213
+    x18 = 5.59382
+===============================================================
+
+Did NOT converge: add cut
+Adding multiple Greedy cuts...
+Adding greedy cut for zvar=z_92 coeff=-4.4751 with phi=0.110967
+Cut #5 (feature weight):
+  e99  1
+Added cut using Greedy
+Done adding 1 Greedy cuts.
+Solving model ...
+= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+Solved with /Applications/knitro-16.0.0-ARM-MacOS/bin/knitroampl in 0.033474 seconds
+
+Optimal objective: obj = 5.75741
+Optimal objective: weighted_obj = 5.75741
+Optimal variable values:
+  x2 = 5.75741
+  x3 = -0.640184
+  x4 = 0.768221
+  x5 = 1.59498
+  x6 = 0.109533
+  x7 = 0.993983
+  x8 = 3.67404
+  x9 = -1
+  x11 = 1.52786
+  x12 = 0.452971
+  x13 = 0.891525
+  x14 = 1.71486
+  x15 = 1.59484
+  x16 = 4.07956
+  x17 = 8.47213
+  x18 = 5.59692
+16 nonzero variables in solution
+
+Checking for violations...
+0 constraints violated
+
+Computing Phi using greedy method...
+Greedy Phi = 0.0392304
+  coeff: 3.94679
+  z_2 = 0.01
+  max feature: e32
+Greedy max sum phis = 0.0392304
+  coeff: 3.94679
+  INVALID: zvar changed sign across constraints!
+Computed Phi using Greedy.
+
+Completed iteration 5
+  > Cost:    5.75741
+  > Phi_L:   1.55569e-10
+  > Phi_max: 0.0392304
+  Solution:
+    x2 = 5.75741
+    x3 = -0.640184
+    x4 = 0.768221
+    x5 = 1.59498
+    x6 = 0.109533
+    x7 = 0.993983
+    x8 = 3.67404
+    x9 = -1
+    x11 = 1.52786
+    x12 = 0.452971
+    x13 = 0.891525
+    x14 = 1.71486
+    x15 = 1.59484
+    x16 = 4.07956
+    x17 = 8.47213
+    x18 = 5.59692
+===============================================================
+
+CONVERGED: reduced Phi_max by sufficient amount
+  > Cost:    5.75741
+  > Phi_L:   1.55569e-10
+  > Phi_max: 0.0392304
+  Solution:
+    x2 = 5.75741
+    x3 = -0.640184
+    x4 = 0.768221
+    x5 = 1.59498
+    x6 = 0.109533
+    x7 = 0.993983
+    x8 = 3.67404
+    x9 = -1
+    x11 = 1.52786
+    x12 = 0.452971
+    x13 = 0.891525
+    x14 = 1.71486
+    x15 = 1.59484
+    x16 = 4.07956
+    x17 = 8.47213
+    x18 = 5.59692
+===============================================================
+
+Algorithm FINISHED after 5 iterations in 0.214547 seconds
+ *** Reduced Phi_max by sufficient amount ***
+ > Percent cost increase: 0.15151
+ > Percent Phi_max decrease: 0.932004
+Iter  Cost                Phi_L               Phi_max             time    
+--------------------------------------------------------------------------
+0     4.999875265217      0.000000000000      0.576947456676      0.0023  
+1     5.333914180367      0.000000000395      0.060532124477      0.0560  
+2     5.557291241910      -0.000000000057     0.288678360003      0.0399  
+3     5.668768292948      0.000000000473      0.180202986986      0.0396  
+4     5.705424767752      0.000000013330      0.110966768276      0.0356  
+5     5.757406741336      0.000000000156      0.039230405258      0.0401  
+Writing cut file: ../cutdata/cutsrun.dat...
+Writing 5 cuts.
+numcuts: 5; Theta: 38.0474
+Done writing cut file: ../cutdata/cutsrun.dat.
+Finished drsk program.

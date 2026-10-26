@@ -6,7 +6,7 @@
     "PARAMFILE": "drskparams.conf",
     "SOLFILE": "../data/sol/QPLIB_2894.sol",
     "breakpoints": 0,
-    "loud": 1,
+    "loud": 0,
     "struct_data": {
         "budget": 0.01,
         "decimal_risk_thresh": 3,
@@ -25689,5 +25689,5 @@
             }
         }
     },
-    "verbose": 1
+    "verbose": 0
 }

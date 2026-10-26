@@ -25,6 +25,9 @@ def drsk_set_solution(alldata):
         idx = variables[varname]
         X[idx].set_value(val)
 
+        x = ampl.get_variable(varname.lower())
+        x.set_value(val)
+
 
 def drsk_run_solver(alldata):
     retcode = 0
@@ -87,11 +90,11 @@ def drsk_run_solver(alldata):
     log.joint("Checking for violations...\n")
     count = 0
     for constr_name in constraints:
-        #Check if the constraint is violated (negative slack means the bound is breached)
+        # Check if the constraint is violated (negative slack means the bound is breached)
         constraint = ampl.get_constraint(constr_name)
         if constraint.slack() < -1e-6:
             count += 1
-            log.joint(f"  Violation in {name}:\n")
+            log.joint(f"  Violation in {constr_name}:\n")
             log.joint(f"    Slack: {constraint.slack()}\n")
             log.joint(f"    Lower Bound: {constraint.lb()}, Upper Bound: {constraint.ub()}\n")
     log.joint(str(count) + " constraints violated\n\n")

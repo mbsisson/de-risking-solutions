@@ -1,0 +1,57 @@
+Starting log: Fri Oct 23 14:34:19 2026.
+Running on: jasper.local.
+
+Reading configuration file drsk.conf...
+Done reading configuration file drsk.conf.
+Start drsk program.
+<Version 2026.Oct.23.132700@jasper>
+Initializing all data...
+MODFILE ../data/mod/QPLIB_3318.mod
+LPFILE ../data/lp/QPLIB_3318.lp
+SOLFILE ../data/sol/QPLIB_3318.sol
+CUTFILE_in ../cutdata/zerocuts.dat
+CUTFILE_out ../cutdata/cutsrun.dat
+PARAMFILE drskparams.conf
+Reading parameter file drskparams.conf...
+solver gurobi
+theta auto
+lam_hi 10.0
+lam_lo 9.0
+xi 1.0
+budget 0.01
+phi_scale percent_violation
+alpha 10.0
+decimal_risk_thresh 3
+ncuts_add 1
+cut_phiThresh 0.25
+cut_method greedy
+maxcuts 100
+tol 0.0001
+maxits 5
+PhiReduc 0.1
+zerothresh 1e-08
+solve_time_limit 45
+loud 0
+verbose 0
+breakpoints 1
+Done reading parameter file drskparams.conf.
+Using solver: gurobi
+Done initializing all data.
+Read file ../data/mod/QPLIB_3318.mod with AMPL
+Num of variables = 25
+Num of constraints = 474
+Now storing LP data.
+Reading LP into Gurobi ../data/lp/QPLIB_3318.lp.
+Done reading LP into Gurobi.
+Storing linear constraints; 93 in total.
+Stored linear constraints with code 0.
+Storing quadratic constraints; 381 in total.
+Quad constraints read with code 0.
+Writing cut model to modfile: ../data/mod/cuts/cuts_QPLIB_3318.mod...
+Done writing new model to modfile: ../data/mod/cuts/cuts_QPLIB_3318.mod.
+Added parameters, sets, variables, and constraints to model for cut compatibility
+
+Writing alldata to file alldata.json...
+Done writing alldata to file alldata.json.
+Reading solution from file ../data/sol/QPLIB_3318.sol...
+Done reading solution from file ../data/sol/QPLIB_3318.sol.
