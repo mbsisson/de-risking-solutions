@@ -3,14 +3,12 @@ import os
 from datetime import datetime
 from log import danoLogger
 
-# Get the absolute path to the directory containing the module
-# os.path.dirname(__file__) gets the directory of main.py
-# '../utils' navigates to the sibling folder
+# Get the absolute path to src directory and insert into sys.path
 module_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '../src'))
-# Insert the path into sys.path
 sys.path.insert(0, module_path)
 
 from drsk_main import drsk_start, drsk_read_config
+
 
 if __name__ == "__main__":
     '''Get arguments and call drsk '''
@@ -24,8 +22,7 @@ if __name__ == "__main__":
 
     # Create logger
     datetime_string = datetime.now().strftime("%Y-%m-%d-%H%M%S")
-    log_file = "drsk_" + datetime_string + ".log"
-    log = danoLogger(log_file)
+    log = danoLogger("drsk_" + datetime_string + ".log")
 
     # Read config file
     data = drsk_read_config(log, configfile)

@@ -135,12 +135,12 @@ def drsk_initialize(logger, param_file, mod_file, lp_file, sol_file, cut_file_in
     return alldata
 
 
-def drsk_start(logger, param_file, mod_file, lp_file, sol_file, cut_file_in, cut_file_out):
+def drsk_start(logger, param_file, mod_file, lp_file, sol_file, cut_file_in, cut_file_out, param_override_dict=None):
     logger.joint("Start drsk program.\n")
     stateversion(logger)
 
     # Initialize problem data 
-    alldata = drsk_initialize(logger, param_file, mod_file, lp_file, sol_file, cut_file_in, cut_file_out)
+    alldata = drsk_initialize(logger, param_file, mod_file, lp_file, sol_file, cut_file_in, cut_file_out, param_override_dict)
     if alldata['breakpoints']: breakexit('Done initializing all data')
 
     # If no lp file, use AMPL to parse

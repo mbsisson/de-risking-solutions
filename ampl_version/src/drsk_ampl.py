@@ -259,33 +259,36 @@ def parse_ampl_constraint(alldata, expression, constr_name):
         
         # Store structure data if term has risky coefficient
         if riskyterm_flag:
-            riskycoeff_dict = structure['risky_coeffs'].get(coeff)
+            unsigned_coeff = abs(coeff)
+            sign = 1 if coeff > 0.0 else -1
+
+            riskycoeff_dict = structure['risky_coeffs'].get(unsigned_coeff)
             if riskycoeff_dict:
                 # Coefficient already stored in risky_coeffs dictionary
                 
                 if riskycoeff_dict['instances'].get(constr_name):
                     # Coefficient already present in this constraint
                     if degree == 1:
-                        riskycoeff_dict['instances'][constr_name].append(('linear', var))
+                        riskycoeff_dict['instances'][constr_name].append(('linear', var, sign))
                     else:  #degree == 2
-                        riskycoeff_dict['instances'][constr_name].append(('quad', (v1, v2)))
+                        riskycoeff_dict['instances'][constr_name].append(('quad', (v1, v2), sign))
                 else:
                     # First instance of coefficient in this constraint
                     if degree == 1:
-                        riskycoeff_dict['instances'][constr_name] = [('linear', var)]
+                        riskycoeff_dict['instances'][constr_name] = [('linear', var, sign)]
                     else:  #degree == 2
-                        riskycoeff_dict['instances'][constr_name] = [('quad', (v1, v2))]
+                        riskycoeff_dict['instances'][constr_name] = [('quad', (v1, v2), sign)]
 
             else:
                 # First instance of this coefficient
-                riskycoeff_dict = structure['risky_coeffs'][coeff] = {}
+                riskycoeff_dict = structure['risky_coeffs'][unsigned_coeff] = {}
                 riskycoeff_dict['index'] = index = structure['num_unique']
                 riskycoeff_dict['zvar'] = 'z_' + str(index)
                 riskycoeff_dict['instances'] = {}
                 if degree == 1:
-                    riskycoeff_dict['instances'][constr_name] = [('linear', var)]
+                    riskycoeff_dict['instances'][constr_name] = [('linear', var, sign)]
                 else:  #degree == 2
-                    riskycoeff_dict['instances'][constr_name] = [('quad', (v1, v2))]
+                    riskycoeff_dict['instances'][constr_name] = [('quad', (v1, v2), sign)]
                 structure['num_unique'] += 1
 
             if loud: 

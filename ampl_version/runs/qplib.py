@@ -1,8 +1,14 @@
 import sys
+import os
 from datetime import datetime
 import gurobipy as gp
 from log import danoLogger
-from ampl_version.src.drsk_main import drsk_start, drsk_read_config, drsk_read_instancefile
+
+# Get the absolute path to src directory and insert into sys.path
+module_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '../src'))
+sys.path.insert(0, module_path)
+
+from drsk_main import drsk_start, drsk_read_config, drsk_read_instancefile
 
 
 if __name__ == "__main__":

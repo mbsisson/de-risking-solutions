@@ -89,20 +89,19 @@ def define_phi_constraints(alldata, cutnum, feat_name, argmax_coeff, argmax_zsig
 
     # Scale zvar terms by error
     terms_list = structure['risky_coeffs'][argmax_coeff]['instances'][feat_name]
-    for term_data in terms_list:
-        degree, var_data = term_data[0], term_data[1]
-
+    for degree, var_data, sign in terms_list:
         if degree == 'linear':
             var = var_data
             var_idx = variables[var]
             phiLinWeights[(cutnum, feat_name, var_idx)] *= 1 + argmax_zsign * budget
-            if verbose: log.joint("DEBUG: %g * %s term gets (1 + %g)\n"%(argmax_coeff, var, argmax_zsign * budget))
+            if verbose: log.joint("DEBUG: %d * %g * %s term gets (1 + %g)\n"%(sign, argmax_coeff, var, argmax_zsign * budget))
 
         else:  #degree = 'quad'
             v1, v2 = var_data[0], var_data[1]
             v1_idx, v2_idx = variables[v1], variables[v2]
             phiQuadWeights[(cutnum, feat_name, v1_idx, v2_idx)] *= 1 + argmax_zsign * budget
-            if verbose: log.joint("DEBUG: %g * %s * %s term gets (1 + %g)\n"%(argmax_coeff, v1, v2, argmax_zsign * budget))
+            if verbose: log.joint("DEBUG: %d * %g * %s * %s term gets (1 + %g)\n"%(sign, argmax_coeff, v1, v2, argmax_zsign * budget))
+
 
 def drsk_addCut_greedy(alldata, argmax_feat, argmax_coeff, argmax_zsign):
     log = alldata['log']

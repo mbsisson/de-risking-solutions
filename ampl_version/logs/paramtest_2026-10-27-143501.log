@@ -1,0 +1,238 @@
+Starting log: Tue Oct 27 14:35:01 2026.
+Running on: jasper.local.
+
+Testing choices for xi
+----------------------
+
+Parameters:
+  solver gurobi
+  theta auto
+  lam_hi 10.0
+  lam_lo 9.0
+  budget 0.01
+  phi_scale percent_violation
+  alpha 10.0
+  decimal_risk_thresh 3
+  ncuts_add 5
+  cut_phiThresh 0.25
+  cut_method greedy
+  maxcuts 100
+  tol 0.0001
+  maxits 10
+  PhiReduc 0.1
+  zerothresh 1e-08
+  solve_time_limit 45
+  loud 1
+  verbose 0
+  breakpoints 0
+
+TESTING xi = 2.5
+Algorithm FINISHED after 1 iterations in 0.150086 seconds
+ *** Achieved relative tolerance ***
+ > Percent cost increase: 8.88201e-16
+ > Percent Phi_max decrease: 0
+Iter  Cost                Phi_L               Phi_max             time    
+--------------------------------------------------------------------------
+0     4.999875265217      0.000000000000      0.576947456676      0.0088  
+1     4.999875265217      0.576947456674      0.576947456676      0.1406  
+==========================================================================
+
+TESTING xi = 5
+Algorithm FINISHED after 1 iterations in 0.119718 seconds
+ *** Achieved relative tolerance ***
+ > Percent cost increase: 8.88201e-16
+ > Percent Phi_max decrease: 0
+Iter  Cost                Phi_L               Phi_max             time    
+--------------------------------------------------------------------------
+0     4.999875265217      0.000000000000      0.576947456676      0.0086  
+1     4.999875265217      0.576947456674      0.576947456676      0.1104  
+==========================================================================
+
+TESTING xi = 7.5
+Algorithm FINISHED after 1 iterations in 0.140005 seconds
+ *** Achieved relative tolerance ***
+ > Percent cost increase: 8.88201e-16
+ > Percent Phi_max decrease: 0
+Iter  Cost                Phi_L               Phi_max             time    
+--------------------------------------------------------------------------
+0     4.999875265217      0.000000000000      0.576947456676      0.0088  
+1     4.999875265217      0.576947456674      0.576947456676      0.1306  
+==========================================================================
+
+TESTING xi = 10
+Algorithm FINISHED after 1 iterations in 0.123836 seconds
+ *** Achieved relative tolerance ***
+ > Percent cost increase: 8.88201e-16
+ > Percent Phi_max decrease: 0
+Iter  Cost                Phi_L               Phi_max             time    
+--------------------------------------------------------------------------
+0     4.999875265217      0.000000000000      0.576947456676      0.0087  
+1     4.999875265217      0.576947456674      0.576947456676      0.1144  
+==========================================================================
+
+TESTING xi = 12.5
+Algorithm FINISHED after 1 iterations in 0.1202 seconds
+ *** Achieved relative tolerance ***
+ > Percent cost increase: 8.88201e-16
+ > Percent Phi_max decrease: 0
+Iter  Cost                Phi_L               Phi_max             time    
+--------------------------------------------------------------------------
+0     4.999875265217      0.000000000000      0.576947456676      0.0089  
+1     4.999875265217      0.576947456674      0.576947456676      0.1107  
+==========================================================================
+
+TESTING xi = 15
+Algorithm FINISHED after 1 iterations in 0.118412 seconds
+ *** Achieved relative tolerance ***
+ > Percent cost increase: 8.88201e-16
+ > Percent Phi_max decrease: 0
+Iter  Cost                Phi_L               Phi_max             time    
+--------------------------------------------------------------------------
+0     4.999875265217      0.000000000000      0.576947456676      0.0086  
+1     4.999875265217      0.576947456674      0.576947456676      0.1092  
+==========================================================================
+
+TESTING xi = 17.5
+Algorithm FINISHED after 1 iterations in 0.118385 seconds
+ *** Achieved relative tolerance ***
+ > Percent cost increase: 8.88201e-16
+ > Percent Phi_max decrease: 0
+Iter  Cost                Phi_L               Phi_max             time    
+--------------------------------------------------------------------------
+0     4.999875265217      0.000000000000      0.576947456676      0.0085  
+1     4.999875265217      0.576947456674      0.576947456676      0.1092  
+==========================================================================
+
+TESTING xi = 20
+Algorithm FINISHED after 1 iterations in 0.121879 seconds
+ *** Achieved relative tolerance ***
+ > Percent cost increase: 8.88201e-16
+ > Percent Phi_max decrease: 0
+Iter  Cost                Phi_L               Phi_max             time    
+--------------------------------------------------------------------------
+0     4.999875265217      0.000000000000      0.576947456676      0.0084  
+1     4.999875265217      0.576947456674      0.576947456676      0.1128  
+==========================================================================
+
+TESTING xi = 22.5
+Algorithm FINISHED after 1 iterations in 0.135013 seconds
+ *** Achieved relative tolerance ***
+ > Percent cost increase: 8.88201e-16
+ > Percent Phi_max decrease: 0
+Iter  Cost                Phi_L               Phi_max             time    
+--------------------------------------------------------------------------
+0     4.999875265217      0.000000000000      0.576947456676      0.0086  
+1     4.999875265217      0.576947456674      0.576947456676      0.1257  
+==========================================================================
+
+TESTING xi = 25
+Algorithm FINISHED after 1 iterations in 0.320439 seconds
+ *** Achieved relative tolerance ***
+ > Percent cost increase: 0.0496451
+ > Percent Phi_max decrease: 0.6889
+Iter  Cost                Phi_L               Phi_max             time    
+--------------------------------------------------------------------------
+0     4.999875265217      0.000000000000      0.576947456676      0.0087  
+1     5.248094518445      0.179488344241      0.179488344237      0.3111  
+==========================================================================
+
+TESTING xi = 27.5
+Algorithm FINISHED after 1 iterations in 0.32704 seconds
+ *** Achieved relative tolerance ***
+ > Percent cost increase: 0.0497004
+ > Percent Phi_max decrease: 0.6889
+Iter  Cost                Phi_L               Phi_max             time    
+--------------------------------------------------------------------------
+0     4.999875265217      0.000000000000      0.576947456676      0.0090  
+1     5.248371210811      0.179488344241      0.179488344237      0.3173  
+==========================================================================
+
+TESTING xi = 30
+Algorithm FINISHED after 1 iterations in 1.11053 seconds
+ *** Achieved relative tolerance ***
+ > Percent cost increase: 0.0494419
+ > Percent Phi_max decrease: 0.687968
+Iter  Cost                Phi_L               Phi_max             time    
+--------------------------------------------------------------------------
+0     4.999875265217      0.000000000000      0.576947456676      0.0091  
+1     5.247078771995      0.180026244045      0.180026244045      1.1007  
+==========================================================================
+
+TESTING xi = 32.5
+Algorithm FINISHED after 1 iterations in 0.864183 seconds
+ *** Achieved relative tolerance ***
+ > Percent cost increase: 0.0494419
+ > Percent Phi_max decrease: 0.687968
+Iter  Cost                Phi_L               Phi_max             time    
+--------------------------------------------------------------------------
+0     4.999875265217      0.000000000000      0.576947456676      0.0089  
+1     5.247078771995      0.180026244045      0.180026244045      0.8545  
+==========================================================================
+
+TESTING xi = 35
+Algorithm FINISHED after 1 iterations in 0.864717 seconds
+ *** Achieved relative tolerance ***
+ > Percent cost increase: 0.0494419
+ > Percent Phi_max decrease: 0.687968
+Iter  Cost                Phi_L               Phi_max             time    
+--------------------------------------------------------------------------
+0     4.999875265217      0.000000000000      0.576947456676      0.0085  
+1     5.247078771995      0.180026244045      0.180026244045      0.8555  
+==========================================================================
+
+TESTING xi = 37.5
+Algorithm FINISHED after 1 iterations in 1.01994 seconds
+ *** Achieved relative tolerance ***
+ > Percent cost increase: 0.0494419
+ > Percent Phi_max decrease: 0.687968
+Iter  Cost                Phi_L               Phi_max             time    
+--------------------------------------------------------------------------
+0     4.999875265217      0.000000000000      0.576947456676      0.0091  
+1     5.247078771994      0.180026244046      0.180026244046      1.0102  
+==========================================================================
+
+TESTING xi = 40
+Algorithm FINISHED after 1 iterations in 0.857433 seconds
+ *** Achieved relative tolerance ***
+ > Percent cost increase: 0.0494419
+ > Percent Phi_max decrease: 0.687968
+Iter  Cost                Phi_L               Phi_max             time    
+--------------------------------------------------------------------------
+0     4.999875265217      0.000000000000      0.576947456676      0.0091  
+1     5.247078771995      0.180026244045      0.180026244045      0.8477  
+==========================================================================
+
+TESTING xi = 42.5
+Algorithm FINISHED after 1 iterations in 0.849318 seconds
+ *** Achieved relative tolerance ***
+ > Percent cost increase: 0.0494419
+ > Percent Phi_max decrease: 0.687968
+Iter  Cost                Phi_L               Phi_max             time    
+--------------------------------------------------------------------------
+0     4.999875265217      0.000000000000      0.576947456676      0.0090  
+1     5.247078771995      0.180026244045      0.180026244045      0.8396  
+==========================================================================
+
+TESTING xi = 45
+Algorithm FINISHED after 1 iterations in 0.862209 seconds
+ *** Achieved relative tolerance ***
+ > Percent cost increase: 0.0494419
+ > Percent Phi_max decrease: 0.687968
+Iter  Cost                Phi_L               Phi_max             time    
+--------------------------------------------------------------------------
+0     4.999875265217      0.000000000000      0.576947456676      0.0087  
+1     5.247078771995      0.180026244045      0.180026244045      0.8527  
+==========================================================================
+
+TESTING xi = 47.5
+Algorithm FINISHED after 1 iterations in 0.849004 seconds
+ *** Achieved relative tolerance ***
+ > Percent cost increase: 0.0494419
+ > Percent Phi_max decrease: 0.687968
+Iter  Cost                Phi_L               Phi_max             time    
+--------------------------------------------------------------------------
+0     4.999875265217      0.000000000000      0.576947456676      0.0091  
+1     5.247078771995      0.180026244045      0.180026244045      0.8392  
+==========================================================================
+
+ALL DONE

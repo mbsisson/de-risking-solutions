@@ -65,16 +65,16 @@ def drsk_evalPhi_greedy(alldata, soln_vector_dict):
             # Compute error term (from setting z = budget, for z corresponding to coeff)
             error_term = 0.0
             if verbose: log.joint("DEBUG: Computing error term of constraint %s and coeff %g\n"%(constr_name, coeff))
-            for degree, var in constr_instance_list:
+            for degree, var, sign in constr_instance_list:
                 if degree == 'quad':
                     v1, v2 = var[0], var[1]
                     v1_val, v2_val = soln_vector_dict[v1], soln_vector_dict[v2]
-                    error_term += v1_val * v2_val
-                    if verbose: log.joint("DEBUG:  + coeff * budget * %s * %s = %g * %g * %g * %g\n"%(v1, v2, coeff, budget, v1_val, v2_val))
+                    error_term += sign * v1_val * v2_val
+                    if verbose: log.joint("DEBUG:  + sign * coeff * budget * %s * %s = %d * %g * %g * %g * %g\n"%(v1, v2, sign, coeff, budget, v1_val, v2_val))
                 else:  #linear
                     var_val = soln_vector_dict[var]
-                    error_term += var_val
-                    if verbose: log.joint("DEBUG:  + coeff * budget * %s = %g * %g * %g\n"%(var, coeff, budget, var_val))
+                    error_term += sign * var_val
+                    if verbose: log.joint("DEBUG:  + sign * coeff * budget * %s = %d * %g * %g * %g\n"%(var, sign, coeff, budget, var_val))
             error_term *= coeff * budget  #save repetitive multiplcation for last
             if verbose: log.joint("DEBUG: error term = %g\n"%(error_term))
 
