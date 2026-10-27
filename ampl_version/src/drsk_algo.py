@@ -6,7 +6,7 @@
 ###############################################################################
 import math
 import time
-from myutils import breakexit
+from drsk_utils import breakexit
 from drsk_ampl import drsk_run_solver, drsk_set_solution
 from drsk_boosting import drsk_evalPhi_greedy
 from drsk_separation import drsk_addMultiCuts_Greedy, drsk_addMultiCuts_quasiGreedy

@@ -1,10 +1,5 @@
-# -*- coding: utf-8 -*-
-"""
-
-"""
 import sys
 import time
-from myutils import breakexit
 from socket import gethostname
 
 #this class handles logging

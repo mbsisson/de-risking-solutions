@@ -1,0 +1,551 @@
+Starting log: Mon Oct 26 15:05:43 2026.
+Running on: jasper.local.
+
+Reading configuration file drsk.conf...
+Done reading configuration file drsk.conf.
+Start drsk program.
+<Version 2026.Oct.26.114900@jasper>
+Initializing all data...
+MODFILE ../data/mod/QPLIB_2894.mod
+LPFILE ../data/lp/QPLIB_2894.lp
+SOLFILE ../data/sol/QPLIB_2894.sol
+CUTFILE_in ../cutdata/zerocuts.dat
+CUTFILE_out ../cutdata/cutsrun.dat
+PARAMFILE drskparams.conf
+Reading parameter file drskparams.conf...
+solver gurobi
+theta auto
+lam_hi 10.0
+lam_lo 9.0
+xi 10.0
+budget 0.01
+phi_scale percent_violation
+alpha 10.0
+decimal_risk_thresh 3
+ncuts_add 1
+cut_phiThresh 0.25
+cut_method quasi-greedy
+maxcuts 100
+tol 0.0001
+maxits 5
+PhiReduc 0.1
+zerothresh 1e-08
+solve_time_limit 45
+loud 0
+verbose 0
+breakpoints 0
+Done reading parameter file drskparams.conf.
+Using solver: gurobi
+Done initializing all data.
+Read file ../data/mod/QPLIB_2894.mod with AMPL
+Num of variables = 17
+Num of constraints = 209
+Now storing LP data.
+Reading LP into Gurobi ../data/lp/QPLIB_2894.lp.
+Done reading LP into Gurobi.
+Storing linear constraints; 55 in total.
+Stored linear constraints with code 0.
+Storing quadratic constraints; 154 in total.
+Quad constraints read with code 0.
+Writing cut model to modfile: ../data/mod/cuts/cuts_QPLIB_2894.mod...
+Done writing new model to modfile: ../data/mod/cuts/cuts_QPLIB_2894.mod.
+Added parameters, sets, variables, and constraints to model for cut compatibility
+
+Writing alldata to file alldata.json...
+Done writing alldata to file alldata.json.
+Reading solution from file ../data/sol/QPLIB_2894.sol...
+Done reading solution from file ../data/sol/QPLIB_2894.sol.
+Computing Phi using greedy method...
+Greedy Phi = 0.576947
+  coeff: -9.13177
+  z_75 = 0.01
+  max feature: e198
+Greedy max sum phis = 0.750351
+  coeff: -9.13177
+  INVALID: zvar changed sign across constraints!
+Computed Phi using Greedy.
+
+Set Theta to 38.0474
+Completed iteration 0
+  > Cost:    4.99988
+  > Phi_L:   0
+  > Phi_max: 0.576947
+  Solution:
+    x2 = 4.99988
+    x3 = -0.634742
+    x4 = 0.772724
+    x5 = 1.60621
+    x7 = 1
+    x8 = 3.57094
+    x9 = -0.999975
+    x10 = -0.00706352
+    x11 = 1.53862
+    x12 = 0.428704
+    x13 = 0.903445
+    x14 = 1.68571
+    x15 = 1.61885
+    x16 = 3.94679
+    x17 = 8.44764
+    x18 = 5.64452
+===============================================================
+
+Did NOT converge: add cut
+Adding multiple Quasi-Greedy cuts...
+Adding greedy cut for zvar=z_75 coeff=-9.13177 with phi=0.576947
+Cut #1 (feature weight):
+  e73  0.00294957
+  e103  0.00294957
+  e133  0.00294957
+  e163  0.00294957
+  e193  0.00294957
+  e196  0.00294957
+  e197  0.00294957
+  e198  0.944951
+  e199  0.00294957
+  e200  0.00294957
+  e201  0.00294957
+  e202  0.0167048
+  e203  0.00294957
+  e204  0.00294957
+  e205  0.00294957
+Added cut using Quasi-Greedy
+
+Done adding 1 Quasi-Greedy cuts.
+Solving model ...
+= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+Solved with gurobi in 0.610809 seconds
+
+Optimal objective: obj = 6
+Optimal objective: weighted_obj = 6.04934
+Optimal variable values:
+  x2 = 6
+  x3 = 0.768076
+  x4 = 0.640359
+  x5 = 1.5952
+  x6 = 0.422362
+  x7 = 0.906427
+  x8 = 1.62047
+  x9 = -0.447214
+  x10 = -0.894427
+  x11 = 4.47214
+  x12 = 1
+  x14 = 2.84366
+  x15 = 8.09051
+  x16 = 4.23116
+  x17 = 3.44977
+  x18 = 1.04913
+16 nonzero variables in solution
+
+Checking for violations...
+0 constraints violated
+
+Computing Phi using greedy method...
+Greedy Phi = 0.439626
+  coeff: -9.13177
+  z_75 = 0.01
+  max feature: e103
+Greedy max sum phis = 0.439626
+  coeff: -9.13177
+  INVALID: zvar changed sign across constraints!
+Computed Phi using Greedy.
+
+Completed iteration 1
+  > Cost:    6
+  > Phi_L:   0.0012967
+  > Phi_max: 0.439626
+  Solution:
+    x2 = 6
+    x3 = 0.768076
+    x4 = 0.640359
+    x5 = 1.5952
+    x6 = 0.422362
+    x7 = 0.906427
+    x8 = 1.62047
+    x9 = -0.447214
+    x10 = -0.894427
+    x11 = 4.47214
+    x12 = 1
+    x14 = 2.84366
+    x15 = 8.09051
+    x16 = 4.23116
+    x17 = 3.44977
+    x18 = 1.04913
+===============================================================
+
+Did NOT converge: add cut
+Adding multiple Quasi-Greedy cuts...
+Adding greedy cut for zvar=z_75 coeff=-9.13177 with phi=0.439626
+Cut #2 (feature weight):
+  e73  0.0105101
+  e103  0.852859
+  e133  0.0105101
+  e163  0.0105101
+  e193  0.0105101
+  e196  0.0105101
+  e197  0.0105101
+  e198  0.0105101
+  e199  0.0105101
+  e200  0.0105101
+  e201  0.0105101
+  e202  0.0105101
+  e203  0.0105101
+  e204  0.0105101
+  e205  0.0105101
+Added cut using Quasi-Greedy
+
+Done adding 1 Quasi-Greedy cuts.
+Solving model ...
+= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+Solved with gurobi in 0.276176 seconds
+
+Optimal objective: obj = 5.98911
+Optimal objective: weighted_obj = 5.98911
+Optimal variable values:
+  x2 = 5.98911
+  x3 = 0.728264
+  x4 = 0.685296
+  x5 = 1.68802
+  x6 = 0.53311
+  x7 = 0.846046
+  x8 = 1.53986
+  x9 = -0.461964
+  x10 = -0.886899
+  x11 = 4.42834
+  x12 = 1
+  x13 = -1.07204e-06
+  x14 = 2.54528
+  x15 = 8.14256
+  x16 = 4.10095
+  x17 = 2.88639
+  x18 = 1.04913
+17 nonzero variables in solution
+
+Checking for violations...
+0 constraints violated
+
+Computing Phi using greedy method...
+Greedy Phi = 0.116581
+  coeff: 2.53143
+  z_83 = 0.01
+  max feature: e210
+Greedy max sum phis = 0.184375
+  coeff: 2.53143
+  INVALID: zvar changed sign across constraints!
+Computed Phi using Greedy.
+
+Completed iteration 2
+  > Cost:    5.98911
+  > Phi_L:   0
+  > Phi_max: 0.116581
+  Solution:
+    x2 = 5.98911
+    x3 = 0.728264
+    x4 = 0.685296
+    x5 = 1.68802
+    x6 = 0.53311
+    x7 = 0.846046
+    x8 = 1.53986
+    x9 = -0.461964
+    x10 = -0.886899
+    x11 = 4.42834
+    x12 = 1
+    x13 = -1.07204e-06
+    x14 = 2.54528
+    x15 = 8.14256
+    x16 = 4.10095
+    x17 = 2.88639
+    x18 = 1.04913
+===============================================================
+
+Did NOT converge: add cut
+Adding multiple Quasi-Greedy cuts...
+Adding greedy cut for zvar=z_83 coeff=2.53143 with phi=0.116581
+Cut #3 (feature weight):
+  e74  0.0550106
+  e84  0.0550106
+  e104  0.0550106
+  e114  0.0550106
+  e134  0.0550106
+  e144  0.0550106
+  e164  0.0550106
+  e174  0.0550106
+  e194  0.0550106
+  e204  0.0550106
+  e206  0.108361
+  e207  0.0550106
+  e208  0.0550106
+  e209  0.0550106
+  e210  0.176502
+Added cut using Quasi-Greedy
+
+Done adding 1 Quasi-Greedy cuts.
+Solving model ...
+= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+Solved with gurobi in 0.279409 seconds
+
+Optimal objective: obj = 5.99302
+Optimal objective: weighted_obj = 5.99302
+Optimal variable values:
+  x2 = 5.99302
+  x3 = 0.736419
+  x4 = 0.676526
+  x5 = 1.67
+  x6 = 0.535093
+  x7 = 0.844793
+  x8 = 1.53833
+  x9 = -0.447802
+  x10 = -0.894133
+  x11 = 4.46367
+  x12 = 1
+  x13 = -0.000226919
+  x14 = 2.4863
+  x15 = 8.19386
+  x16 = 4.17674
+  x17 = 2.94246
+  x18 = 1.05044
+17 nonzero variables in solution
+
+Checking for violations...
+0 constraints violated
+
+Computing Phi using greedy method...
+Greedy Phi = 0.0774517
+  coeff: -4.52362
+  z_30 = 0.01
+  max feature: e108
+Greedy max sum phis = 0.0842998
+  coeff: -4.52362
+  INVALID: zvar changed sign across constraints!
+Computed Phi using Greedy.
+
+Completed iteration 3
+  > Cost:    5.99302
+  > Phi_L:   0
+  > Phi_max: 0.0774517
+  Solution:
+    x2 = 5.99302
+    x3 = 0.736419
+    x4 = 0.676526
+    x5 = 1.67
+    x6 = 0.535093
+    x7 = 0.844793
+    x8 = 1.53833
+    x9 = -0.447802
+    x10 = -0.894133
+    x11 = 4.46367
+    x12 = 1
+    x13 = -0.000226919
+    x14 = 2.4863
+    x15 = 8.19386
+    x16 = 4.17674
+    x17 = 2.94246
+    x18 = 1.05044
+===============================================================
+
+Did NOT converge: add cut
+Adding multiple Quasi-Greedy cuts...
+Adding greedy cut for zvar=z_30 coeff=-4.52362 with phi=0.0774517
+Cut #4 (feature weight):
+  e64  0.0615747
+  e94  0.0615747
+  e106  0.0615747
+  e107  0.0615747
+  e108  0.133589
+  e109  0.0615747
+  e110  0.0615747
+  e111  0.0615747
+  e112  0.0659392
+  e113  0.0615747
+  e114  0.0615747
+  e115  0.0615747
+  e124  0.0615747
+  e154  0.0615747
+  e184  0.0615747
+Added cut using Quasi-Greedy
+
+Done adding 1 Quasi-Greedy cuts.
+Solving model ...
+= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+Solved with gurobi in 0.295980 seconds
+
+Optimal objective: obj = 5.99582
+Optimal objective: weighted_obj = 5.99582
+Optimal variable values:
+  x2 = 5.99582
+  x3 = 0.743785
+  x4 = 0.668419
+  x5 = 1.65327
+  x6 = 0.516523
+  x7 = 0.856273
+  x8 = 1.55394
+  x9 = -0.447214
+  x10 = -0.894427
+  x11 = 4.46796
+  x12 = 1
+  x14 = 2.49172
+  x15 = 8.24167
+  x16 = 4.25557
+  x17 = 2.94152
+  x18 = 1.04913
+16 nonzero variables in solution
+
+Checking for violations...
+0 constraints violated
+
+Computing Phi using greedy method...
+Greedy Phi = 0.0635619
+  coeff: -4.05648
+  z_168 = 0.01
+  max feature: e121
+Greedy max sum phis = 0.0724029
+  coeff: -4.00955
+  INVALID: zvar changed sign across constraints!
+Computed Phi using Greedy.
+
+Completed iteration 4
+  > Cost:    5.99582
+  > Phi_L:   0
+  > Phi_max: 0.0635619
+  Solution:
+    x2 = 5.99582
+    x3 = 0.743785
+    x4 = 0.668419
+    x5 = 1.65327
+    x6 = 0.516523
+    x7 = 0.856273
+    x8 = 1.55394
+    x9 = -0.447214
+    x10 = -0.894427
+    x11 = 4.46796
+    x12 = 1
+    x14 = 2.49172
+    x15 = 8.24167
+    x16 = 4.25557
+    x17 = 2.94152
+    x18 = 1.04913
+===============================================================
+
+Did NOT converge: add cut
+Adding multiple Quasi-Greedy cuts...
+Adding greedy cut for zvar=z_168 coeff=-4.05648 with phi=0.0635619
+Cut #5 (feature weight):
+  e121  0.118842
+  e122  0.0629398
+  e123  0.0629398
+  e124  0.0629398
+  e125  0.0629398
+  e126  0.0629398
+  e127  0.0629398
+  e128  0.0629398
+  e129  0.0629398
+  e130  0.0629398
+  e131  0.0629398
+  e132  0.0629398
+  e133  0.0629398
+  e134  0.0629398
+  e135  0.0629398
+Added cut using Quasi-Greedy
+
+Done adding 1 Quasi-Greedy cuts.
+Solving model ...
+= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+Solved with gurobi in 0.305171 seconds
+
+Optimal objective: obj = 5.99774
+Optimal objective: weighted_obj = 5.99774
+Optimal variable values:
+  x2 = 5.99774
+  x3 = 0.75038
+  x4 = 0.661006
+  x5 = 1.63797
+  x6 = 0.516772
+  x7 = 0.856123
+  x8 = 1.55374
+  x9 = -0.447223
+  x10 = -0.894423
+  x11 = 4.46986
+  x12 = 1
+  x13 = -2.11502e-06
+  x14 = 2.49359
+  x15 = 8.28483
+  x16 = 4.25222
+  x17 = 2.94153
+  x18 = 1.04913
+17 nonzero variables in solution
+
+Checking for violations...
+0 constraints violated
+
+Computing Phi using greedy method...
+Greedy Phi = 0.0580165
+  coeff: -4.00955
+  z_48 = 0.01
+  max feature: e137
+Greedy max sum phis = 0.0658464
+  coeff: -4.00955
+  INVALID: zvar changed sign across constraints!
+Computed Phi using Greedy.
+
+Completed iteration 5
+  > Cost:    5.99774
+  > Phi_L:   0
+  > Phi_max: 0.0580165
+  Solution:
+    x2 = 5.99774
+    x3 = 0.75038
+    x4 = 0.661006
+    x5 = 1.63797
+    x6 = 0.516772
+    x7 = 0.856123
+    x8 = 1.55374
+    x9 = -0.447223
+    x10 = -0.894423
+    x11 = 4.46986
+    x12 = 1
+    x13 = -2.11502e-06
+    x14 = 2.49359
+    x15 = 8.28483
+    x16 = 4.25222
+    x17 = 2.94153
+    x18 = 1.04913
+===============================================================
+
+Did NOT converge: add cut
+Adding multiple Quasi-Greedy cuts...
+Adding greedy cut for zvar=z_48 coeff=-4.00955 with phi=0.0580165
+Cut #6 (feature weight):
+  e67  0.0630208
+  e97  0.0630208
+  e127  0.0630208
+  e136  0.0630208
+  e137  0.112576
+  e138  0.0630208
+  e139  0.0630208
+  e140  0.0630208
+  e141  0.0630208
+  e142  0.0630208
+  e143  0.0630208
+  e144  0.0630208
+  e145  0.0681536
+  e157  0.0630208
+  e187  0.0630208
+Added cut using Quasi-Greedy
+
+Done adding 1 Quasi-Greedy cuts.
+Algorithm FINISHED after 5 iterations in 1.82977 seconds
+ *** Maximum iterations reached ***
+ > Percent cost increase: 0.199579
+ > Percent Phi_max decrease: 0.899442
+Iter  Cost                Phi_L               Phi_max             time    
+--------------------------------------------------------------------------
+0     4.999875265217      0.000000000000      0.576947456676      0.0026  
+1     5.999999847646      0.001296704603      0.439625828357      0.6194  
+2     5.989105197564      0.000000000000      0.116580793248      0.2859  
+3     5.993019070012      0.000000000000      0.077451701419      0.2905  
+4     5.995817106253      0.000000000000      0.063561900277      0.3091  
+5     5.997744810064      0.000000000000      0.058016457387      0.3200  
+Writing cut file: ../cutdata/cutsrun.dat...
+Writing 6 cuts.
+numcuts: 6; Theta: 38.0474
+Done writing cut file: ../cutdata/cutsrun.dat.
+Finished drsk program.

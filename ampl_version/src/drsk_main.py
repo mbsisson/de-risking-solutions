@@ -5,16 +5,22 @@
 # 10/20/2026
 ###############################################################################
 from amplpy import AMPL
-from myutils import breakexit
-from versioner import stateversion
-from drsk_filemanager import drsk_read_paramfile, drsk_read_solfile, drsk_write_cutfile, drsk_read_cutfile, drsk_write_alldata
+from drsk_utils import breakexit
+from drsk_versioner import stateversion
+from drsk_filemanager import read_config, read_instancefile, drsk_read_paramfile, drsk_read_solfile, drsk_write_cutfile, drsk_read_cutfile, drsk_write_alldata
 from drsk_ampl import drsk_read_model, drsk_readandstore_model, drsk_init_cuts
 from drsk_gurobi import drsk_store_model
 from drsk_algo import drsk_algoLoop
 from drsk_separation import drsk_addMultiCuts_Greedy, drsk_addMultiCuts_quasiGreedy
 
 
-def drsk_initialize(logger, param_file, mod_file, lp_file, sol_file, cut_file_in, cut_file_out):
+def drsk_read_config(log, filename):
+    return read_config(log, filename)
+def drsk_read_instancefile(log, filename):
+    return read_instancefile(log, filename)
+
+
+def drsk_initialize(logger, param_file, mod_file, lp_file, sol_file, cut_file_in, cut_file_out, param_override_dict=None):
     alldata = {}
     log = alldata['log'] = logger
     log.joint("Initializing all data...\n")
@@ -33,7 +39,10 @@ def drsk_initialize(logger, param_file, mod_file, lp_file, sol_file, cut_file_in
     log.joint("PARAMFILE %s\n"%alldata['PARAMFILE'])
 
     # Read parameters
-    params = drsk_read_paramfile(log, alldata['PARAMFILE'])
+    if param_override_dict:
+        params = param_override_dict  # Use dictionary passed
+    else:
+        params = drsk_read_paramfile(log, alldata['PARAMFILE'])
 
     # Set log output levels
     alldata['loud'] = params['loud']
@@ -102,14 +111,8 @@ def drsk_initialize(logger, param_file, mod_file, lp_file, sol_file, cut_file_in
     alldata['algo_data']['zerothresh'] = params['zerothresh'] # Tolerance for float to be considered zero
     alldata['algo_data']['solve_time_limit'] = params['solve_time_limit']  # Maximum solver time limit, if reached the algorithm exits
     alldata['algo_data']['soln_provided'] = 0                 # Whether an initial solution is provided
-    # Greedy specific algorithm data
-    alldata['algo_data']['maxPhi'] = 0.0                      # Max Phi value
-    alldata['algo_data']['argmax_feat'] = ''                  # Feature where max Phi is attained
-    alldata['algo_data']['argmax_zsign'] = 0                  # Sign of z variable that attains max Phi
-    alldata['algo_data']['argmax_zvar'] = ''                  # Name of z variable that attains max Phi
-    alldata['algo_data']['argmax_coeff'] = 0.0                # Risky coefficient corresponding to this z variable
-    alldata['algo_data']['argmax_phis'] = {}                  # Value of phis for all features containing this z variable, the maximum is Phi max
-    alldata['algo_data']['all_phi_data'] = {}                 # Save phi data for each z variable. Dict: zvar name --> (dictionary: maxPhi, argmax_feat, argmax_zsign, argmax_coeff, argmax_phis)
+    alldata['algo_data']['all_phi_data'] = {}                 # Save phi data for each z variable. Dict: zvar name --> (dictionary: maxPhi, argmax_feat, argmax_zsign, coeff)
+                                                              #                                          'sorted_zvars' --> list of zvars sorted by corresponding maxphi in descending order
 
     # Initialize solver
     ampl = alldata['algo_data']['ampl']

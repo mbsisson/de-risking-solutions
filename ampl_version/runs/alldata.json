@@ -1,12 +1,12 @@
 {
-    "CUTFILE_in": "../cutdata/zerocuts.dat",
-    "CUTFILE_out": "../cutdata/cutsrun.dat",
+    "CUTFILE_in": "../data/cuts/zerocuts.dat",
+    "CUTFILE_out": "../data/cuts/cutsrun.dat",
     "LPFILE": "../data/lp/QPLIB_2894.lp",
     "MODFILE": "../data/mod/QPLIB_2894.mod",
     "PARAMFILE": "drskparams.conf",
     "SOLFILE": "../data/sol/QPLIB_2894.sol",
     "breakpoints": 0,
-    "loud": 0,
+    "loud": 1,
     "struct_data": {
         "budget": 0.01,
         "decimal_risk_thresh": 3,

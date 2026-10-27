@@ -11,7 +11,6 @@ import time
 import math
 import sympy as sp
 from decimal import Decimal
-from myutils import breakexit
 from drsk_filemanager import drsk_write_cutmodfile
 
 

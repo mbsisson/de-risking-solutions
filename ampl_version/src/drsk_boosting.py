@@ -3,8 +3,9 @@
 # algorithm.
 #
 # Blake Sisson mbs2246@columbia.edu
-# 10/7/2026
+# 10/27/2026
 ###############################################################################
+
 
 def drsk_evalPhi_greedy(alldata, soln_vector_dict):
     log = alldata['log']
@@ -13,43 +14,24 @@ def drsk_evalPhi_greedy(alldata, soln_vector_dict):
     all_constr_data = alldata['prob_data']['all_constr_data']
     structure = alldata['struct_data']
     budget = structure['budget']
+    phi_scale = alldata['algo_data']['phi_scale']
 
-    log.joint("Computing Phi using greedy method...\n")
+    log.joint("Computing Phi using Greedy method...\n")
 
-    lhs_dict = {}  # Save lhs values for reused when applicable
+    # Save lhs values for reuse when applicable
+    lhs_dict = {}
 
     # Save phi data for every coefficient
     all_phi_data = {}
-
-    # Running max Phi(x) with corresponding: constraint, z sign, z variable, and coefficient
-    maxPhi = 0.0
-    argmax_feat = ''
-    argmax_zsign = 0
-    argmax_zvar = ''
-    argmax_coeff = 0.0
-    argmax_phis = {}  # phi values for each feature using max greedy zvar, Dict: feat_name --> phi_i(x^t | z^t = greedy(zvar, budget))
-
-    # Also record running max sum phi(x)'s with corresponding: z sign, z varible, and coefficient
-    maxsumphi = 0.0
-    argmaxsum_zsign_list = []
-    argmaxsum_zvar = ''
-    argmaxsum_coeff = 0
 
     # Loop over all z, i.e., unique risky coefficients
     for coeff, coeff_dict in structure['risky_coeffs'].items():
         zvar = coeff_dict['zvar']
 
-        # Running max Phi(|z) and correesponding constraint and z sign
+        # Running max Phi(|z) and corresponding constraint, z sign, 
         maxPhi_z = 0.0
-        argmax_feat_z = ''
+        argmax_feat_z = 'None'
         argmax_zsign_z = 0
-        argmax_phis_z = {}  # phi values for each feature greedily using this zvar, Dict: feat_name --> phi_i(x^t | z^t = greedy(zvar, budget))
-
-        # Running sum of phi's, i.e., sum of violations
-        sumphis = 0.0
-
-        # Record list of z signs to track changes
-        zsign_list = []
 
         if loud: log.joint("  Coeff %g\n"%(coeff))
 
@@ -123,10 +105,7 @@ def drsk_evalPhi_greedy(alldata, soln_vector_dict):
                 if verbose: log.joint("DEBUG:  0, %g, or %g\n"%(potential_violations[-1], potential_violations[1]))
             if verbose: log.joint("DEBUG: violation of %g possible by setting z sign = %d\n"%(violation, zsign))
 
-            zsign_list.append(zsign)
-
             # Compute Phi (scaled violation)
-            phi_scale = alldata['algo_data']['phi_scale']
             if phi_scale == 'percent_violation':
                 phi_z = violation / max(1, rhs)
             elif phi_scale == 'scaled_abs_violation':
@@ -141,61 +120,31 @@ def drsk_evalPhi_greedy(alldata, soln_vector_dict):
                 argmax_feat_z = constr_name
                 argmax_zsign_z = zsign
 
-            # Update sum of phis
-            sumphis += phi_z
-
-            # Track phi value
-            argmax_phis_z[constr_name] = phi_z
-
             if loud: log.joint("    > constraint %s:  Phi = %g  for  %s = %g\n"%(constr_name, phi_z, zvar, zsign*budget))
-
-        # Update the running max Phi
-        if maxPhi_z > maxPhi:
-            maxPhi = maxPhi_z
-            argmax_feat = argmax_feat_z
-            argmax_zsign = argmax_zsign_z
-            argmax_zvar = zvar
-            argmax_coeff = coeff
-            argmax_phis = argmax_phis_z
-
-        # Update running max sum phi
-        if sumphis > maxsumphi:
-            maxsumphi = sumphis
-            argmaxsum_zsign_list = zsign_list
-            argmaxsum_zvar = zvar
-            argmaxsum_coeff = coeff
 
         # Save all phi data for this zvar
         all_phi_data[zvar] = {}
         all_phi_data[zvar]['maxPhi'] = maxPhi_z
         all_phi_data[zvar]['argmax_feat'] = argmax_feat_z
         all_phi_data[zvar]['argmax_zsign'] = argmax_zsign_z
-        all_phi_data[zvar]['coeff'] = coeff  # not really nec., but nice to have here
-        all_phi_data[zvar]['phis'] = argmax_phis_z
+        all_phi_data[zvar]['coeff'] = coeff  # stored elsewhere, but nice to have here
 
+    # Sort zvars by phi max value in descending order
+    sorted_zvars = sorted(all_phi_data, key=lambda z: all_phi_data[z]['maxPhi'], reverse=True)
+    all_phi_data['sorted_zvars'] = sorted_zvars
 
-        if loud: log.joint("    Sum of phi_z's = %g\n"%sumphis)
+    log.joint("Top 10 Phi's\n")
+    for i in range(min(10, len(sorted_zvars))):
+        zvar = sorted_zvars[i]
+        phi_data = all_phi_data[zvar]
+        maxPhi_z = phi_data['maxPhi']
+        coeff = phi_data['coeff']
+        argmax_zsign_z = phi_data['argmax_zsign']
+        argmax_feat_z = phi_data['argmax_feat']
+        log.joint(" %2d. phi=%g  feat=%s  coeff=%g  %s=%g\n"%(i+1, maxPhi_z, argmax_feat_z, coeff, zvar, argmax_zsign_z*budget))
 
-    # Store max Phi and greedy data
-    alldata['algo_data']['maxPhi'] = maxPhi
-    alldata['algo_data']['argmax_feat'] = argmax_feat
-    alldata['algo_data']['argmax_zsign'] = argmax_zsign
-    alldata['algo_data']['argmax_zvar'] = argmax_zvar
-    alldata['algo_data']['argmax_coeff'] = argmax_coeff
-    alldata['algo_data']['argmax_phis'] = argmax_phis
     alldata['algo_data']['all_phi_data'] = all_phi_data
 
-    log.joint("Greedy Phi = %g\n"%(maxPhi))
-    log.joint("  coeff: %g\n"%argmax_coeff)
-    log.joint("  %s = %g\n"%(argmax_zvar, argmax_zsign*budget))
-    log.joint("  max feature: %s\n"%argmax_feat)
-
-    log.joint("Greedy max sum phis = %g\n"%(maxsumphi))
-    log.joint("  coeff: %g\n"%argmaxsum_coeff)
-    if len(set(argmaxsum_zsign_list)) != 1:
-        log.joint("  INVALID: zvar changed sign across constraints!\n")
-    else:
-        log.joint("  %s = %g\n"%(argmaxsum_zvar, argmaxsum_zsign_list[0]*budget))
-
-    log.joint("Computed Phi using Greedy.\n\n")
-    return maxPhi
+    # Return max Phi
+    log.joint("Done computing Phi using Greedy.\n\n")
+    return all_phi_data[sorted_zvars[0]]['maxPhi']

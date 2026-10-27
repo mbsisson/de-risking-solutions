@@ -15,10 +15,10 @@
 import sys
 import json
 from pathlib import Path
-from myutils import breakexit
+from drsk_utils import breakexit
 
 
-def drsk_read_config(log, filename):
+def read_config(log, filename):
     '''Read settings from configuration file'''
     log.joint("Reading configuration file " + filename + "...\n")
 
@@ -200,15 +200,15 @@ def drsk_read_paramfile(log, filename):
     return params
 
 
-def drsk_read_instancefile(log, instance_file):
+def read_instancefile(log, filename):
     '''Read instances from file and return list of ids'''
-    log.joint("Reading instance file " + instance_file + "...\n")
+    log.joint("Reading instance file " + filename + "...\n")
     try:
-        f = open(instance_file, "r")
+        f = open(filename, "r")
         lines = f.readlines()
         f.close()
     except:
-        log.stateandquit("cannot open file " + instance_file + "\n")
+        log.stateandquit("cannot open file " + filename + "\n")
 
     instance_ids = []
 
@@ -226,7 +226,7 @@ def drsk_read_instancefile(log, instance_file):
             instance_ids.append(word)
         linenum += 1
 
-    log.joint("Done reading instance file " + instance_file + ".\n")
+    log.joint("Done reading instance file " + filename + ".\n")
     return name, instance_ids
 
 

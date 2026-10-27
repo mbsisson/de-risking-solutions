@@ -2,8 +2,7 @@ import sys
 from datetime import datetime
 import gurobipy as gp
 from log import danoLogger
-from drsk_filemanager import drsk_read_config, drsk_read_instancefile
-from drsk_main import drsk_start
+from ampl_version.src.drsk_main import drsk_start, drsk_read_config, drsk_read_instancefile
 
 
 if __name__ == "__main__":

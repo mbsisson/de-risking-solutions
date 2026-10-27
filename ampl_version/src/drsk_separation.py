@@ -154,7 +154,7 @@ def drsk_addCut_quasiGreedy(alldata, phis, argmax_coeff, argmax_zsign):
     for feat_name in phis:
         define_phi_constraints(alldata, cutnum, feat_name, argmax_coeff, argmax_zsign)
 
-    log.joint("Added cut using Quasi-Greedy\n\n")
+    log.joint("Added cut using Quasi-Greedy\n")
 
 
 def drsk_addMultiCuts_Greedy(alldata):
@@ -165,8 +165,8 @@ def drsk_addMultiCuts_Greedy(alldata):
     # Get phi data
     all_phi_data = alldata['algo_data']['all_phi_data']
 
-    # Sort zvars by phi max value in descending order
-    sorted_zvars = sorted(all_phi_data, key=lambda z: all_phi_data[z]['maxPhi'], reverse=True)
+    # Get sorted zvars
+    sorted_zvars = all_phi_data['sorted_zvars']
 
     # Store maxPhi, to ignore insignificant cuts
     maxPhi = all_phi_data[sorted_zvars[0]]['maxPhi']
@@ -206,8 +206,8 @@ def drsk_addMultiCuts_quasiGreedy(alldata):
     # Get phi data
     all_phi_data = alldata['algo_data']['all_phi_data']
 
-    # Sort zvars by phi max value in descending order
-    sorted_zvars = sorted(all_phi_data, key=lambda z: all_phi_data[z]['maxPhi'], reverse=True)
+    # Get sorted zvars
+    sorted_zvars = all_phi_data['sorted_zvars']
 
     # Store maxPhi, to ignore insignificant cuts
     maxPhi = all_phi_data[sorted_zvars[0]]['maxPhi']
@@ -237,244 +237,3 @@ def drsk_addMultiCuts_quasiGreedy(alldata):
         drsk_addCut_quasiGreedy(alldata, phis, coeff, argmax_zsign_z)
 
     log.joint("Done adding %d Quasi-Greedy cuts.\n"%count)
-
-
-
-#######################################################################
-# def drsk_addCut_greedy(alldata):
-#     log = alldata['log']
-#     loud = alldata['loud']
-#     verbose = alldata['verbose']
-#     all_constr_data = alldata['prob_data']['all_constr_data']
-#     variables = alldata['prob_data']['variables']
-#     structure = alldata['struct_data']
-#     budget = structure['budget']
-#     alpha = alldata['algo_data']['alpha']
-
-#     # Increment cut number
-#     alldata['cut_data']['numcuts'] += 1
-
-#     # Retrieve cut data to add new cut to
-#     cutnum = alldata['cut_data']['numcuts']
-#     nonzero_cutweights = alldata['cut_data']['nonzero_cutweights']
-#     cutweights = alldata['cut_data']['cutweights']
-#     nonzero_phiQuadWeights = alldata['cut_data']['nonzero_phiQuadWeights']
-#     phiQuadWeights = alldata['cut_data']['phiQuadWeights']
-#     nonzero_phiLinWeights = alldata['cut_data']['nonzero_phiLinWeights']
-#     phiLinWeights = alldata['cut_data']['phiLinWeights']
-#     phiConstWeights = alldata['cut_data']['phiConstWeights']
-#     phiMinusToggle = alldata['cut_data']['phiMinusToggle']
-
-#     # Retrieve Phi data
-#     maxPhi = alldata['algo_data']['maxPhi']
-#     argmax_feat = alldata['algo_data']['argmax_feat']
-#     argmax_zsign = alldata['algo_data']['argmax_zsign']
-#     argmax_zvar = alldata['algo_data']['argmax_zvar']
-#     argmax_coeff = alldata['algo_data']['argmax_coeff']
-#     argmax_phis = alldata['algo_data']['argmax_phis']
-
-#     # 1. Set cut weights
-#     nonzero_cutweights.add((cutnum, argmax_feat))
-#     cutweights[(cutnum, argmax_feat)] = 1
-#     log.joint("Cut #%d (feature weight):\n"%cutnum)
-#     log.joint("  %s  %g\n"%(argmax_feat, 1))
-
-#     # 2. Define phi constraints
-
-#     # Get constraint data of argmax feature
-#     constraint_data = all_constr_data[argmax_feat]
-#     define_phi_constraints(alldata, cutnum, argmax_feat, constraint_data)
-#     sense = constraint_data['sense']
-
-#     # Get phi scale value
-#     phi_scale = 1.0
-#     if alldata['algo_data']['phi_scale'] == 'percent_violation':
-#         phi_scale = max(constraint_data['RHS'], 1)
-#     elif alldata['algo_data']['phi_scale'] == 'scaled_abs_violation':
-#         phi_scale = constraint_data['coeff_inf-norm']
-#     else:
-#         log.joint('ERROR: invalid phi_scale: %s\n'%(phi_scale))
-
-#     # Set constant (LHS constant - RHS)
-#     phiConstWeights[(cutnum, argmax_feat)] = (constraint_data['constant'] - constraint_data['RHS']) / phi_scale
-#     if loud: log.joint(" - Defining constant (%d, %s)\n"%(cutnum, argmax_feat))
-#     if verbose: log.joint("DEBUG: + constant - rhs = %g - %g\n"%(constraint_data['constant'], constraint_data['RHS']))
-
-#     # Set linear coefficients
-#     for var, coeff in constraint_data['lin_terms'].items():
-#         var_idx = variables[var]
-#         nonzero_phiLinWeights.add((cutnum, argmax_feat, var_idx))
-#         phiLinWeights[(cutnum, argmax_feat, var_idx)] = coeff / phi_scale
-#         if loud: log.joint(" - Defining weight (%d, %s, %d)\n"%(cutnum, argmax_feat, var_idx))
-#         if verbose: log.joint("DEBUG: + %g * %s\n"%(coeff, var))
-
-#     # Set quadratic coefficients
-#     for var_tuple, coeff in constraint_data['quad_terms'].items():
-#         v1, v2 = var_tuple[0], var_tuple[1]
-#         v1_idx, v2_idx = variables[v1], variables[v2]
-#         nonzero_phiQuadWeights.add((cutnum, argmax_feat, v1_idx, v2_idx))
-#         phiQuadWeights[(cutnum, argmax_feat, v1_idx, v2_idx)] = coeff / phi_scale
-#         if loud: log.joint(" - Defining weight (%d, %s, %d, %d)\n"%(cutnum, argmax_feat, v1_idx, v2_idx))
-#         if verbose: log.joint("DEBUG: + %g * %s * %s\n"%(coeff, v1, v2))
-
-#     # Check if phi minus constraint is necessary and swap all signs for >= features
-#     if sense == '=':
-#         # phi is absolute value so DO need a minus constraint
-#         phiMinusToggle[(cutnum, argmax_feat)] = 1
-#         if verbose: log.joint("DEBUG: feature is equality, add phi Minus constraint\n")
-#     else:  # feature is inequality
-#         # phi is plus operator so DO NOT need a minus constraint
-#         phiMinusToggle[(cutnum, argmax_feat)] = 0
-#         if verbose: log.joint("DEBUG: feature is inequality, no phi Minus constraint\n")
-#         if sense == '>=' or sense == '>':
-#             # Violations are reversed so swap sign
-#             phiConstWeights[(cutnum, argmax_feat)] *= -1
-#             for var in constraint_data['lin_terms']:
-#                 var_idx = variables[var]
-#                 phiLinWeights[(cutnum, argmax_feat, var_idx)] *= -1
-#             for var_tuple in constraint_data['quad_terms']:
-#                 v1, v2 = var_tuple[0], var_tuple[1]
-#                 v1_idx, v2_idx = variables[v1], variables[v2]
-#                 phiQuadWeights[(cutnum, argmax_feat, v1_idx, v2_idx)] *= -1
-#             if verbose: log.joint("DEBUG: feature is >= ineq, negate all data\n")
-
-#     # Scale argmax_zvar terms by error
-#     terms_list = structure['risky_coeffs'][argmax_coeff]['instances'][argmax_feat]
-#     for term_data in terms_list:
-#         degree, var_data = term_data[0], term_data[1]
-
-#         if degree == 'linear':
-#             var = var_data
-#             var_idx = variables[var]
-#             phiLinWeights[(cutnum, argmax_feat, var_idx)] *= 1 + argmax_zsign * budget
-#             if verbose: log.joint("DEBUG: %g * %s term gets (1 + %g)\n"%(argmax_coeff, var, argmax_zsign * budget))
-
-#         else:  #degree = 'quad'
-#             v1, v2 = var_data[0], var_data[1]
-#             v1_idx, v2_idx = variables[v1], variables[v2]
-#             phiQuadWeights[(cutnum, argmax_feat, v1_idx, v2_idx)] *= 1 + argmax_zsign * budget
-#             if verbose: log.joint("DEBUG: %g * %s * %s term gets (1 + %g)\n"%(argmax_coeff, v1, v2, argmax_zsign * budget))
-
-#     log.joint("Added cut using Greedy\n")
-
-
-# def drsk_addCut_quasiGreedy(alldata):
-#     log = alldata['log']
-#     loud = alldata['loud']
-#     verbose = alldata['verbose']
-#     all_constr_data = alldata['prob_data']['all_constr_data']
-#     variables = alldata['prob_data']['variables']
-#     structure = alldata['struct_data']
-#     budget = structure['budget']
-#     alpha = alldata['algo_data']['alpha']
-
-#     # Increment cut number
-#     alldata['cut_data']['numcuts'] += 1
-
-#     # Retrieve cut data to add new cut to
-#     cutnum = alldata['cut_data']['numcuts']
-#     nonzero_cutweights = alldata['cut_data']['nonzero_cutweights']
-#     cutweights = alldata['cut_data']['cutweights']
-#     nonzero_phiQuadWeights = alldata['cut_data']['nonzero_phiQuadWeights']
-#     phiQuadWeights = alldata['cut_data']['phiQuadWeights']
-#     nonzero_phiLinWeights = alldata['cut_data']['nonzero_phiLinWeights']
-#     phiLinWeights = alldata['cut_data']['phiLinWeights']
-#     phiConstWeights = alldata['cut_data']['phiConstWeights']
-#     phiMinusToggle = alldata['cut_data']['phiMinusToggle']
-
-#     # Retrieve Phi data
-#     maxPhi = alldata['algo_data']['maxPhi']
-#     argmax_feat = alldata['algo_data']['argmax_feat']
-#     argmax_zsign = alldata['algo_data']['argmax_zsign']
-#     argmax_zvar = alldata['algo_data']['argmax_zvar']
-#     argmax_coeff = alldata['algo_data']['argmax_coeff']
-#     argmax_phis = alldata['algo_data']['argmax_phis']
-
-#     # 1. Compute and set cut weights
-#     sum_exp = 0.0
-#     for phi in argmax_phis.values():
-#         sum_exp += math.exp(alpha * phi)
-#     log.joint("Cut #%d (feature weight):\n"%cutnum)
-#     for feat_name, phi in argmax_phis.items():
-#         nonzero_cutweights.add((cutnum, feat_name))
-#         weight = math.exp(alpha * phi) / sum_exp
-#         cutweights[(cutnum, feat_name)] = weight
-#         log.joint("  %s  %g\n"%(feat_name, weight))
-
-#     # 2. Define phi constraints
-
-#     # Retrieve coefficient data for each nonzero feature
-#     for feat_name, phi in argmax_phis.items():
-#         constraint_data = all_constr_data[feat_name]
-#         sense = constraint_data['sense']
-
-#         # Get phi scale value
-#         phi_scale = 1.0
-#         if alldata['algo_data']['phi_scale'] == 'percent_violation':
-#             phi_scale = max(constraint_data['RHS'], 1)
-#         elif alldata['algo_data']['phi_scale'] == 'scaled_abs_violation':
-#             phi_scale = constraint_data['coeff_inf-norm']
-#         else:
-#             log.joint('ERROR: invalid phi_scale: %s\n'%(phi_scale))
-
-#         # Set constant (LHS constant - RHS)
-#         phiConstWeights[(cutnum, feat_name)] = (constraint_data['constant'] - constraint_data['RHS']) / phi_scale
-#         if loud: log.joint(" - Defining constant (%d, %s)\n"%(cutnum, feat_name))
-#         if verbose: log.joint("DEBUG: + constant - rhs = %g - %g\n"%(constraint_data['constant'], constraint_data['RHS']))
-
-#         # Set linear coefficients
-#         for var, coeff in constraint_data['lin_terms'].items():
-#             var_idx = variables[var]
-#             nonzero_phiLinWeights.add((cutnum, feat_name, var_idx))
-#             phiLinWeights[(cutnum, feat_name, var_idx)] = coeff / phi_scale
-#             if loud: log.joint(" - Defining weight (%d, %s, %d)\n"%(cutnum, feat_name, var_idx))
-#             if verbose: log.joint("DEBUG: + %g * %s\n"%(coeff, var))
-
-#         # Set quadratic coefficients
-#         for var_tuple, coeff in constraint_data['quad_terms'].items():
-#             v1, v2 = var_tuple[0], var_tuple[1]
-#             v1_idx, v2_idx = variables[v1], variables[v2]
-#             nonzero_phiQuadWeights.add((cutnum, feat_name, v1_idx, v2_idx))
-#             phiQuadWeights[(cutnum, feat_name, v1_idx, v2_idx)] = coeff / phi_scale
-#             if loud: log.joint(" - Defining weight (%d, %s, %d, %d)\n"%(cutnum, feat_name, v1_idx, v2_idx))
-#             if verbose: log.joint("DEBUG: + %g * %s * %s\n"%(coeff, v1, v2))
-
-#         # Check if phi minus constraint is necessary and swap all signs for >= features
-#         if sense == '=':
-#             # phi is absolute value so DO need a minus constraint
-#             phiMinusToggle[(cutnum, feat_name)] = 1
-#             if verbose: log.joint("DEBUG: feature is equality, add phi Minus constraint\n")
-#         else:  # feature is inequality
-#             # phi is plus operator so DO NOT need a minus constraint
-#             phiMinusToggle[(cutnum, feat_name)] = 0
-#             if verbose: log.joint("DEBUG: feature is inequality, no phi Minus constraint\n")
-#             if sense == '>=' or sense == '>':
-#                 # Violations are reversed so swap sign
-#                 phiConstWeights[(cutnum, feat_name)] *= -1
-#                 for var in constraint_data['lin_terms']:
-#                     var_idx = variables[var]
-#                     phiLinWeights[(cutnum, feat_name, var_idx)] *= -1
-#                 for var_tuple in constraint_data['quad_terms']:
-#                     v1, v2 = var_tuple[0], var_tuple[1]
-#                     v1_idx, v2_idx = variables[v1], variables[v2]
-#                     phiQuadWeights[(cutnum, feat_name, v1_idx, v2_idx)] *= -1
-#                 if verbose: log.joint("DEBUG: feature is >= ineq, negate all data\n")
-
-#     # Scale argmax_zvar terms by error
-#     for feat_name, terms_list in structure['risky_coeffs'][argmax_coeff]['instances'].items():
-#         for term_data in terms_list:
-#             degree, var_data = term_data[0], term_data[1]
-
-#             if degree == 'linear':
-#                 var = var_data
-#                 var_idx = variables[var]
-#                 phiLinWeights[(cutnum, feat_name, var_idx)] *= 1 + argmax_zsign * budget
-#                 if verbose: log.joint("DEBUG: %g * %s term gets (1 + %g)\n"%(argmax_coeff, var, argmax_zsign * budget))
-
-#             else:  #degree = 'quad'
-#                 v1, v2 = var_data[0], var_data[1]
-#                 v1_idx, v2_idx = variables[v1], variables[v2]
-#                 phiQuadWeights[(cutnum, feat_name, v1_idx, v2_idx)] *= 1 + argmax_zsign * budget
-#                 if verbose: log.joint("DEBUG: %g * %s * %s term gets (1 + %g)\n"%(argmax_coeff, v1, v2, argmax_zsign * budget))
-
-#     log.joint("Added cut using Quasi-Greedy\n\n")
