@@ -32,11 +32,21 @@ if __name__ == "__main__":
     mod_file = data['MODFILE']
     lp_file = data['LPFILE']
     sol_file = data['SOLFILE']
+    sol_file_out = "sols/drsk_" + datetime_string + ".sol"
     cut_file_in = data['CUTFILE_in']
     cut_file_out = data['CUTFILE_out']
+    ref_sol_file = data['REFSOLFILE']
 
     # Call drsk
-    drsk_start(log, param_file, mod_file, lp_file, sol_file, cut_file_in, cut_file_out)
+    drsk_start(log,
+               param_file,
+               mod_file,
+               lp_file,
+               sol_file,
+               sol_file_out,
+               cut_file_in,
+               cut_file_out,
+               ref_sol_file)
 
     
 

@@ -4,13 +4,14 @@
 #   - reading parameter file
 #   - reading instance file
 #   - reading solution file
+#   - reading cut file
 #   - writing all data
 #   - writing cut modfile
-#   - reading cut file
 #   - writing cut file
+#   - writing solution files
 #
 # Blake Sisson mbs2246@columbia.edu
-# 10/19/2026
+# 10/28/2026
 ###############################################################################
 import sys
 import json
@@ -36,6 +37,7 @@ def read_config(log, filename):
     solfile = 'NONE'
     cutfile_in = 'NONE'
     cutfile_out = 'NONE'
+    refsolfile = 'NONE'
     instance_file = 'NONE'
 
     linenum = 0
@@ -58,6 +60,8 @@ def read_config(log, filename):
                     cutfile_in = thisline[2]
                 elif type == 'out':
                     cutfile_out = thisline[2]
+            elif word == 'REF_SOL_FILE':
+                refsolfile = thisline[1]
             elif word == 'INSTANCE_FILE':
                 instance_file = thisline[1]
             elif word == 'END':
@@ -73,6 +77,7 @@ def read_config(log, filename):
               ('SOLFILE', solfile),
               ('CUTFILE_in', cutfile_in),
               ('CUTFILE_out', cutfile_out),
+              ('REFSOLFILE', refsolfile),
               ('INSTANCE_FILE', instance_file)]:
         config_data[x[0]] = x[1]
 
@@ -82,7 +87,7 @@ def read_config(log, filename):
 
 def drsk_read_paramfile(log, filename):
     '''Read parameters from file into local dictionary and return it'''
-    log.joint("Reading parameter file " + filename + "...\n")
+    log.joint("Reading parameter file " + filename + " ...\n")
     params = {}
 
     try:
@@ -110,6 +115,7 @@ def drsk_read_paramfile(log, filename):
     PhiReduc = 'None'
     zerothresh = 'None'
     solve_time_limit = 'None'
+    solve_soln_limit = 'None'
     loud = 0
     verbose = 0
     breakpoints = 0
@@ -156,6 +162,8 @@ def drsk_read_paramfile(log, filename):
                 zerothresh = float(thisline[1])
             elif word == 'solve_time_limit':
                 solve_time_limit = int(thisline[1])
+            elif word == 'solve_soln_limit':
+                solve_soln_limit = int(thisline[1])
             elif word == 'loud':
                 loud = int(thisline[1])
             elif word == 'verbose':
@@ -188,6 +196,7 @@ def drsk_read_paramfile(log, filename):
               ('PhiReduc', PhiReduc),
               ('zerothresh', zerothresh),
               ('solve_time_limit', solve_time_limit),
+              ('solve_soln_limit', solve_soln_limit),
               ('loud', loud),
               ('verbose', verbose),
               ('breakpoints', breakpoints)]:
@@ -202,7 +211,7 @@ def drsk_read_paramfile(log, filename):
 
 def read_instancefile(log, filename):
     '''Read instances from file and return list of ids'''
-    log.joint("Reading instance file " + filename + "...\n")
+    log.joint("Reading instance file " + filename + " ...\n")
     try:
         f = open(filename, "r")
         lines = f.readlines()
@@ -232,7 +241,7 @@ def read_instancefile(log, filename):
 
 def drsk_read_solfile(log, filename):
     '''Read solutions from file and return dictionary mapping var names to value'''
-    log.joint("Reading solution from file " + filename + "...\n")
+    log.joint("Reading solution from file " + filename + " ...\n")
 
     try:
         f = open(filename, "r")
@@ -265,51 +274,9 @@ def drsk_read_solfile(log, filename):
     return objval, soln_dict
 
 
-def drsk_write_alldata(alldata, filename):
-    '''Writing alldata to given file'''
-    log = alldata['log']
-    log.joint("Writing alldata to file " + filename + "...\n")
-
-    def is_serializable(value):
-        try:
-            json.dumps(value)
-            return True
-        except TypeError:
-            return False
-    clean_data = {k: v for k, v in alldata.items() if is_serializable(v)}
-    with open(filename, "w", encoding="utf-8") as f:
-        json.dump(
-            clean_data, 
-            f, 
-            indent=4,          # Adds 4 spaces of indentation
-            sort_keys=True,     # Sorts the dictionary keys alphabetically
-            ensure_ascii=False  # Keeps non-English/Unicode text intact
-        )
-
-    log.joint("Done writing alldata to file " + filename + ".\n")
-    if alldata['breakpoints']: breakexit('Saved all data to file')
-
-
-def drsk_write_cutmodfile(log, org_modfile, ampl):
-    # Get path of new file
-    directory_path = Path(org_modfile).parent
-    base_name = Path(org_modfile).name
-    new_path = str(directory_path) + "/cuts/cuts_" + str(base_name)
-
-    # Ensure cuts directory exists
-    Path(new_path).parent.mkdir(parents=True, exist_ok=True)
-
-    log.joint("Writing cut model to modfile: " + new_path + "...\n")
-
-    # Write ampl model to file
-    ampl.export_model(new_path)
-
-    log.joint('Done writing new model to modfile: %s.\n'%new_path)
-
-
 def drsk_read_cutfile(alldata, filename):
     log = alldata['log']
-    log.joint("Reading cut file: " + filename + "...\n")
+    log.joint("Reading cut file: " + filename + " ...\n")
 
     try:
         f = open(filename, "r")
@@ -412,9 +379,51 @@ def drsk_read_cutfile(alldata, filename):
     log.joint("Done reading cut file: " + filename + ".\n")
 
 
+def drsk_write_alldata(alldata, filename):
+    '''Writing alldata to given file'''
+    log = alldata['log']
+    log.joint("Writing alldata to file " + filename + " ...\n")
+
+    def is_serializable(value):
+        try:
+            json.dumps(value)
+            return True
+        except TypeError:
+            return False
+    clean_data = {k: v for k, v in alldata.items() if is_serializable(v)}
+    with open(filename, "w", encoding="utf-8") as f:
+        json.dump(
+            clean_data, 
+            f, 
+            indent=4,          # Adds 4 spaces of indentation
+            sort_keys=True,     # Sorts the dictionary keys alphabetically
+            ensure_ascii=False  # Keeps non-English/Unicode text intact
+        )
+
+    log.joint("Done writing alldata to file " + filename + ".\n")
+    if alldata['breakpoints']: breakexit('Saved all data to file')
+
+
+def drsk_write_cutmodfile(log, org_modfile, ampl):
+    # Get path of new file
+    directory_path = Path(org_modfile).parent
+    base_name = Path(org_modfile).name
+    new_path = str(directory_path) + "/cuts/cuts_" + str(base_name)
+
+    # Ensure cuts directory exists
+    Path(new_path).parent.mkdir(parents=True, exist_ok=True)
+
+    log.joint("Writing cut model to modfile: " + new_path + " ...\n")
+
+    # Write ampl model to file
+    ampl.export_model(new_path)
+
+    log.joint('Done writing new model to modfile: %s.\n'%new_path)
+
+
 def drsk_write_cutfile(alldata, filename):
     log = alldata['log']
-    log.joint("Writing cut file: " + filename + "...\n")
+    log.joint("Writing cut file: " + filename + " ...\n")
 
     try:
         f = open(filename, "w")
@@ -494,3 +503,32 @@ def drsk_write_cutfile(alldata, filename):
     # Close writier
     f.close()
     log.joint("Done writing cut file: " + filename + ".\n")
+
+
+def drsk_write_solfile(alldata, filename):
+    '''Write solution to given file'''
+    log = alldata['log']
+    soln_dict = alldata['algo_data']['soln_vector_dict']
+    objvar = alldata['algo_data']['cost']
+    Phi_L = alldata['algo_data']['Phi_L']
+    Phi_max = alldata['algo_data']['Phi_max']
+    log.joint("Writing solution to file " + filename + " ...\n")
+
+    try:
+        f = open(filename, "w")
+
+        f.write('objvar %g  #cost\n'%(objvar))
+
+        for varname, varval in soln_dict.items():
+            f.write('%s %g\n'%(varname, varval))
+
+        f.write('Phi_L %g\n'%Phi_L)
+        f.write('Phi_max %g\n'%Phi_max)
+        
+        f.write('END\n')
+        
+        f.close()
+    except:
+        log.stateandquit("cannot open file " + filename + "\n")
+
+    log.joint("Done writing solution to file " + filename + ".\n")

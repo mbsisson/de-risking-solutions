@@ -3,7 +3,7 @@
 # algorithm.
 #
 # Blake Sisson mbs2246@columbia.edu
-# 10/7/2026
+# 10/28/2026
 ###############################################################################
 import math
 
@@ -47,7 +47,7 @@ def define_phi_constraints(alldata, cutnum, feat_name, argmax_coeff, argmax_zsig
     # Set constant (LHS constant - RHS)
     phiConstWeights[(cutnum, feat_name)] = (constraint_data['constant'] - constraint_data['RHS']) / phi_scale
     if loud: log.joint(" - Defining constant (%d, %s)\n"%(cutnum, feat_name))
-    if verbose: log.joint("DEBUG: + constant - rhs = %g - %g\n"%(constraint_data['constant'], constraint_data['RHS']))
+    if verbose: log.joint("   DEBUG: + (constant - rhs) / phi_scale  = (%g - %g) / %g\n"%(constraint_data['constant'], constraint_data['RHS'], phi_scale))
 
     # Set linear coefficients
     for var, _coeff in constraint_data['lin_terms'].items():
@@ -55,7 +55,7 @@ def define_phi_constraints(alldata, cutnum, feat_name, argmax_coeff, argmax_zsig
         nonzero_phiLinWeights.add((cutnum, feat_name, var_idx))
         phiLinWeights[(cutnum, feat_name, var_idx)] = _coeff / phi_scale
         if loud: log.joint(" - Defining weight (%d, %s, %d)\n"%(cutnum, feat_name, var_idx))
-        if verbose: log.joint("DEBUG: + %g * %s\n"%(_coeff, var))
+        if verbose: log.joint("   DEBUG: + (%g * %s) / %g\n"%(_coeff, var, phi_scale))
 
     # Set quadratic coefficients
     for var_tuple, _coeff in constraint_data['quad_terms'].items():
@@ -64,17 +64,17 @@ def define_phi_constraints(alldata, cutnum, feat_name, argmax_coeff, argmax_zsig
         nonzero_phiQuadWeights.add((cutnum, feat_name, v1_idx, v2_idx))
         phiQuadWeights[(cutnum, feat_name, v1_idx, v2_idx)] = _coeff / phi_scale
         if loud: log.joint(" - Defining weight (%d, %s, %d, %d)\n"%(cutnum, feat_name, v1_idx, v2_idx))
-        if verbose: log.joint("DEBUG: + %g * %s * %s\n"%(_coeff, v1, v2))
+        if verbose: log.joint("   DEBUG: + (%g * %s * %s) / %g\n"%(_coeff, v1, v2, phi_scale))
 
     # Check if phi minus constraint is necessary and swap all signs for >= features
     if sense == '=':
         # phi is absolute value so DO need a minus constraint
         phiMinusToggle[(cutnum, feat_name)] = 1
-        if verbose: log.joint("DEBUG: feature is equality, add phi Minus constraint\n")
+        if verbose: log.joint(" DEBUG: feature is equality, add phi Minus constraint\n")
     else:  # feature is inequality
         # phi is plus operator so DO NOT need a minus constraint
         phiMinusToggle[(cutnum, feat_name)] = 0
-        if verbose: log.joint("DEBUG: feature is inequality, no phi Minus constraint\n")
+        if verbose: log.joint(" DEBUG: feature is inequality, no phi Minus constraint\n")
         if sense == '>=' or sense == '>':
             # Violations are reversed so swap sign
             phiConstWeights[(cutnum, feat_name)] *= -1
@@ -85,7 +85,7 @@ def define_phi_constraints(alldata, cutnum, feat_name, argmax_coeff, argmax_zsig
                 v1, v2 = var_tuple[0], var_tuple[1]
                 v1_idx, v2_idx = variables[v1], variables[v2]
                 phiQuadWeights[(cutnum, feat_name, v1_idx, v2_idx)] *= -1
-            if verbose: log.joint("DEBUG: feature is >= ineq, negate all data\n")
+            if verbose: log.joint(" DEBUG: feature is >= ineq, negate all data\n")
 
     # Scale zvar terms by error
     terms_list = structure['risky_coeffs'][argmax_coeff]['instances'][feat_name]
@@ -94,13 +94,13 @@ def define_phi_constraints(alldata, cutnum, feat_name, argmax_coeff, argmax_zsig
             var = var_data
             var_idx = variables[var]
             phiLinWeights[(cutnum, feat_name, var_idx)] *= 1 + argmax_zsign * budget
-            if verbose: log.joint("DEBUG: %d * %g * %s term gets (1 + %g)\n"%(sign, argmax_coeff, var, argmax_zsign * budget))
+            if verbose: log.joint(" DEBUG: %d * %g * %s term mutliplied by (1 + %g)\n"%(sign, argmax_coeff, var, argmax_zsign * budget))
 
         else:  #degree = 'quad'
             v1, v2 = var_data[0], var_data[1]
             v1_idx, v2_idx = variables[v1], variables[v2]
             phiQuadWeights[(cutnum, feat_name, v1_idx, v2_idx)] *= 1 + argmax_zsign * budget
-            if verbose: log.joint("DEBUG: %d * %g * %s * %s term gets (1 + %g)\n"%(sign, argmax_coeff, v1, v2, argmax_zsign * budget))
+            if verbose: log.joint(" DEBUG: %d * %g * %s * %s term mutliplied by (1 + %g)\n"%(sign, argmax_coeff, v1, v2, argmax_zsign * budget))
 
 
 def drsk_addCut_greedy(alldata, argmax_feat, argmax_coeff, argmax_zsign):

@@ -4,7 +4,7 @@
 #   - solving model with chosen solver
 #
 # Blake Sisson mbs2246@columbia.edu
-# 10/20/2026
+# 10/28/2026
 ###############################################################################
 import re
 import time
@@ -14,18 +14,48 @@ from decimal import Decimal
 from drsk_filemanager import drsk_write_cutmodfile
 
 
-def drsk_set_solution(alldata):
+def drsk_set_soln(alldata, soln_vector_dict):
+    log = alldata['log']
+    loud = alldata['loud']
     ampl = alldata['algo_data']['ampl']
     variables = alldata['prob_data']['variables']
-    soln_vector_dict = alldata['algo_data']['soln_vector_dict']
+
+    log.joint('Setting solution\n')
 
     X = ampl.get_variable("X")
-    for varname, val in soln_vector_dict.items():
+    for varname in alldata['prob_data']['variables']:
+        val = soln_vector_dict.get(varname, 0.0)
         idx = variables[varname]
         X[idx].set_value(val)
 
         x = ampl.get_variable(varname.lower())
         x.set_value(val)
+
+        if loud: log.joint('  x%d %g\n'%(idx, val))
+
+    Phi_L = ampl.get_variable('PHI_L')
+    val = soln_vector_dict.get('Phi_L', 0.0)
+    Phi_L.set_value(val)
+    if loud: log.joint('  Phi_L %g\n'%(Phi_L.value()))
+
+
+def drsk_check_soln(alldata):
+    log = alldata['log']
+    ampl = alldata['algo_data']['ampl']
+    constraints = alldata['prob_data']['constraints']
+
+    # Iterate through all constraints to find violations
+    log.joint("Checking for violations...\n")
+    count = 0
+    for constr_name in constraints:
+        # Check if the constraint is violated (negative slack means the bound is breached)
+        constraint = ampl.get_constraint(constr_name)
+        if constraint.slack() < -1e-6:
+            count += 1
+            log.joint(f"  Violation in {constr_name}:\n")
+            log.joint(f"    Slack: {constraint.slack()}\n")
+            log.joint(f"    Lower Bound: {constraint.lb()}, Upper Bound: {constraint.ub()}\n")
+    log.joint(str(count) + " constraints violated\n\n")
 
 
 def drsk_run_solver(alldata):
@@ -51,8 +81,8 @@ def drsk_run_solver(alldata):
     ampl.get_parameter("phiConstWeights").set_values(alldata['cut_data']['phiConstWeights'])
     ampl.get_parameter("phiMinusToggle").set_values(alldata['cut_data']['phiMinusToggle'])
 
-    # Solve                                                                                                                              
-    log.joint("Solving model ...\n")                                                                                                    
+    # Solve
+    log.joint("Solving model ...\n")
     t0 = time.time()                                                                                                                     
     ampl.solve()                                                                                                                         
     t1 = time.time()
@@ -84,19 +114,6 @@ def drsk_run_solver(alldata):
 
     # Store cost
     alldata['algo_data']['cost'] = ampl.get_objective('obj').value()
-
-    # Iterate through all constraints to find violations
-    log.joint("Checking for violations...\n")
-    count = 0
-    for constr_name in constraints:
-        # Check if the constraint is violated (negative slack means the bound is breached)
-        constraint = ampl.get_constraint(constr_name)
-        if constraint.slack() < -1e-6:
-            count += 1
-            log.joint(f"  Violation in {constr_name}:\n")
-            log.joint(f"    Slack: {constraint.slack()}\n")
-            log.joint(f"    Lower Bound: {constraint.lb()}, Upper Bound: {constraint.ub()}\n")
-    log.joint(str(count) + " constraints violated\n\n")
 
     return retcode
 

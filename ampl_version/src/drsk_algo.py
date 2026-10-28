@@ -2,14 +2,13 @@
 # Functions for running the main loop of SOFTMAX_-ADVERSARIAL algorithm.
 #
 # Blake Sisson mbs2246@columbia.edu
-# 10/20/2026
+# 10/28/2026
 ###############################################################################
 import math
 import time
 from drsk_utils import breakexit
-from drsk_ampl import drsk_run_solver, drsk_set_solution
+from drsk_ampl import drsk_run_solver, drsk_set_soln, drsk_check_soln
 from drsk_boosting import drsk_evalPhi_greedy
-from drsk_separation import drsk_addMultiCuts_Greedy, drsk_addMultiCuts_quasiGreedy
 
 
 def logIteration(log, x, cost, Phi_L, Phi_max):
@@ -54,8 +53,8 @@ def logResults(alldata, iteration, elapsed_time, convergence_flag):
     result_str += " > Percent Phi_max decrease: %g\n"%Phi_max_delta
     
     # Log header
-    headers = ['Iter', 'Cost', 'Phi_L', 'Phi_max', 'time']
-    col_widths = [6, 20, 20, 20, 8]
+    headers = ['Iter', 'Cost', 'Phi_L', 'Phi_max', 'objval_est', 'objval_act', 'time']
+    col_widths = [6, 12, 12, 12, 12, 12, 6]
     header_row = "".join(f"{headers[col]:<{col_widths[col]}}" for col in range(len(headers)))
     result_str += "%s\n"%header_row
     result_str += "-" * len(header_row) + "\n"
@@ -65,8 +64,10 @@ def logResults(alldata, iteration, elapsed_time, convergence_flag):
         cost = alldata['algo_data'][i]['cost']
         Phi_L = alldata['algo_data'][i]['Phi_L']
         Phi_max = alldata['algo_data'][i]['Phi_max']
+        obj_val_est = cost + alldata['prob_data']['Theta'] * Phi_L
+        obj_val_act = cost + alldata['prob_data']['Theta'] * Phi_max
         t = alldata['algo_data'][i]['time']
-        row = [str(i), f"{cost:.12f}", f"{Phi_L:.12f}", f"{Phi_max:.12f}", f"{t:.4f}"]
+        row = [str(i), f"{cost:.6f}", f"{Phi_L:.6f}", f"{Phi_max:.6f}", f"{obj_val_est:.6f}", f"{obj_val_act:.6f}", f"{t:.2f}"]
         row_str = "".join(f"{row[col]:<{col_widths[col]}}" for col in range(len(headers)))
         result_str += "%s\n"%row_str
 
@@ -106,13 +107,14 @@ def drsk_algoLoop(alldata):
     # Solve
     if alldata['algo_data']['soln_provided']:
         # Solution already stored in memory, tell ampl what it is
-        drsk_set_solution(alldata)
+        drsk_set_soln(alldata, alldata['algo_data']['soln_vector_dict'])
         solvecode = 0
         if alldata['breakpoints']: breakexit('Set solution to the one provided')
 
     else:
         # Solve the master problem for optimal (x, Phi_L)
         solvecode =  drsk_run_solver(alldata)
+        drsk_check_soln(alldata)
         if alldata['breakpoints']: breakexit('Solved master problem')
 
     x = alldata['algo_data']['soln_vector_dict']
@@ -177,6 +179,7 @@ def drsk_algoLoop(alldata):
 
         # 4. Solve the master problem for optimal (x, Phi_L)
         solvecode =  drsk_run_solver(alldata)
+        drsk_check_soln(alldata)
         x = alldata['algo_data']['soln_vector_dict']
         Phi_L = alldata['algo_data']['Phi_L']
         cost = alldata['algo_data']['cost']

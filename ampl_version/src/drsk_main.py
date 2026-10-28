@@ -2,13 +2,13 @@
 # Functions for initializing all data necessary for SOFTMAX_-ADVERSARIAL.
 #
 # Blake Sisson mbs2246@columbia.edu
-# 10/20/2026
+# 10/28/2026
 ###############################################################################
 from amplpy import AMPL
 from drsk_utils import breakexit
 from drsk_versioner import stateversion
-from drsk_filemanager import read_config, read_instancefile, drsk_read_paramfile, drsk_read_solfile, drsk_write_cutfile, drsk_read_cutfile, drsk_write_alldata
-from drsk_ampl import drsk_read_model, drsk_readandstore_model, drsk_init_cuts
+from drsk_filemanager import read_config, read_instancefile, drsk_read_paramfile, drsk_read_solfile, drsk_write_cutfile, drsk_read_cutfile, drsk_write_alldata, drsk_write_solfile
+from drsk_ampl import drsk_read_model, drsk_readandstore_model, drsk_init_cuts, drsk_set_soln, drsk_check_soln
 from drsk_gurobi import drsk_store_model
 from drsk_algo import drsk_algoLoop
 from drsk_separation import drsk_addMultiCuts_Greedy, drsk_addMultiCuts_quasiGreedy
@@ -20,23 +20,37 @@ def drsk_read_instancefile(log, filename):
     return read_instancefile(log, filename)
 
 
-def drsk_initialize(logger, param_file, mod_file, lp_file, sol_file, cut_file_in, cut_file_out, param_override_dict=None):
+def drsk_initialize(logger,
+                    param_file,
+                    mod_file,
+                    lp_file,
+                    sol_file,
+                    sol_file_out,
+                    cut_file_in,
+                    cut_file_out,
+                    ref_sol_file,
+                    param_override_dict=None):
     alldata = {}
     log = alldata['log'] = logger
     log.joint("Initializing all data...\n")
 
+    # Store files
     alldata['MODFILE'] = mod_file
     log.joint("MODFILE %s\n"%alldata['MODFILE'])
     alldata['LPFILE'] = lp_file
     log.joint("LPFILE %s\n"%alldata['LPFILE'])
     alldata['SOLFILE'] = sol_file
     log.joint("SOLFILE %s\n"%alldata['SOLFILE'])
+    alldata['SOLFILE_out'] = sol_file_out
+    log.joint("SOLFILE_out %s\n"%alldata['SOLFILE_out'])
     alldata['CUTFILE_in'] = cut_file_in
     log.joint("CUTFILE_in %s\n"%alldata['CUTFILE_in'])
     alldata['CUTFILE_out'] = cut_file_out
     log.joint("CUTFILE_out %s\n"%alldata['CUTFILE_out'])
     alldata['PARAMFILE'] = param_file
     log.joint("PARAMFILE %s\n"%alldata['PARAMFILE'])
+    alldata['REFSOLFILE'] = ref_sol_file
+    log.joint("REFSOLFILE %s\n"%alldata['REFSOLFILE'])
 
     # Read parameters
     if param_override_dict:
@@ -103,6 +117,7 @@ def drsk_initialize(logger, param_file, mod_file, lp_file, sol_file, cut_file_in
     alldata['algo_data']['solver'] = params['solver']         # Solver to use
     alldata['algo_data']['soln_vector_dict'] = {}             # Solution dctionary: variable name --> value
     alldata['algo_data']['Phi_L'] = 0.0                       # Phi_L variable value
+    alldata['algo_data']['Phi_max'] = 0.0                     # Phi max of current solution
     alldata['algo_data']['cost'] = 0.0                        # Cost value in objective
     alldata['algo_data']['iteration'] = 0                     # Iteration number
     alldata['algo_data']['tol'] = params['tol']               # Relative convergence tolerance
@@ -110,7 +125,9 @@ def drsk_initialize(logger, param_file, mod_file, lp_file, sol_file, cut_file_in
     alldata['algo_data']['PhiReduc'] = params['PhiReduc']     # Percent Phi reduction for early convergence
     alldata['algo_data']['zerothresh'] = params['zerothresh'] # Tolerance for float to be considered zero
     alldata['algo_data']['solve_time_limit'] = params['solve_time_limit']  # Maximum solver time limit, if reached the algorithm exits
+    alldata['algo_data']['solve_soln_limit'] = params['solve_soln_limit']  # Maximum solver solution limit, if reached the algorithm exits
     alldata['algo_data']['soln_provided'] = 0                 # Whether an initial solution is provided
+    alldata['algo_data']['ref_soln_dict'] = {}                # Reference solution dictionary: variable name --> value (including Phi_L and Phi_max)
     alldata['algo_data']['all_phi_data'] = {}                 # Save phi data for each z variable. Dict: zvar name --> (dictionary: maxPhi, argmax_feat, argmax_zsign, coeff)
                                                               #                                          'sorted_zvars' --> list of zvars sorted by corresponding maxphi in descending order
 
@@ -118,15 +135,18 @@ def drsk_initialize(logger, param_file, mod_file, lp_file, sol_file, cut_file_in
     ampl = alldata['algo_data']['ampl']
     solver = alldata['algo_data']['solver']
     timelimit = alldata['algo_data']['solve_time_limit']
+    solnlimit = alldata['algo_data']['solve_soln_limit']
     ampl.setOption('solver', solver)
     log.joint("Using solver: %s\n"%solver)
     # Gurobi specific options
     ampl.set_option('gurobi_auxfiles', "rc")
-    sol_cmd = 'solutionlimit=2'
+    sol_cmd = 'solutionlimit=' + str(solnlimit)
     out_cmd = 'outlev=1'
     time_cmd = 'timelimit=' + str(timelimit)
-    file_cmd = 'writeprob=models/model_' + str(alldata['algo_data']['iteration']) + '.lp'
+    file_cmd = 'writeprob=models/model.lp'
     ampl.set_option('gurobi_options', sol_cmd + ' ' + out_cmd + ' ' + time_cmd + ' ' + file_cmd)
+    # Knitro specific options
+    ampl.set_option('knitro_options', 'concurrent_solver=1 ms_enable=1 outlev=1')
     # Tell Knitro to write model to file
     # file_cmd = 'writeformat=lp writefile=models/model_' + str(alldata['algo_data']['iteration']) + '.lp'
     # ampl.set_option("knitro_options", file_cmd)
@@ -135,12 +155,30 @@ def drsk_initialize(logger, param_file, mod_file, lp_file, sol_file, cut_file_in
     return alldata
 
 
-def drsk_start(logger, param_file, mod_file, lp_file, sol_file, cut_file_in, cut_file_out, param_override_dict=None):
+def drsk_start(logger,
+               param_file,
+               mod_file,
+               lp_file,
+               sol_file,
+               sol_file_out,
+               cut_file_in,
+               cut_file_out,
+               ref_sol_file,
+               param_override_dict=None):
     logger.joint("Start drsk program.\n")
     stateversion(logger)
 
     # Initialize problem data 
-    alldata = drsk_initialize(logger, param_file, mod_file, lp_file, sol_file, cut_file_in, cut_file_out, param_override_dict)
+    alldata = drsk_initialize(logger,
+                              param_file,
+                              mod_file,
+                              lp_file,
+                              sol_file,
+                              sol_file_out,
+                              cut_file_in,
+                              cut_file_out,
+                              ref_sol_file,
+                              param_override_dict)
     if alldata['breakpoints']: breakexit('Done initializing all data')
 
     # If no lp file, use AMPL to parse
@@ -177,11 +215,30 @@ def drsk_start(logger, param_file, mod_file, lp_file, sol_file, cut_file_in, cut
         alldata['algo_data']['cost'] = objval
         alldata['algo_data']['Phi_L'] = 0
 
+    # Initalize referense solution if provided
+    if ref_sol_file != 'NONE':
+        _, input_dict = drsk_read_solfile(logger, alldata['REFSOLFILE'])
+
+        # Initialize all variables to zero then overwrite those from the solution file
+        alldata['algo_data']['ref_soln_dict'] = {varname: 0.0 for varname in alldata['prob_data']['variables']}
+        alldata['algo_data']['ref_soln_dict']['Phi_L'] = 0.0
+        alldata['algo_data']['ref_soln_dict']['Phi_max'] = 0.0
+        alldata['algo_data']['ref_soln_dict'].update(input_dict)
+
     # Run algorithm
     result_str = drsk_algoLoop(alldata)
 
     # Write cut file
     drsk_write_cutfile(alldata, cut_file_out)
+
+    # Write solution file
+    drsk_write_solfile(alldata, sol_file_out)
+
+    # Check reference solution with added cuts
+    if alldata['algo_data']['ref_soln_dict']:
+        logger.joint("\nChecking reference solution...\n")
+        drsk_set_soln(alldata, alldata['algo_data']['ref_soln_dict'])
+        drsk_check_soln(alldata)
 
     # Result result string
     logger.joint("Finished drsk program.\n")
