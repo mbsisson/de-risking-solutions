@@ -6,7 +6,7 @@
     "PARAMFILE": "drskparams.conf",
     "REFSOLFILE": "NONE",
     "SOLFILE": "../data/sol/QPLIB_2894.sol",
-    "SOLFILE_out": "sols/drsk_2026-10-28-165545.sol",
+    "SOLFILE_out": "sols/drsk_2026-10-29-153152.sol",
     "breakpoints": 0,
     "loud": 1,
     "struct_data": {

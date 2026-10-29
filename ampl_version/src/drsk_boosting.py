@@ -28,10 +28,16 @@ def drsk_evalPhi_greedy(alldata, soln_vector_dict):
     for coeff, coeff_dict in structure['risky_coeffs'].items():
         zvar = coeff_dict['zvar']
 
-        # Running max Phi(|z) and corresponding constraint, z sign
+        # Running max Phi(x|z) and corresponding constraint, z sign
         maxPhi_z = 0.0
         argmax_feat_z = 'None'
         argmax_zsign_z = 0
+
+        # Store value of phi(x|zvar) for each affected feature and choice of zvar (+1 or -1)
+        phis = {}  # dict: -1/+1 --> phi values for choice of zvar (dict: feat name --> phi_feat(x|zvar=-1/+1)
+        phis[0] = {}  # left empty
+        phis[-1] = {}  # dict: feat name --> phi_feat(x|zvar=-1)
+        phis[1] = {}  # dict: feat name --> phi_feat(x|zvar=+1)
 
         if loud: log.joint("  Coeff %g\n"%(coeff))
 
@@ -83,38 +89,44 @@ def drsk_evalPhi_greedy(alldata, soln_vector_dict):
             # Get constraint sense
             sense = constr_dict['sense']
 
-            # Determine max violation and corresponding zvar value (-1, 1, or 0 if no violation possible)
+            # Get phi scale value
+            if phi_scale == 'percent_violation':
+                phi_scale_value = max(1, rhs)
+            elif phi_scale == 'scaled_abs_violation':
+                phi_scale_value = constr_dict['coeff_inf-norm']
+            else:
+                log.joint('ERROR: invalid phi_scale: %s\n'%(phi_scale))
+            if verbose: log.joint("      DEBUG: phi scale value = %g\n"%(phi_scale_value))
+            
+            # Compute potential violations for both +1 and -1 choice of zvar
             if sense == '>=' or sense == '>':
-                potential_violations = {0:0.0,
-                                        -1:rhs - (lhs - error_term),
-                                        1:rhs - (lhs + error_term)}
-                zsign, violation = max(potential_violations.items(), key=lambda x: x[1])
-                if verbose: log.joint("      DEBUG: Determine max violation of %s constraint\n"%sense)
-                if verbose: log.joint("      DEBUG:  0, %g, or %g\n"%(potential_violations[-1], potential_violations[1]))
+                potential_violation_minus = rhs - (lhs - error_term)
+                potential_violation_plus = rhs - (lhs + error_term)
             elif sense == '<=' or sense == '<':
-                potential_violations = {0:0.0,
-                                        -1:lhs - error_term - rhs,
-                                        1:lhs + error_term - rhs}
-                zsign, violation = max(potential_violations.items(), key=lambda x: x[1])
-                if verbose: log.joint("      DEBUG: Determine max violation of %s constraint\n"%sense)
-                if verbose: log.joint("      DEBUG:  0, %g, or %g\n"%(potential_violations[-1], potential_violations[1]))
+                potential_violation_minus = lhs - error_term - rhs
+                potential_violation_plus = lhs + error_term - rhs
             else:  # sense == '='
-                potential_violations = {0:0.0,
-                                        -1:abs(lhs - error_term - rhs),
-                                        1:abs(lhs + error_term - rhs)}
-                zsign, violation = max(potential_violations.items(), key=lambda x: x[1])
-                if verbose: log.joint("      DEBUG: Determine max violation of %s constraint\n"%sense)
-                if verbose: log.joint("      DEBUG:  0, %g, or %g\n"%(potential_violations[-1], potential_violations[1]))
+                potential_violation_minus = abs(lhs - error_term - rhs)
+                potential_violation_plus = abs(lhs + error_term - rhs)
+
+            # Determine max violation and corresponding zvar value (-1, 1, or 0 if no violation possible)
+            potential_violations = {0:0.0,
+                                    -1:potential_violation_minus,
+                                    1:potential_violation_plus}
+            zsign, violation = max(potential_violations.items(), key=lambda x: x[1])
+            if verbose: log.joint("      DEBUG: Determine max violation of %s constraint\n"%sense)
+            if verbose: log.joint("      DEBUG:  0, %g, or %g\n"%(potential_violation_minus, potential_violation_plus))
             if verbose: log.joint("      DEBUG: violation of %g possible by setting z sign = %d\n"%(violation, zsign))
 
             # Compute Phi (scaled violation)
-            if phi_scale == 'percent_violation':
-                phi_z = violation / max(1, rhs)
-            elif phi_scale == 'scaled_abs_violation':
-                phi_z = violation / constr_dict['coeff_inf-norm']
-            else:
-                log.joint('ERROR: invalid phi_scale: %s\n'%(phi_scale))
-            if verbose: log.joint("      DEBUG: phi (scaled violation) = %g\n"%(phi_z))
+            phi_z = violation / phi_scale_value
+            if verbose: log.joint("      DEBUG: max phi (scaled violation) = %g\n"%(phi_z))
+
+            # Store phi value for -1 and +1
+            phis[-1][constr_name] = max(0, potential_violation_minus / phi_scale_value)
+            phis[1][constr_name] = max(0, potential_violation_plus / phi_scale_value)
+            if verbose: log.joint("      DEBUG:  z=-1 --> phi = %g\n"%(phis[-1][constr_name]))
+            if verbose: log.joint("      DEBUG:  z=+1 --> phi = %g\n"%(phis[1][constr_name]))
 
             # Update the running max Phi of this z
             if phi_z > maxPhi_z:
@@ -130,6 +142,7 @@ def drsk_evalPhi_greedy(alldata, soln_vector_dict):
         all_phi_data[zvar]['argmax_feat'] = argmax_feat_z
         all_phi_data[zvar]['argmax_zsign'] = argmax_zsign_z
         all_phi_data[zvar]['coeff'] = coeff  # stored elsewhere, but nice to have here
+        all_phi_data[zvar]['phis'] = phis[argmax_zsign_z]  # store phi values of each feature for argmax zsign
 
     # Sort zvars by phi max value in descending order
     sorted_zvars = sorted(all_phi_data, key=lambda z: all_phi_data[z]['maxPhi'], reverse=True)

@@ -128,6 +128,7 @@ def drsk_addCut_greedy(alldata, argmax_feat, argmax_coeff, argmax_zsign):
 
 def drsk_addCut_quasiGreedy(alldata, phis, argmax_coeff, argmax_zsign):
     log = alldata['log']
+    loud = alldata['loud']
 
     # Increment cut number
     alldata['cut_data']['numcuts'] += 1
@@ -137,20 +138,37 @@ def drsk_addCut_quasiGreedy(alldata, phis, argmax_coeff, argmax_zsign):
     nonzero_cutweights = alldata['cut_data']['nonzero_cutweights']
     cutweights = alldata['cut_data']['cutweights']
 
-    # 1. Compute and set cut weights
+    # Compute sum of exponents (exclude zero phis)
     alpha = alldata['algo_data']['alpha']
     sum_exp = 0.0
     for phi in phis.values():
+        if phi == 0:
+            continue
         sum_exp += math.exp(alpha * phi)
+
+    # 1. Compute and set cut weights (skip zero weights)
+    zeroweight_count = 0
+    zeroweight_names = ''
     log.joint("Cut #%d (feature weight):\n"%cutnum)
     for feat_name, phi in phis.items():
+        if phi == 0:
+            zeroweight_count += 1
+            zeroweight_names += feat_name + ' '
+            continue
+        
         nonzero_cutweights.add((cutnum, feat_name))
         weight = math.exp(alpha * phi) / sum_exp
         cutweights[(cutnum, feat_name)] = weight
         log.joint("  %s  %g\n"%(feat_name, weight))
 
+    if loud: log.joint('  (%d 0-weight feats: %s)\n'%(zeroweight_count, zeroweight_names))
+    if loud: log.joint('  (sum exp: %g)\n'%(sum_exp))
+
     # 2. Define phi constraints, for each nonzero feature
     for feat_name in phis:
+        if phis[feat_name] == 0:
+            continue
+
         define_phi_constraints(alldata, cutnum, feat_name, argmax_coeff, argmax_zsign)
 
     log.joint("Added cut using Quasi-Greedy\n")
