@@ -31,8 +31,10 @@ if __name__ == "__main__":
 
     # Get files from arguments
     param_file = data['PARAMFILE']
+    sol_file_out = "sols/drsk_" + datetime_string + ".sol"
     cut_file_in = data['CUTFILE_in']
     cut_file_out = data['CUTFILE_out']
+    ref_sol_file = data['REFSOLFILE']
     instance_file = data['INSTANCE_FILE']
 
     # Get list of all files
@@ -57,7 +59,15 @@ if __name__ == "__main__":
 
         else:
             try:
-                result_str = drsk_start(log, param_file, mod_file, lp_file, sol_file, cut_file_in, cut_file_out)
+                result_str = drsk_start(log,
+                                        param_file,
+                                        mod_file,
+                                        lp_file,
+                                        sol_file,
+                                        sol_file_out,
+                                        cut_file_in,
+                                        cut_file_out,
+                                        ref_sol_file)
             except Exception as e:
                 result_str = f"An error occured: {e}\n"
 
@@ -65,54 +75,3 @@ if __name__ == "__main__":
         reslog.joint("==========================================================================\n\n")
 
     reslog.joint("ALL DONE\n")
-
-    
-
-    
-
-
-
-    ############### For determining which instances are risky #######################
-    # # Get list of all files
-    # modfiles = list(modfile_path.glob('QPLIB_*.mod'))
-
-    # risky_instance_count = 0
-    # risky_instance_strlist = ""
-    # unrisky_instance_count = 0
-    # unrisky_instance_strlist = ""
-    # for mod_file_path in modfiles:
-    #     mod_file = str(mod_file_path)
-
-    #     # Get instance id
-    #     match = re.search(r"QPLIB_\s*(\d+)", mod_file)
-    #     id = match.group(1)
-
-    #     lp_file = "../data/lp/QPLIB_" + id + ".lp"
-
-    #     alldata = drsk_initialize(log, param_file, mod_file, lp_file, cut_file_in, cut_file_out)
-
-    #     # Read problem into AMPL
-    #     drsk_read(alldata)
-
-    #     # Store problem data and risk structure
-    #     drsk_storelp(alldata)
-
-    #     numfeats = alldata['struct_data']["numfeats"]
-    #     if numfeats == 0:
-    #         unrisky_instance_count += 1
-    #         unrisky_instance_strlist += "%s\n"%id
-    #     else:
-    #         risky_instance_count += 1
-    #         risky_instance_strlist += "%s %d\n"%(id, numfeats)
-
-    # # Write risky instances to file
-    # with open("risky_instances.txt", "w", encoding="utf-8") as file:
-    #     output = str(risky_instance_count) + "\n" + risky_instance_strlist + "END\n"
-    #     file.write(output)
-
-    # # Write unrisky instances to file
-    # with open("unrisky_instances.txt", "w", encoding="utf-8") as file:
-    #     output = str(unrisky_instance_count) + "\n" + unrisky_instance_strlist + "END\n"
-    #     file.write(output)
-
-            

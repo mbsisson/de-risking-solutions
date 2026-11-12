@@ -1,121 +1,69 @@
 ###############################################################################
 # Functions for interacting with AmplPy:
 #   - parsing modfile and storing problem and structure data
-#   - solving model with chosen solver
+#   - saving and setting ampl variables
 #
 # Blake Sisson mbs2246@columbia.edu
-# 10/28/2026
+# 11/10/2026
 ###############################################################################
 import re
-import time
-import math
 import sympy as sp
 from decimal import Decimal
 from drsk_filemanager import drsk_write_cutmodfile
 
 
-def drsk_set_soln(alldata, soln_vector_dict):
-    log = alldata['log']
-    loud = alldata['loud']
+def drsk_store_vars(alldata, var_dict={}):
+    """
+    Save all AMPL variable values into a Python dictionary.
+
+    Returns
+    -------
+    dict
+        Maps variable names to dictionaries of index-value pairs.
+        Scalar variables use None as their index.
+    """
     ampl = alldata['algo_data']['ampl']
-    variables = alldata['prob_data']['variables']
 
-    log.joint('Setting solution\n')
+    for name, _ in ampl.get_variables():
+        var = ampl.get_variable(name)
 
-    X = ampl.get_variable("X")
-    for varname in alldata['prob_data']['variables']:
-        val = soln_vector_dict.get(varname, 0.0)
-        idx = variables[varname]
-        X[idx].set_value(val)
+        if var.indexarity() == 0:
+            var_dict[name] = {None: var.value()}
+        else:
+            try:
+                values = var.get_values().to_dict()
+            except TypeError as e:
+                if "No indices and no values retrieved" in str(e):
+                    continue
+                raise
+            var_dict[name] = values
 
-        x = ampl.get_variable(varname.lower())
-        x.set_value(val)
-
-        if loud: log.joint('  x%d %g\n'%(idx, val))
-
-    Phi_L = ampl.get_variable('PHI_L')
-    val = soln_vector_dict.get('Phi_L', 0.0)
-    Phi_L.set_value(val)
-    if loud: log.joint('  Phi_L %g\n'%(Phi_L.value()))
+    return var_dict
 
 
-def drsk_check_soln(alldata):
-    log = alldata['log']
+def drsk_set_vars(alldata, var_dict):
+    """
+    Restore variable values from a dictionary produced by
+    drsk_store_vars().
+
+    Variables or indices absent from the dictionary are left unchanged.
+    """
     ampl = alldata['algo_data']['ampl']
-    constraints = alldata['prob_data']['constraints']
 
-    # Iterate through all constraints to find violations
-    log.joint("Checking for violations...\n")
-    count = 0
-    for constr_name in constraints:
-        # Check if the constraint is violated (negative slack means the bound is breached)
-        constraint = ampl.get_constraint(constr_name)
-        if constraint.slack() < -1e-6:
-            count += 1
-            log.joint(f"  Violation in {constr_name}:\n")
-            log.joint(f"    Slack: {constraint.slack()}\n")
-            log.joint(f"    Lower Bound: {constraint.lb()}, Upper Bound: {constraint.ub()}\n")
-    log.joint(str(count) + " constraints violated\n\n")
+    for name, values in var_dict.items():
+        try:
+            var = ampl.get_variable(name)
+        except KeyError:
+            # Variable no longer exists in the current model.
+            continue
 
-
-def drsk_run_solver(alldata):
-    retcode = 0
-
-    log = alldata['log']
-    ampl = alldata['algo_data']['ampl']
-    solver = alldata['algo_data']['solver']
-    variables = alldata['prob_data']['variables']
-    constraints = alldata['prob_data']['constraints']
-    soln_vector_dict = alldata['algo_data']['soln_vector_dict']
-    timelimit = alldata['algo_data']['solve_time_limit']
-
-    # Read in all parameters and sets
-    ampl.get_parameter("Theta").set(alldata['prob_data']['Theta'])
-    ampl.get_parameter("numcuts").set(alldata['cut_data']['numcuts'])
-    ampl.get_set("nonzero_cutweights").set_values(alldata['cut_data']['nonzero_cutweights'])
-    ampl.get_parameter("cutweights").set_values(alldata['cut_data']['cutweights'])
-    ampl.get_set("nonzero_phiQuadWeights").set_values(alldata['cut_data']['nonzero_phiQuadWeights'])
-    ampl.get_parameter("phiQuadWeights").set_values(alldata['cut_data']['phiQuadWeights'])
-    ampl.get_set("nonzero_phiLinWeights").set_values(alldata['cut_data']['nonzero_phiLinWeights'])
-    ampl.get_parameter("phiLinWeights").set_values(alldata['cut_data']['phiLinWeights'])
-    ampl.get_parameter("phiConstWeights").set_values(alldata['cut_data']['phiConstWeights'])
-    ampl.get_parameter("phiMinusToggle").set_values(alldata['cut_data']['phiMinusToggle'])
-
-    # Solve
-    log.joint("Solving model ...\n")
-    t0 = time.time()                                                                                                                     
-    ampl.solve()                                                                                                                         
-    t1 = time.time()
-    tdiff = t1 - t0
-    log.joint("= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =\n")                                                    
-    log.joint("Solved with %s in %f seconds\n\n"%(solver, tdiff))
-
-    # Check if solver time limit reached
-    if tdiff > timelimit:
-        retcode = 1
-
-    # Store solution
-    for name, objective in ampl.get_objectives():
-        log.joint('Optimal objective: %s = %g\n' % (name, objective.value()))
-    log.joint('Optimal variable values:\n')
-    count = 0
-    for v in variables.keys():
-        # Store solution
-        soln_vector_dict[v] = ampl.get_value(v)
-
-        # Log nonzero values
-        if math.fabs(soln_vector_dict[v]) > 1e-8:
-            log.joint('  %s = %g\n'%(v, soln_vector_dict[v]))
-            count += 1
-    log.joint(str(count) + " nonzero variables in solution\n\n")
-
-    # Store Phi_L
-    alldata['algo_data']['Phi_L'] = ampl.get_variable('PHI_L').value()
-
-    # Store cost
-    alldata['algo_data']['cost'] = ampl.get_objective('obj').value()
-
-    return retcode
+        if var.indexarity() == 0:
+            if None in values:
+                var.set_value(values[None])
+        else:
+            if not values:
+                continue
+            var.set_values(values)
 
 
 def parse_ampl_constraint(alldata, expression, constr_name):

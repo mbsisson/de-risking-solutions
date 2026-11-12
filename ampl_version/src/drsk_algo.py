@@ -1,5 +1,5 @@
 ###############################################################################
-# Functions for running the main loop of SOFTMAX_-ADVERSARIAL algorithm.
+# Functions for running the main loop of SOFTMAX-ADVERSARIAL algorithm.
 #
 # Blake Sisson mbs2246@columbia.edu
 # 10/28/2026
@@ -7,7 +7,7 @@
 import math
 import time
 from drsk_utils import breakexit
-from drsk_ampl import drsk_run_solver, drsk_set_soln, drsk_check_soln
+from drsk_solve import drsk_solve_model, drsk_set_soln, drsk_check_soln
 from drsk_boosting import drsk_evalPhi_greedy
 
 
@@ -113,14 +113,13 @@ def drsk_algoLoop(alldata):
 
     else:
         # Solve the master problem for optimal (x, Phi_L)
-        solvecode =  drsk_run_solver(alldata)
+        solvecode =  drsk_solve_model(alldata)
         drsk_check_soln(alldata)
         if alldata['breakpoints']: breakexit('Solved master problem')
 
     x = alldata['algo_data']['soln_vector_dict']
     Phi_L = alldata['algo_data']['Phi_L']
     cost = alldata['algo_data']['cost']
-    
 
     # Boosting step: Evaluate Phi(x*) and get z
     Phi_max = drsk_evalPhi_greedy(alldata, x)
@@ -178,7 +177,7 @@ def drsk_algoLoop(alldata):
         start_iter_time = time.time()
 
         # 4. Solve the master problem for optimal (x, Phi_L)
-        solvecode =  drsk_run_solver(alldata)
+        solvecode =  drsk_solve_model(alldata)
         drsk_check_soln(alldata)
         x = alldata['algo_data']['soln_vector_dict']
         Phi_L = alldata['algo_data']['Phi_L']

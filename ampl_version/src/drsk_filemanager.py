@@ -116,6 +116,7 @@ def drsk_read_paramfile(log, filename):
     zerothresh = 'None'
     solve_time_limit = 'None'
     solve_soln_limit = 'None'
+    solve_wrapper = 'None'
     loud = 0
     verbose = 0
     breakpoints = 0
@@ -164,6 +165,8 @@ def drsk_read_paramfile(log, filename):
                 solve_time_limit = int(thisline[1])
             elif word == 'solve_soln_limit':
                 solve_soln_limit = int(thisline[1])
+            elif word == 'solve_wrapper':
+                solve_wrapper = thisline[1]
             elif word == 'loud':
                 loud = int(thisline[1])
             elif word == 'verbose':
@@ -197,6 +200,7 @@ def drsk_read_paramfile(log, filename):
               ('zerothresh', zerothresh),
               ('solve_time_limit', solve_time_limit),
               ('solve_soln_limit', solve_soln_limit),
+              ('solve_wrapper', solve_wrapper),
               ('loud', loud),
               ('verbose', verbose),
               ('breakpoints', breakpoints)]:

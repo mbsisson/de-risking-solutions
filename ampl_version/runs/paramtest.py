@@ -37,6 +37,7 @@ if __name__ == "__main__":
     sol_file_out = "sols/drsk_" + datetime_string + ".sol"
     cut_file_in = data['CUTFILE_in']
     cut_file_out = data['CUTFILE_out']
+    ref_sol_file = data['REFSOLFILE']
 
     param_dict = {}
 
@@ -52,15 +53,17 @@ if __name__ == "__main__":
               ('phi_scale', 'percent_violation'),  #'scaled_abs_violation
               ('alpha', 10.0),
               ('decimal_risk_thresh', 3),
-              ('ncuts_add', 1),
+              ('ncuts_add', 5),
               ('cut_phiThresh', 0.25),
-              ('cut_method', 'greedy'),  #'quasi-greedy'
+              ('cut_method', 'quasi-greedy'),  #'quasi-greedy'
               ('maxcuts', 100),
               ('tol', 1e-4),
               ('maxits', 10),
               ('PhiReduc', 0.1),
               ('zerothresh', 1e-8),
-              ('solve_time_limit', 45),
+              ('solve_wrapper', 'None'),
+              ('solve_time_limit', 30),
+              ('solve_soln_limit', 10),
               ('loud', 1),
               ('verbose', 0),
               ('breakpoints', 0)]:
@@ -68,7 +71,9 @@ if __name__ == "__main__":
         reslog.joint('  ' + x[0] + ' ' + str(x[1])+ '\n')
     reslog.joint('\n')
 
-    for xi in np.arange(2.5, 50.0, 2.5):
+
+    xi_range = [0.1, 1.0, 5.0, 10.0, 15.0, 20.0]
+    for xi in xi_range:
         reslog.joint('TESTING xi = %g\n'%xi)
         param_dict['xi'] = xi
 
@@ -83,6 +88,7 @@ if __name__ == "__main__":
                                     sol_file_out,
                                     cut_file_in,
                                     cut_file_out,
+                                    ref_sol_file,
                                     param_dict)
         except Exception as e:
             result_str = f"An error occured: {e}\n"
@@ -91,8 +97,3 @@ if __name__ == "__main__":
         reslog.joint("==========================================================================\n\n")
 
     reslog.joint("ALL DONE\n")
-
-    
-
-    
-

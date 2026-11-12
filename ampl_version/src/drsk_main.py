@@ -8,7 +8,8 @@ from amplpy import AMPL
 from drsk_utils import breakexit
 from drsk_versioner import stateversion
 from drsk_filemanager import read_config, read_instancefile, drsk_read_paramfile, drsk_read_solfile, drsk_write_cutfile, drsk_read_cutfile, drsk_write_alldata, drsk_write_solfile
-from drsk_ampl import drsk_read_model, drsk_readandstore_model, drsk_init_cuts, drsk_set_soln, drsk_check_soln
+from drsk_ampl import drsk_read_model, drsk_readandstore_model, drsk_init_cuts
+from drsk_solve import drsk_set_soln, drsk_check_soln, drsk_runSolver, drsk_runSolver_knitro
 from drsk_gurobi import drsk_store_model
 from drsk_algo import drsk_algoLoop
 from drsk_separation import drsk_addMultiCuts_Greedy, drsk_addMultiCuts_quasiGreedy
@@ -115,7 +116,8 @@ def drsk_initialize(logger,
     alldata['algo_data']['alpha'] = params['alpha']           # alpha value (for softmax)
     alldata['algo_data']['phi_scale'] = params['phi_scale']   # phi scale value, for scaling phi
     alldata['algo_data']['solver'] = params['solver']         # Solver to use
-    alldata['algo_data']['soln_vector_dict'] = {}             # Solution dctionary: variable name --> value
+    alldata['algo_data']['soln_vector_dict'] = {}             # Solution dcitonary: variable name --> value
+    alldata['algo_data']['all_vars'] = {}                     # Dictionary of all variables (including artifical and dummy)
     alldata['algo_data']['Phi_L'] = 0.0                       # Phi_L variable value
     alldata['algo_data']['Phi_max'] = 0.0                     # Phi max of current solution
     alldata['algo_data']['cost'] = 0.0                        # Cost value in objective
@@ -130,6 +132,10 @@ def drsk_initialize(logger,
     alldata['algo_data']['ref_soln_dict'] = {}                # Reference solution dictionary: variable name --> value (including Phi_L and Phi_max)
     alldata['algo_data']['all_phi_data'] = {}                 # Save phi data for each z variable. Dict: zvar name --> (dictionary: maxPhi, argmax_feat, argmax_zsign, coeff)
                                                               #                                          'sorted_zvars' --> list of zvars sorted by corresponding maxphi in descending order
+    if params['solve_wrapper'] == 'knitro_options':
+        alldata['algo_data']['solve_wrapper'] = drsk_runSolver_knitro
+    else:
+        alldata['algo_data']['solve_wrapper'] = drsk_runSolver
 
     # Initialize solver
     ampl = alldata['algo_data']['ampl']
@@ -145,8 +151,8 @@ def drsk_initialize(logger,
     time_cmd = 'timelimit=' + str(timelimit)
     file_cmd = 'writeprob=models/model.lp'
     ampl.set_option('gurobi_options', sol_cmd + ' ' + out_cmd + ' ' + time_cmd + ' ' + file_cmd)
-    # Knitro specific options
-    ampl.set_option('knitro_options', 'concurrent_solver=1 ms_enable=1 outlev=1')
+    # Knitro specific options <-- Done inside solver wrapper
+    # ampl.set_option('knitro_options', 'concurrent_solver=1 ms_enable=1 outlev=1')
     # Tell Knitro to write model to file
     # file_cmd = 'writeformat=lp writefile=models/model_' + str(alldata['algo_data']['iteration']) + '.lp'
     # ampl.set_option("knitro_options", file_cmd)
@@ -234,11 +240,11 @@ def drsk_start(logger,
     # Write solution file
     drsk_write_solfile(alldata, sol_file_out)
 
-    # Check reference solution with added cuts
-    if alldata['algo_data']['ref_soln_dict']:
-        logger.joint("\nChecking reference solution...\n")
-        drsk_set_soln(alldata, alldata['algo_data']['ref_soln_dict'])
-        drsk_check_soln(alldata)
+    # Check reference solution with added cuts TODO: need to define existing auxiliary variables for ref soln
+    # if alldata['algo_data']['ref_soln_dict']:
+    #     logger.joint("\nChecking reference solution...\n")
+    #     drsk_set_soln(alldata, alldata['algo_data']['ref_soln_dict'])
+    #     drsk_check_soln(alldata)
 
     # Result result string
     logger.joint("Finished drsk program.\n")

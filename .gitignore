@@ -24,8 +24,12 @@ dist/
 # Jupyter
 .ipynb_checkpoints/
 
-# Logs, I want them
-#*.log
+# Logs
+*.log
+
+# Data file folders
+ampl_version/data/lp
+ampl_version/data/mod
 
 # Large binary outputs
 *.csv
